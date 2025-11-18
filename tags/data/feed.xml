@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data on richard mussell eportfolio</title>
+    <link>https://richmussell.com/tags/data/</link>
+    <description>Recent content in Data on richard mussell eportfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 01 Jul 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://richmussell.com/tags/data/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Load Input Data from a File in Terraform?</title>
+      <link>https://richmussell.com/posts/load-input-data-terraform/</link>
+      <pubDate>Tue, 01 Jul 2025 00:00:00 +0000</pubDate>
+      <guid>https://richmussell.com/posts/load-input-data-terraform/</guid>
+      <description>Learn different methods to load external data into Terraform configurations. Explore file(), fileexists(), and data sources.</description>
+    </item>
+  </channel>
+</rss>
