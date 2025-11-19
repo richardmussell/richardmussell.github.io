@@ -129,6 +129,7 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 100px; /* Account for sticky header */
 }
 
 body {
@@ -338,10 +339,6 @@ pre code {
 .social-icons a:focus {
     outline: 2px solid var(--color-border-focus);
     outline-offset: 2px;
-}
-
-.notification-dot {
-    display: none; /* Hidden as per requirements */
 }
 
 /* Main Container */
@@ -930,6 +927,38 @@ pre code {
 ::-moz-selection {
     background-color: rgba(0, 102, 204, 0.2);
     color: var(--color-text-primary);
+}
+
+/* Utility Classes */
+.content-centered {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Smooth scroll improvements */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Image optimization */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* Responsive Design - Enterprise Breakpoints */
