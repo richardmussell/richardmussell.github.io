@@ -7,7 +7,7 @@
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()"><title>Azure Function App - richard mussell eportfolio</title><meta name="description" content="Its all about Open Source and DevOps, here I talk about Kubernetes, Docker, Java, Spring boot and practices."><link rel="stylesheet" href="/css/styles.css">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()"><title>Firewall Configuration (Max Opsec) - richard mussell eportfolio</title><meta name="description" content="Learn how to configure Windows Firewall for maximum operational security, implementing default-deny policies, blocking attack vectors, and maintaining essential functionality."><link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/contact-form.css">
     <link rel="stylesheet" href="/css/projects.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
@@ -43,57 +43,76 @@
     <div class="main-content">
         <article class="blog-post-card single-post" id="post-8812427fedfd6887ddf0d011b99b72bd">
             <div class="post-header">
-                <h1 class="post-title">Azure Function App</h1>
+                <h1 class="post-title">Firewall Configuration (Max Opsec)</h1>
                 <div class="post-meta">
                     <span class="meta-item">
                         <i class="far fa-calendar"></i> 
-                        Jul 28, 2025
+                        Jul 21, 2025
                     </span>
                     <span class="meta-item">
                         <i class="far fa-clock"></i> 
-                        1 min read
+                        5 min read
                     </span></div>
         </div>
             <div class="post-content">
                 
                 <div class="post-description">
-                    <p>Discover how to build serverless applications with Azure Functions. Learn about triggers, bindings, deployment strategies, and best practices. This comprehensive guide covers everything from basic function creation to advanced patterns and monitoring.</p>
-<h2 id="introduction">Introduction</h2>
-<p>Azure Functions is a serverless compute service that enables you to run code on-demand without having to explicitly provision or manage infrastructure.</p>
-<h2 id="triggers-and-bindings">Triggers and Bindings</h2>
-<p>Azure Functions support various triggers:</p>
+                    <p>In this project, I focused on maximizing operational security (Opsec) by configuring a Windows Firewall setup that strictly blocks all unnecessary traffic while allowing essential activities to continue uninterrupted. The goal was to enforce a default-deny policy — blocking all inbound and outbound connections except those explicitly permitted — thereby minimizing the attack surface without sacrificing usability.</p>
+
+<h2 id="key-highlights">Key Highlights</h2>
+
+<h3 id="blocking-unused-ports">Blocking Unused Ports</h3>
+<p>I began by identifying and blocking all unused network ports on the system. By default, all inbound and outbound connections are denied unless specifically allowed. This prevents any unexpected or unauthorized network communication.</p>
+
+<h3 id="removing-unnecessary-insecure-rules">Removing Unnecessary, Insecure Rules</h3>
+<p>I audited existing firewall rules to remove or disable any that were overly permissive or redundant. This included disabling rules that opened remote management ports or allowed broad access for legacy services.</p>
+
+<h3 id="blocking-remote-wmi-and-other-attack-vectors">Blocking Remote WMI and Other Attack Vectors</h3>
+<p>Windows Management Instrumentation (WMI) can be leveraged by attackers for remote reconnaissance and lateral movement. I explicitly blocked inbound and outbound WMI traffic to prevent this attack vector. Similarly, other services known to be exploitable or unnecessary were also blocked.</p>
+
+<h3 id="allowing-essential-services-only">Allowing Essential Services Only</h3>
+<p>While tightening security, it was critical to maintain functionality for essential activities such as web browsing, system updates, and remote administration. To this end, I allowed only the necessary ports and protocols:</p>
 <ul>
-<li>HTTP triggers</li>
-<li>Timer triggers</li>
-<li>Queue triggers</li>
-<li>Blob triggers</li>
-<li>Event Hub triggers</li>
+<li>DNS (UDP 53) for name resolution</li>
+<li>HTTP/HTTPS (TCP 80/443) for browsing</li>
+<li>RDP (TCP 3389) restricted only to specific IP ranges for secure remote desktop</li>
+<li>Multiplayer game ports specifically opened for competitive online play without exposing broad ranges</li>
 </ul>
-<h2 id="best-practices">Best Practices</h2>
+
+<h3 id="powershell-script-controlled-rules">PowerShell Script-Controlled Rules</h3>
+<p>To further enhance security, I created fine-grained firewall rules that allow network access only when invoked via specific signed PowerShell scripts. Instead of opening ports globally, this approach ties permissions to trusted automation tools, reducing the risk of unauthorized processes communicating over the network.</p>
+
+<h2 id="why-this-matters">Why This Matters</h2>
+<p>This firewall configuration ensures that only approved traffic flows in and out, effectively blocking common attack vectors such as unauthorized remote access, lateral movement via WMI, and exposure of services that are not needed for daily operations. By balancing strict security controls with practical usability, this setup supports a high-security posture without hindering productivity.</p>
+
+<h2 id="tools-and-techniques-used">Tools and Techniques Used</h2>
 <ul>
-<li>Use connection pooling</li>
-<li>Implement proper error handling</li>
-<li>Monitor function performance</li>
-<li>Optimize cold start times</li>
+<li>Windows Defender Firewall with Advanced Security</li>
+<li>PowerShell for firewall rule automation and enforcement</li>
+<li>Port scanning and network monitoring to identify used/unused ports</li>
+<li>Rule auditing to eliminate unnecessary permissions</li>
+<li>OPSEC principles for minimizing network attack surface</li>
 </ul>
+
+<p>This project highlights how careful firewall configuration is essential for maintaining operational security, especially in environments where sensitive data and remote connectivity coexist.</p>
 
                     <div class="post-categories">
                         <strong>Categories:</strong>
 
-                            <a href="/categories/cloud-azure/">Cloud - Azure</a>
+                            <a href="/categories/security-identity/">Security & Identity</a>
                         
                     </div>
 
                     <div class="post-tags">
                         <strong>Tags:</strong>
 
-                            <a href="/tags/azure/">Azure</a>
+                            <a href="/tags/security/">Security</a>
                         
                             , 
-                            <a href="/tags/functions/">Functions</a>
+                            <a href="/tags/scripting-programming/">Scripting / Programming</a>
                         
                             , 
-                            <a href="/tags/serverless/">Serverless</a></div>
+                            <a href="/tags/concepts-practices/">Concepts / Practices</a></div>
         </div>
             </div>
         </article>
@@ -107,7 +126,7 @@
 
                 <div class="nav-next">
                     <span class="nav-subtitle">Next</span>
-                    <a href="https://richardmussell.github.io/posts/aws-api-gateway-beginner-to-expert/" class="nav-title">Automated Labs: Provisioning a Windows Server 2022 VM with PowerShell ISE</a></div>
+                    <a href="https://richardmussell.github.io/posts/automated-labs-windows-server-2022/" class="nav-title">Automated Labs: Provisioning a Windows Server 2022 VM with PowerShell ISE</a></div>
         </div>
     </div>
 
@@ -181,7 +200,7 @@
             
                 <li><a href="https://richardmussell.github.io/posts/aws-api-gateway-beginner-to-expert/">Automated Labs: Provisioning a Windows Server 2022 VM with PowerShell ISE</a></li>
             
-                <li><a href="https://richardmussell.github.io/posts/azure-function-app/">Azure Function App</a></li>
+                <li><a href="https://richardmussell.github.io/posts/azure-function-app/">Firewall Configuration (Max Opsec)</a></li>
             
                 <li><a href="https://richardmussell.github.io/posts/ansible-handlers-explained/">Ansible Handlers Explained Real-World Use Cases &amp; Examples test</a></li>
             
@@ -203,7 +222,7 @@
                 
             </div>
             <p class="author-bio">
-                Its all about Open Source and DevOps, here I talk about Kubernetes, Docker, Java, Spring boot and practices.
+                Cloud, DevOps, SysAdmin
             </p>
             <a href="/about" class="read-more-btn">READ MORE</a></div>
         </div>
