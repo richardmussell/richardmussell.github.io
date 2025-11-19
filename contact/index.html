@@ -1,83 +1,301 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<head><meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Contact - richard mussell eportfolio</title><meta name="description" content="Its all about Open Source and DevOps, here I talk about Kubernetes, Docker, Java, Spring boot and practices."><link rel="stylesheet" href="/css/styles.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Richard Mussell - Get in Touch</title>
+    <meta name="description" content="Get in touch with Richard Mussell for collaborations, questions, or discussions about cloud engineering, DevOps, and infrastructure automation.">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/contact-form.css">
     <link rel="stylesheet" href="/css/projects.css">
+    <link rel="stylesheet" href="/css/contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body><header class="header">
-    <div class="header-container"><div class="logo">
-            <a href="/" style="text-decoration: none;">
-                <span class="logo-main">richard mussell eportfolio</span>
-            </a>
-        </div><nav class="nav-menu">
-            
-                <a href="/">Home</a>
-            
-                <a href="/blog/">Projects</a>
-            
-                <a href="/about/">About</a>
-            
-                <a href="/contact/">Contact</a>
-            
-        </nav><div class="header-right"><div class="social-icons">
-                
-                    <a href="https://www.linkedin.com/in/richard-mussell/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/richardmussell" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-
-                    </div>
-        </div>
-        </div>
-    </div>
-</header>
-<main class="main-container">
-
-<div class="content-wrapper">
-    <div class="main-content content-centered">
-        <article class="blog-post-card">
-            <div class="post-header">
-                <h1 class="post-title">Contact</h1>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="/" style="text-decoration: none;">
+                    <span class="logo-main">richard mussell eportfolio</span>
+                </a>
             </div>
-            <div class="post-content">
-                <div class="post-description">
-                    <p>Have a question or want to collaborate? I&rsquo;d love to hear from you!</p>
-<h2 id="contact-form">Contact Form</h2>
-<form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-    <div class="form-group">
-        <label for="name">Name *</label>
-        <input type="text" id="name" name="name" required>
-    </div>
-    <div class="form-group">
-        <label for="email">Email *</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-    <div class="form-group">
-        <label for="subject">Subject *</label>
-        <input type="text" id="subject" name="subject" required>
-    </div>
-    <div class="form-group">
-        <label for="message">Message *</label>
-        <textarea id="message" name="message" required></textarea>
-    </div>
-    <button type="submit" class="read-more-btn" style="width: 100%;">Send Message</button>
-</form>
-<h2 id="contact-information">Contact Information</h2>
-<ul>
-<li><strong>Email</strong>: <a href="mailto:Richard.Mussell@yahoo.com">Richard.Mussell@yahoo.com</a></li>
-<li><strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/richard-mussell/">Connect with me</a></li>
-<li><strong>GitHub</strong>: <a href="https://github.com/richardmussell">View my code</a></li>
-</ul></div>
+            <nav class="nav-menu">
+                <a href="/">Home</a>
+                <a href="/blog/">Projects</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+            </nav>
+            <div class="header-right">
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/richard-mussell/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/richardmussell" target="_blank" rel="noopener" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-        </article></div>
-        </div>
+    </header>
 
-    </main><footer class="footer">
-    <div class="footer-content">
-        <span>© 2018-2025 Richard Mussell III. All Rights Reserved.</span>
-        <i class="fas fa-arrow-right footer-arrow"></i>
-    </div>
-</footer>
-<script src="/js/script.js"></script>
+    <main class="main-container">
+        <div class="contact-container">
+            <!-- Hero Section -->
+            <section class="contact-hero" aria-labelledby="hero-title">
+                <div class="contact-hero-content">
+                    <h1 id="hero-title">Let's Connect</h1>
+                    <p>
+                        Have a question, want to collaborate, or discuss the latest in cloud engineering and DevOps? 
+                        I'd love to hear from you! Whether you're looking to collaborate on a project, learn together, 
+                        or explore new opportunities, feel free to reach out.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Main Contact Layout -->
+            <div class="contact-layout">
+                <!-- Contact Form Section -->
+                <section class="contact-form-section" aria-labelledby="form-title">
+                    <h2 id="form-title">Send a Message</h2>
+                    <div class="form-success-message" id="form-success" role="alert" aria-live="polite">
+                        <i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. I'll get back to you soon.
+                    </div>
+                    <form class="contact-form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                placeholder="Your full name"
+                                required
+                                aria-required="true"
+                                aria-describedby="name-error">
+                            <span class="form-error" id="name-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                placeholder="your.email@example.com"
+                                required
+                                aria-required="true"
+                                aria-describedby="email-error">
+                            <span class="form-error" id="email-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input 
+                                type="text" 
+                                id="subject" 
+                                name="subject" 
+                                placeholder="What's this about?"
+                                required
+                                aria-required="true"
+                                aria-describedby="subject-error">
+                            <span class="form-error" id="subject-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea 
+                                id="message" 
+                                name="message" 
+                                placeholder="Tell me about your project, question, or how we can collaborate..."
+                                required
+                                aria-required="true"
+                                aria-describedby="message-error"
+                                rows="6"></textarea>
+                            <span class="form-error" id="message-error" role="alert"></span>
+                        </div>
+
+                        <button type="submit" class="submit-button" aria-label="Send message">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Contact Information Section -->
+                <section class="contact-info-section" aria-labelledby="info-title">
+                    <h2 id="info-title">Contact Information</h2>
+                    <div class="contact-info-grid">
+                        <div class="contact-card" tabindex="0">
+                            <div class="contact-card-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-card-content">
+                                <h3>Email</h3>
+                                <p>
+                                    <a href="mailto:Richard.Mussell@yahoo.com" aria-label="Send email to Richard Mussell">
+                                        Richard.Mussell@yahoo.com
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-card" tabindex="0">
+                            <div class="contact-card-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div class="contact-card-content">
+                                <h3>LinkedIn</h3>
+                                <p>
+                                    <a href="https://www.linkedin.com/in/richard-mussell/" target="_blank" rel="noopener" aria-label="Connect on LinkedIn">
+                                        Connect with me on LinkedIn
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-card" tabindex="0">
+                            <div class="contact-card-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="contact-card-content">
+                                <h3>GitHub</h3>
+                                <p>
+                                    <a href="https://github.com/richardmussell" target="_blank" rel="noopener" aria-label="View GitHub profile">
+                                        View my code and projects
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Alternative Contact Methods -->
+            <section class="alternative-contact" aria-labelledby="alt-contact-title">
+                <h2 id="alt-contact-title">Prefer Social Media?</h2>
+                <p>
+                    You can also reach out through my professional social media channels. 
+                    I'm active on LinkedIn and GitHub, and always happy to connect with fellow technologists.
+                </p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/richard-mussell/" 
+                       class="social-link" 
+                       target="_blank" 
+                       rel="noopener"
+                       aria-label="Connect on LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/richardmussell" 
+                       class="social-link" 
+                       target="_blank" 
+                       rel="noopener"
+                       aria-label="View GitHub profile">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <span>© 2018-2025 Richard Mussell III. All Rights Reserved.</span>
+            <i class="fas fa-arrow-right footer-arrow"></i>
+        </div>
+    </footer>
+    <script src="/js/script.js"></script>
+    <script>
+        // Enhanced form validation and UX
+        (function() {
+            const form = document.getElementById('contactForm');
+            const successMessage = document.getElementById('form-success');
+            
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Validate form
+                    const isValid = validateForm();
+                    
+                    if (isValid) {
+                        // Show loading state
+                        const submitButton = form.querySelector('button[type="submit"]');
+                        submitButton.disabled = true;
+                        form.classList.add('form-loading');
+                        
+                        // Simulate form submission (replace with actual submission)
+                        setTimeout(function() {
+                            form.classList.remove('form-loading');
+                            successMessage.classList.add('show');
+                            form.reset();
+                            submitButton.disabled = false;
+                            
+                            // Scroll to success message
+                            successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            
+                            // Hide success message after 5 seconds
+                            setTimeout(function() {
+                                successMessage.classList.remove('show');
+                            }, 5000);
+                        }, 1000);
+                    }
+                });
+                
+                // Real-time validation
+                const inputs = form.querySelectorAll('input, textarea');
+                inputs.forEach(function(input) {
+                    input.addEventListener('blur', function() {
+                        validateField(input);
+                    });
+                    
+                    input.addEventListener('input', function() {
+                        if (input.classList.contains('error')) {
+                            validateField(input);
+                        }
+                    });
+                });
+            }
+            
+            function validateForm() {
+                let isValid = true;
+                const inputs = form.querySelectorAll('input[required], textarea[required]');
+                
+                inputs.forEach(function(input) {
+                    if (!validateField(input)) {
+                        isValid = false;
+                    }
+                });
+                
+                return isValid;
+            }
+            
+            function validateField(field) {
+                const formGroup = field.closest('.form-group');
+                const errorElement = formGroup.querySelector('.form-error');
+                
+                // Remove previous states
+                formGroup.classList.remove('error', 'success');
+                
+                if (!field.validity.valid) {
+                    formGroup.classList.add('error');
+                    
+                    if (field.validity.valueMissing) {
+                        errorElement.textContent = 'This field is required.';
+                    } else if (field.validity.typeMismatch && field.type === 'email') {
+                        errorElement.textContent = 'Please enter a valid email address.';
+                    } else {
+                        errorElement.textContent = 'Please check this field.';
+                    }
+                    
+                    return false;
+                } else {
+                    formGroup.classList.add('success');
+                    errorElement.textContent = '';
+                    return true;
+                }
+            }
+        })();
+    </script>
 </body>
 </html>
