@@ -24,14 +24,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    /**
+     * Perform search with XSS protection
+     * Sanitizes input to prevent injection attacks
+     */
     function performSearch(query) {
         if (query.trim()) {
-            // In a real application, this would navigate to a search results page
-            // For now, we'll just log it or show an alert
-            console.log('Searching for:', query);
-            // You can implement actual search functionality here
-            alert(`Searching for: ${query}`);
+            // Sanitize input to prevent XSS
+            const sanitized = sanitizeInput(query.trim().substring(0, 100));
+            
+            // Navigate to search results page with sanitized query
+            if (sanitized) {
+                const searchUrl = '/search/?q=' + encodeURIComponent(sanitized);
+                window.location.href = searchUrl;
+            }
         }
+    }
+    
+    /**
+     * Sanitize user input to prevent XSS attacks
+     * @param {string} input - User input string
+     * @returns {string} Sanitized string
+     */
+    function sanitizeInput(input) {
+        if (typeof input !== 'string') return '';
+        return input
+            .replace(/[<>'"]/g, '') // Remove HTML tags and quotes
+            .replace(/javascript:/gi, '') // Remove javascript: protocol
+            .replace(/on\w+=/gi, '') // Remove event handlers
+            .replace(/[^\w\s@.-]/g, ''); // Remove special characters except safe ones
     }
     
     // Pagination functionality
@@ -45,10 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add active class to clicked button
             this.classList.add('active');
             
-            // In a real application, this would load the corresponding page
+            // Navigate to page
             const pageNumber = this.textContent;
-            console.log('Navigating to page:', pageNumber);
-            // You can implement actual pagination here
+            // Actual navigation handled by href attribute
         });
     });
     
@@ -66,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (nextPageBtn) {
                 pageButtons.forEach(btn => btn.classList.remove('active'));
                 nextPageBtn.classList.add('active');
-                console.log('Navigating to page:', nextPage);
+                // Navigation handled by href attribute
             }
         });
     }
@@ -74,40 +94,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Category and tag click functionality
     const categoryTags = document.querySelectorAll('.category-tag, .series-tag, .tag-item');
     categoryTags.forEach(tag => {
-        tag.addEventListener('click', function() {
-            const tagText = this.textContent.replace(/\d+/g, '').trim();
-            console.log('Filtering by:', tagText);
-            // In a real application, this would filter posts by category/tag
-            // You can implement actual filtering here
-        });
+        // Tag navigation handled by href attribute
     });
     
-    // Recent posts click functionality
-    const recentPostLinks = document.querySelectorAll('.recent-posts-list a');
-    recentPostLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const postTitle = this.textContent;
-            console.log('Opening post:', postTitle);
-            // In a real application, this would navigate to the post
-            // You can implement actual navigation here
-        });
-    });
+    // Recent posts navigation handled by href attribute (no preventDefault needed)
     
-    // Read more buttons functionality
-    const readMoreButtons = document.querySelectorAll('.read-more-btn');
-    readMoreButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const postCard = this.closest('.blog-post-card') || this.closest('.author-profile');
-            if (postCard) {
-                const postTitle = postCard.querySelector('.post-title')?.textContent || 
-                                 postCard.querySelector('.widget-title')?.textContent;
-                console.log('Reading more about:', postTitle);
-                // In a real application, this would navigate to the full post
-                // You can implement actual navigation here
-            }
-        });
-    });
+    // Read more buttons navigation handled by href attribute
     
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('.nav-menu a');
@@ -125,15 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // All categories button functionality
-    const allCategoriesBtn = document.querySelector('.all-categories-btn');
-    if (allCategoriesBtn) {
-        allCategoriesBtn.addEventListener('click', function() {
-            console.log('Showing all categories');
-            // In a real application, this would show all categories
-            // You can implement actual functionality here
-        });
-    }
+    // All categories navigation handled by href attribute
     
     // Add hover effects for better UX
     const blogCards = document.querySelectorAll('.blog-post-card');

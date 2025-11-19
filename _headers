@@ -1,0 +1,23 @@
+# Security Headers for GitHub Pages
+# These headers are applied server-side for additional security
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# Allow fonts from CDN
+/fonts/*
+  Access-Control-Allow-Origin: *
+
+# Allow CSS from CDN
+/css/*
+  Access-Control-Allow-Origin: *
+
+# Allow JS from same origin
+/js/*
+  X-Content-Type-Options: nosniff
+
