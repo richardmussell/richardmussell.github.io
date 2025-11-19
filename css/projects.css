@@ -1,24 +1,20 @@
-/* ============================================================================
-   Project Portfolio Styles
-   ============================================================================ */
-
-/* Projects Grid Layout */
+/* Projects - Enterprise Design */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--spacing-lg);
-    margin-top: var(--spacing-xl);
+    gap: var(--spacing-6);
+    margin-top: var(--spacing-8);
 }
 
-/* Project Card */
 .project-card {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: var(--radius-sm);
-    padding: var(--spacing-lg);
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
     transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
 .project-card::before {
@@ -28,7 +24,7 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
     transform: scaleY(0);
     transform-origin: bottom;
     transition: transform var(--transition-base);
@@ -41,21 +37,20 @@
 .project-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
-    border-color: rgba(255, 107, 157, 0.3);
+    border-color: var(--color-primary);
 }
 
-/* Project Header */
 .project-header {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-4);
 }
 
 .project-thumbnail {
     width: 100%;
     height: 200px;
     overflow: hidden;
-    border-radius: var(--radius-sm);
-    margin-bottom: var(--spacing-md);
-    background: var(--gradient-card);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-4);
+    background-color: var(--color-bg-tertiary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,11 +68,11 @@
 }
 
 .project-title {
-    font-size: var(--font-size-lg);
-    font-weight: 600;
-    color: #1a202c;
-    margin-bottom: var(--spacing-xs);
-    line-height: 1.4;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-2);
+    line-height: var(--line-height-tight);
 }
 
 .project-title a {
@@ -87,138 +82,132 @@
 }
 
 .project-title a:hover {
-    color: var(--color-blue);
+    color: var(--color-primary);
+    text-decoration: underline;
 }
 
-/* Project Content */
 .project-content {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: var(--spacing-4);
 }
 
 .project-description {
-    color: #475569;
+    color: var(--color-text-secondary);
     font-size: var(--font-size-base);
-    line-height: 1.7;
+    line-height: var(--line-height-relaxed);
     margin: 0;
 }
 
-/* Project Technologies */
 .project-technologies {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-xs);
+    gap: var(--spacing-2);
 }
 
 .tech-tag {
-    background: rgba(100, 116, 139, 0.1);
-    color: #475569;
-    padding: 0.25rem var(--spacing-sm);
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    padding: var(--spacing-1) var(--spacing-3);
     border-radius: var(--radius-full);
-    font-size: var(--font-size-sm);
-    font-weight: 500;
-    border: 1px solid rgba(100, 116, 139, 0.2);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    border: 1px solid var(--color-border);
     transition: all var(--transition-fast);
 }
 
 .tech-tag:hover {
-    background: rgba(100, 116, 139, 0.2);
-    transform: translateY(-1px);
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
 }
 
-/* Project Links */
 .project-links {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-sm);
+    gap: var(--spacing-3);
+    margin-top: var(--spacing-4);
 }
 
 .project-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: var(--spacing-xs) var(--spacing-md);
-    background: rgba(135, 206, 235, 0.1);
-    color: #1a202c;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-4);
+    background-color: var(--color-primary);
+    color: white;
     text-decoration: none;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     font-size: var(--font-size-sm);
-    font-weight: 500;
+    font-weight: var(--font-weight-semibold);
     transition: all var(--transition-base);
-    border: 1px solid rgba(135, 206, 235, 0.3);
+    box-shadow: var(--shadow-sm);
 }
 
 .project-link:hover {
-    background: linear-gradient(135deg, #87CEEB 0%, #6BB6D6 100%);
-    color: #1a202c;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(135, 206, 235, 0.3);
+    background-color: var(--color-primary-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+    text-decoration: none;
+    color: white;
 }
 
 .project-link i {
-    font-size: 0.875rem;
+    font-size: var(--font-size-xs);
 }
 
-/* Project Page Section */
 .project-page-section {
-    margin-bottom: var(--spacing-2xl);
+    margin-bottom: var(--spacing-12);
 }
 
 .section-title {
-    font-size: var(--font-size-xl);
-    font-weight: 700;
-    color: #1a202c;
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 2px solid rgba(255, 107, 157, 0.2);
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-3);
+    border-bottom: 2px solid var(--color-border);
 }
 
-/* No Projects Message */
 .no-projects {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: var(--radius-sm);
-    padding: var(--spacing-xl);
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-10);
     text-align: center;
-    color: #64748b;
+    color: var(--color-text-secondary);
 }
 
 .no-projects code {
-    background: rgba(100, 116, 139, 0.1);
-    padding: 0.25rem 0.5rem;
+    background-color: var(--color-bg-tertiary);
+    padding: var(--spacing-1) var(--spacing-2);
     border-radius: var(--radius-sm);
     font-size: var(--font-size-sm);
-    color: #475569;
+    color: var(--color-text-primary);
 }
 
-/* Single Project Page */
 .project-single {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-xl);
-    margin-top: var(--spacing-xl);
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-10);
+    margin-top: var(--spacing-8);
+    box-shadow: var(--shadow-sm);
 }
 
 .project-single-header {
-    margin-bottom: var(--spacing-xl);
-    padding-bottom: var(--spacing-lg);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: var(--spacing-8);
+    padding-bottom: var(--spacing-6);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .project-single-thumbnail {
     width: 100%;
     max-height: 400px;
     overflow: hidden;
-    border-radius: var(--radius-md);
-    margin-bottom: var(--spacing-lg);
-    background: var(--gradient-card);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-6);
+    background-color: var(--color-bg-tertiary);
 }
 
 .project-single-thumbnail img {
@@ -228,149 +217,146 @@
 }
 
 .project-single-title {
-    font-size: var(--font-size-2xl);
-    font-weight: 700;
-    color: #1a202c;
-    margin-bottom: var(--spacing-md);
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-4);
+    line-height: var(--line-height-tight);
 }
 
 .project-single-description {
     font-size: var(--font-size-lg);
-    color: #475569;
-    line-height: 1.7;
-    margin-bottom: var(--spacing-md);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-4);
 }
 
 .project-single-links {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-lg);
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-6);
 }
 
 .project-single-content {
-    color: #2c3e50;
-    line-height: 1.8;
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
     font-size: var(--font-size-base);
 }
 
 .project-single-content h2 {
-    font-size: var(--font-size-xl);
-    font-weight: 600;
-    color: #1a202c;
-    margin-top: var(--spacing-xl);
-    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-top: var(--spacing-8);
+    margin-bottom: var(--spacing-4);
+    padding-bottom: var(--spacing-2);
+    border-bottom: 2px solid var(--color-border);
 }
 
 .project-single-content h3 {
-    font-size: var(--font-size-lg);
-    font-weight: 600;
-    color: #1a202c;
-    margin-top: var(--spacing-lg);
-    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-top: var(--spacing-6);
+    margin-bottom: var(--spacing-3);
 }
 
 .project-single-content ul,
 .project-single-content ol {
-    margin-left: var(--spacing-lg);
-    margin-bottom: var(--spacing-md);
+    margin-left: var(--spacing-6);
+    margin-bottom: var(--spacing-4);
 }
 
 .project-single-content li {
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-2);
+    line-height: var(--line-height-relaxed);
 }
 
-/* Project Navigation */
 .project-navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: var(--spacing-2xl);
-    padding-top: var(--spacing-xl);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: var(--spacing-12);
+    padding-top: var(--spacing-8);
+    border-top: 1px solid var(--color-border);
     flex-wrap: wrap;
-    gap: var(--spacing-md);
+    gap: var(--spacing-4);
 }
 
 .project-nav-link {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background: rgba(135, 206, 235, 0.1);
-    color: #1a202c;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3) var(--spacing-5);
+    background-color: var(--color-primary);
+    color: white;
     text-decoration: none;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     font-size: var(--font-size-base);
-    font-weight: 500;
+    font-weight: var(--font-weight-semibold);
     transition: all var(--transition-base);
-    border: 1px solid rgba(135, 206, 235, 0.3);
+    box-shadow: var(--shadow-sm);
 }
 
 .project-nav-link:hover {
-    background: linear-gradient(135deg, #87CEEB 0%, #6BB6D6 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(135, 206, 235, 0.3);
+    background-color: var(--color-primary-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+    text-decoration: none;
+    color: white;
 }
 
 .project-nav-link.back {
     margin: 0 auto;
 }
 
-/* Project Pages Navigation - Horizontal Number Navigation */
 .project-pages-navigation {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-2xl);
-    padding-top: var(--spacing-xl);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-12);
+    padding-top: var(--spacing-8);
+    border-top: 1px solid var(--color-border);
 }
 
 .project-page-number {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-full);
-    border: 2px solid rgba(255, 107, 157, 0.2);
-    background: rgba(255, 255, 255, 0.9);
-    color: #475569;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-secondary);
     text-decoration: none;
-    font-size: var(--font-size-lg);
-    font-weight: 600;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
     transition: all var(--transition-base);
     cursor: pointer;
 }
 
 .project-page-number:hover {
-    border-color: var(--color-pink);
-    color: var(--color-pink);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
-    background: white;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background-color: var(--color-bg-tertiary);
+    text-decoration: none;
 }
 
 .project-page-number.active {
-    background: var(--gradient-primary);
+    background-color: var(--color-primary);
     color: white;
-    border-color: transparent;
-    box-shadow: var(--shadow-colored);
-    transform: scale(1.1);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
 }
 
 .project-page-number.active:hover {
-    transform: scale(1.15);
-    box-shadow: var(--shadow-lg);
+    background-color: var(--color-primary-dark);
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
     .projects-grid {
         grid-template-columns: 1fr;
@@ -381,7 +367,7 @@
     }
     
     .project-single {
-        padding: var(--spacing-lg);
+        padding: var(--spacing-6);
     }
     
     .project-navigation {
@@ -394,13 +380,12 @@
     }
     
     .project-pages-navigation {
-        gap: var(--spacing-xs);
+        gap: var(--spacing-1);
     }
     
     .project-page-number {
         width: 40px;
         height: 40px;
-        font-size: var(--font-size-base);
+        font-size: var(--font-size-sm);
     }
 }
-
