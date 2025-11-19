@@ -187,6 +187,36 @@ body:has(.contact-container) .main-container,
     font-family: var(--font-family-base);
 }
 
+/* Form Footer (for error messages and character counter) */
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: var(--spacing-2);
+    gap: var(--spacing-4);
+}
+
+.character-counter {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.character-counter.warning {
+    color: var(--color-warning);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* Form Help Text */
+.form-help {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    margin-top: var(--spacing-2);
+    font-style: italic;
+}
+
 /* Form Validation Messages */
 .form-error {
     display: none;
@@ -218,7 +248,7 @@ body:has(.contact-container) .main-container,
 }
 
 /* Required Field Indicator */
-.form-group label::after {
+.form-group:not(.optional) label::after {
     content: ' *';
     color: var(--color-error);
     font-weight: var(--font-weight-bold);
@@ -228,10 +258,19 @@ body:has(.contact-container) .main-container,
     display: none;
 }
 
+/* Form Actions Container */
+.form-actions {
+    display: flex;
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-6);
+    flex-wrap: wrap;
+}
+
 /* Submit Button - Enhanced */
 .contact-form button[type="submit"],
 .contact-form .submit-button {
-    width: 100%;
+    flex: 1;
+    min-width: 160px;
     padding: var(--spacing-4) var(--spacing-8);
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
     color: white;
@@ -246,9 +285,44 @@ body:has(.contact-container) .main-container,
     align-items: center;
     justify-content: center;
     gap: var(--spacing-2);
-    margin-top: var(--spacing-6);
     min-height: 52px;
     letter-spacing: var(--letter-spacing-wide);
+}
+
+.contact-form .submit-button .submit-loading {
+    display: none;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+/* Reset Button */
+.contact-form button[type="reset"],
+.contact-form .reset-button {
+    padding: var(--spacing-4) var(--spacing-6);
+    background: var(--color-bg-primary);
+    color: var(--color-text-secondary);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    min-height: 52px;
+}
+
+.contact-form .reset-button:hover {
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-border-hover);
+    color: var(--color-text-primary);
+}
+
+.contact-form .reset-button:focus {
+    outline: 3px solid var(--color-border-focus);
+    outline-offset: 2px;
 }
 
 .contact-form button[type="submit"]:hover,
@@ -551,19 +625,55 @@ body:has(.contact-container) .main-container,
 /* Success Message */
 .form-success-message {
     display: none;
-    background: var(--color-success);
+    background: linear-gradient(135deg, var(--color-success) 0%, #059669 100%);
     color: white;
-    padding: var(--spacing-4) var(--spacing-6);
+    padding: var(--spacing-5) var(--spacing-6);
     border-radius: var(--radius-md);
     margin-bottom: var(--spacing-6);
-    text-align: center;
-    font-weight: var(--font-weight-semibold);
     box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.form-success-message i {
+    font-size: var(--font-size-xl);
+    flex-shrink: 0;
 }
 
 .form-success-message.show {
-    display: block;
+    display: flex;
     animation: slide-down 0.3s ease-out;
+}
+
+/* Error Message */
+.form-error-message {
+    display: none;
+    background: linear-gradient(135deg, var(--color-error) 0%, #DC2626 100%);
+    color: white;
+    padding: var(--spacing-5) var(--spacing-6);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-6);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.form-error-message i {
+    font-size: var(--font-size-xl);
+    flex-shrink: 0;
+}
+
+.form-error-message.show {
+    display: flex;
+    animation: slide-down 0.3s ease-out;
+}
+
+.form-error-message strong,
+.form-success-message strong {
+    display: block;
+    margin-bottom: var(--spacing-1);
 }
 
 @keyframes slide-down {
