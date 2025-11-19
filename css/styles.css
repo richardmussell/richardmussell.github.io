@@ -348,6 +348,12 @@ pre code {
     padding: var(--spacing-12) var(--spacing-6);
 }
 
+/* About page uses full width */
+.main-container:has(.about-container) {
+    max-width: 100%;
+    padding: var(--spacing-8) var(--spacing-6);
+}
+
 .content-wrapper {
     display: grid;
     grid-template-columns: 1fr 340px;
