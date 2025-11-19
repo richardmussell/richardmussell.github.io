@@ -501,14 +501,21 @@ pre code {
 .post-description {
     flex: 1;
     min-width: 0; /* Prevents flex item overflow */
+    display: flex;
+    flex-direction: column;
 }
 
 .post-description p {
     color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
     line-height: var(--line-height-relaxed);
     font-size: var(--font-size-base);
     max-width: none;
+}
+
+.post-description .read-more-btn {
+    margin-top: var(--spacing-4);
+    align-self: flex-start;
 }
 
 .post-description h2 {
@@ -544,18 +551,21 @@ pre code {
 .read-more-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: var(--spacing-2);
     background-color: var(--color-primary);
     color: white;
+    min-width: 130px;
     border: none;
-    padding: var(--spacing-3) var(--spacing-5);
+    padding: var(--spacing-3) var(--spacing-6);
     border-radius: var(--radius-md);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     cursor: pointer;
     transition: all var(--transition-base);
     box-shadow: var(--shadow-sm);
     text-decoration: none;
+    letter-spacing: var(--letter-spacing-wide);
 }
 
 .read-more-btn:hover {
@@ -880,8 +890,8 @@ pre code {
     margin-top: var(--spacing-10);
     padding-top: var(--spacing-8);
     border-top: 1px solid var(--color-border);
-    flex-wrap: wrap;
-}
+        flex-wrap: wrap;
+    }
 
 .nav-previous,
 .nav-next {
@@ -967,7 +977,7 @@ img {
         grid-template-columns: 1fr;
         gap: var(--spacing-8);
     }
-    
+
     .sidebar {
         position: static;
         max-height: none;
@@ -990,16 +1000,16 @@ img {
         order: 3;
         gap: var(--spacing-4);
     }
-    
+
     .post-content {
         flex-direction: column;
     }
-    
+
     .post-icon {
         width: 64px;
         height: 64px;
     }
-    
+
     .post-title {
         font-size: var(--font-size-xl);
     }
@@ -1024,12 +1034,12 @@ img {
     
     .header-container {
         padding: 0 var(--spacing-4);
-    }
-    
-    .blog-post-card {
+}
+
+.blog-post-card {
         padding: var(--spacing-4);
-    }
-    
+}
+
     .sidebar-widget {
         padding: var(--spacing-4);
     }
@@ -1054,8 +1064,8 @@ img {
     
     .content-wrapper {
         grid-template-columns: 1fr;
-    }
-    
+}
+
     .blog-post-card {
         break-inside: avoid;
         page-break-inside: avoid;

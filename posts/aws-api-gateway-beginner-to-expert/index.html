@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head><meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AWS API Gateway from Beginner to Expert ? - richard mussell eportfolio</title><meta name="description" content="Its all about Open Source and DevOps, here I talk about Kubernetes, Docker, Java, Spring boot and practices."><link rel="stylesheet" href="/css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Automated Labs: Provisioning a Windows Server 2022 VM with PowerShell ISE - richard mussell eportfolio</title><meta name="description" content="Learn how to automate Windows Server 2022 VM provisioning using AutomatedLab PowerShell module, including Active Directory setup, GPO management, and lab environment automation."><link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/contact-form.css">
     <link rel="stylesheet" href="/css/projects.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -37,58 +37,98 @@
     <div class="main-content">
         <article class="blog-post-card single-post" id="post-8fd13f027d037c77f79d96095b1b1609">
             <div class="post-header">
-                <h1 class="post-title">AWS API Gateway from Beginner to Expert ?</h1>
+                <h1 class="post-title">Automated Labs: Provisioning a Windows Server 2022 VM with PowerShell ISE</h1>
                 <div class="post-meta">
                     <span class="meta-item">
                         <i class="far fa-calendar"></i> 
-                        Aug 1, 2025
+                        Jul 21, 2025
                     </span>
                     <span class="meta-item">
                         <i class="far fa-clock"></i> 
-                        1 min read
+                        5 min read
                     </span></div>
         </div>
             <div class="post-content">
                 
                 <div class="post-description">
-                    <p>Master AWS API Gateway from the ground up. Learn how to create, deploy, and manage RESTful and HTTP APIs. Explore advanced features like authentication, rate limiting, caching, and integration with AWS services. Perfect for developers looking to build scalable serverless applications.</p>
-<h2 id="getting-started">Getting Started</h2>
-<p>AWS API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale.</p>
-<h2 id="key-features">Key Features</h2>
+                    <p>In this project, I leveraged the power of AutomatedLab—a powerful PowerShell module designed to automate the deployment of virtual lab environments—to provision a fully functional Windows Server 2022 virtual machine. Using PowerShell ISE as my scripting environment, I was able to streamline the setup process, saving valuable time while ensuring consistent, repeatable results.</p>
+
+<h2 id="why-automatedlab">Why AutomatedLab?</h2>
+<p>Setting up virtual labs manually can be tedious and error-prone, especially when working with complex environments involving multiple servers, domain controllers, and network configurations. AutomatedLab abstracts much of the heavy lifting, allowing IT professionals and learners to deploy entire lab topologies with just a few lines of PowerShell code.</p>
+
+<h2 id="project-focus">This project was focused on:</h2>
 <ul>
-<li>RESTful and HTTP API support</li>
-<li>Authentication and authorization</li>
-<li>Rate limiting and throttling</li>
-<li>Request/response transformation</li>
-<li>Integration with AWS services</li>
-<li>Caching capabilities</li>
+<li>Creating a Windows Server 2022 VM configured as a Domain Controller</li>
+<li>Structuring Organizational Units (OUs) and Active Directory (AD) objects for realistic testing</li>
+<li>Automating Group Policy Object (GPO) linking and management</li>
+<li>Ensuring the environment was suitable for hands-on learning and experimentation</li>
 </ul>
-<h2 id="advanced-topics">Advanced Topics</h2>
+
+<h2 id="tools-used">Tools Used</h2>
 <ul>
-<li>Custom domain names</li>
-<li>API versioning</li>
-<li>Request validation</li>
-<li>API keys and usage plans</li>
-<li>WebSocket APIs</li>
+<li><strong>AutomatedLab PowerShell Module</strong>: To define and provision virtual machines, networks, and roles</li>
+<li><strong>PowerShell ISE</strong>: Script editing and debugging environment for authoring the deployment scripts</li>
+<li><strong>Hyper-V</strong>: Virtualization platform hosting the lab VMs</li>
+<li><strong>Windows Server 2022 Datacenter</strong>: Target OS for the domain controller VM</li>
 </ul>
+
+<h2 id="step-by-step-process">Step-by-Step Process</h2>
+
+<h3 id="1-defining-the-lab-environment">1. Defining the Lab Environment</h3>
+<p>Using AutomatedLab's <code>New-LabDefinition</code> cmdlet, I created a lab definition specifying the lab name, virtualization engine (Hyper-V), and the base OS image:</p>
+
+<pre><code>New-LabDefinition -Name 'ADLab' -DefaultVirtualizationEngine HyperV
+
+Add-LabIsoImageDefinition -Name 'WinServer2022' -Path 'D:\ISO\WindowsServer2022.iso'
+</code></pre>
+
+<h3 id="2-adding-the-domain-controller-machine">2. Adding the Domain Controller Machine</h3>
+<p>Next, I defined the domain controller VM, allocating 4GB of RAM and specifying the OS:</p>
+
+<pre><code>Add-LabMachineDefinition -Name 'Lab1' -Memory 4GB -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC
+</code></pre>
+
+<h3 id="3-customizing-the-active-directory-structure">3. Customizing the Active Directory Structure</h3>
+<p>After provisioning, I scripted the creation of realistic Organizational Units (OUs), users, and groups to mirror a typical enterprise environment. This step involved PowerShell cmdlets like <code>New-ADOrganizationalUnit</code> and <code>New-ADUser</code> to simulate various departments and roles.</p>
+
+<h3 id="4-automating-group-policy-objects-gpos">4. Automating Group Policy Objects (GPOs)</h3>
+<p>With the lab environment in place, I linked relevant GPOs to OUs using PowerShell, enforcing security baselines, password policies, and access controls necessary for real-world scenarios.</p>
+
+<h3 id="5-testing-and-validation">5. Testing and Validation</h3>
+<p>The lab was tested thoroughly to ensure AD replication, user authentication, and policy enforcement functioned as intended. The environment supports experimentation with security tools, incident response exercises, and system administration training.</p>
+
+<h2 id="what-i-learned">What I Learned</h2>
+<p>This project deepened my understanding of:</p>
+<ul>
+<li>Infrastructure-as-Code principles by automating lab deployment</li>
+<li>PowerShell scripting best practices for managing AD environments</li>
+<li>Practical setup of a Windows Server 2022 domain controller in a virtualized lab</li>
+<li>The value of repeatable, scalable lab environments for IT training</li>
+</ul>
+
+<h2 id="why-this-matters">Why This Matters</h2>
+<p>Automated, realistic labs empower IT professionals to experiment, learn, and validate configurations without risking production systems. Mastering tools like AutomatedLab and PowerShell equips admins and security analysts with skills directly applicable to enterprise environments.</p>
 
                     <div class="post-categories">
                         <strong>Categories:</strong>
 
-                            <a href="/categories/cloud-aws/">Cloud - AWS</a>
+                            <a href="/categories/systems-administration/">Systems Administration</a>
                         
                     </div>
 
                     <div class="post-tags">
                         <strong>Tags:</strong>
 
-                            <a href="/tags/aws/">AWS</a>
+                            <a href="/tags/scripting-programming/">Scripting / Programming</a>
                         
                             , 
-                            <a href="/tags/api-gateway/">API Gateway</a>
+                            <a href="/tags/devops-iac-tools/">DevOps / IaC Tools</a>
                         
                             , 
-                            <a href="/tags/serverless/">Serverless</a></div>
+                            <a href="/tags/security/">Security</a>
+                        
+                            , 
+                            <a href="/tags/concepts-practices/">Concepts / Practices</a></div>
         </div>
             </div>
         </article>
@@ -97,7 +137,11 @@
             
                 <div class="nav-previous">
                     <span class="nav-subtitle">Previous</span>
-                    <a href="https://richmussell.com/posts/azure-function-app/" class="nav-title">Azure Function App</a></div>
+                    <a href="https://richardmussell.github.io/posts/azure-function-app/" class="nav-title">Azure Function App</a></div>
+            
+                <div class="nav-next">
+                    <span class="nav-subtitle">View Project</span>
+                    <a href="/projects/automated-labs-windows-server-2022/" class="nav-title">Automated Labs: Provisioning a Windows Server 2022 VM with PowerShell ISE</a></div>
         </div>
     </div>
 
@@ -116,7 +160,7 @@
         <div class="categories-list">            
                 <a href="/categories/cloud-azure/" class="category-tag">CLOUD - AZURE <span class="count">1</span></a>
             
-                <a href="/categories/cloud-aws/" class="category-tag">CLOUD - AWS <span class="count">1</span></a>
+                <a href="/categories/cloud-aws/" class="category-tag">CLOUD - AWS <span class="count">0</span></a>
             
                 <a href="/categories/cloud-gcp/" class="category-tag">CLOUD - GCP <span class="count">0</span></a>
             
@@ -132,7 +176,7 @@
             
                 <a href="/categories/security-identity/" class="category-tag">SECURITY & IDENTITY <span class="count">1</span></a>
             
-                <a href="/categories/systems-administration/" class="category-tag">SYSTEMS ADMINISTRATION <span class="count">0</span></a>
+                <a href="/categories/systems-administration/" class="category-tag">SYSTEMS ADMINISTRATION <span class="count">1</span></a>
             
                 <a href="/categories/networking/" class="category-tag">NETWORKING <span class="count">0</span></a>
             
@@ -169,17 +213,17 @@
         <h3 class="widget-title">Recent Posts</h3>
         <ul class="recent-posts-list">
             
-                <li><a href="https://richmussell.com/posts/aws-api-gateway-beginner-to-expert/">AWS API Gateway from Beginner to Expert ?</a></li>
+                <li><a href="https://richardmussell.github.io/posts/aws-api-gateway-beginner-to-expert/">Automated Labs: Provisioning a Windows Server 2022 VM with PowerShell ISE</a></li>
             
-                <li><a href="https://richmussell.com/posts/azure-function-app/">Azure Function App</a></li>
+                <li><a href="https://richardmussell.github.io/posts/azure-function-app/">Azure Function App</a></li>
             
-                <li><a href="https://richmussell.com/posts/ansible-handlers-explained/">Ansible Handlers Explained Real-World Use Cases &amp; Examples test</a></li>
+                <li><a href="https://richardmussell.github.io/posts/ansible-handlers-explained/">Ansible Handlers Explained Real-World Use Cases &amp; Examples test</a></li>
             
-                <li><a href="https://richmussell.com/posts/securing-sensitive-data-terraform/">Securing Sensitive Data in Terraform</a></li>
+                <li><a href="https://richardmussell.github.io/posts/securing-sensitive-data-terraform/">Securing Sensitive Data in Terraform</a></li>
             
-                <li><a href="https://richmussell.com/posts/boost-aws-security-terraform/">Boost Your AWS Security with Terraform: A Step-by-Step Guide</a></li>
+                <li><a href="https://richardmussell.github.io/posts/boost-aws-security-terraform/">Boost Your AWS Security with Terraform: A Step-by-Step Guide</a></li>
             
-                <li><a href="https://richmussell.com/posts/load-input-data-terraform/">How to Load Input Data from a File in Terraform?</a></li>
+                <li><a href="https://richardmussell.github.io/posts/load-input-data-terraform/">How to Load Input Data from a File in Terraform?</a></li>
             
         </ul>
     </div>
