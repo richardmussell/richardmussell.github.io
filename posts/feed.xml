@@ -17,9 +17,9 @@
     </item>
     <item>
       <title>Azure Function App</title>
-      <link>https://richmussell.com/posts/azure-function-app/</link>
+      <link>https://richmussell.com/posts/firewall-configuration/</link>
       <pubDate>Mon, 28 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>https://richmussell.com/posts/azure-function-app/</guid>
+      <guid>https://richmussell.com/posts/firewall-configuration/</guid>
       <description>Discover how to build serverless applications with Azure Functions. Learn about triggers, bindings, deployment strategies, and best practices.</description>
     </item>
     <item>
