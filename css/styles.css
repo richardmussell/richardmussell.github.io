@@ -836,12 +836,23 @@ pre code {
 }
 
 .author-avatar img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: var(--radius-full);
     object-fit: cover;
     border: 3px solid var(--color-border);
     box-shadow: var(--shadow-md);
+    /* Prevent image protection */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
 }
 
 .author-bio {

@@ -70,6 +70,18 @@ body:has(.contact-container) .main-container,
     align-items: start;
 }
 
+/* Centered Layout (when contact info removed) */
+.contact-layout-centered {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-12);
+}
+
+.contact-layout-centered .contact-form-section {
+    max-width: 700px;
+    width: 100%;
+}
+
 /* Contact Form Section */
 .contact-form-section {
     background: var(--color-bg-primary);
@@ -622,16 +634,15 @@ body:has(.contact-container) .main-container,
     }
 }
 
-/* Success Message */
+/* Success Message - Hidden by default */
 .form-success-message {
-    display: none;
+    display: none !important;
     background: linear-gradient(135deg, var(--color-success) 0%, #059669 100%);
     color: white;
     padding: var(--spacing-5) var(--spacing-6);
     border-radius: var(--radius-md);
     margin-bottom: var(--spacing-6);
     box-shadow: var(--shadow-md);
-    display: flex;
     align-items: center;
     gap: var(--spacing-3);
 }
@@ -642,20 +653,19 @@ body:has(.contact-container) .main-container,
 }
 
 .form-success-message.show {
-    display: flex;
+    display: flex !important;
     animation: slide-down 0.3s ease-out;
 }
 
-/* Error Message */
+/* Error Message - Hidden by default */
 .form-error-message {
-    display: none;
+    display: none !important;
     background: linear-gradient(135deg, var(--color-error) 0%, #DC2626 100%);
     color: white;
     padding: var(--spacing-5) var(--spacing-6);
     border-radius: var(--radius-md);
     margin-bottom: var(--spacing-6);
     box-shadow: var(--shadow-md);
-    display: flex;
     align-items: center;
     gap: var(--spacing-3);
 }
@@ -666,7 +676,7 @@ body:has(.contact-container) .main-container,
 }
 
 .form-error-message.show {
-    display: flex;
+    display: flex !important;
     animation: slide-down 0.3s ease-out;
 }
 

@@ -4,7 +4,7 @@
 	<meta name="generator" content="Hugo 0.152.2"><meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Security Headers - Protection against XSS, clickjacking, and other attacks -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -43,8 +43,8 @@
             background: var(--color-bg-primary);
             border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
-            padding: var(--spacing-8);
-            margin-bottom: var(--spacing-8);
+            padding: var(--spacing-5);
+            margin-bottom: var(--spacing-5);
             box-shadow: var(--shadow-sm);
             transition: all var(--transition-base);
         }
@@ -57,28 +57,28 @@
         .story-section-header {
             display: flex;
             align-items: center;
-            gap: var(--spacing-4);
-            margin-bottom: var(--spacing-6);
-            padding-bottom: var(--spacing-4);
+            gap: var(--spacing-3);
+            margin-bottom: var(--spacing-4);
+            padding-bottom: var(--spacing-3);
             border-bottom: 2px solid var(--color-border);
         }
 
         .story-section-icon {
-            width: 56px;
-            height: 56px;
+            width: 48px;
+            height: 48px;
             border-radius: var(--radius-lg);
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: var(--font-size-2xl);
+            font-size: var(--font-size-xl);
             flex-shrink: 0;
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-sm);
         }
 
         .story-section-title {
-            font-size: var(--font-size-3xl);
+            font-size: var(--font-size-2xl);
             font-weight: var(--font-weight-bold);
             color: var(--color-text-primary);
             margin: 0;
@@ -86,23 +86,24 @@
 
         .story-section-content {
             color: var(--color-text-secondary);
-            line-height: var(--line-height-relaxed);
-            font-size: var(--font-size-lg);
+            line-height: var(--line-height-normal);
+            font-size: var(--font-size-base);
         }
 
         .story-section-content p {
-            margin-bottom: var(--spacing-5);
+            margin-bottom: var(--spacing-3);
             max-width: none;
         }
 
         .story-section-content ul {
-            margin-left: var(--spacing-6);
-            margin-top: var(--spacing-4);
+            margin-left: var(--spacing-5);
+            margin-top: var(--spacing-2);
+            margin-bottom: var(--spacing-3);
         }
 
         .story-section-content li {
-            margin-bottom: var(--spacing-3);
-            line-height: var(--line-height-relaxed);
+            margin-bottom: var(--spacing-2);
+            line-height: var(--line-height-normal);
         }
 
         .story-section-content strong {
@@ -203,7 +204,7 @@
             
                 <a href="/">Home</a>
             
-                <a href="/blog/">Projects</a>
+                <a href="/project/">Projects</a>
             
                 <a href="/about/">About</a>
             
@@ -227,8 +228,6 @@
 
         <!-- Hero Section -->
         <div class="homepage-hero">
-            <h1>Problem-Solving Through Technology</h1>
-            <p>Transforming complex challenges into elegant solutions through cloud engineering, DevOps practices, and systems administration expertise.</p>
         </div>
 
         <!-- The Challenge/Issues Section -->
@@ -240,16 +239,15 @@
                 <h2 class="story-section-title">The Challenge</h2>
             </div>
             <div class="story-section-content">
-                <p>In my work across cloud infrastructure, automation, and system administration, I consistently encounter complex challenges that require deep technical understanding and creative problem-solving. These challenges often involve:</p>
+                <p>In cloud infrastructure, automation, and system administration, I encounter challenges requiring technical expertise and creative problem-solving:</p>
                 <ul>
-                    <li><strong>Security vulnerabilities</strong> in infrastructure configurations that expose systems to potential attacks</li>
-                    <li><strong>Inefficient manual processes</strong> that consume valuable time and introduce human error</li>
-                    <li><strong>Scalability bottlenecks</strong> that prevent systems from handling increased load</li>
+                    <li><strong>Security vulnerabilities</strong> in infrastructure configurations exposing systems to attacks</li>
+                    <li><strong>Inefficient manual processes</strong> consuming time and introducing errors</li>
+                    <li><strong>Scalability bottlenecks</strong> preventing systems from handling increased load</li>
                     <li><strong>Configuration drift</strong> across environments leading to inconsistent deployments</li>
-                    <li><strong>Complex dependencies</strong> between services that make troubleshooting difficult</li>
-                    <li><strong>Compliance requirements</strong> that demand careful implementation of security controls</li>
+                    <li><strong>Complex dependencies</strong> between services making troubleshooting difficult</li>
+                    <li><strong>Compliance requirements</strong> demanding careful security control implementation</li>
                 </ul>
-                <p>Each project presents unique obstacles that require a methodical approach to identify root causes and develop effective solutions.</p>
             </div>
         </section>
 
@@ -262,16 +260,15 @@
                 <h2 class="story-section-title">The Solutions</h2>
             </div>
             <div class="story-section-content">
-                <p>My approach to solving these challenges combines industry best practices with practical, hands-on experience. I leverage a comprehensive toolkit of technologies and methodologies:</p>
+                <p>My approach combines industry best practices with hands-on experience, leveraging:</p>
                 <ul>
-                    <li><strong>Infrastructure as Code (IaC)</strong> using Terraform and CloudFormation to ensure consistent, repeatable deployments</li>
-                    <li><strong>Configuration Management</strong> with Ansible to automate system setup and reduce manual errors</li>
-                    <li><strong>Cloud Platform Expertise</strong> in AWS and Azure to architect scalable, secure solutions</li>
-                    <li><strong>Security-First Design</strong> implementing default-deny policies, least privilege access, and comprehensive firewall configurations</li>
-                    <li><strong>Automation Scripts</strong> in PowerShell and Python to streamline repetitive tasks and reduce operational overhead</li>
-                    <li><strong>Monitoring and Observability</strong> to gain visibility into system behavior and quickly identify issues</li>
+                    <li><strong>Infrastructure as Code (IaC)</strong> with Terraform and CloudFormation for consistent, repeatable deployments</li>
+                    <li><strong>Configuration Management</strong> with Ansible to automate setup and reduce errors</li>
+                    <li><strong>Cloud Platform Expertise</strong> in AWS and Azure for scalable, secure solutions</li>
+                    <li><strong>Security-First Design</strong> with default-deny policies, least privilege, and comprehensive firewall configurations</li>
+                    <li><strong>Automation Scripts</strong> in PowerShell and Python to streamline tasks and reduce overhead</li>
+                    <li><strong>Monitoring and Observability</strong> for system visibility and rapid issue identification</li>
                 </ul>
-                <p>By applying these solutions systematically, I transform complex problems into manageable, automated workflows that enhance both security and efficiency.</p>
             </div>
         </section>
 
@@ -284,16 +281,15 @@
                 <h2 class="story-section-title">Troubleshooting Process</h2>
             </div>
             <div class="story-section-content">
-                <p>Effective troubleshooting requires a structured methodology that combines systematic investigation with technical expertise. My process follows these key steps:</p>
+                <p>My troubleshooting methodology combines systematic investigation with technical expertise:</p>
                 <ul>
-                    <li><strong>Problem Identification</strong> - Gathering logs, error messages, and system state information to understand the issue</li>
-                    <li><strong>Root Cause Analysis</strong> - Tracing symptoms back to their source using diagnostic tools and systematic testing</li>
-                    <li><strong>Hypothesis Formation</strong> - Developing theories about what might be causing the problem based on evidence</li>
-                    <li><strong>Controlled Testing</strong> - Isolating variables and testing solutions in safe, non-production environments</li>
-                    <li><strong>Solution Validation</strong> - Verifying that fixes resolve the issue without introducing new problems</li>
-                    <li><strong>Documentation</strong> - Recording the problem, solution, and lessons learned for future reference</li>
+                    <li><strong>Problem Identification</strong> - Gathering logs, error messages, and system state information</li>
+                    <li><strong>Root Cause Analysis</strong> - Tracing symptoms to source using diagnostic tools and testing</li>
+                    <li><strong>Hypothesis Formation</strong> - Developing theories based on evidence</li>
+                    <li><strong>Controlled Testing</strong> - Isolating variables in safe, non-production environments</li>
+                    <li><strong>Solution Validation</strong> - Verifying fixes resolve issues without introducing new problems</li>
+                    <li><strong>Documentation</strong> - Recording problems, solutions, and lessons learned</li>
                 </ul>
-                <p>This methodical approach ensures that I don't just fix symptoms, but address underlying causes to prevent recurrence. Whether debugging Terraform state issues, resolving Ansible handler execution problems, or investigating firewall rule conflicts, this process consistently leads to reliable solutions.</p>
             </div>
         </section>
 
@@ -306,16 +302,15 @@
                 <h2 class="story-section-title">The Results</h2>
             </div>
             <div class="story-section-content">
-                <p>Through consistent application of these problem-solving approaches, I've achieved measurable improvements across multiple dimensions:</p>
+                <p>Through consistent application of these approaches, I've achieved measurable improvements:</p>
                 <ul>
-                    <li><strong>Enhanced Security Posture</strong> - Implemented default-deny firewall policies that minimize attack surfaces while maintaining essential functionality</li>
-                    <li><strong>Reduced Manual Effort</strong> - Automated lab provisioning and system configurations, cutting setup time from hours to minutes</li>
-                    <li><strong>Improved Consistency</strong> - Eliminated configuration drift through Infrastructure as Code, ensuring identical environments across development, staging, and production</li>
-                    <li><strong>Faster Problem Resolution</strong> - Developed systematic troubleshooting processes that reduce mean time to resolution (MTTR)</li>
-                    <li><strong>Scalable Solutions</strong> - Designed architectures that can grow with demand without requiring fundamental redesigns</li>
-                    <li><strong>Knowledge Transfer</strong> - Documented processes and solutions that enable team members to solve similar problems independently</li>
+                    <li><strong>Enhanced Security Posture</strong> - Default-deny firewall policies minimizing attack surfaces</li>
+                    <li><strong>Reduced Manual Effort</strong> - Automated provisioning cutting setup time from hours to minutes</li>
+                    <li><strong>Improved Consistency</strong> - Eliminated configuration drift through IaC across all environments</li>
+                    <li><strong>Faster Problem Resolution</strong> - Systematic troubleshooting reducing MTTR</li>
+                    <li><strong>Scalable Solutions</strong> - Architectures that grow with demand without redesigns</li>
+                    <li><strong>Knowledge Transfer</strong> - Documented processes enabling independent problem-solving</li>
                 </ul>
-                <p>These results demonstrate not just technical competence, but a commitment to continuous improvement and operational excellence. Each project builds upon previous learnings, creating a compounding effect of increased capability and efficiency.</p>
             </div>
         </section>
 
@@ -323,7 +318,7 @@
         <div class="cta-section">
             <h2>Explore My Projects</h2>
             <p>Dive deeper into the technical details, code examples, and implementation strategies behind these solutions.</p>
-            <a href="/blog/" class="cta-button">View All Projects <i class="fas fa-arrow-right" style="margin-left: var(--spacing-2);"></i></a>
+            <a href="/project/" class="cta-button">View All Projects <i class="fas fa-arrow-right" style="margin-left: var(--spacing-2);"></i></a>
         </div>
 
     </div><aside class="sidebar">
@@ -412,9 +407,9 @@
     <div class="sidebar-widget">
         <h3 class="widget-title">richard mussell</h3>
         <div class="author-profile">
-            <div class="author-avatar">
+            <div class="author-avatar" oncontextmenu="return false;" ondragstart="return false;">
                 
-                    <img src="https://via.placeholder.com/150/4A90E2/FFFFFF?text=R" alt="richard mussell">
+                    <img src="/images/myphoto.jpg" alt="richard mussell" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
                 
             </div>
             <p class="author-bio">
@@ -428,7 +423,7 @@
 
     </main><footer class="footer">
     <div class="footer-content">
-        <span>© 2018-2025 Richard Mussell III. All Rights Reserved.</span>
+        <span>© 2026 Richard Mussell III. All Rights Reserved.</span>
         <i class="fas fa-arrow-right footer-arrow"></i>
     </div>
 </footer>

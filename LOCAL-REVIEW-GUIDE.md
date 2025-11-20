@@ -18,15 +18,15 @@
 
 ### ✅ Homepage (`/`)
 - [ ] Page loads correctly
-- [ ] All blog posts display
+- [ ] All projects display
 - [ ] Sidebar shows all 10 categories with correct counts
 - [ ] Tags sidebar displays correctly
-- [ ] Navigation menu works (Home, Blog, About, Contact)
+- [ ] Navigation menu works (Home, Projects, About, Contact)
 - [ ] Social icons (LinkedIn, GitHub, RSS) are visible and clickable
-- [ ] Footer shows correct copyright: "© 2018-2025 Richard Mussell III. All Rights Reserved."
+- [ ] Footer shows correct copyright: "© 2026 Richard Mussell III. All Rights Reserved."
 - [ ] No broken images or missing assets
 
-### ✅ Blog Posts
+### ✅ Projects
 Check each post:
 - [ ] `/posts/aws-api-gateway-beginner-to-expert/`
 - [ ] `/posts/azure-function-app/`
