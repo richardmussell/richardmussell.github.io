@@ -1,0 +1,60 @@
+{
+  "name": "richard-mussell-eportfolio",
+  "version": "1.0.0",
+  "description": "Static ePortfolio website for Richard Mussell - Cloud Engineer & DevOps Specialist",
+  "private": true,
+  "scripts": {
+    "serve": "hugo server",
+    "build": "hugo",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/richardmussell/richardmussell.github.io.git"
+  },
+  "keywords": [
+    "portfolio",
+    "static-site",
+    "hugo",
+    "cloud-engineering",
+    "devops"
+  ],
+  "author": "Richard Mussell",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "thirdPartyServices": {
+    "formspree": {
+      "name": "Formspree",
+      "version": "latest",
+      "purpose": "Form submission handling",
+      "privacy": "https://formspree.io/legal/privacy-policy",
+      "endpoint": "https://formspree.io/f/mgvdabve"
+    },
+    "font-awesome": {
+      "name": "Font Awesome",
+      "version": "6.4.0",
+      "purpose": "Icon library",
+      "source": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+      "integrity": "sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+    },
+    "github-pages": {
+      "name": "GitHub Pages",
+      "purpose": "Static site hosting",
+      "privacy": "https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement"
+    }
+  },
+  "buildTool": {
+    "name": "Hugo",
+    "version": "0.152.2"
+  }
+}
+

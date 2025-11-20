@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Security Headers - Protection against XSS, clickjacking, and other attacks -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -27,7 +27,7 @@
             </div>
             <nav class="nav-menu">
                 <a href="/">Home</a>
-                <a href="/blog/">Projects</a>
+                <a href="/project/">Projects</a>
                 <a href="/about/">About</a>
                 <a href="/contact/">Contact</a>
             </nav>
@@ -46,12 +46,12 @@
 
     <main class="main-container">
         <div class="about-container">
-            <!-- Hero Section - First Impression (F-Pattern Design) -->
+            <!-- Hero Section - Enterprise Design -->
             <section class="about-hero" aria-labelledby="hero-title">
                 <div class="about-hero-content">
-                    <div class="about-avatar">
-                        <img src="https://via.placeholder.com/160/0066CC/FFFFFF?text=RM" alt="Richard Mussell - Cloud Engineer & DevOps Specialist">
-                    </div>
+                    <figure class="about-avatar" oncontextmenu="return false;" ondragstart="return false;">
+                        <img src="/images/myphoto.jpg" alt="Richard Mussell - Cloud Engineer & DevOps Specialist" title="Richard Mussell" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                    </figure>
                     <h1 id="hero-title">Richard Mussell</h1>
                     <p class="hero-subtitle">Cloud Engineer & DevOps Specialist</p>
                     <p class="hero-description">
@@ -68,30 +68,95 @@
                 <div class="background-timeline">
                     <div class="timeline-item">
                         <div class="timeline-content">
-                            <h3>Cloud Engineering & DevOps</h3>
-                            <div class="timeline-meta">
-                                <i class="far fa-calendar"></i>
-                                <span>Current Focus</span>
-                            </div>
-                            <p>
-                                With years of experience in the tech industry, I specialize in building scalable, reliable, 
-                                and efficient infrastructure solutions. My expertise spans across containerization, orchestration, 
-                                infrastructure as code, and cloud platforms. I'm committed to bridging the gap between 
-                                foundational IT expertise and modern cloud engineering practices.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <h3>Systems Administration Foundation</h3>
+                            <h3>Homelab Engineering & Linux Systems Management</h3>
                             <div class="timeline-meta">
                                 <i class="far fa-calendar"></i>
                                 <span>Core Expertise</span>
                             </div>
                             <p>
-                                My journey began with deep expertise in systems administration, providing a strong foundation 
-                                for understanding infrastructure at its core. This background enables me to design solutions 
-                                that are both innovative and grounded in operational reality.
+                                I maintain a homelab built around an Ubuntu Server environment running containerized applications, 
+                                orchestration services, virtualization workloads, storage management, monitoring tools, and automated 
+                                deployment pipelines. This setup is complemented by a Raspberry Pi 5 that supports lightweight 
+                                services, network utilities, and distributed automation tasks.
+                            </p>
+                            <p>
+                                Both systems operate within a segmented home network using VLANs, reverse proxy routing, service discovery, 
+                                secure SSH access, centralized logging, and unified authentication. This integrated environment enables 
+                                efficient communication between devices while supporting experimentation with modern DevOps practices, 
+                                Linux administration, and infrastructure design.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Cybersecurity Specialization (University Program)</h3>
+                            <div class="timeline-meta">
+                                <i class="far fa-calendar"></i>
+                                <span>Core Expertise</span>
+                            </div>
+                            <p>
+                                Completed a dedicated cybersecurity track within my IT degree, gaining hands-on experience in system 
+                                hardening, enterprise security architecture, SIEM operations, secure network design, incident response 
+                                procedures, and adversarial techniques mapped to the MITRE ATT&CK framework.
+                            </p>
+                            <p>
+                                Trained in Red Hat Linux administration, digital forensics workflows, and applied security principles 
+                                across on-prem, hybrid, and cloud environments. Developed practical skills in analyzing system artifacts, 
+                                enforcing security baselines, and implementing resilient security controls aligned with industry standards.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Security Operations Exposure (SOC Training)</h3>
+                            <div class="timeline-meta">
+                                <i class="far fa-calendar"></i>
+                                <span>Core Expertise</span>
+                            </div>
+                            <p>
+                                Gained hands-on experience working in a SOC-style environment through PISCES International, monitoring live 
+                                municipal networks and contributing to real-time threat detection for public-sector organizations. Skilled in 
+                                SIEM monitoring using Kibana, log analysis, escalation workflows, event documentation, and collaborative 
+                                threat investigation across active production environments.
+                            </p>
+                            <p>
+                                Participated in a program that provides no-cost cybersecurity protection to schools, local governments, and 
+                                nonprofits, pairing enterprise-level monitoring with real-world analyst training. Worked with continuous security 
+                                telemetry, early threat detection processes, and structured incident response procedures while learning from 
+                                industry mentors. This experience strengthened my capabilities in threat hunting, intrusion detection, 
+                                vulnerability analysis, and operational security practices aligned with the needs of modern SOC environments.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>System Hardening & Security Configuration</h3>
+                            <p>
+                                Experience applying security hardening standards to Windows and Linux systems using CIS benchmarks, secure baseline 
+                                policies, and structured configuration workflows. Performed tasks including firewall rule setup, service minimization, 
+                                privilege reduction, and secure authentication configuration to reduce the attack surface while maintaining operational 
+                                performance.
+                            </p>
+                            <p>
+                                Used Windows Sysinternals, Group Policy, and audit policy tuning to strengthen Windows hosts, and implemented SSH 
+                                hardening, file permission tightening, and secure logging on Linux systems. Focused on practical security improvements 
+                                aligned with industry best practices.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Cisco Networking Academy</h3>
+                            <p>
+                                Completed the CCNA Introduction to Networks curriculum with hands-on configuration of rack-mounted Cisco routers and 
+                                switches using the Cisco CLI. Performed device initialization, interface setup, VLAN and trunk configuration, port 
+                                security enforcement, routing implementation, and verification using show/debug commands.
+                            </p>
+                            <p>
+                                Gained practical experience wiring and mapping physical network topologies, connecting switches and routers, and 
+                                applying structured troubleshooting techniques. Built and tested IPv4/IPv6 addressing schemes, executed subnetting 
+                                and network segmentation, analyzed ARP and DHCP behavior, and validated end-to-end connectivity in lab environments 
+                                designed to emulate enterprise networking standards.
                             </p>
                         </div>
                     </div>
@@ -106,63 +171,84 @@
                         <div class="skill-icon">
                             <i class="fab fa-aws"></i>
                         </div>
-                        <h3>Cloud Foundations</h3>
-                        <p>Architecting and deploying scalable solutions on Azure & AWS. Expertise in cloud-native architectures, 
-                        service integration, and cost optimization strategies.</p>
+                        <h3>Cloud Platforms (Azure & AWS)</h3>
+                        <p>Proficient in designing and deploying cloud architectures across Azure and AWS. Experience implementing secure, 
+                        scalable, and cost-optimized solutions, integrating compute, networking, storage, and identity services into 
+                        cohesive environments.</p>
                     </div>
 
                     <div class="skill-card" tabindex="0">
                         <div class="skill-icon">
                             <i class="fas fa-code"></i>
                         </div>
-                        <h3>Infrastructure as Code</h3>
-                        <p>Automating provisioning and management of cloud resources with Terraform. Implementing version-controlled, 
-                        repeatable infrastructure deployments.</p>
+                        <h3>Infrastructure as Code (Terraform)</h3>
+                        <p>Building modular, production-ready Infrastructure as Code solutions using Terraform. Skilled in managing remote 
+                        state, implementing reusable modules, enforcing version control workflows, and applying IaC best practices across 
+                        multi-environment deployments.</p>
                     </div>
 
                     <div class="skill-card" tabindex="0">
                         <div class="skill-icon">
                             <i class="fab fa-docker"></i>
                         </div>
-                        <h3>Containerization</h3>
-                        <p>Building, deploying, and managing containerized applications with Docker. Creating efficient, 
-                        scalable container orchestration solutions.</p>
+                        <h3>Containerization (Docker)</h3>
+                        <p>Developing and maintaining containerized application environments. Experienced with optimized Dockerfile builds, 
+                        multi-stage workflows, image hardening, and enabling container-first development and testing pipelines.</p>
+                    </div>
+
+                    <div class="skill-card" tabindex="0">
+                        <div class="skill-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3>CI/CD Pipelines</h3>
+                        <p>Capable of designing and maintaining automated CI/CD pipelines using GitHub Actions or Azure DevOps. Experience 
+                        integrating build automation, security scanning, infrastructure deployments, and environment promotion workflows into 
+                        streamlined delivery processes.</p>
                     </div>
 
                     <div class="skill-card" tabindex="0">
                         <div class="skill-icon">
                             <i class="fas fa-server"></i>
                         </div>
-                        <h3>Virtualization & Homelabs</h3>
-                        <p>Hands-on labs using Raspberry Pi 5, Hyper-V, virtual networks, and hypervisors. Building realistic 
-                        test environments for learning and experimentation.</p>
+                        <h3>Systems Administration (Windows & Linux)</h3>
+                        <p>Strong operational background across Windows Server and Linux systems. Skilled in directory services, Group Policy, 
+                        system hardening, patching workflows, shell scripting, and troubleshooting across hybrid cloud and on-prem environments.</p>
                     </div>
 
                     <div class="skill-card" tabindex="0">
                         <div class="skill-icon">
-                            <i class="fab fa-windows"></i>
+                            <i class="fas fa-network-wired"></i>
                         </div>
-                        <h3>Windows Server Management</h3>
-                        <p>Expertise in Group Policies, Active Directory, domain controllers, and server configuration. 
-                        Enterprise-level Windows infrastructure management.</p>
+                        <h3>Virtualization & Homelabs</h3>
+                        <p>Building advanced lab environments using Hyper-V, Raspberry Pi clusters, and virtual networks to simulate cloud-native 
+                        and hybrid infrastructure scenarios. Leveraging homelabs for continuous skill development, testing, and automation experiments.</p>
+                    </div>
+
+                    <div class="skill-card" tabindex="0">
+                        <div class="skill-icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <h3>Networking & Hybrid Connectivity</h3>
+                        <p>Robust understanding of networking concepts including routing, VPNs, load balancing, DNS, firewall rules, and VPC/VNet 
+                        architecture. Experience establishing secure cloud-to-on-prem connectivity and troubleshooting multi-layer network issues.</p>
                     </div>
 
                     <div class="skill-card" tabindex="0">
                         <div class="skill-icon">
                             <i class="fas fa-key"></i>
                         </div>
-                        <h3>Secrets Management</h3>
-                        <p>Implementing best practices for authentication, SSH keys, password vaults, and secret management. 
-                        Security-first approach to credential handling.</p>
+                        <h3>Secrets & Identity Management</h3>
+                        <p>Managing identities, service principals, and secure credentials across cloud platforms. Implementing RBAC, MFA enforcement, 
+                        least-privilege models, automated secret rotation, and secure vault integrations to protect infrastructure and workflows.</p>
                     </div>
 
                     <div class="skill-card" tabindex="0">
                         <div class="skill-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h3>Cybersecurity</h3>
-                        <p>Security-focused infrastructure design, monitoring, and mitigation strategies. Implementing defense-in-depth 
-                        and zero-trust principles in cloud environments.</p>
+                        <h3>Cybersecurity & Cloud Security Practices</h3>
+                        <p>Applying security-by-design principles across infrastructure. Experience with threat mitigation, logging and monitoring, 
+                        vulnerability management, configuration hardening, zero-trust concepts, and securing workloads within cloud and hybrid environments.</p>
                     </div>
                 </div>
             </section>
@@ -173,10 +259,13 @@
                     <div class="mission-card-content">
                         <h2 id="mission-title">Mission</h2>
                         <p>
-                            I am committed to bridging the gap between foundational IT expertise and modern cloud engineering practices. 
-                            Through this journey, I aim to share insights on systems administration, cloud technologies, DevOps, and 
-                            cybersecurity, while contributing to the broader tech community. My goal is to empower others by documenting 
-                            real-world solutions, best practices, and lessons learned from hands-on experience.
+                            I am driven by a desire to master enterprise technology as a whole—orchestrating complex systems and applying 
+                            conceptual management principles to create cohesive, scalable infrastructure solutions. My mission is to bridge 
+                            the gap between foundational IT expertise and modern cloud engineering practices, while developing a comprehensive 
+                            understanding of how all enterprise technologies interconnect and function together. Through this journey, I aim to 
+                            share insights on systems administration, cloud technologies, DevOps, and cybersecurity, while contributing to the 
+                            broader tech community. My goal is to empower others by documenting real-world solutions, best practices, and 
+                            lessons learned from hands-on experience.
                         </p>
                     </div>
                 </div>
@@ -195,7 +284,7 @@
                         <i class="fas fa-envelope"></i>
                         Get in Touch
                     </a>
-                    <a href="/blog/" class="cta-button secondary" aria-label="View Projects">
+                    <a href="/project/" class="cta-button secondary" aria-label="View Projects">
                         <i class="fas fa-code"></i>
                         View Projects
                     </a>
@@ -206,7 +295,7 @@
 
     <footer class="footer">
         <div class="footer-content">
-            <span>© 2018-2025 Richard Mussell III. All Rights Reserved.</span>
+            <span>© 2026 Richard Mussell III. All Rights Reserved.</span>
             <i class="fas fa-arrow-right footer-arrow"></i>
         </div>
     </footer>

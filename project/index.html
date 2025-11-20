@@ -3,7 +3,7 @@
 <head><meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Security Headers - Protection against XSS, clickjacking, and other attacks -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/contact-form.css">
     <link rel="stylesheet" href="/css/projects.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
-        <link rel="alternate" type="application/rss&#43;xml" href="https://richardmussell.github.io/blog/feed.xml" title="richard mussell eportfolio">
+        <link rel="alternate" type="application/rss&#43;xml" href="https://richardmussell.github.io/project/feed.xml" title="richard mussell eportfolio">
     
 </head>
 <body><header class="header">
@@ -23,7 +23,7 @@
             
                 <a href="/">Home</a>
             
-                <a href="/blog/">Projects</a>
+                <a href="/project/">Projects</a>
             
                 <a href="/about/">About</a>
             
@@ -34,7 +34,7 @@
                     <a href="https://www.linkedin.com/in/richard-mussell/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/richardmussell" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
 
-                    <a href="/blog/feed.xml" aria-label="RSS" target="_blank" rel="noopener"><i class="fas fa-rss"></i></a>
+                    <a href="/project/feed.xml" aria-label="RSS" target="_blank" rel="noopener"><i class="fas fa-rss"></i></a>
                 
             </div>
         </div>
@@ -45,9 +45,6 @@
         
 <div class="content-wrapper">
     <div class="main-content">
-        <h1 class="page-title">Projects</h1>
-        <p class="page-description">Welcome to my project showcase. I share insights, tutorials, and my perspective about Cloud engineering, System Administration, And DevOps</p>
-
                 <article class="blog-post-card" id="post-8fd13f027d037c77f79d96095b1b1609">
                     <div class="post-header">
                         <h2 class="post-title">
@@ -334,9 +331,9 @@
     <div class="sidebar-widget">
         <h3 class="widget-title">richard mussell</h3>
         <div class="author-profile">
-            <div class="author-avatar">
+            <div class="author-avatar" oncontextmenu="return false;" ondragstart="return false;">
                 
-                    <img src="https://via.placeholder.com/150/4A90E2/FFFFFF?text=R" alt="richard mussell">
+                    <img src="/images/myphoto.jpg" alt="richard mussell"  oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
                 
             </div>
             <p class="author-bio">
@@ -350,7 +347,7 @@
 
     </main><footer class="footer">
     <div class="footer-content">
-        <span>© 2018-2025 Richard Mussell III. All Rights Reserved.</span>
+        <span>© 2026 Richard Mussell III. All Rights Reserved.</span>
         <i class="fas fa-arrow-right footer-arrow"></i>
     </div>
 </footer>

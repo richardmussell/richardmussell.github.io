@@ -35,13 +35,13 @@ Copy the template from `projects/automated-labs-windows-server-2022/index.html` 
 - All content in `<div class="project-single-content">`
 - Category link in `<div class="post-categories">`
 - Tag links in `<div class="post-tags">`
-- Navigation link back to `/blog/`
+- Navigation link back to `/project/`
 
-### 3. Add to Blog/Projects Listing
+### 3. Add to Project Listing
 
-Add the project to `blog/index.html` and `index.html`:
+Add the project to `project/index.html` and `index.html`:
 
-**Template for Blog Listing:**
+**Template for Project Listing:**
 ```html
 <article class="blog-post-card" id="post-UNIQUE-ID">
     <div class="post-header">
@@ -159,7 +159,7 @@ For future projects, you can create a PowerShell script to:
 3. **Proper Categories**: Assign to most relevant category
 4. **Relevant Tags**: Use 3-5 relevant tags
 5. **Code Formatting**: Use `<pre><code>` for code blocks
-6. **Navigation**: Always include back link to `/blog/`
+6. **Navigation**: Always include back link to `/project/`
 7. **Meta Description**: Write compelling 150-160 character descriptions
 
 ## Example: Adding a New Project
@@ -167,7 +167,7 @@ For future projects, you can create a PowerShell script to:
 1. Create: `projects/terraform-aws-vpc/`
 2. Copy template from `automated-labs-windows-server-2022/index.html`
 3. Update title, content, category, tags
-4. Add to `blog/index.html` and `index.html`
+4. Add to `project/index.html` and `index.html`
 5. Update category counts in sidebars
 6. Test locally with `.\serve-hugo.ps1`
 

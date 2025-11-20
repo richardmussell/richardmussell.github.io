@@ -42,17 +42,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Sanitize user input to prevent XSS attacks
+     * Enhanced sanitize user input to prevent XSS attacks
      * @param {string} input - User input string
      * @returns {string} Sanitized string
      */
     function sanitizeInput(input) {
         if (typeof input !== 'string') return '';
-        return input
+        
+        // Normalize Unicode to prevent homoglyph attacks
+        let sanitized = input.normalize('NFKC');
+        
+        // Remove HTML tags and dangerous characters
+        sanitized = sanitized
             .replace(/[<>'"]/g, '') // Remove HTML tags and quotes
             .replace(/javascript:/gi, '') // Remove javascript: protocol
-            .replace(/on\w+=/gi, '') // Remove event handlers
+            .replace(/data:/gi, '') // Remove data: protocol
+            .replace(/vbscript:/gi, '') // Remove vbscript: protocol
+            .replace(/on\w+\s*=/gi, '') // Remove event handlers
+            .replace(/&#x?[0-9a-f]+;/gi, '') // Remove HTML entities
             .replace(/[^\w\s@.-]/g, ''); // Remove special characters except safe ones
+        
+        // Length limit
+        return sanitized.substring(0, 100);
     }
     
     // Pagination functionality
@@ -129,6 +140,63 @@ document.addEventListener('DOMContentLoaded', function() {
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
+    });
+    
+    // Protect profile images from right-click and dragging
+    const profileImages = document.querySelectorAll('.about-avatar img, .author-avatar img');
+    profileImages.forEach(function(profileImage) {
+        if (profileImage) {
+            // Prevent right-click context menu
+            profileImage.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Prevent dragging
+            profileImage.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Prevent selection
+            profileImage.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Prevent opening image in new tab (middle click, Ctrl+click, etc.)
+            profileImage.addEventListener('click', function(e) {
+                if (e.ctrlKey || e.metaKey || e.button === 1) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Prevent keyboard shortcuts when focused on image
+            profileImage.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                    (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+                    (e.ctrlKey && e.key === 'U')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        }
+    });
+    
+    // Prevent opening images via direct URL access attempts
+    document.addEventListener('keydown', function(e) {
+        // Block common shortcuts that might reveal image URLs
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
+            const activeElement = document.activeElement;
+            const profileImages = document.querySelectorAll('.about-avatar img, .author-avatar img');
+            profileImages.forEach(function(img) {
+                if (activeElement === img || img.contains(activeElement)) {
+                    e.preventDefault();
+                }
+            });
+        }
     });
 });
 

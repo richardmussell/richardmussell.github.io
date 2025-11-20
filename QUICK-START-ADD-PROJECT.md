@@ -13,8 +13,8 @@ Copy-Item "projects\automated-labs-windows-server-2022\index.html" "projects\YOU
 # - Project URL
 ```
 
-### 2. Add to Blog Listing
-Add this to `blog/index.html` and `index.html` (after line 44):
+### 2. Add to Project Listing
+Add this to `project/index.html` and `index.html` (after line 44):
 
 ```html
 <article class="blog-post-card" id="post-UNIQUE-ID">
