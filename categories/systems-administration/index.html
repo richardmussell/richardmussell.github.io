@@ -7,10 +7,15 @@
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()"><title>How to Load Input Data from a File in Terraform? - richard mussell eportfolio</title><meta name="description" content="Cloud, DevOps, SysAdmin"><link rel="stylesheet" href="/css/styles.css">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <title>Systems Administration - Windows & Linux System Management | Richard Mussell</title>
+    <meta name="description" content="Explore systems administration projects including Windows Server management, Linux administration, Active Directory, and automation solutions.">
+    <link rel="canonical" href="https://richardmussell.github.io/categories/systems-administration/">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/contact-form.css">
     <link rel="stylesheet" href="/css/projects.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
+    <link rel="alternate" type="application/rss+xml" href="https://richardmussell.github.io/categories/systems-administration/feed.xml" title="richard mussell eportfolio">
 </head>
 <body><header class="header">
     <div class="header-container"><div class="logo">
@@ -32,75 +37,46 @@
                     <a href="https://www.linkedin.com/in/richard-mussell/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/richardmussell" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
 
-                    </div>
+                    <a href="/categories/systems-administration/feed.xml" aria-label="RSS" target="_blank" rel="noopener"><i class="fas fa-rss"></i></a>
+                
+            </div>
         </div>
         </div>
     </div>
 </header>
 <main class="main-container">
-
-<div class="content-wrapper">
-    <div class="main-content">
-        <article class="blog-post-card single-post" id="post-3baa1113d688aeeb58e857934516079d">
-            <div class="post-header">
-                <h1 class="post-title">How to Load Input Data from a File in Terraform?</h1>
-                <div class="post-meta">
-                    <span class="meta-item">
-                        <i class="far fa-calendar"></i> 
-                        Jul 1, 2025
-                    </span>
-                    <span class="meta-item">
-                        <i class="far fa-clock"></i> 
-                        1 min read
-                    </span></div>
+    
+<div class="content-wrapper"><div class="main-content">
+        <div class="category-header">
+            <h1 class="page-title">Systems Administration Projects</h1>
+            <p class="page-description">System administration projects covering server provisioning, automation, configuration management, and operational best practices for Windows and Linux environments.</p>
         </div>
-            <div class="post-content">
-                
-                <div class="post-description">
-                    <p>Learn different methods to load external data into Terraform configurations. Explore file(), fileexists(), and data sources. Understand when to use each approach and how to structure your data files for maximum flexibility.</p>
-<h2 id="loading-data-from-files">Loading Data from Files</h2>
-<p>Terraform provides several functions for reading file contents:</p>
-<h3 id="file-function">file() function</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#cf222e">locals</span> {
-</span></span><span style="display:flex;"><span>  config <span style="color:#0550ae">=</span> <span style="color:#cf222e">file</span><span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;${path.module}/config.json&#34;</span><span style="color:#1f2328">)</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="fileexists-function">fileexists() function</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#cf222e">locals</span> {
-</span></span><span style="display:flex;"><span>  has_config <span style="color:#0550ae">=</span> <span style="color:#cf222e">fileexists</span><span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;${path.module}/config.json&#34;</span><span style="color:#1f2328">)</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="external-data-source">External Data Source</h3>
-<p>For more complex scenarios, use the external data source to execute scripts and read their output.</p>
 
-                    <div class="post-categories">
-                        <strong>Categories:</strong>
-
-                            <a href="/categories/infrastructure-as-code/">INFRASTRUCTURE AS CODE (IAC)</a>
+            <article class="blog-post-card" id="post-automated-labs">
+                <div class="post-header">
+                    <h2 class="post-title">
+                        <a href="/projects/automated-labs-windows-server-2022/">Automated Labs: Provisioning a Windows Server 2022 VM with PowerShell ISE</a>
+                    </h2>
+                    <div class="post-meta">
+                        <span class="meta-item">
+                            <i class="far fa-calendar"></i> 
+                            Jul 21, 2025
+                        </span>
+                        <span class="meta-item">
+                            <i class="far fa-clock"></i> 
+                            5 min read
+                        </span></div>
+        </div>
+                <div class="post-content"><div class="post-description">
                         
+                            <p>In this project, I leveraged the power of AutomatedLab—a powerful PowerShell module designed to automate the deployment of virtual lab environments—to provision a fully functional Windows Server 2022 virtual machine. Using PowerShell ISE as my scripting environment, I was able to streamline the setup process, saving valuable time while ensuring consistent, repeatable results.</p>
+                        
+                        <a href="/projects/automated-labs-windows-server-2022/" class="read-more-btn">READ MORE</a>
+                        </div>
                     </div>
-
-                    <div class="post-tags">
-                        <strong>Tags:</strong>
-
-                            <a href="/tags/terraform/">Terraform</a>
-                        
-                            , 
-                            <a href="/tags/configuration/">Configuration</a>
-                        
-                            , 
-                            <a href="/tags/data/">Data</a></div>
-        </div>
-            </div>
-        </article>
-
-        <div class="post-navigation">
-
-                <div class="nav-next">
-                    <span class="nav-subtitle">Next</span>
-                    <a href="https://richardmussell.github.io/posts/boost-aws-security-terraform/" class="nav-title">Boost Your AWS Security with Terraform: A Step-by-Step Guide</a></div>
-        </div>
-    </div>
-
-    <aside class="sidebar">
+            </article>
+        
+    </div><aside class="sidebar">
     
     <div class="sidebar-widget">
         <div class="search-box">
@@ -135,7 +111,7 @@
             
                 <a href="/categories/networking/" class="category-tag">NETWORKING <span class="count">0</span></a>
             
-                <a href="/categories/scripting-programming/" class="category-tag">SCRIPTING & PROGRAMMING <span class="count">0</span></a>
+                <a href="/categories/scripting-programming/" class="category-tag">SCRIPTING / PROGRAMMING <span class="count">0</span></a>
             
                 <a href="/categories/architecture-design/" class="category-tag">ARCHITECTURE & DESIGN <span class="count">0</span></a>
             
@@ -168,17 +144,17 @@
         <h3 class="widget-title">Recent Posts</h3>
         <ul class="recent-posts-list">
             
-                <li><a href="https://richardmussell.github.io/posts/aws-api-gateway-beginner-to-expert/">Automated Labs: Provisioning a Windows Server 2022 VM with PowerShell ISE</a></li>
+                <li><a href="/projects/automated-labs-windows-server-2022/">Automated Labs: Provisioning a Windows Server 2022 VM with PowerShell ISE</a></li>
             
-                <li><a href="https://richardmussell.github.io/posts/firewall-configuration/">Azure Function App</a></li>
+                <li><a href="/projects/firewall-configuration/">Firewall Configuration (Max Opsec)</a></li>
             
-                <li><a href="https://richardmussell.github.io/posts/ansible-handlers-explained/">Ansible Handlers Explained Real-World Use Cases &amp; Examples test</a></li>
+                <li><a href="/projects/automated-labs-windows-server-2022/">Ansible Handlers Explained Real-World Use Cases &amp; Examples test</a></li>
             
-                <li><a href="https://richardmussell.github.io/posts/securing-sensitive-data-terraform/">Securing Sensitive Data in Terraform</a></li>
+                <li><a href="/projects/automated-labs-windows-server-2022/">Securing Sensitive Data in Terraform</a></li>
             
-                <li><a href="https://richardmussell.github.io/posts/boost-aws-security-terraform/">Boost Your AWS Security with Terraform: A Step-by-Step Guide</a></li>
+                <li><a href="/projects/automated-labs-windows-server-2022/">Boost Your AWS Security with Terraform: A Step-by-Step Guide</a></li>
             
-                <li><a href="https://richardmussell.github.io/posts/load-input-data-terraform/">How to Load Input Data from a File in Terraform?</a></li>
+                <li><a href="/projects/automated-labs-windows-server-2022/">How to Load Input Data from a File in Terraform?</a></li>
             
         </ul>
     </div>
@@ -209,3 +185,4 @@
 <script src="/js/script.js"></script>
 </body>
 </html>
+
