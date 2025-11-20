@@ -309,41 +309,197 @@ pre code {
     outline-offset: 2px;
 }
 
-/* Social Icons - Always Visible */
-.header-right {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.social-icons {
+/* Social Icons - Always Visible - Universal Selectors */
+.header-right,
+.header .header-right,
+body .header-right,
+.header-container .header-right,
+div.header-right {
     display: flex !important;
-    gap: var(--spacing-2);
-    align-items: center;
+    align-items: center !important;
+    flex-shrink: 0 !important;
     visibility: visible !important;
     opacity: 1 !important;
+    width: auto !important;
+    height: auto !important;
 }
 
-.social-icons a {
-    color: var(--color-text-tertiary);
-    font-size: var(--font-size-lg);
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
-    background-color: transparent;
+.social-icons,
+.header .social-icons,
+.header-right .social-icons,
+body .social-icons,
+.header-container .social-icons,
+div.social-icons,
+.header-container .header-right .social-icons {
+    display: flex !important;
+    gap: var(--spacing-2) !important;
+    align-items: center !important;
     visibility: visible !important;
     opacity: 1 !important;
+    width: auto !important;
+    height: auto !important;
+    flex-direction: row !important;
+}
+
+.social-icons a,
+.header .social-icons a,
+.header-right .social-icons a,
+body .social-icons a,
+.header-container .social-icons a,
+div.social-icons a {
+    color: var(--color-text-tertiary) !important;
+    font-size: var(--font-size-xl) !important;
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 0 !important;
+    transition: all var(--transition-fast) !important;
+    background-color: transparent !important;
+    border: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    font-weight: normal !important;
+    position: relative !important;
+    z-index: 1 !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+
+.social-icons a i,
+.header .social-icons a i,
+.header-right .social-icons a i,
+body .social-icons a i,
+.header-container .social-icons a i,
+div.social-icons a i,
+.social-icons a .fab,
+.social-icons a .fas {
+    display: inline-block !important;
+    line-height: 1 !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    -webkit-font-smoothing: antialiased !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    font-size: inherit !important;
+}
+
+/* LinkedIn brand color - make icon clearly visible - Universal */
+.social-icons a[href*="linkedin"],
+.header .social-icons a[href*="linkedin"],
+.header-right .social-icons a[href*="linkedin"],
+body .social-icons a[href*="linkedin"],
+.header-container .social-icons a[href*="linkedin"],
+div.social-icons a[href*="linkedin"] {
+    color: #0077B5 !important;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.social-icons a[href*="linkedin"] i,
+.social-icons a[href*="linkedin"] i.fab,
+.social-icons a[href*="linkedin"] i.fab.fa-linkedin,
+.header .social-icons a[href*="linkedin"] i,
+.header-right .social-icons a[href*="linkedin"] i,
+body .social-icons a[href*="linkedin"] i,
+.header-container .social-icons a[href*="linkedin"] i,
+div.social-icons a[href*="linkedin"] i,
+.social-icons a[href*="linkedin"] .fab,
+.social-icons a[href*="linkedin"] .fa-linkedin {
+    color: #0077B5 !important;
+    font-size: 1.8rem !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    font-family: "Font Awesome 6 Brands", "Font Awesome 6 Free" !important;
+}
+
+.social-icons a[href*="linkedin"]:hover,
+.header .social-icons a[href*="linkedin"]:hover,
+body .social-icons a[href*="linkedin"]:hover,
+.header-container .social-icons a[href*="linkedin"]:hover,
+div.social-icons a[href*="linkedin"]:hover {
+    background-color: transparent !important;
+    border: none !important;
+    transform: translateY(-2px) !important;
+    box-shadow: none !important;
+}
+
+.social-icons a[href*="linkedin"]:hover i,
+.social-icons a[href*="linkedin"]:hover i.fab.fa-linkedin,
+.social-icons a[href*="linkedin"]:hover .fab,
+.social-icons a[href*="linkedin"]:hover .fa-linkedin,
+.header .social-icons a[href*="linkedin"]:hover i,
+body .social-icons a[href*="linkedin"]:hover i {
+    color: #0077B5 !important;
+    transform: scale(1.15) !important;
+}
+
+/* GitHub brand color - make icon clearly visible - Universal */
+.social-icons a[href*="github"],
+.header .social-icons a[href*="github"],
+.header-right .social-icons a[href*="github"],
+body .social-icons a[href*="github"],
+.header-container .social-icons a[href*="github"],
+div.social-icons a[href*="github"] {
+    color: #24292e !important;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.social-icons a[href*="github"] i,
+.social-icons a[href*="github"] i.fab,
+.social-icons a[href*="github"] i.fab.fa-github,
+.header .social-icons a[href*="github"] i,
+.header-right .social-icons a[href*="github"] i,
+body .social-icons a[href*="github"] i,
+.header-container .social-icons a[href*="github"] i,
+div.social-icons a[href*="github"] i,
+.social-icons a[href*="github"] .fab,
+.social-icons a[href*="github"] .fa-github {
+    color: #24292e !important;
+    font-size: 1.8rem !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    font-family: "Font Awesome 6 Brands", "Font Awesome 6 Free" !important;
+}
+
+.social-icons a[href*="github"]:hover,
+.header .social-icons a[href*="github"]:hover,
+body .social-icons a[href*="github"]:hover,
+.header-container .social-icons a[href*="github"]:hover,
+div.social-icons a[href*="github"]:hover {
+    background-color: transparent !important;
+    border: none !important;
+    transform: translateY(-2px) !important;
+    box-shadow: none !important;
+}
+
+.social-icons a[href*="github"]:hover i,
+.social-icons a[href*="github"]:hover i.fab.fa-github,
+.social-icons a[href*="github"]:hover .fab,
+.social-icons a[href*="github"]:hover .fa-github,
+.header .social-icons a[href*="github"]:hover i,
+body .social-icons a[href*="github"]:hover i {
+    color: #24292e !important;
+    transform: scale(1.15) !important;
 }
 
 .social-icons a:hover {
-    color: var(--color-primary);
-    background-color: var(--color-bg-tertiary);
     text-decoration: none;
-    transform: translateY(-1px);
 }
 
 .social-icons a:focus {
