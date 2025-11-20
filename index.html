@@ -56,6 +56,157 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
         <link rel="alternate" type="application/rss&#43;xml" href="https://richardmussell.github.io/feed.xml" title="richard mussell eportfolio">
     <style>
+        /* Social Icons - Force visibility on root page */
+        .header-right,
+        .header .header-right,
+        body .header-right,
+        .header-container .header-right {
+            display: flex !important;
+            align-items: center !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .social-icons,
+        .header .social-icons,
+        .header-right .social-icons,
+        body .social-icons,
+        .header-container .social-icons {
+            display: flex !important;
+            gap: var(--spacing-2) !important;
+            align-items: center !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .social-icons a[href*="linkedin"],
+        .header .social-icons a[href*="linkedin"] {
+            color: #0077B5 !important;
+            background-color: transparent !important;
+            border: none !important;
+            width: 44px !important;
+            height: 44px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .social-icons a[href*="linkedin"] i,
+        .social-icons a[href*="linkedin"] .fab {
+            color: #0077B5 !important;
+            font-size: 1.8rem !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .social-icons a[href*="github"],
+        .header .social-icons a[href*="github"] {
+            color: #24292e !important;
+            background-color: transparent !important;
+            border: none !important;
+            width: 44px !important;
+            height: 44px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .social-icons a[href*="github"] i,
+        .social-icons a[href*="github"] .fab {
+            color: #24292e !important;
+            font-size: 1.8rem !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        /* Resume Showcase Section */
+        .resume-showcase {
+            background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-8);
+            margin-bottom: var(--spacing-12);
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-base);
+        }
+
+        .resume-showcase:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-2px);
+            border-color: var(--color-primary);
+        }
+
+        .resume-showcase-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resume-showcase-text {
+            width: 100%;
+        }
+
+        .resume-showcase-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .resume-showcase-description {
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-relaxed);
+            font-size: var(--font-size-base);
+            margin-bottom: var(--spacing-5);
+            max-width: none;
+        }
+
+        .resume-showcase-description strong {
+            color: var(--color-text-primary);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .resume-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-3);
+            background: var(--color-primary);
+            color: white;
+            padding: var(--spacing-3) var(--spacing-6);
+            border-radius: var(--radius-md);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-base);
+            text-decoration: none;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-md);
+        }
+
+        .resume-download-btn:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            text-decoration: none;
+            color: white;
+        }
+
+        .resume-download-btn:focus {
+            outline: 2px solid var(--color-border-focus);
+            outline-offset: 2px;
+        }
+
+        .resume-download-btn i {
+            font-size: var(--font-size-lg);
+        }
+
         /* Homepage Storytelling Sections */
         .homepage-hero {
             text-align: center;
@@ -201,6 +352,23 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .resume-showcase {
+                padding: var(--spacing-6) var(--spacing-4);
+            }
+
+            .resume-showcase-title {
+                text-align: center;
+            }
+
+            .resume-showcase-description {
+                text-align: center;
+            }
+
+            .resume-download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
             .homepage-hero {
                 padding: var(--spacing-10) var(--spacing-4);
             }
@@ -322,6 +490,23 @@
 <main class="main-container">
         
 <div class="content-wrapper"><div class="main-content">
+
+        <!-- Resume Showcase Section -->
+        <section class="resume-showcase">
+            <div class="resume-showcase-content">
+                <div class="resume-showcase-text">
+                    <h2 class="resume-showcase-title">Resume Hosted on GCP</h2>
+                    <p class="resume-showcase-description">
+                        My resume is hosted on <strong>Google Cloud Platform (GCP)</strong> and configured with <strong>Terraform</strong> for infrastructure as code. This demonstrates my expertise in cloud infrastructure automation and best practices.
+                    </p>
+                    <a href="https://storage.googleapis.com/richard-mussell-resume-pdf/resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-download-btn">
+                        <i class="fas fa-file-pdf"></i>
+                        View Resume PDF
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
 
         <!-- Hero Section -->
         <div class="homepage-hero">
