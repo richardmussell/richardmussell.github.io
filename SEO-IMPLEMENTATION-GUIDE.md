@@ -34,7 +34,7 @@ This guide provides a complete SEO setup optimized for search engines, social me
     <meta property="og:url" content="https://richardmussell.github.io/">
     <meta property="og:title" content="Richard Mussell | Cloud Engineer & DevOps Specialist">
     <meta property="og:description" content="Cloud engineer and DevOps specialist specializing in AWS, Azure, Terraform, and infrastructure automation. Explore projects, technical solutions, and best practices.">
-    <meta property="og:image" content="https://richardmussell.github.io/images/myphoto.jpg">
+    <meta property="og:image" content="https://richardmussell.github.io/images/rj.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Richard Mussell - Cloud Engineer & DevOps Specialist">
@@ -46,7 +46,7 @@ This guide provides a complete SEO setup optimized for search engines, social me
     <meta name="twitter:url" content="https://richardmussell.github.io/">
     <meta name="twitter:title" content="Richard Mussell | Cloud Engineer & DevOps Specialist">
     <meta name="twitter:description" content="Cloud engineer and DevOps specialist specializing in AWS, Azure, Terraform, and infrastructure automation.">
-    <meta name="twitter:image" content="https://richardmussell.github.io/images/myphoto.jpg">
+    <meta name="twitter:image" content="https://richardmussell.github.io/images/rj.jpg">
     <meta name="twitter:image:alt" content="Richard Mussell - Cloud Engineer & DevOps Specialist">
     <meta name="twitter:creator" content="@richardmussell">
     <meta name="twitter:site" content="@richardmussell">
@@ -86,7 +86,7 @@ This guide provides a complete SEO setup optimized for search engines, social me
     <meta property="og:url" content="https://richardmussell.github.io/about/">
     <meta property="og:title" content="About Richard Mussell | Cloud Engineer & DevOps Specialist">
     <meta property="og:description" content="Professional background, skills, and expertise in cloud engineering, DevOps, and infrastructure automation.">
-    <meta property="og:image" content="https://richardmussell.github.io/images/myphoto.jpg">
+    <meta property="og:image" content="https://richardmussell.github.io/images/rj.jpg">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
@@ -129,7 +129,7 @@ This guide provides a complete SEO setup optimized for search engines, social me
   "jobTitle": "Cloud Engineer & DevOps Specialist",
   "description": "Cloud engineer and DevOps specialist specializing in AWS, Azure, Terraform, and infrastructure automation.",
   "url": "https://richardmussell.github.io",
-  "image": "https://richardmussell.github.io/images/myphoto.jpg",
+  "image": "https://richardmussell.github.io/images/rj.jpg",
   "sameAs": [
     "https://www.linkedin.com/in/richard-mussell/",
     "https://github.com/richardmussell"
@@ -198,7 +198,7 @@ This guide provides a complete SEO setup optimized for search engines, social me
     "name": "Richard Mussell",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://richardmussell.github.io/images/myphoto.jpg"
+      "url": "https://richardmussell.github.io/images/rj.jpg"
     }
   },
   "datePublished": "2025-01-15",
@@ -348,7 +348,7 @@ This guide provides a complete SEO setup optimized for search engines, social me
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://richardmussell.github.io/images/myphoto.jpg</image:loc>
+      <image:loc>https://richardmussell.github.io/images/rj.jpg</image:loc>
       <image:title>Firewall Configuration Project</image:title>
       <image:caption>Azure Function App firewall configuration implementation</image:caption>
     </image:image>
@@ -471,7 +471,7 @@ Crawl-delay: 1
 ```html
 <!-- Optimized image with lazy loading and proper attributes -->
 <img 
-  src="/images/myphoto.jpg" 
+  src="/images/rj.jpg" 
   srcset="/images/myphoto-400w.jpg 400w, /images/myphoto-800w.jpg 800w"
   sizes="(max-width: 400px) 400px, 800px"
   alt="Richard Mussell - Cloud Engineer & DevOps Specialist"

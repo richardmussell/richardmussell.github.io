@@ -44,7 +44,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://richardmussell.github.io/images/myphoto.jpg</image:loc>
+      <image:loc>https://richardmussell.github.io/images/rj.jpg</image:loc>
       <image:title>Firewall Configuration Project</image:title>
       <image:caption>Azure Function App firewall configuration implementation</image:caption>
     </image:image>

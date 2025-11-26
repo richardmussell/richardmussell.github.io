@@ -4,18 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Security Headers - Protection against XSS, clickjacking, and other attacks -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com data:; connect-src 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
-    <title>About Richard Mussell - Cloud Engineer & DevOps Specialist</title>
-    <meta name="description" content="Richard Mussell is a passionate technologist specializing in cloud engineering, DevOps, and infrastructure automation. Learn about his journey from systems administration to modern cloud solutions.">
+    <title>About Richard Mussell</title>
+    <meta name="description" content="Richard Mussell is a Junior Systems & Network Engineer with a B.S. Information Technology degree. Strong hands-on experience in Cisco Networking and Cybersecurity fundamentals. Currently pursuing RHCSA and Cloud Native certifications. Passionate about infrastructure performance, switching/routing, and Linux server hardening.">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/contact-form.css">
     <link rel="stylesheet" href="/css/projects.css">
     <link rel="stylesheet" href="/css/about.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
+    <style>
+        /* Force social icons to always be visible - Highest Priority */
+        .header-right,
+        .header .header-right,
+        body .header-right,
+        .header-container .header-right {
+            display: flex !important;
+            align-items: center !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            width: auto !important;
+            height: auto !important;
+            flex-shrink: 0 !important;
+        }
+        
+        .social-icons,
+        .header .social-icons,
+        .header-right .social-icons,
+        body .social-icons,
+        .header-container .social-icons {
+            display: flex !important;
+            gap: var(--spacing-2) !important;
+            align-items: center !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            width: auto !important;
+            height: auto !important;
+            flex-direction: row !important;
+        }
+        
+        .social-icons a,
+        .header .social-icons a,
+        .header-right .social-icons a,
+        body .social-icons a,
+        .header-container .social-icons a {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            width: 44px !important;
+            height: 44px !important;
+            font-size: 1.8rem !important;
+        }
+        
+        .social-icons a[href*="linkedin"] i,
+        .social-icons a[href*="linkedin"] .fab {
+            color: #0077B5 !important;
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            font-size: 1.8rem !important;
+        }
+        
+        .social-icons a[href*="github"] i,
+        .social-icons a[href*="github"] .fab {
+            color: #24292e !important;
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            font-size: 1.8rem !important;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -50,14 +113,11 @@
             <section class="about-hero" aria-labelledby="hero-title">
                 <div class="about-hero-content">
                     <figure class="about-avatar" oncontextmenu="return false;" ondragstart="return false;">
-                        <img src="/images/myphoto.jpg" alt="Richard Mussell - Cloud Engineer & DevOps Specialist" title="Richard Mussell" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+                        <img src="/images/rj.jpg" alt="Richard Mussell" title="Richard Mussell" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
                     </figure>
                     <h1 id="hero-title">Richard Mussell</h1>
-                    <p class="hero-subtitle">Cloud Engineer & DevOps Specialist</p>
                     <p class="hero-description">
-                        A passionate technologist focused on evolving from a solid foundation in systems administration 
-                        into cloud engineering and DevOps. I thrive on designing scalable, reliable, and secure infrastructure 
-                        solutions while continuing to strengthen my core operational expertise.
+                        Junior Systems & Network Engineer. B.S. Information Technology graduate with strong hands-on experience in Cisco Networking and Cybersecurity fundamentals. Currently pursuing RHCSA and Cloud Native certifications. Passionate about infrastructure performance, switching/routing, and Linux server hardening. Seeking a role to apply network troubleshooting skills while expanding expertise in system administration and infrastructure automation.
                     </p>
                 </div>
             </section>
@@ -304,5 +364,54 @@
         </div>
     </footer>
     <script src="/js/script.js"></script>
+    <script>
+        // Force social icons to always be visible - Final fallback
+        (function() {
+            function ensureIconsVisible() {
+                const headerRight = document.querySelector('.header-right');
+                const socialIcons = document.querySelector('.social-icons');
+                const linkedInIcon = document.querySelector('.social-icons a[href*="linkedin"]');
+                const githubIcon = document.querySelector('.social-icons a[href*="github"]');
+                
+                if (headerRight) {
+                    headerRight.style.display = 'flex';
+                    headerRight.style.visibility = 'visible';
+                    headerRight.style.opacity = '1';
+                }
+                
+                if (socialIcons) {
+                    socialIcons.style.display = 'flex';
+                    socialIcons.style.visibility = 'visible';
+                    socialIcons.style.opacity = '1';
+                }
+                
+                if (linkedInIcon) {
+                    linkedInIcon.style.display = 'flex';
+                    linkedInIcon.style.visibility = 'visible';
+                    linkedInIcon.style.opacity = '1';
+                }
+                
+                if (githubIcon) {
+                    githubIcon.style.display = 'flex';
+                    githubIcon.style.visibility = 'visible';
+                    githubIcon.style.opacity = '1';
+                }
+            }
+            
+            // Run immediately
+            ensureIconsVisible();
+            
+            // Run after DOM is fully loaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', ensureIconsVisible);
+            }
+            
+            // Run after page is fully loaded
+            window.addEventListener('load', ensureIconsVisible);
+            
+            // Run periodically as a fallback
+            setInterval(ensureIconsVisible, 1000);
+        })();
+    </script>
 </body>
 </html>
