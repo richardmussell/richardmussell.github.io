@@ -1,15 +1,136 @@
+{{- /* 
+  Single Template - Displays individual content items (posts, projects, pages)
+  Usage: Automatically used for all single content items
+  
+  Features:
+  - Semantic HTML5 article structure
+  - Featured image support (from front matter)
+  - Article metadata (date, author, categories, tags)
+  - Previous/Next navigation
+  - Schema.org structured data
+*/ -}}
 {{- define "main" -}}
-<div class="content-wrapper">
-    <div class="main-content">
-        <h1 class="page-title">{{ .Title }}</h1>
-        {{- if .Description -}}
-            <p class="page-description">{{ .Description }}</p>
-        {{- end -}}
+<article class="single-content" itemscope itemtype="https://schema.org/Article">
+    {{- /* Article Header: Title and Metadata */ -}}
+    <header class="article-header">
+        <h1 class="article-title" itemprop="headline">{{ .Title }}</h1>
         
-        <div class="page-content">
-            {{ .Content }}
+        {{- /* Article Metadata */ -}}
+        <div class="article-meta" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" class="article-date" itemprop="datePublished" content="{{ .Date.Format "2006-01-02" }}">
+                Published: {{ .Date.Format "January 2, 2006" }}
+            </time>
+            {{- if .Lastmod -}}
+                {{- if ne .Lastmod .Date -}}
+                    <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" class="article-updated" itemprop="dateModified" content="{{ .Lastmod.Format "2006-01-02" }}">
+                        Updated: {{ .Lastmod.Format "January 2, 2006" }}
+                    </time>
+                {{- end -}}
+            {{- end -}}
+            {{- if .Site.Params.author -}}
+                <span class="article-author">
+                    by <span itemprop="name">{{ .Site.Params.author }}</span>
+                </span>
+            {{- end -}}
         </div>
+        
+        {{- /* Categories and Tags */ -}}
+        {{- if or .Params.categories .Params.tags -}}
+            <div class="article-taxonomy">
+                {{- if .Params.categories -}}
+                    <div class="article-categories">
+                        <span class="taxonomy-label">Categories:</span>
+                        {{- range $index, $category := .Params.categories -}}
+                            {{- if $index }}, {{ end -}}
+                            <a href="{{ "/categories/" | relURL }}{{ $category | urlize }}/" class="taxonomy-link" rel="tag">{{ $category }}</a>
+                        {{- end -}}
+                    </div>
+                {{- end -}}
+                {{- if .Params.tags -}}
+                    <div class="article-tags">
+                        <span class="taxonomy-label">Tags:</span>
+                        {{- range $index, $tag := .Params.tags -}}
+                            {{- if $index }}, {{ end -}}
+                            <a href="{{ "/tags/" | relURL }}{{ $tag | urlize }}/" class="taxonomy-link" rel="tag">{{ $tag }}</a>
+                        {{- end -}}
+                    </div>
+                {{- end -}}
+            </div>
+        {{- end -}}
+    </header>
+    
+    {{- /* Featured Image (if available in front matter) */ -}}
+    {{- if .Params.featuredImage -}}
+        <div class="article-featured-image">
+            {{- $image := .Resources.GetMatch .Params.featuredImage -}}
+            {{- if $image -}}
+                {{- /* Process image with Hugo Pipes */ -}}
+                {{- $resized := $image.Fill "1200x675 Center" -}}
+                {{- $webp := $resized | resources.Filter "webp" -}}
+                <figure>
+                    <picture>
+                        {{- if $webp -}}
+                            <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+                        {{- end -}}
+                        <img 
+                            src="{{ $resized.RelPermalink }}" 
+                            alt="{{ .Params.featuredImageAlt | default .Title }}"
+                            width="1200"
+                            height="675"
+                            itemprop="image"
+                            fetchpriority="high">
+                    </picture>
+                    {{- if .Params.featuredImageCaption -}}
+                        <figcaption>{{ .Params.featuredImageCaption }}</figcaption>
+                    {{- end -}}
+                </figure>
+            {{- else -}}
+                {{- /* Fallback to static image */ -}}
+                <figure>
+                    <img 
+                        src="{{ .Params.featuredImage | relURL }}" 
+                        alt="{{ .Params.featuredImageAlt | default .Title }}"
+                        itemprop="image"
+                        fetchpriority="high">
+                    {{- if .Params.featuredImageCaption -}}
+                        <figcaption>{{ .Params.featuredImageCaption }}</figcaption>
+                    {{- end -}}
+                </figure>
+            {{- end -}}
+        </div>
+    {{- end -}}
+    
+    {{- /* Article Content */ -}}
+    <div class="article-content" itemprop="articleBody">
+        {{ .Content }}
     </div>
-</div>
+    
+    {{- /* Article Footer: Additional metadata or CTA */ -}}
+    <footer class="article-footer">
+        {{- /* Share buttons, related posts, etc. can go here */ -}}
+        {{- block "article-footer" . }}{{- end }}
+    </footer>
+</article>
+
+{{- /* Previous/Next Navigation */ -}}
+{{- if or .PrevInSection .NextInSection -}}
+    <nav class="article-navigation" role="navigation" aria-label="Article Navigation">
+        <div class="article-navigation-wrapper">
+            {{- if .PrevInSection -}}
+                <a href="{{ .PrevInSection.Permalink }}" class="article-nav-link article-nav-link--prev" rel="prev" aria-label="Previous article: {{ .PrevInSection.Title }}">
+                    <span class="article-nav-direction">← Previous</span>
+                    <span class="article-nav-title">{{ .PrevInSection.Title }}</span>
+                </a>
+            {{- end -}}
+            
+            {{- if .NextInSection -}}
+                <a href="{{ .NextInSection.Permalink }}" class="article-nav-link article-nav-link--next" rel="next" aria-label="Next article: {{ .NextInSection.Title }}">
+                    <span class="article-nav-direction">Next →</span>
+                    <span class="article-nav-title">{{ .NextInSection.Title }}</span>
+                </a>
+            {{- end -}}
+        </div>
+    </nav>
+{{- end -}}
 {{- end -}}
 

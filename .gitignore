@@ -18,9 +18,44 @@ Thumbs.db
 # Node modules (if using npm)
 node_modules/
 
-# Environment files
+# Environment files - CRITICAL: Prevent secret leaks
 .env
+.env.*
+*.env
+*.env.*
 .env.local
+.env.development
+.env.production
+.env.test
+.env.staging
+
+# Secret files
+secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+*.cer
+*.crt
+*.jks
+*.keystore
+*.secret
+
+# Credentials
+credentials.json
+service-account.json
+*.credentials
+config.json
+secrets.yaml
+secrets.yml
+
+# API Keys (common patterns)
+*api*key*
+*access*token*
+*secret*
+*password*
+*passwd*
+*credential*
 
 # Build artifacts
 *.log

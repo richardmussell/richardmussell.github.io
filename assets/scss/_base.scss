@@ -20,18 +20,55 @@ html {
   scroll-padding-top: 100px; // Account for sticky header
 }
 
-// Body
+// Body - Sticky Footer Setup
 body {
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
-  line-height: var(--line-height-relaxed);
+  line-height: 1.5; // Optimal reading line-height
+  letter-spacing: -0.005em; // Subtle negative tracking
   color: var(--color-text-primary);
   background-color: var(--color-bg-secondary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   position: relative; // For skip link positioning
-  transition: background-color var(--transition-base), color var(--transition-base);
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 0;
+  min-height: 100vh; // Ensure full viewport height
+  display: flex; // Flexbox container for sticky footer
+  flex-direction: column;
+}
+
+// Site Wrapper - Flexbox for sticky footer
+.site-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; // Full viewport height
+  width: 100%;
+}
+
+// Main Container - Grows to fill space, pushing footer down
+.main-container {
+  flex: 1 0 auto; // Grow to fill available space
+  width: 100%;
+}
+
+// Skip Link - Accessibility (WCAG 2.4.1)
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: var(--spacing-2) var(--spacing-4);
+  text-decoration: none;
+  z-index: 1000;
+  transition: top var(--transition-fast);
+  
+  &:focus {
+    top: 0;
+    outline: 2px solid var(--color-border-focus);
+  }
 }
 
 // ============================================
@@ -40,17 +77,20 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-tight);
+  line-height: 1.1; // Tighter for headings (premium look)
   color: var(--color-text-primary);
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: -0.015em; // Tight tracking for "Tech" look
   margin-bottom: var(--spacing-4);
   transition: color var(--transition-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1 {
   font-size: var(--font-size-fluid-4xl); // Fluid: 2.25rem → 3rem
   font-weight: var(--font-weight-bold);
-  line-height: 1.2;
+  line-height: 1.1; // Premium tight line-height
+  letter-spacing: -0.02em; // Even tighter for H1
   margin-bottom: var(--spacing-6);
 }
 
@@ -83,10 +123,11 @@ h6 {
 
 p {
   margin-bottom: var(--spacing-4);
-  line-height: var(--line-height-relaxed);
+  line-height: 1.5; // Optimal reading line-height
+  letter-spacing: -0.005em; // Subtle negative tracking
   color: var(--color-text-secondary);
   max-width: 65ch; // Optimal reading width
-  transition: color var(--transition-base);
+  transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 a {

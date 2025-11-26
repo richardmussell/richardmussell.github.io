@@ -1,23 +1,103 @@
+{{- /* 
+  List Template - Displays paginated list of content items
+  Usage: Automatically used for sections, taxonomies, and home page
+  
+  Features:
+  - Pagination support via .Paginator
+  - Card-based layout using card-summary partial
+  - Fallback to project-card for projects section
+  - Empty state handling
+*/ -}}
 {{- define "main" -}}
 <div class="content-wrapper">
     <div class="main-content">
-        {{- /* Category header with title and description */ -}}
-        <div class="category-header">
+        {{- /* Page Header: Title and Description */ -}}
+        <header class="page-header">
             <h1 class="page-title">{{ .Title }}</h1>
             {{- if .Description -}}
                 <p class="page-description">{{ .Description }}</p>
             {{- else if .Content -}}
-                <p class="page-description">{{ .Content | plainify | truncate 200 }}</p>
+                <div class="page-description">
+                    {{ .Content }}
+                </div>
             {{- end -}}
-        </div>
+        </header>
         
-        {{- /* List of posts in this category */ -}}
-        {{- if .Pages -}}
-            {{- range .Pages -}}
-                {{- partial "components/project-card" (dict "project" . "context" $) -}}
+        {{- /* Content List: Paginated or all pages */ -}}
+        {{- $pages := .Pages -}}
+        {{- if .IsHome -}}
+            {{- $pages = .Site.RegularPages -}}
+        {{- end -}}
+        
+        {{- if $pages -}}
+            <div class="content-list bento-grid">
+                {{- /* Check if pagination is enabled */ -}}
+                {{- if .Paginator -}}
+                    {{- /* Paginated Loop with Bento Grid Layout */ -}}
+                    {{- range $index, $page := .Paginator.Pages -}}
+                        {{- $modResult := mod (add $index 1) 4 -}}
+                        {{- $isLarge := eq $modResult 0 -}}
+                        <div class="{{ if $isLarge }}bento-item-large{{ else }}bento-item{{ end }}">
+                            {{- /* Use project-card for projects section, card-summary for others */ -}}
+                            {{- if eq $.Section "projects" -}}
+                                {{- partial "components/project-card" (dict "project" $page "context" $) -}}
+                            {{- else -}}
+                                {{- partial "components/card-summary" $page -}}
+                            {{- end -}}
+                        </div>
+                    {{- end -}}
+                {{- else -}}
+                    {{- /* Non-paginated Loop with Bento Grid Layout */ -}}
+                    {{- range $index, $page := $pages -}}
+                        {{- $modResult := mod (add $index 1) 4 -}}
+                        {{- $isLarge := eq $modResult 0 -}}
+                        <div class="{{ if $isLarge }}bento-item-large{{ else }}bento-item{{ end }}">
+                            {{- if eq $.Section "projects" -}}
+                                {{- partial "components/project-card" (dict "project" $page "context" $) -}}
+                            {{- else -}}
+                                {{- partial "components/card-summary" $page -}}
+                            {{- end -}}
+                        </div>
+                    {{- end -}}
+                {{- end -}}
+            </div>
+            
+            {{- /* Pagination Controls */ -}}
+            {{- if .Paginator -}}
+                {{- if gt .Paginator.TotalPages 1 -}}
+                    <nav class="pagination" role="navigation" aria-label="Pagination Navigation">
+                        <div class="pagination-controls">
+                            {{- /* Previous Page Link */ -}}
+                            {{- if .Paginator.HasPrev -}}
+                                <a href="{{ .Paginator.Prev.URL }}" class="pagination-link pagination-link--prev" rel="prev" aria-label="Go to previous page">
+                                    <span aria-hidden="true">←</span> Previous
+                                </a>
+                            {{- else -}}
+                                <span class="pagination-link pagination-link--disabled" aria-hidden="true">← Previous</span>
+                            {{- end -}}
+                            
+                            {{- /* Page Numbers */ -}}
+                            <span class="pagination-info">
+                                Page <span class="pagination-current">{{ .Paginator.PageNumber }}</span> of <span class="pagination-total">{{ .Paginator.TotalPages }}</span>
+                            </span>
+                            
+                            {{- /* Next Page Link */ -}}
+                            {{- if .Paginator.HasNext -}}
+                                <a href="{{ .Paginator.Next.URL }}" class="pagination-link pagination-link--next" rel="next" aria-label="Go to next page">
+                                    Next <span aria-hidden="true">→</span>
+                                </a>
+                            {{- else -}}
+                                <span class="pagination-link pagination-link--disabled" aria-hidden="true">Next →</span>
+                            {{- end -}}
+                        </div>
+                    </nav>
+                {{- end -}}
             {{- end -}}
         {{- else -}}
-            <p class="page-description">No posts found in this category yet.</p>
+            {{- /* Empty State */ -}}
+            <div class="empty-state">
+                <p class="empty-state-message">No content found in this section yet.</p>
+            </div>
         {{- end -}}
     </div>
 </div>

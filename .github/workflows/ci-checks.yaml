@@ -1,0 +1,93 @@
+name: CI Quality Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Least Privilege: Read-only access for CI checks
+permissions:
+  contents: read
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read  # Read-only for validation
+    steps:
+      - name: Checkout repository
+        # TODO: Replace @v4 with immutable SHA
+        # Current: actions/checkout@v4
+        # Recommended: actions/checkout@<SHA>
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        # TODO: Replace @v2 with immutable SHA
+        # Current: peaceiris/actions-hugo@v2
+        # Recommended: peaceiris/actions-hugo@<SHA>
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.152.2"
+          extended: true
+
+      - name: Validate Hugo Configuration
+        run: |
+          echo "🔍 Validating Hugo configuration..."
+          hugo config | head -20
+          echo "✅ Configuration valid"
+
+      - name: Build Check (Dry Run)
+        env:
+          HUGO_ENVIRONMENT: development
+        run: |
+          echo "🏗️ Running build check..."
+          hugo --quiet --buildDrafts=false || exit 1
+          echo "✅ Build successful"
+
+      - name: Check for Broken Links (if linkchecker available)
+        run: |
+          echo "🔗 Checking internal links..."
+          # Basic check - count 404s in build output
+          if grep -r "404" public/ 2>/dev/null; then
+            echo "⚠️ Potential broken links detected"
+            exit 1
+          fi
+        continue-on-error: true
+
+      - name: Validate HTML Structure
+        run: |
+          echo "📄 Checking HTML structure..."
+          if [ -d "public" ]; then
+            html_files=$(find public -name "*.html" | head -5)
+            for file in $html_files; do
+              if ! grep -q "<!DOCTYPE html>" "$file"; then
+                echo "❌ Invalid HTML: $file"
+                exit 1
+              fi
+            done
+            echo "✅ HTML structure valid"
+          fi
+
+      - name: Check Build Output Size
+        run: |
+          if [ -d "public" ]; then
+            size=$(du -sm public | cut -f1)
+            echo "📦 Build size: ${size}MB"
+            if [ "$size" -gt 100 ]; then
+              echo "⚠️ Warning: Build size exceeds 100MB"
+            fi
+          fi
+
+      - name: Validate Critical Assets
+        run: |
+          echo "🎨 Validating critical assets..."
+          required_files=("public/css/main.css" "public/index.html")
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Missing critical file: $file"
+              exit 1
+            fi
+          done
+          echo "✅ All critical assets present"
+

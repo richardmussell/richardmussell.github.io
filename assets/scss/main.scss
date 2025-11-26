@@ -9,10 +9,16 @@
 // 2. Base Styles (reset, typography, foundational)
 @import 'base';
 
-// 3. Components (reusable UI components)
+// 3. Premium Visual Polish (Vercel Aesthetic)
+@import 'premium-polish';
+
+// 4. Components (reusable UI components)
 @import 'components';
 
-// 4. Dark Mode Toggle Styles
+// 4. Mobile Navigation & Interactivity Styles
+@import 'mobile-nav';
+
+// 5. Dark Mode Toggle Styles
 @import 'dark-mode-toggle';
 
 // 5. Legacy/Page-Specific Styles (to be refactored)

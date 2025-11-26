@@ -1,0 +1,85 @@
+{{- /* 
+  Card Summary Component - Reusable Card for List Views
+  Usage: {{ partial "components/card-summary" . }}
+  
+  Displays:
+  - Title with link
+  - Description/Summary
+  - Featured image (if available)
+  - Metadata (date, categories, tags)
+  - Read more link
+*/ -}}
+
+<article class="card-summary" itemscope itemtype="https://schema.org/Article">
+    {{- /* Featured Image (if available) */ -}}
+    {{- if .Params.featuredImage -}}
+        <div class="card-summary-image">
+            <a href="{{ .Permalink }}" aria-label="Read more about {{ .Title }}">
+                {{- $image := .Resources.GetMatch .Params.featuredImage -}}
+                {{- if $image -}}
+                    {{- $resized := $image.Fill "800x450 Center" -}}
+                    {{- $webp := $resized | resources.Filter "webp" -}}
+                    <picture>
+                        {{- if $webp -}}
+                            <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+                        {{- end -}}
+                        <img 
+                            src="{{ $resized.RelPermalink }}" 
+                            alt="{{ .Params.featuredImageAlt | default .Title }}"
+                            loading="lazy"
+                            width="800"
+                            height="450"
+                            itemprop="image">
+                    </picture>
+                {{- else -}}
+                    {{- /* Fallback to static image */ -}}
+                    <img 
+                        src="{{ .Params.featuredImage | relURL }}" 
+                        alt="{{ .Params.featuredImageAlt | default .Title }}"
+                        loading="lazy"
+                        itemprop="image">
+                {{- end -}}
+            </a>
+        </div>
+    {{- end -}}
+    
+    <div class="card-summary-content">
+        {{- /* Title */ -}}
+        <h2 class="card-summary-title" itemprop="headline">
+            <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
+        </h2>
+        
+        {{- /* Metadata: Date, Categories, Tags */ -}}
+        <div class="card-summary-meta" itemprop="datePublished" content="{{ .Date.Format "2006-01-02" }}">
+            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" class="card-summary-date">
+                {{ .Date.Format "January 2, 2006" }}
+            </time>
+            {{- if .Params.categories -}}
+                <span class="card-summary-categories">
+                    {{- range $index, $category := .Params.categories -}}
+                        {{- if $index }}, {{ end -}}
+                        <a href="{{ "/categories/" | relURL }}{{ $category | urlize }}/" class="card-summary-category">{{ $category }}</a>
+                    {{- end -}}
+                </span>
+            {{- end -}}
+        </div>
+        
+        {{- /* Description/Summary */ -}}
+        <div class="card-summary-description" itemprop="description">
+            {{- if .Description -}}
+                <p>{{ .Description }}</p>
+            {{- else if .Summary -}}
+                <p>{{ .Summary }}</p>
+            {{- end -}}
+        </div>
+        
+        {{- /* Read More Link */ -}}
+        <div class="card-summary-footer">
+            <a href="{{ .Permalink }}" class="card-summary-link" aria-label="Read full article: {{ .Title }}">
+                Read More
+                <span aria-hidden="true">→</span>
+            </a>
+        </div>
+    </div>
+</article>
+

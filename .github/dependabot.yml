@@ -1,0 +1,77 @@
+# Dependabot Configuration - Enterprise Security Scanning
+# Scans dependencies for vulnerabilities weekly
+
+version: 2
+
+updates:
+  # Enable version updates for npm (if used for tooling)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "richardmussell"
+    labels:
+      - "dependencies"
+      - "security"
+      - "automated"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    # Only create PRs for security updates (optional - remove to enable all updates)
+    # Ignore non-security updates
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor", "version-update:semver-patch"]
+        # Uncomment to enable all updates:
+        # - dependency-name: "*"
+        #   update-types: ["version-update:semver-patch"]
+
+  # Enable version updates for GitHub Actions (workflow dependencies)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "richardmussell"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "security"
+      - "automated"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    # Security updates only for Actions (highly recommended)
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor", "version-update:semver-patch"]
+
+  # Enable version updates for Hugo Modules (go.mod if used)
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "richardmussell"
+    labels:
+      - "dependencies"
+      - "hugo"
+      - "security"
+      - "automated"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor", "version-update:semver-patch"]
+

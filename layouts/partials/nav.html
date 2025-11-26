@@ -1,0 +1,27 @@
+{{- /* 
+  Navigation Partial - Semantic, Accessible, Responsive
+  Usage: {{ partial "nav.html" . }}
+  
+  Supports:
+  - Active state highlighting
+  - ARIA labels for accessibility
+  - Responsive stacking on mobile
+*/ -}}
+
+<nav class="nav-menu" role="navigation" aria-label="Main navigation">
+    <ul class="nav-menu-list">
+        {{- range .Site.Menus.main -}}
+            {{- $isActive := or (eq $.RelPermalink .URL) (and (hasPrefix $.RelPermalink .URL) (ne .URL "/")) -}}
+            <li class="nav-menu-item">
+                <a 
+                    href="{{ .URL | relURL }}" 
+                    class="nav-menu-link{{ if $isActive }} nav-menu-link--active{{ end }}"
+                    {{- if $isActive }} aria-current="page"{{ end -}}
+                >
+                    {{ .Name }}
+                </a>
+            </li>
+        {{- end -}}
+    </ul>
+</nav>
+
