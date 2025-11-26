@@ -44,7 +44,7 @@ The homepage now includes:
     <meta property="og:url" content="https://richardmussell.github.io/about/">
     <meta property="og:title" content="About Richard Mussell | Cloud Engineer & DevOps Specialist">
     <meta property="og:description" content="Professional background, skills, and expertise in cloud engineering, DevOps, and infrastructure automation.">
-    <meta property="og:image" content="https://richardmussell.github.io/images/myphoto.jpg">
+    <meta property="og:image" content="https://richardmussell.github.io/images/rj.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Richard Mussell - Cloud Engineer & DevOps Specialist">
@@ -56,7 +56,7 @@ The homepage now includes:
     <meta name="twitter:url" content="https://richardmussell.github.io/about/">
     <meta name="twitter:title" content="About Richard Mussell | Cloud Engineer & DevOps Specialist">
     <meta name="twitter:description" content="Professional background, skills, and expertise in cloud engineering and DevOps.">
-    <meta name="twitter:image" content="https://richardmussell.github.io/images/myphoto.jpg">
+    <meta name="twitter:image" content="https://richardmussell.github.io/images/rj.jpg">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="/css/styles.css">
@@ -75,7 +75,7 @@ The homepage now includes:
       "jobTitle": "Cloud Engineer & DevOps Specialist",
       "description": "Cloud engineer and DevOps specialist specializing in AWS, Azure, Terraform, and infrastructure automation.",
       "url": "https://richardmussell.github.io",
-      "image": "https://richardmussell.github.io/images/myphoto.jpg",
+      "image": "https://richardmussell.github.io/images/rj.jpg",
       "sameAs": [
         "https://www.linkedin.com/in/richard-mussell/",
         "https://github.com/richardmussell"
@@ -131,7 +131,7 @@ The homepage now includes:
     <meta property="og:url" content="https://richardmussell.github.io/project/">
     <meta property="og:title" content="Projects | Cloud Infrastructure & DevOps Solutions">
     <meta property="og:description" content="Technical projects showcasing cloud infrastructure, DevOps automation, and infrastructure as code solutions.">
-    <meta property="og:image" content="https://richardmussell.github.io/images/myphoto.jpg">
+    <meta property="og:image" content="https://richardmussell.github.io/images/rj.jpg">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -164,7 +164,7 @@ The homepage now includes:
         "name": "Richard Mussell",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://richardmussell.github.io/images/myphoto.jpg"
+          "url": "https://richardmussell.github.io/images/rj.jpg"
         }
       },
       "datePublished": "2025-07-28",
@@ -323,11 +323,11 @@ Crawl-delay: 1
 
 ```html
 <!-- Before -->
-<img src="/images/myphoto.jpg" alt="Richard Mussell">
+<img src="/images/rj.jpg" alt="Richard Mussell">
 
 <!-- After - Optimized -->
 <img 
-  src="/images/myphoto.jpg" 
+  src="/images/rj.jpg" 
   srcset="/images/myphoto-400w.jpg 400w, /images/myphoto-800w.jpg 800w"
   sizes="(max-width: 400px) 400px, 800px"
   alt="Richard Mussell - Cloud Engineer & DevOps Specialist"
