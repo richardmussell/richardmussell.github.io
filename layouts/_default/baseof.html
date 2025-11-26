@@ -3,18 +3,32 @@
 <head>
     {{- partial "head.html" . -}}
 </head>
-<body>
-    {{- /* Skip to Content Link - WCAG 2.4.1 (Bypass Blocks) */ -}}
+<body class="site-body">
+    {{- /* Skip to Content Link - WCAG 2.4.1 (Bypass Blocks) - Hidden until focused */ -}}
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    {{- partial "header.html" . -}}
+    {{- /* Site Wrapper: Flexbox container for sticky footer */ -}}
+    <div class="site-wrapper">
+        {{- /* Header Section: Fixed/Sticky navigation */ -}}
+        {{- partial "header.html" . -}}
+        
+        {{- /* Main Content Area: Flexible, grows to fill available space */ -}}
+        <main id="main-content" class="main-container" role="main">
+            {{- /* 
+                Main Content Block
+                Overridden by list.html, single.html, or other templates
+            */ -}}
+            {{- block "main" . }}{{- end }}
+        </main>
+        
+        {{- /* Footer Section: Sticks to bottom when content is short */ -}}
+        {{- partial "footer.html" . -}}
+    </div>
     
-    <main id="main-content" class="main-container" role="main">
-        {{- block "main" . }}{{- end }}
-    </main>
-    
-    {{- partial "footer.html" . -}}
-    
+    {{- /* 
+        Scripts Block
+        Overridden by templates that need page-specific JavaScript
+    */ -}}
     {{- block "scripts" . }}{{- end }}
 </body>
 </html>

@@ -1,0 +1,119 @@
+name: Build and Deploy Hugo Site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to main branch
+  pull_request:
+    branches:
+      - main  # Run checks on PRs
+  workflow_dispatch:  # Allow manual trigger
+
+# Least Privilege Permissions - Enterprise Security
+# Only grant minimum required permissions per job
+permissions:
+  contents: read  # Read repository content (all jobs)
+  # pages: write, id-token: write - Only granted to deploy job below
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Build and quality checks
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read  # Read-only access for build job
+    steps:
+      - name: Checkout repository
+        # TODO: Replace @v4 with immutable SHA for supply chain security
+        # Current: actions/checkout@v4
+        # Recommended: actions/checkout@<SHA>
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0  # Full history for better git info
+
+      - name: Setup Hugo
+        # TODO: Replace @v2 with immutable SHA
+        # Current: peaceiris/actions-hugo@v2
+        # Recommended: peaceiris/actions-hugo@<SHA>
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.152.2"
+          extended: true  # Required for SCSS support
+
+      - name: Setup Pages
+        # TODO: Replace @v5 with immutable SHA
+        # Current: actions/configure-pages@v5
+        # Recommended: actions/configure-pages@<SHA>
+        uses: actions/configure-pages@v5
+
+      - name: Install Node.js (for potential build tools)
+        # TODO: Replace @v4 with immutable SHA
+        # Current: actions/setup-node@v4
+        # Recommended: actions/setup-node@<SHA>
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies (if package.json exists)
+        run: |
+          if [ -f package.json ]; then
+            npm ci
+          fi
+        continue-on-error: true
+
+      - name: Build with Hugo
+        env:
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+        run: |
+          hugo \
+            --minify \
+            --gc \
+            --verbose \
+            --environment production \
+            --logLevel info
+
+      - name: Build summary
+        run: |
+          echo "### Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Build directory: \`public/\`" >> $GITHUB_STEP_SUMMARY
+          echo "- Build time: $(date)" >> $GITHUB_STEP_SUMMARY
+          if [ -d "public" ]; then
+            echo "- Pages generated: $(find public -name '*.html' | wc -l)" >> $GITHUB_STEP_SUMMARY
+            echo "- Total size: $(du -sh public | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload artifact
+        # TODO: Replace @v3 with immutable SHA
+        # Current: actions/upload-pages-artifact@v3
+        # Recommended: actions/upload-pages-artifact@<SHA>
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  # Deploy to GitHub Pages
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read      # Read repository
+      pages: write        # Write to GitHub Pages (deployment only)
+      id-token: write     # OIDC token for Pages deployment
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        # TODO: Replace @v4 with immutable SHA
+        # Current: actions/deploy-pages@v4
+        # Recommended: actions/deploy-pages@<SHA>
+        uses: actions/deploy-pages@v4
+

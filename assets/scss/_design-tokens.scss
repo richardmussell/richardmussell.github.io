@@ -24,9 +24,10 @@ $color-text-secondary: #4B5563;   // 7.1:1 contrast on white
 $color-text-tertiary: #6B7280;     // 4.6:1 contrast on white
 $color-text-muted: #6B7280;        // Alias for tertiary
 
+// Premium Background Colors - Off-White/Obsidian System
 $color-bg-primary: #FFFFFF;
-$color-bg-secondary: #F9FAFB;
-$color-bg-tertiary: #F3F4F6;
+$color-bg-secondary: #FAFAFA; // Off-White (premium look)
+$color-bg-tertiary: #F5F5F5;
 
 $color-border: #E5E7EB;
 $color-border-hover: #D1D5DB;
@@ -45,9 +46,10 @@ $color-linkedin: #0077B5;
 $color-github: #24292e;
 
 // Dark Mode Colors
-$color-dark-bg-primary: #111827;
-$color-dark-bg-secondary: #1F2937;
-$color-dark-bg-tertiary: #374151;
+// Dark Mode - Obsidian System
+$color-dark-bg-primary: #0A0A0A; // Obsidian (premium dark)
+$color-dark-bg-secondary: #111827;
+$color-dark-bg-tertiary: #1F2937;
 
 $color-dark-text-primary: #F9FAFB;
 $color-dark-text-secondary: #D1D5DB;
@@ -80,8 +82,8 @@ $spacing-20: 5rem;     // 80px
 // TYPOGRAPHY SYSTEM
 // ============================================
 
-// Font Families
-$font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+// Font Families - Premium Stack (Inter preferred, system-ui fallback)
+$font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 $font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Consolas', monospace;
 
 // Base Font Size (for fluid typography)
@@ -124,8 +126,9 @@ $line-height-normal: 1.5;
 $line-height-relaxed: 1.75;
 $line-height-loose: 2;
 
-// Letter Spacing
-$letter-spacing-tight: -0.025em;
+// Letter Spacing - Premium Tight Tracking
+$letter-spacing-tight: -0.015em; // Headings
+$letter-spacing-body: -0.005em; // Body text
 $letter-spacing-normal: 0;
 $letter-spacing-wide: 0.025em;
 
@@ -294,6 +297,12 @@ $breakpoint-2xl: 1536px;
   --shadow-lg: #{$shadow-lg};
   --shadow-xl: #{$shadow-xl};
   
+  // Layered Shadows (Premium Depth System)
+  --shadow-layered-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 16px rgba(0, 0, 0, 0.04);
+  --shadow-layered-md: 0 2px 4px rgba(0, 0, 0, 0.04), 0 12px 24px rgba(0, 0, 0, 0.06);
+  --shadow-layered-lg: 0 4px 8px rgba(0, 0, 0, 0.04), 0 16px 32px rgba(0, 0, 0, 0.08);
+  --shadow-layered-xl: 0 8px 16px rgba(0, 0, 0, 0.04), 0 24px 48px rgba(0, 0, 0, 0.12);
+  
   // Border Radius
   --radius-sm: #{$radius-sm};
   --radius-md: #{$radius-md};
@@ -306,6 +315,9 @@ $breakpoint-2xl: 1536px;
   --transition-base: #{$transition-base};
   --transition-slow: #{$transition-slow};
   --transition-slowest: #{$transition-slowest};
+  
+  // Premium Spring Curve (No Linear)
+  --transition-spring: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   
   // Layout
   --max-width-sm: #{$max-width-sm};

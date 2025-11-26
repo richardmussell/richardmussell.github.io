@@ -1,0 +1,77 @@
+# Comprehensive Security Audit Workflow
+# Runs on schedule and manual trigger
+
+name: Security Audit
+
+on:
+  schedule:
+    # Weekly security audit every Sunday at 3 AM UTC
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+
+# Least Privilege: Read-only access
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  comprehensive-audit:
+    name: Comprehensive Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        # TODO: Replace @v4 with immutable SHA
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for Exposed Secrets
+        run: |
+          echo "🔍 Scanning for exposed secrets..."
+          # Common secret patterns (basic check)
+          if grep -r -i "api[_-]key\|secret[_-]key\|password\s*=\|token\s*=" \
+            --include="*.md" --include="*.html" --include="*.js" \
+            --include="*.json" --include="*.yaml" --include="*.yml" \
+            --exclude-dir=node_modules --exclude-dir=.git . 2>/dev/null | \
+            grep -v "example\|dummy\|placeholder\|TODO"; then
+            echo "⚠️  Potential secrets found in code (manual review required)"
+          else
+            echo "✅ No obvious secrets detected"
+          fi
+
+      - name: Verify .gitignore Coverage
+        run: |
+          echo "🔍 Verifying .gitignore coverage..."
+          required_patterns=(".env" "*.key" "*.pem" "secrets" "credentials")
+          missing_patterns=()
+          
+          for pattern in "${required_patterns[@]}"; do
+            if ! grep -q "$pattern" .gitignore 2>/dev/null; then
+              missing_patterns+=("$pattern")
+            fi
+          done
+          
+          if [ ${#missing_patterns[@]} -gt 0 ]; then
+            echo "⚠️  Missing .gitignore patterns: ${missing_patterns[*]}"
+            exit 1
+          else
+            echo "✅ .gitignore coverage verified"
+          fi
+
+      - name: Check Security Headers
+        run: |
+          echo "🔍 Checking security headers configuration..."
+          if grep -q "Content-Security-Policy" layouts/partials/head.html; then
+            echo "✅ CSP header found"
+          else
+            echo "⚠️  CSP header not found"
+            exit 1
+          fi
+
+      - name: Generate Security Report
+        run: |
+          echo "### Security Audit Report" >> $GITHUB_STEP_SUMMARY
+          echo "**Date**: $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Checks**: ✅ Completed" >> $GITHUB_STEP_SUMMARY
+

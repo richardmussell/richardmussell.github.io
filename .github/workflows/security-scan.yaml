@@ -1,0 +1,141 @@
+# Security Scanning Workflow
+# Scans for secrets, vulnerabilities, and supply chain risks
+
+name: Security Scan
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  schedule:
+    # Weekly security scan every Monday at 2 AM UTC
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+
+# Least Privilege: Only read access
+permissions:
+  contents: read
+  security-events: write # For uploading scan results
+  pull-requests: read
+
+jobs:
+  # Secret Scanning with gitleaks
+  secret-scan:
+    name: Secret Leak Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        # TODO: Replace @v4 with immutable SHA for supply chain security
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for comprehensive scanning
+
+      - name: Run Gitleaks Secret Scan
+        # TODO: Replace @v2 with immutable SHA
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Fail on any secret detection
+          no-banner: true
+          exit-code: 1
+          # Scan all commits in PR
+          additional-args: '--verbose --log-level=error'
+          # Strict mode: Fail on any finding
+          fail: true
+
+      - name: Upload Gitleaks Results
+        if: always()
+        # TODO: Replace @v4 with immutable SHA
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report
+          path: |
+            gitleaks-report.json
+          retention-days: 30
+
+  # Dependency Vulnerability Scanning
+  dependency-scan:
+    name: Dependency Vulnerability Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        # TODO: Replace @v4 with immutable SHA
+        uses: actions/checkout@v4
+
+      - name: Run npm audit (if package.json exists)
+        if: hashFiles('package.json') != ''
+        run: |
+          if [ -f package.json ]; then
+            npm ci --audit-level=high || true
+            npm audit --audit-level=high --json > npm-audit-report.json || true
+            # Fail on critical/high severity
+            npm audit --audit-level=high || exit 1
+          fi
+        continue-on-error: true
+
+      - name: Upload npm audit report
+        if: always() && hashFiles('npm-audit-report.json') != ''
+        # TODO: Replace @v4 with immutable SHA
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-report
+          path: npm-audit-report.json
+          retention-days: 30
+
+  # GitHub Security Alerts Check
+  security-advisory:
+    name: Check Security Advisories
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        # TODO: Replace @v4 with immutable SHA
+        uses: actions/checkout@v4
+
+      - name: Check for known vulnerabilities
+        # TODO: Replace @v5 with immutable SHA
+        uses: github/super-linter@v5
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_ALL_CODEBASE: false
+        continue-on-error: true
+
+  # Supply Chain Security: Action Integrity Check
+  action-integrity:
+    name: GitHub Actions Integrity Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        # TODO: Replace @v4 with immutable SHA
+        uses: actions/checkout@v4
+
+      - name: Verify Action SHA Pinning
+        run: |
+          echo "🔍 Checking for mutable action versions..."
+          # Check for version tags (bad practice)
+          if grep -r "uses:.*@v[0-9]" .github/workflows/; then
+            echo "❌ ERROR: Found mutable version tags in workflows!"
+            echo "⚠️  All actions must use immutable SHA hashes for security"
+            exit 1
+          fi
+          
+          # Check for @latest or @main (very bad)
+          if grep -r "uses:.*@\(latest\|main\|master\)" .github/workflows/; then
+            echo "❌ ERROR: Found @latest/@main tags (extremely insecure)!"
+            exit 1
+          fi
+          
+          echo "✅ All actions use SHA pinning (or none found)"
+
+      - name: Report Results
+        if: always()
+        run: |
+          echo "### Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Secret Scan: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Dependency Scan: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Action Integrity: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+

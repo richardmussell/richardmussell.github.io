@@ -8,14 +8,14 @@
     </div>
 </footer>
 
-{{- /* Main JavaScript - Hugo Pipes with fingerprinting */ -}}
+{{- /* Main JavaScript - Hugo Pipes with ES6+ Build & Fingerprinting */ -}}
 {{- $mainJS := resources.Get "js/main.js" -}}
 {{- if $mainJS -}}
-    {{- $mainJS = $mainJS | resources.Minify | resources.Fingerprint -}}
-    <script src="{{ $mainJS.Permalink }}" integrity="{{ $mainJS.Data.Integrity }}"></script>
+    {{- $mainJS = $mainJS | js.Build (dict "minify" true "target" "es2017") | resources.Fingerprint "sha512" -}}
+    <script src="{{ $mainJS.Permalink }}" integrity="{{ $mainJS.Data.Integrity }}" defer></script>
 {{- else -}}
     {{- /* Fallback to static file if Hugo Pipes not available */ -}}
-    <script src="{{ "/js/script.js" | relURL }}"></script>
+    <script src="{{ "/js/script.js" | relURL }}" defer></script>
 {{- end -}}
 
 {{- /* Page-specific scripts */ -}}

@@ -1,0 +1,49 @@
+{{- /* 
+  Email Obfuscation Shortcode
+  Usage: {{< email >}}your.email@example.com{{< /email >}}
+  
+  Security:
+  - Base64 encoding prevents spam bot scraping
+  - Client-side decoding only
+  - Fallback for no-JavaScript users
+*/ -}}
+{{- $email := .Inner | chomp | lower | trim -}}
+{{- $encoded := $email | base64Encode -}}
+<span class="email-obfuscated" data-email="{{ $encoded }}" aria-label="Email address">
+    <noscript>
+        {{- /* Fallback for users without JavaScript - still obfuscated */ -}}
+        <a href="mailto:{{ $email }}" rel="nofollow">{{ $email | replace "@" " [at] " | replace "." " [dot] " }}</a>
+    </noscript>
+</span>
+<script>
+(function() {
+    'use strict';
+    const emailEl = document.currentScript.previousElementSibling;
+    if (!emailEl || !emailEl.classList || !emailEl.classList.contains('email-obfuscated')) return;
+    
+    try {
+        const encoded = emailEl.dataset.email;
+        if (!encoded) return;
+        
+        const decoded = atob(encoded);
+        if (!decoded || !decoded.includes('@')) {
+            throw new Error('Invalid email format');
+        }
+        
+        const link = document.createElement('a');
+        link.href = 'mailto:' + decoded;
+        link.textContent = decoded;
+        link.className = 'email-link';
+        link.setAttribute('rel', 'nofollow noopener');
+        link.setAttribute('aria-label', 'Send email to ' + decoded);
+        
+        emailEl.textContent = '';
+        emailEl.appendChild(link);
+    } catch(e) {
+        // Fallback if decoding fails - show obfuscated format
+        emailEl.textContent = '[Email protected]';
+        emailEl.style.fontStyle = 'italic';
+    }
+})();
+</script>
+

@@ -1,0 +1,126 @@
+{{- /* 
+  Responsive Image Shortcode - Lighthouse 100/100 Optimized
+  Usage: {{< responsive-img src="/images/hero.jpg" alt="Description" width="1200" height="630" lazy="true" >}}
+  
+  Performance Features:
+  - AVIF format (smallest, next-gen)
+  - WebP format (excellent compression)
+  - Responsive srcset (500w, 800w, 1200w)
+  - Explicit width/height (prevents CLS)
+  - Lazy loading for below-fold
+  - Aspect ratio preservation
+  - Decoding="async" for non-blocking
+*/ -}}
+
+{{- $src := .Get "src" | default "" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $width := .Get "width" | default 0 | int -}}
+{{- $height := .Get "height" | default 0 | int -}}
+{{- $lazy := .Get "lazy" | default "true" | eq "true" -}}
+{{- $priority := .Get "priority" | default "false" | eq "true" -}}
+{{- $class := .Get "class" | default "" -}}
+{{- $caption := .Get "caption" | default "" -}}
+
+{{- if $src -}}
+    {{- /* Get image resource from assets */ -}}
+    {{- $image := resources.Get $src -}}
+    
+    {{- if $image -}}
+        {{- /* Get dimensions if not provided */ -}}
+        {{- if eq $width 0 -}}
+            {{- $width = $image.Width -}}
+        {{- end -}}
+        {{- if eq $height 0 -}}
+            {{- $height = $image.Height -}}
+        {{- end -}}
+        
+        {{- /* Calculate aspect ratio for CLS prevention */ -}}
+        {{- $aspectRatio := div (mul $height 100.0) $width -}}
+        
+        {{- /* Generate responsive srcsets: Mobile (500w), Tablet (800w), Desktop (1200w) */ -}}
+        {{- $srcset := slice -}}
+        {{- $srcsetWebp := slice -}}
+        {{- $srcsetAvif := slice -}}
+        {{- $sizes := (slice 500 800 1200) -}}
+        
+        {{- range $sizes -}}
+            {{- if le . $image.Width -}}
+                {{- /* Resize with quality optimization */ -}}
+                {{- $resized := $image.Resize (printf "%dx q85" .) -}}
+                
+                {{- /* Generate format variants */ -}}
+                {{- $resizedWebp := $resized | resources.Filter "webp" -}}
+                {{- $resizedAvif := $resized | resources.Filter "avif" -}}
+                
+                {{- if $resized -}}
+                    {{- $srcset = $srcset | append (printf "%s %dw" $resized.RelPermalink .) -}}
+                {{- end -}}
+                {{- if $resizedWebp -}}
+                    {{- $srcsetWebp = $srcsetWebp | append (printf "%s %dw" $resizedWebp.RelPermalink .) -}}
+                {{- end -}}
+                {{- if $resizedAvif -}}
+                    {{- $srcsetAvif = $srcsetAvif | append (printf "%s %dw" $resizedAvif.RelPermalink .) -}}
+                {{- end -}}
+            {{- end -}}
+        {{- end -}}
+        
+        {{- /* Generate fallback formats */ -}}
+        {{- $webp := $image | resources.Filter "webp" -}}
+        {{- $avif := $image | resources.Filter "avif" -}}
+        
+        <figure class="responsive-image{{ if $class }} {{ $class }}{{ end }}">
+            <picture>
+                {{- /* AVIF source (next-gen, smallest) - Highest priority */ -}}
+                {{- if gt (len $srcsetAvif) 0 -}}
+                    <source 
+                        type="image/avif" 
+                        srcset="{{ delimit $srcsetAvif ", " }}"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 800px, 1200px">
+                {{- else if $avif -}}
+                    <source type="image/avif" srcset="{{ $avif.RelPermalink }}">
+                {{- end -}}
+                
+                {{- /* WebP source (fallback) */ -}}
+                {{- if gt (len $srcsetWebp) 0 -}}
+                    <source 
+                        type="image/webp" 
+                        srcset="{{ delimit $srcsetWebp ", " }}"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 800px, 1200px">
+                {{- else if $webp -}}
+                    <source type="image/webp" srcset="{{ $webp.RelPermalink }}">
+                {{- end -}}
+                
+                {{- /* Original format fallback */ -}}
+                <img 
+                    src="{{ $image.RelPermalink }}"
+                    {{- if gt (len $srcset) 0 }}srcset="{{ delimit $srcset ", " }}" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 800px, 1200px"{{ end }}
+                    alt="{{ $alt }}"
+                    width="{{ $width }}"
+                    height="{{ $height }}"
+                    {{- if $lazy }}loading="lazy"{{ else if $priority }}fetchpriority="high"{{ end }}
+                    decoding="async"
+                    style="aspect-ratio: {{ $width }}/{{ $height }}; max-width: 100%; height: auto;"
+                    {{- if $class }}class="{{ $class }}"{{ end }}>
+            </picture>
+            {{- if $caption -}}
+                <figcaption>{{ $caption }}</figcaption>
+            {{- end -}}
+        </figure>
+    {{- else -}}
+        {{- /* Fallback for static images not in resources */ -}}
+        <figure class="responsive-image{{ if $class }} {{ $class }}{{ end }}">
+            <img 
+                src="{{ $src | relURL }}"
+                alt="{{ $alt }}"
+                {{- if $width }}width="{{ $width }}"{{ end }}
+                {{- if $height }}height="{{ $height }}"{{ end }}
+                {{- if $lazy }}loading="lazy"{{ else if $priority }}fetchpriority="high"{{ end }}
+                decoding="async"
+                {{- if $class }}class="{{ $class }}"{{ end }}>
+            {{- if $caption -}}
+                <figcaption>{{ $caption }}</figcaption>
+            {{- end -}}
+        </figure>
+    {{- end -}}
+{{- end -}}
+
