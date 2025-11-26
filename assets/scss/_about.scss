@@ -1,0 +1,658 @@
+/* ============================================
+   ABOUT PAGE - ENTERPRISE DESIGN
+   Amazon/Microsoft Style UI
+   Modern, Clean, Professional
+   ============================================ */
+
+/* About Page Container - Better Flow */
+.about-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-8) var(--spacing-6) var(--spacing-12);
+}
+
+/* Override main-container max-width for about page */
+body:has(.about-container) .main-container,
+.main-container:has(.about-container) {
+    max-width: 100%;
+    padding: 0;
+}
+
+/* Hero Section - Enterprise Style - Compact */
+.about-hero {
+    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+    border-bottom: 1px solid #e5e7eb;
+    padding: var(--spacing-10) var(--spacing-6) var(--spacing-8);
+    margin-bottom: var(--spacing-10);
+    text-align: center;
+    position: relative;
+}
+
+.about-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e5e7eb 50%, transparent);
+}
+
+.about-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-avatar {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto var(--spacing-5);
+    position: relative;
+    display: block;
+}
+
+.about-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Prevent image protection */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
+.about-avatar:hover img {
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.about-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 var(--spacing-2) 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-align: center;
+    width: 100%;
+}
+
+.about-hero .hero-subtitle {
+    font-size: 1.25rem;
+    color: #4b5563;
+    font-weight: 400;
+    margin: 0 0 var(--spacing-4) 0;
+    line-height: 1.5;
+    text-align: center;
+    width: 100%;
+}
+
+.about-hero .hero-description {
+    font-size: 1rem;
+    color: #6b7280;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+}
+
+/* Section Styling - Enterprise Cards - Flowing Together */
+.about-section {
+    margin-bottom: var(--spacing-12);
+    animation: fade-in-up 0.6s ease-out;
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.about-section-title {
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-3);
+    border-bottom: 2px solid #e5e7eb;
+    position: relative;
+    display: inline-block;
+    letter-spacing: -0.01em;
+}
+
+.about-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #0066cc, #0052a3);
+}
+
+/* Professional Background - Modern Card Layout - Fills Space */
+.background-timeline {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-6);
+    margin-top: var(--spacing-6);
+}
+
+.timeline-item {
+    position: relative;
+}
+
+.timeline-content {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: var(--spacing-6);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #0066cc, #0052a3);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.timeline-content:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-color: #d1d5db;
+    transform: translateY(-2px);
+}
+
+.timeline-content:hover::before {
+    transform: scaleY(1);
+}
+
+.timeline-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: var(--spacing-2);
+    margin-top: 0;
+    letter-spacing: -0.01em;
+}
+
+.timeline-content .timeline-meta {
+    color: #6b7280;
+    font-size: 0.8125rem;
+    margin-bottom: var(--spacing-4);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-weight: 500;
+}
+
+.timeline-content .timeline-meta i {
+    color: #9ca3af;
+    font-size: 0.75rem;
+}
+
+.timeline-content p {
+    color: #4b5563;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    margin-bottom: var(--spacing-4);
+    flex: 1;
+}
+
+.timeline-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Skills Grid - Enterprise Card Grid - Flowing Design */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-6);
+    margin-top: var(--spacing-8);
+}
+
+.skill-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: var(--spacing-6);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    height: 100%;
+}
+
+.skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #0066cc, #0052a3);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-color: #d1d5db;
+}
+
+.skill-card:hover::before {
+    transform: scaleY(1);
+}
+
+.skill-icon {
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.375rem;
+    color: #0066cc;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.skill-card:hover .skill-icon {
+    background: transparent;
+    transform: scale(1.05);
+}
+
+.skill-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+}
+
+.skill-card p {
+    color: #4b5563;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    margin: 0;
+    flex: 1;
+}
+
+/* Mission Statement - Enterprise Highlight Card - Flowing */
+.mission-card {
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    color: white;
+    border-radius: 12px;
+    padding: var(--spacing-10);
+    margin: var(--spacing-10) 0;
+    box-shadow: 0 4px 16px rgba(0, 102, 204, 0.15);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+.mission-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+    animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.mission-card-content {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    width: 100%;
+}
+
+.mission-card h2 {
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0 0 var(--spacing-4) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: var(--spacing-3);
+    letter-spacing: -0.01em;
+    text-align: left;
+    width: 100%;
+}
+
+.mission-card h2::after {
+    display: none;
+}
+
+.mission-card p {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Call to Action - Enterprise Style - Flowing */
+.about-cta {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: var(--spacing-8);
+    margin-top: var(--spacing-10);
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.about-cta h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: var(--spacing-3);
+    border: none;
+    padding: 0;
+    letter-spacing: -0.01em;
+}
+
+.about-cta h2::after {
+    display: none;
+}
+
+.about-cta p {
+    color: #6b7280;
+    font-size: 1rem;
+    margin-bottom: var(--spacing-6);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: var(--spacing-4);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4) var(--spacing-8);
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    min-width: 180px;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    background: #0052a3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+    text-decoration: none;
+    color: white;
+}
+
+.cta-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button.secondary {
+    background: white;
+    color: #0066cc;
+    border: 1.5px solid #0066cc;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.cta-button.secondary:hover {
+    background: #f3f4f6;
+    border-color: #0052a3;
+    color: #0052a3;
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+}
+
+.cta-button i {
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .about-container {
+        padding: var(--spacing-10) var(--spacing-6);
+    }
+    
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-5);
+    }
+    
+    .skill-card {
+        padding: var(--spacing-5);
+    }
+    
+    .background-timeline {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-hero {
+        padding: var(--spacing-8) var(--spacing-4) var(--spacing-6);
+    }
+    
+    .about-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .about-hero .hero-subtitle {
+        font-size: 1.125rem;
+    }
+    
+    .about-hero .hero-description {
+        font-size: 0.9375rem;
+    }
+    
+    .about-avatar {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+    
+    .skill-card {
+        padding: var(--spacing-5);
+    }
+    
+    .skill-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+    }
+    
+    .skill-card h3 {
+        font-size: 1.0625rem;
+    }
+    
+    .timeline-content {
+        padding: var(--spacing-4);
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.125rem;
+    }
+    
+    .timeline-content p {
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+    
+    .about-section-title {
+        font-size: 1.875rem;
+    }
+    
+    .timeline-content {
+        padding: var(--spacing-6);
+    }
+    
+    .mission-card {
+        padding: var(--spacing-8);
+    }
+    
+    .mission-card h2 {
+        font-size: 1.75rem;
+    }
+    
+    .mission-card p {
+        font-size: 1rem;
+    }
+    
+    .about-cta {
+        padding: var(--spacing-8);
+    }
+    
+    .about-cta h2 {
+        font-size: 1.75rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .cta-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .about-section-title {
+        font-size: 1.5rem;
+    }
+    
+    .skill-card {
+        padding: var(--spacing-5);
+    }
+    
+    .skill-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+    }
+}
+
+/* Accessibility - Focus States */
+.cta-button:focus,
+.skill-card:focus,
+.timeline-content:focus {
+    outline: 3px solid rgba(0, 102, 204, 0.5);
+    outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+    .about-hero::after,
+    .mission-card::before {
+        display: none;
+    }
+    
+    .skill-card,
+    .timeline-content,
+    .mission-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #e5e7eb;
+    }
+    
+    .about-cta {
+        border: 1px solid #e5e7eb;
+        box-shadow: none;
+    }
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading Animation */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.skill-card,
+.timeline-content {
+    will-change: transform;
+}

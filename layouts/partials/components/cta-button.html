@@ -1,0 +1,17 @@
+{{- /* 
+  CTA Button Component
+  Usage: {{ partial "components/cta-button" (dict "href" "/contact/" "text" "Get in Touch" "icon" "fa-envelope" "variant" "primary") }}
+*/ -}}
+{{- $href := .href | default "#" -}}
+{{- $text := .text | default "Click Here" -}}
+{{- $icon := .icon | default "" -}}
+{{- $variant := .variant | default "primary" -}}
+{{- $ariaLabel := .ariaLabel | default $text -}}
+
+<a href="{{ $href | relURL }}" class="cta-button {{ if ne $variant "primary" }}secondary{{ end }}" aria-label="{{ $ariaLabel }}">
+    {{- if $icon -}}
+        <i class="fas {{ $icon }}" aria-hidden="true"></i>
+    {{- end -}}
+    {{ $text }}
+</a>
+

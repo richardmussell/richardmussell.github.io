@@ -1,0 +1,178 @@
+// ============================================
+// COMPONENT STYLES
+// Reusable UI components using design tokens
+// ============================================
+
+// ============================================
+// CARD COMPONENT (Example Refactoring)
+// ============================================
+
+.blog-post-card {
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+  
+  &:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-border-hover);
+    transform: translateY(-2px);
+  }
+  
+  &.single-post {
+    padding: var(--spacing-8);
+  }
+}
+
+// ============================================
+// BUTTON COMPONENT
+// ============================================
+
+.read-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  background-color: var(--color-primary);
+  color: white;
+  min-width: 130px;
+  border: none;
+  padding: var(--spacing-3) var(--spacing-6);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  letter-spacing: var(--letter-spacing-wide);
+  
+  &:hover {
+    background-color: var(--color-primary-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+    text-decoration: none;
+    color: white;
+  }
+  
+  &:focus {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+// ============================================
+// SOCIAL ICONS (Refactored with Tokens)
+// ============================================
+
+.social-icons {
+  display: flex;
+  gap: var(--spacing-2);
+  align-items: center;
+  
+  a {
+    color: var(--color-text-tertiary);
+    font-size: var(--font-size-xl);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    background-color: transparent;
+    border: none;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+    
+    &:focus {
+      outline: 2px solid var(--color-border-focus);
+      outline-offset: 2px;
+    }
+    
+    // LinkedIn brand color
+    &[href*="linkedin"] {
+      color: var(--color-linkedin);
+      
+      &:hover {
+        color: var(--color-linkedin);
+        transform: translateY(-2px) scale(1.05);
+      }
+    }
+    
+    // GitHub brand color
+    &[href*="github"] {
+      color: var(--color-github);
+      
+      &:hover {
+        color: var(--color-github);
+        transform: translateY(-2px) scale(1.05);
+      }
+    }
+  }
+}
+
+// ============================================
+// SKIP LINK (Accessibility)
+// ============================================
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: var(--spacing-2) var(--spacing-4);
+  text-decoration: none;
+  z-index: 10000;
+  border-radius: 0 0 var(--radius-md) 0;
+  font-weight: var(--font-weight-semibold);
+  transition: top var(--transition-fast);
+  
+  &:focus {
+    top: 0;
+    outline: 3px solid white;
+    outline-offset: 2px;
+  }
+}
+
+// ============================================
+// FOCUS STATES (Accessibility)
+// ============================================
+
+*:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+// ============================================
+// UTILITY CLASSES
+// ============================================
+
+.content-centered {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+

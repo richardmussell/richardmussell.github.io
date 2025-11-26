@@ -1,0 +1,21 @@
+# Main Navigation Menu
+[[main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[main]]
+  name = "Projects"
+  url = "/project/"
+  weight = 2
+
+[[main]]
+  name = "About"
+  url = "/about/"
+  weight = 3
+
+[[main]]
+  name = "Contact"
+  url = "/contact/"
+  weight = 4
+

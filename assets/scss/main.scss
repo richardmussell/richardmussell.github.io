@@ -1,0 +1,24 @@
+// ============================================
+// MAIN SCSS ENTRY POINT
+// Design Token System - Modular Architecture
+// ============================================
+
+// 1. Design Tokens (must be first)
+@import 'design-tokens';
+
+// 2. Base Styles (reset, typography, foundational)
+@import 'base';
+
+// 3. Components (reusable UI components)
+@import 'components';
+
+// 4. Dark Mode Toggle Styles
+@import 'dark-mode-toggle';
+
+// 5. Legacy/Page-Specific Styles (to be refactored)
+@import 'legacy-styles';
+@import 'about';
+@import 'contact';
+@import 'projects';
+@import 'contact-form';
+

@@ -1,0 +1,116 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{{- /* Security Headers - Protection against XSS, clickjacking, and other attacks */ -}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com data:; connect-src 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+{{- /* Primary SEO Meta Tags */ -}}
+<title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
+<meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta name="keywords" content="{{ if .Keywords }}{{ .Keywords }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
+<meta name="author" content="{{ .Site.Params.author | default "Richard Mussell" }}">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+{{- /* Canonical URL */ -}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- /* Performance: Preload LCP Image (Largest Contentful Paint) */ -}}
+{{- $lcpImage := cond (and .Params.image (not .IsHome)) (.Params.image | absURL) (.Site.Params.ogImage | absURL) -}}
+{{- if $lcpImage -}}
+    {{- /* Preload hero/profile image for faster LCP */ -}}
+    <link rel="preload" as="image" href="{{ $lcpImage }}" fetchpriority="high">
+{{- end -}}
+
+{{- /* Performance: Preconnect to external domains */ -}}
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+{{- if .Site.Params.resumeURL -}}
+    <link rel="preconnect" href="https://storage.googleapis.com" crossorigin>
+{{- end -}}
+
+{{- /* Language and Region */ -}}
+<meta http-equiv="content-language" content="{{ .Site.Language.Lang | default "en-US" }}">
+<meta name="geo.region" content="{{ .Site.Params.geoRegion | default "US" }}">
+
+{{- /* Open Graph / Facebook - Recruiter-Optimized */ -}}
+{{- $ogTitle := cond (and .IsHome .Site.Params.homepageOGTitle) .Site.Params.homepageOGTitle (cond .Title .Title .Site.Title) -}}
+{{- $ogDescription := cond (and .IsHome .Site.Params.homepageOGDescription) .Site.Params.homepageOGDescription (cond .Description .Description .Site.Params.description) -}}
+{{- $ogImage := cond (and .Params.image (not .IsHome)) (.Params.image | absURL) (.Site.Params.ogImage | absURL) -}}
+{{- $ogImageWidth := cond (and .Params.ogImageWidth) .Params.ogImageWidth (cond .Site.Params.ogImageWidth .Site.Params.ogImageWidth "1200") -}}
+{{- $ogImageHeight := cond (and .Params.ogImageHeight) .Params.ogImageHeight (cond .Site.Params.ogImageHeight .Site.Params.ogImageHeight "630") -}}
+
+<meta property="og:type" content="{{ if and .IsPage (ne .Type "page") }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ $ogTitle }}">
+<meta property="og:description" content="{{ $ogDescription }}">
+<meta property="og:image" content="{{ $ogImage }}">
+<meta property="og:image:width" content="{{ $ogImageWidth }}">
+<meta property="og:image:height" content="{{ $ogImageHeight }}">
+<meta property="og:image:alt" content="{{ .Site.Params.ogImageAlt | default (printf "%s - %s" .Site.Params.author .Site.Params.tagline) }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:locale" content="{{ .Site.Language.Lang | default "en_US" }}">
+{{- if .IsPage -}}
+<meta property="og:updated_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- end -}}
+
+{{- /* Twitter Card - Optimized for LinkedIn/Twitter Sharing */ -}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="{{ .Site.Params.twitterHandle | default "" }}">
+<meta name="twitter:creator" content="{{ .Site.Params.twitterHandle | default "" }}">
+<meta name="twitter:url" content="{{ .Permalink }}">
+<meta name="twitter:title" content="{{ $ogTitle }}">
+<meta name="twitter:description" content="{{ $ogDescription }}">
+<meta name="twitter:image" content="{{ $ogImage }}">
+<meta name="twitter:image:alt" content="{{ .Site.Params.ogImageAlt | default (printf "%s - %s" .Site.Params.author .Site.Params.tagline) }}">
+
+{{- /* Additional SEO Meta Tags */ -}}
+<meta name="theme-color" content="{{ .Site.Params.themeColor | default "#0066cc" }}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="{{ .Site.Params.author | default "Richard Mussell" }}">
+
+{{- /* Stylesheets - Hugo Pipes with fingerprinting and minification */ -}}
+{{- $styles := resources.Get "scss/main.scss" -}}
+{{- if $styles -}}
+    {{- $styles = $styles | resources.ExecuteAsTemplate "scss/main.scss" . | css.Sass (dict "targetPath" "css/main.css" "outputStyle" "compressed") | resources.Fingerprint -}}
+    <link rel="stylesheet" href="{{ $styles.Permalink }}" integrity="{{ $styles.Data.Integrity }}">
+{{- else -}}
+    {{- /* Fallback to static CSS files if Hugo Pipes not available */ -}}
+    <link rel="stylesheet" href="{{ "/css/styles.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "/css/contact-form.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "/css/projects.css" | relURL }}">
+    {{- if eq .Section "about" -}}
+        <link rel="stylesheet" href="{{ "/css/about.css" | relURL }}">
+    {{- end -}}
+    {{- if eq .Section "contact" -}}
+        <link rel="stylesheet" href="{{ "/css/contact.css" | relURL }}">
+    {{- end -}}
+{{- end -}}
+
+{{- /* Font Awesome CDN - Performance Optimized (Non-blocking) */ -}}
+{{- /* Load asynchronously to prevent render blocking */ -}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"></noscript>
+{{- /* Font-display: swap for Font Awesome fonts - Prevents FOIT */ -}}
+<style>
+    /* Ensure Font Awesome fonts use font-display: swap */
+    @font-face {
+        font-family: "Font Awesome 6 Brands";
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "Font Awesome 6 Free";
+        font-display: swap;
+    }
+</style>
+
+{{- /* Page-specific head content */ -}}
+{{- block "head" . }}{{- end }}
+
+{{- /* JSON-LD Structured Data - Comprehensive SEO Schema */ -}}
+{{- partial "seo/schema.html" . -}}
+

@@ -1,0 +1,57 @@
+# Site Parameters
+author = "Richard Mussell"
+alternateName = "Richard Mussell III"
+jobTitle = "Junior Systems & Network Engineer"
+tagline = "B.S. Information Technology | Cisco Networking | Cybersecurity"
+description = "Junior Systems & Network Engineer with a B.S. Information Technology degree. Strong hands-on experience in Cisco Networking and Cybersecurity fundamentals. Currently pursuing RHCSA and Cloud Native certifications."
+
+# Social Media Links
+[social]
+  linkedin = "https://www.linkedin.com/in/richard-mussell/"
+  github = "https://github.com/richardmussell"
+
+# Resume Configuration
+resumeURL = "https://storage.googleapis.com/richard-mussell-resume-pdf/resume.pdf"
+resumeTitle = "Resume Hosted on GCP"
+resumeDescription = "My resume is hosted on **Google Cloud Platform (GCP)** and configured with **Terraform** for infrastructure as code. This demonstrates my expertise in cloud infrastructure automation and best practices."
+
+# SEO Settings - Recruiter-Targeted Keywords
+keywords = "systems engineer, network engineer, Linux automation, cloud engineer, DevOps engineer, infrastructure engineer, RHCSA, Cisco networking, cybersecurity, Terraform, AWS, Azure, infrastructure as code, Linux systems administrator, network troubleshooting, hiring, available for hire, open to opportunities"
+themeColor = "#0066cc"
+geoRegion = "US"
+
+# Open Graph / Social Sharing - Recruiter-Optimized
+ogImage = "https://richardmussell.github.io/images/rj.jpg"
+ogImageAlt = "Richard Mussell - Junior Systems & Network Engineer | Available for Hire"
+ogImageWidth = 1200
+ogImageHeight = 630
+
+# Recruiter-Targeted Descriptions
+homepageOGTitle = "Richard Mussell | Systems Engineer | Linux Automation | Available for Hire"
+homepageOGDescription = "Junior Systems & Network Engineer | B.S. Information Technology | Available for Hire | Specializing in Linux Automation, Cisco Networking, and Cybersecurity | Open to Opportunities"
+recruiterKeywords = "systems engineer, network engineer, Linux automation, RHCSA candidate, Cisco networking, cybersecurity, infrastructure automation, available for hire"
+
+# Skills for Structured Data
+skills = [
+  "Cloud Computing",
+  "DevOps",
+  "Infrastructure as Code",
+  "AWS",
+  "Azure",
+  "Terraform",
+  "Ansible",
+  "System Administration",
+  "Cybersecurity",
+  "Docker",
+  "CI/CD",
+  "Linux",
+  "Windows Server",
+  "Cisco Networking"
+]
+
+# Navigation Menu (also defined in menus.toml)
+# This is kept here for reference
+
+# Pagination
+paginate = 10
+

@@ -1,0 +1,32 @@
+# Hugo output directory
+/public/
+
+# Hugo cache
+/resources/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if using npm)
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# Build artifacts
+*.log
+
+# Test artifacts (if any remain)
+tests/screenshots/
+test-results/
+playwright-report/
+

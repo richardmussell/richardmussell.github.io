@@ -1,0 +1,16 @@
+{{- /* 
+  Skill Card Component
+  Usage: {{ partial "components/skill-card" (dict "icon" "fa-cloud" "title" "Cloud Platforms" "description" "..." "context" $) }}
+*/ -}}
+{{- $icon := .icon | default "fa-star" -}}
+{{- $title := .title -}}
+{{- $description := .description -}}
+
+<div class="skill-card">
+    <div class="skill-icon" aria-hidden="true">
+        <i class="fas {{ $icon }}"></i>
+    </div>
+    <h3>{{ $title }}</h3>
+    <p>{{ $description }}</p>
+</div>
+

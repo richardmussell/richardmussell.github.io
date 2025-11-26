@@ -1,0 +1,32 @@
+Contact: mailto:richard.mussell@example.com
+Contact: https://richardmussell.github.io/contact/
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://richardmussell.github.io/.well-known/security.txt
+Policy: https://richardmussell.github.io/privacy/
+Acknowledgments: https://richardmussell.github.io/
+
+# Security Policy
+# 
+# This website is a static site hosted on GitHub Pages.
+# If you discover a security vulnerability, please report it responsibly.
+#
+# Reporting Process:
+# 1. Contact via email or contact form
+# 2. Provide detailed description of the vulnerability
+# 3. Allow reasonable time for remediation before public disclosure
+#
+# Scope:
+# - This website (richardmussell.github.io)
+# - GitHub Pages hosting infrastructure (report to GitHub)
+# - Third-party services (report to respective providers)
+#
+# Out of Scope:
+# - Social engineering attacks
+# - Physical security issues
+# - Denial of service (DoS) attacks
+# - Issues requiring physical access
+#
+# We appreciate responsible disclosure and will acknowledge
+# security researchers who report valid vulnerabilities.
+

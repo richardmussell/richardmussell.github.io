@@ -1,0 +1,24 @@
+{{- /* 
+  Resume Showcase Component
+  Usage: {{ partial "components/resume-showcase" . }}
+*/ -}}
+{{- $resumeURL := .Site.Params.resumeURL | default "https://storage.googleapis.com/richard-mussell-resume-pdf/resume.pdf" -}}
+{{- $title := .Site.Params.resumeTitle | default "Resume Hosted on GCP" -}}
+{{- $description := .Site.Params.resumeDescription | default "My resume is hosted on Google Cloud Platform (GCP) and configured with Terraform for infrastructure as code." -}}
+
+<section class="resume-showcase">
+    <div class="resume-showcase-content">
+        <div class="resume-showcase-text">
+            <h2 class="resume-showcase-title">{{ $title }}</h2>
+            <p class="resume-showcase-description">
+                {{ $description | markdownify }}
+            </p>
+            <a href="{{ $resumeURL }}" target="_blank" rel="noopener noreferrer" class="resume-download-btn">
+                <i class="fas fa-file-pdf"></i>
+                View Resume PDF
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+</section>
+

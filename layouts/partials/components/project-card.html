@@ -1,0 +1,47 @@
+{{- /* 
+  Project Card Component
+  Usage: {{ partial "components/project-card" (dict "project" . "context" $) }}
+  Context: Pass project page context and site context
+*/ -}}
+{{- $project := .project -}}
+{{- $ctx := .context -}}
+
+<article class="project-card">
+    <div class="project-header">
+        <h2 class="project-title">
+            <a href="{{ $project.Permalink }}">{{ $project.Title }}</a>
+        </h2>
+    </div>
+    <div class="project-content">
+        {{- if $project.Description -}}
+            <p class="project-description">{{ $project.Description }}</p>
+        {{- else if $project.Summary -}}
+            <p class="project-description">{{ $project.Summary }}</p>
+        {{- end -}}
+
+        {{- if $project.Params.technologies -}}
+            <div class="project-technologies">
+                {{- range $project.Params.technologies -}}
+                    <span class="tech-tag">{{ . }}</span>
+                {{- end -}}
+            </div>
+        {{- end -}}
+
+        <div class="project-links">
+            <a href="{{ $project.Permalink }}" class="project-link" aria-label="View details for {{ $project.Title }}">
+                <i class="fas fa-arrow-right" aria-hidden="true"></i> View Details
+            </a>
+            {{- if $project.Params.github -}}
+                <a href="{{ $project.Params.github }}" target="_blank" rel="noopener" class="project-link" aria-label="View {{ $project.Title }} on GitHub (opens in new tab)">
+                    <i class="fab fa-github" aria-hidden="true"></i> GitHub
+                </a>
+            {{- end -}}
+            {{- if $project.Params.demo -}}
+                <a href="{{ $project.Params.demo }}" target="_blank" rel="noopener" class="project-link" aria-label="View {{ $project.Title }} demo (opens in new tab)">
+                    <i class="fas fa-external-link-alt" aria-hidden="true"></i> Demo
+                </a>
+            {{- end -}}
+        </div>
+    </div>
+</article>
+

@@ -1,0 +1,13 @@
+{{- /* Render Hook for Links - Modern Hugo Feature */ -}}
+{{- $href := .Destination | safeURL -}}
+{{- $text := .Text | default $href -}}
+{{- $title := .Title | default "" -}}
+{{- $isExternal := hasPrefix $href "http" -}}
+
+<a href="{{ $href | relURL }}"{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}{{ if $title }} title="{{ $title }}"{{ end }}>
+    {{ $text }}
+    {{- if $isExternal -}}
+        <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+    {{- end -}}
+</a>
+

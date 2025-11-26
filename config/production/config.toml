@@ -1,0 +1,17 @@
+# Production Configuration Overrides
+baseURL = "https://richardmussell.github.io/"
+
+# Production Build Settings
+enableGitInfo = false
+
+# Disable draft and future content in production
+buildDrafts = false
+buildFuture = false
+
+# Production Minification - Aggressive for Core Web Vitals
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  minifyOutput = true
+

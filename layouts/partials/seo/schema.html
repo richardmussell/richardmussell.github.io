@@ -1,0 +1,158 @@
+{{- /* 
+  Comprehensive JSON-LD Structured Data for SEO
+  Includes Person Schema, Breadcrumbs, and Article Schema
+*/ -}}
+
+{{- /* Person Schema - Critical for Recruiter Visibility */ -}}
+{{- if .IsHome -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ .Site.Params.author | default "Richard Mussell" }}",
+  "alternateName": "{{ .Site.Params.alternateName | default "Richard Mussell III" }}",
+  "jobTitle": "{{ .Site.Params.jobTitle | default "Junior Systems & Network Engineer" }}",
+  "description": "{{ .Site.Params.description }}",
+  "url": "{{ .Site.BaseURL }}",
+  "image": "{{ .Site.Params.ogImage | absURL }}",
+  "sameAs": [
+    {{- if .Site.Params.social.linkedin -}}"{{ .Site.Params.social.linkedin }}"{{- end -}}
+    {{- if and .Site.Params.social.linkedin .Site.Params.social.github -}},{{- end -}}
+    {{- if .Site.Params.social.github -}}"{{ .Site.Params.social.github }}"{{- end -}}
+  ],
+  "knowsAbout": [
+    {{- range $index, $skill := .Site.Params.skills -}}
+        {{- if $index -}},{{- end -}}
+        "{{ $skill }}"
+    {{- end -}}
+  ],
+  "alumniOf": {
+    "@type": "EducationalOrganization",
+    "name": "Information Technology",
+    "educationalCredentialAwarded": "Bachelor of Science"
+  },
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "certification",
+      "name": "RHCSA (In Progress)",
+      "description": "Red Hat Certified System Administrator"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "certification",
+      "name": "Cloud Native Certifications (In Progress)"
+    }
+  ],
+  "hasOccupation": {
+    "@type": "Occupation",
+    "name": "Systems Engineer",
+    "occupationLocation": {
+      "@type": "Country",
+      "name": "United States"
+    },
+    "skills": [
+      {{- range $index, $skill := .Site.Params.skills -}}
+          {{- if $index -}},{{- end -}}
+          "{{ $skill }}"
+      {{- end -}}
+    ]
+  },
+  "seeks": {
+    "@type": "JobPosting",
+    "title": "Systems Engineer, Network Engineer, Linux Administrator",
+    "description": "Seeking opportunities in systems engineering, network engineering, and Linux automation. Open to full-time positions."
+  }
+}
+</script>
+{{- end -}}
+
+{{- /* BreadcrumbList Schema - For Inner Pages */ -}}
+{{- if not .IsHome -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ .Site.BaseURL }}"
+    }{{- if .Parent -}},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ .Parent.Title }}",
+      "item": "{{ .Parent.Permalink }}"
+    }{{- end -}},
+    {
+      "@type": "ListItem",
+      "position": {{ if .Parent }}3{{ else }}2{{ end }},
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
+    }
+  ]
+}
+</script>
+{{- end -}}
+
+{{- /* Article Schema - For Blog Posts/Projects */ -}}
+{{- if and .IsPage (eq .Type "projects") -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "{{ .Title }}",
+  "description": "{{ .Description | default .Summary }}",
+  "image": "{{ if .Params.image }}{{ .Params.image | absURL }}{{ else }}{{ .Site.Params.ogImage | absURL }}{{ end }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.author }}",
+    "url": "{{ .Site.BaseURL }}"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.author }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ .Site.Params.ogImage | absURL }}"
+    }
+  },
+  "datePublished": "{{ .Date.Format "2006-01-02" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  }{{- if .Params.technologies }},
+  "keywords": "{{ delimit .Params.technologies ", " }}"
+  {{- end -}}
+}
+</script>
+{{- end -}}
+
+{{- /* WebSite Schema - For Homepage */ -}}
+{{- if .IsHome -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ .Site.Title }}",
+  "url": "{{ .Site.BaseURL }}",
+  "description": "{{ .Site.Params.description }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.author }}"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{ .Site.BaseURL }}search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{{- end -}}
+

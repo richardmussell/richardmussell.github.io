@@ -1,0 +1,121 @@
+{{- /* 
+  Optimized Image Partial with WebP Support
+  Usage: {{ partial "image-optimized" (dict "src" "/images/rj.jpg" "alt" "Description" "width" 1200 "height" 630 "lazy" true) }}
+  
+  Performance Features:
+  - WebP format generation via Hugo Pipes
+  - Responsive srcset for different screen sizes
+  - Lazy loading for below-fold images
+  - Explicit width/height to prevent CLS
+  - Fallback to original format
+*/ -}}
+
+{{- $src := .src | default "" -}}
+{{- $alt := .alt | default "" -}}
+{{- $width := .width | default 0 -}}
+{{- $height := .height | default 0 -}}
+{{- $lazy := .lazy | default false -}}
+{{- $class := .class | default "" -}}
+{{- $priority := .priority | default false -}}
+
+{{- if $src -}}
+    {{- /* Get image resource from assets or static */ -}}
+    {{- $image := resources.Get $src -}}
+    {{- if not $image -}}
+        {{- /* Fallback to static file if not in assets */ -}}
+        {{- $image = $src -}}
+    {{- end -}}
+    
+    {{- if $image -}}
+        {{- /* Process image if it's a resource */ -}}
+        {{- if reflect.IsMap $image -}}
+            {{- /* Generate WebP version */ -}}
+            {{- $webp := $image | resources.Filter "webp" -}}
+            {{- if $webp -}}
+                {{- /* Generate responsive sizes for srcset */ -}}
+                {{- $srcset := slice -}}
+                {{- $srcsetWebp := slice -}}
+                {{- $sizes := (slice 400 800 1200 1600) -}}
+                
+                {{- range $sizes -}}
+                    {{- if le . $image.Width -}}
+                        {{- $resized := $image.Resize (printf "%dx" .) -}}
+                        {{- $resizedWebp := $resized | resources.Filter "webp" -}}
+                        {{- if $resizedWebp -}}
+                            {{- $srcset = $srcset | append (printf "%s %dw" $resized.RelPermalink .) -}}
+                            {{- $srcsetWebp = $srcsetWebp | append (printf "%s %dw" $resizedWebp.RelPermalink .) -}}
+                        {{- end -}}
+                    {{- end -}}
+                {{- end -}}
+                
+                {{- /* Get dimensions if not provided */ -}}
+                {{- if eq $width 0 -}}
+                    {{- $width = $image.Width -}}
+                {{- end -}}
+                {{- if eq $height 0 -}}
+                    {{- $height = $image.Height -}}
+                {{- end -}}
+                
+                <picture>
+                    {{- /* WebP source with srcset */ -}}
+                    {{- if gt (len $srcsetWebp) 0 -}}
+                        <source 
+                            type="image/webp" 
+                            srcset="{{ delimit $srcsetWebp ", " }}"
+                            {{- if $width }}width="{{ $width }}"{{ end }}
+                            {{- if $height }}height="{{ $height }}"{{ end }}>
+                    {{- else -}}
+                        <source type="image/webp" srcset="{{ $webp.RelPermalink }}">
+                    {{- end -}}
+                    
+                    {{- /* Fallback to original format */ -}}
+                    <img 
+                        src="{{ $image.RelPermalink }}"
+                        {{- if gt (len $srcset) 0 }}srcset="{{ delimit $srcset ", " }}"{{ end }}
+                        alt="{{ $alt }}"
+                        {{- if $width }}width="{{ $width }}"{{ end }}
+                        {{- if $height }}height="{{ $height }}"{{ end }}
+                        {{- if $lazy }}loading="lazy"{{ else if $priority }}fetchpriority="high"{{ end }}
+                        {{- if $class }}class="{{ $class }}"{{ end }}
+                        oncontextmenu="return false;" 
+                        ondragstart="return false;" 
+                        onselectstart="return false;"
+                        decoding="async">
+                </picture>
+            {{- else -}}
+                {{- /* Fallback if WebP generation fails */ -}}
+                {{- if eq $width 0 -}}
+                    {{- $width = $image.Width -}}
+                {{- end -}}
+                {{- if eq $height 0 -}}
+                    {{- $height = $image.Height -}}
+                {{- end -}}
+                <img 
+                    src="{{ $image.RelPermalink }}"
+                    alt="{{ $alt }}"
+                    {{- if $width }}width="{{ $width }}"{{ end }}
+                    {{- if $height }}height="{{ $height }}"{{ end }}
+                    {{- if $lazy }}loading="lazy"{{ else if $priority }}fetchpriority="high"{{ end }}
+                    {{- if $class }}class="{{ $class }}"{{ end }}
+                    oncontextmenu="return false;" 
+                    ondragstart="return false;" 
+                    onselectstart="return false;"
+                    decoding="async">
+            {{- end -}}
+        {{- else -}}
+            {{- /* Static file fallback (no processing) */ -}}
+            <img 
+                src="{{ $src | relURL }}"
+                alt="{{ $alt }}"
+                {{- if $width }}width="{{ $width }}"{{ end }}
+                {{- if $height }}height="{{ $height }}"{{ end }}
+                {{- if $lazy }}loading="lazy"{{ else if $priority }}fetchpriority="high"{{ end }}
+                {{- if $class }}class="{{ $class }}"{{ end }}
+                oncontextmenu="return false;" 
+                ondragstart="return false;" 
+                onselectstart="return false;"
+                decoding="async">
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+

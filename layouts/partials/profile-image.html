@@ -1,0 +1,62 @@
+{{- /* 
+  Optimized Profile Image Component
+  Usage: {{ partial "profile-image" (dict "src" "/images/rj.jpg" "alt" "Richard Mussell" "width" 180 "height" 180 "class" "about-avatar") }}
+  
+  Performance Features:
+  - WebP format support
+  - Explicit dimensions to prevent CLS
+  - High priority for LCP (above-fold)
+  - Responsive sizing
+*/ -}}
+
+{{- $src := .src | default "/images/rj.jpg" -}}
+{{- $alt := .alt | default "Profile picture" -}}
+{{- $width := .width | default 180 -}}
+{{- $height := .height | default 180 -}}
+{{- $class := .class | default "" -}}
+{{- $priority := .priority | default true -}}
+
+{{- /* Get image resource */ -}}
+{{- $image := resources.Get $src -}}
+
+{{- if $image -}}
+    {{- /* Generate WebP version */ -}}
+    {{- $webp := $image | resources.Filter "webp" -}}
+    {{- $resized := $image.Resize (printf "%dx%d" $width $height) -}}
+    {{- $resizedWebp := $resized | resources.Filter "webp" -}}
+    
+    <picture>
+        {{- if $resizedWebp -}}
+            <source type="image/webp" srcset="{{ $resizedWebp.RelPermalink }}">
+        {{- else if $webp -}}
+            <source type="image/webp" srcset="{{ $webp.RelPermalink }}">
+        {{- end -}}
+        <img 
+            src="{{ $resized.RelPermalink | default $image.RelPermalink }}"
+            alt="{{ $alt }}"
+            width="{{ $width }}"
+            height="{{ $height }}"
+            {{- if $priority }}fetchpriority="high"{{ end }}
+            {{- if $class }}class="{{ $class }}"{{ end }}
+            oncontextmenu="return false;" 
+            ondragstart="return false;" 
+            onselectstart="return false;"
+            decoding="async"
+            loading="eager">
+    </picture>
+{{- else -}}
+    {{- /* Fallback for static images */ -}}
+    <img 
+        src="{{ $src | relURL }}"
+        alt="{{ $alt }}"
+        width="{{ $width }}"
+        height="{{ $height }}"
+        {{- if $priority }}fetchpriority="high"{{ end }}
+        {{- if $class }}class="{{ $class }}"{{ end }}
+        oncontextmenu="return false;" 
+        ondragstart="return false;" 
+        onselectstart="return false;"
+        decoding="async"
+        loading="eager">
+{{- end -}}
+

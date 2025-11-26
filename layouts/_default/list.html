@@ -1,0 +1,25 @@
+{{- define "main" -}}
+<div class="content-wrapper">
+    <div class="main-content">
+        {{- /* Category header with title and description */ -}}
+        <div class="category-header">
+            <h1 class="page-title">{{ .Title }}</h1>
+            {{- if .Description -}}
+                <p class="page-description">{{ .Description }}</p>
+            {{- else if .Content -}}
+                <p class="page-description">{{ .Content | plainify | truncate 200 }}</p>
+            {{- end -}}
+        </div>
+        
+        {{- /* List of posts in this category */ -}}
+        {{- if .Pages -}}
+            {{- range .Pages -}}
+                {{- partial "components/project-card" (dict "project" . "context" $) -}}
+            {{- end -}}
+        {{- else -}}
+            <p class="page-description">No posts found in this category yet.</p>
+        {{- end -}}
+    </div>
+</div>
+{{- end -}}
+

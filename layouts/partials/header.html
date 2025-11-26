@@ -1,0 +1,14 @@
+<header class="header" role="banner">
+    <div class="header-container">
+        <div class="logo">
+            <a href="{{ "/" | relURL }}" style="text-decoration: none;" aria-label="Home - {{ .Site.Title | default "richard mussell eportfolio" }}">
+                <span class="logo-main">{{ .Site.Title | default "richard mussell eportfolio" }}</span>
+            </a>
+        </div>
+        {{- partial "navigation.html" . -}}
+        <div class="header-right">
+            {{- partial "social-icons.html" . -}}
+        </div>
+    </div>
+</header>
+

@@ -1,0 +1,23 @@
+<footer class="footer" role="contentinfo">
+    <div class="footer-content">
+        <span>© {{ now.Year }} {{ .Site.Params.author | default "Richard Mussell III" }}. All Rights Reserved.</span>
+        <span class="footer-links">
+            <a href="{{ "/privacy/" | relURL }}" class="footer-link">Privacy Policy</a>
+        </span>
+        <i class="fas fa-arrow-right footer-arrow" aria-hidden="true"></i>
+    </div>
+</footer>
+
+{{- /* Main JavaScript - Hugo Pipes with fingerprinting */ -}}
+{{- $mainJS := resources.Get "js/main.js" -}}
+{{- if $mainJS -}}
+    {{- $mainJS = $mainJS | resources.Minify | resources.Fingerprint -}}
+    <script src="{{ $mainJS.Permalink }}" integrity="{{ $mainJS.Data.Integrity }}"></script>
+{{- else -}}
+    {{- /* Fallback to static file if Hugo Pipes not available */ -}}
+    <script src="{{ "/js/script.js" | relURL }}"></script>
+{{- end -}}
+
+{{- /* Page-specific scripts */ -}}
+{{- block "scripts" . }}{{- end }}
+

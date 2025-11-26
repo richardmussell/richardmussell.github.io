@@ -1,0 +1,20 @@
+{{- /* 
+  Story Section Component
+  Usage: {{ partial "components/story-section" (dict "icon" "fa-exclamation-triangle" "title" "The Challenge" "content" .Content "context" $) }}
+*/ -}}
+{{- $icon := .icon | default "fa-info-circle" -}}
+{{- $title := .title -}}
+{{- $content := .content -}}
+
+<section class="story-section">
+    <div class="story-section-header">
+        <div class="story-section-icon">
+            <i class="fas {{ $icon }}"></i>
+        </div>
+        <h2 class="story-section-title">{{ $title }}</h2>
+    </div>
+    <div class="story-section-content">
+        {{ $content | markdownify }}
+    </div>
+</section>
+

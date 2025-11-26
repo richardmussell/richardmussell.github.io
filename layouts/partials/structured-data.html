@@ -1,0 +1,39 @@
+{{- /* JSON-LD Structured Data for SEO */ -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ .Site.Params.author | default "Richard Mussell" }}",
+  "alternateName": "{{ .Site.Params.alternateName | default "Richard Mussell III" }}",
+  "jobTitle": "{{ .Site.Params.jobTitle | default "Cloud Engineer & DevOps Specialist" }}",
+  "description": "{{ .Site.Params.description }}",
+  "url": "{{ .Site.BaseURL }}",
+  "image": "{{ .Site.Params.ogImage | default (printf "%s/images/rj.jpg" .Site.BaseURL) | absURL }}",
+  "sameAs": [
+    {{- if .Site.Params.social.linkedin -}}"{{ .Site.Params.social.linkedin }}"{{- end -}}
+    {{- if and .Site.Params.social.linkedin .Site.Params.social.github -}},{{- end -}}
+    {{- if .Site.Params.social.github -}}"{{ .Site.Params.social.github }}"{{- end -}}
+  ],
+  "knowsAbout": [
+    {{- range $index, $skill := .Site.Params.skills -}}
+        {{- if $index -}},{{- end -}}
+        "{{ $skill }}"
+    {{- end -}}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ .Site.Title }}",
+  "url": "{{ .Site.BaseURL }}",
+  "description": "{{ .Site.Params.description }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.author | default "Richard Mussell" }}"
+  }
+}
+</script>
+

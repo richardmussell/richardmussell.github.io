@@ -1,0 +1,74 @@
+# Hugo Configuration - Base Settings
+baseURL = "https://richardmussell.github.io/"
+languageCode = "en-us"
+title = "richard mussell eportfolio"
+# theme = ""  # No theme - using custom layouts
+
+# Content Settings
+contentDir = "content"
+staticDir = "static"
+publishDir = "public"
+
+# Build Settings
+enableRobotsTXT = true
+enableGitInfo = false
+enableEmoji = true
+enableMissingTranslationPlaceholders = false
+
+# Minification - Critical for Core Web Vitals & SEO Ranking
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false
+  minifyOutput = true
+
+# Markup Settings
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false
+  [markup.highlight]
+    style = "github"
+    lineNos = false
+
+# Image Processing - Performance Optimization
+[imaging]
+  # Resample filter for better quality
+  resampleFilter = "Lanczos"
+  # Quality for WebP (0-100, higher = better quality)
+  quality = 85
+  # Anchor point for cropping
+  anchor = "Center"
+
+# Taxonomies
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+# Output Formats
+[outputs]
+  home = ["HTML", "RSS"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+
+# Sitemap Configuration - SEO Priority Settings
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+# Sitemap Priorities (Higher = More Important for SEO)
+# Homepage gets highest priority for recruiter visibility
+[sitemap.priorities]
+  homepage = 1.0
+  page = 0.8
+  section = 0.7
+  taxonomy = 0.6
+  term = 0.5
+
+# Security Headers (via _headers file)
+# Note: CSP and security headers are handled in head.html partial
+

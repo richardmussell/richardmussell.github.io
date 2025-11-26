@@ -1,0 +1,11 @@
+# Development Configuration Overrides
+baseURL = "http://localhost:1313/"
+
+# Development Build Settings
+enableGitInfo = true
+minify = false
+
+# Enable drafts and future content in development
+buildDrafts = true
+buildFuture = true
+

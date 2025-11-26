@@ -4,9 +4,9 @@
   "description": "Static ePortfolio website for Richard Mussell - Cloud Engineer & DevOps Specialist",
   "private": true,
   "scripts": {
-    "serve": "hugo server",
-    "build": "hugo",
-    "test": "echo \"No tests specified\" && exit 0"
+    "serve": "hugo server --environment development",
+    "build": "hugo --environment production",
+    "build:dev": "hugo --environment development"
   },
   "repository": {
     "type": "git",

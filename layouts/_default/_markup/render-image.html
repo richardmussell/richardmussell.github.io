@@ -1,0 +1,97 @@
+{{- /* Render Hook for Images - Performance Optimized with WebP Support - WCAG 1.1.1 */ -}}
+{{- $imagePath := .Destination | safeURL -}}
+{{- $alt := .Text -}}
+{{- $title := .Title | default "" -}}
+
+{{- /* If no alt text provided, use title or mark as decorative */ -}}
+{{- if not $alt -}}
+    {{- if $title -}}
+        {{- $alt = $title -}}
+    {{- else -}}
+        {{- /* Mark as decorative if no alt or title provided */ -}}
+        {{- $alt = "" -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* Get image resource for processing */ -}}
+{{- $image := resources.Get $imagePath -}}
+{{- $isLazy := true -}}
+{{- $width := 0 -}}
+{{- $height := 0 -}}
+
+{{- /* Check if image is above the fold (first image in content) */ -}}
+{{- if eq .Ordinal 1 -}}
+    {{- $isLazy = false -}}
+{{- end -}}
+
+{{- if $image -}}
+    {{- /* Process image with Hugo Pipes */ -}}
+    {{- $webp := $image | resources.Filter "webp" -}}
+    {{- $width = $image.Width -}}
+    {{- $height = $image.Height -}}
+    
+    {{- /* Generate responsive srcset for better performance */ -}}
+    {{- $srcset := slice -}}
+    {{- $srcsetWebp := slice -}}
+    {{- $sizes := (slice 400 800 1200) -}}
+    
+    {{- range $sizes -}}
+        {{- if le . $image.Width -}}
+            {{- $resized := $image.Resize (printf "%dx" .) -}}
+            {{- $resizedWebp := $resized | resources.Filter "webp" -}}
+            {{- if $resizedWebp -}}
+                {{- $srcset = $srcset | append (printf "%s %dw" $resized.RelPermalink .) -}}
+                {{- $srcsetWebp = $srcsetWebp | append (printf "%s %dw" $resizedWebp.RelPermalink .) -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+    
+    <figure class="image-container">
+        <picture>
+            {{- /* WebP source with srcset */ -}}
+            {{- if gt (len $srcsetWebp) 0 -}}
+                <source 
+                    type="image/webp" 
+                    srcset="{{ delimit $srcsetWebp ", " }}"
+                    {{- if $width }}width="{{ $width }}"{{ end }}
+                    {{- if $height }}height="{{ $height }}"{{ end }}>
+            {{- else if $webp -}}
+                <source type="image/webp" srcset="{{ $webp.RelPermalink }}">
+            {{- end -}}
+            
+            {{- /* Fallback to original format */ -}}
+            <img 
+                src="{{ $image.RelPermalink }}"
+                {{- if gt (len $srcset) 0 }}srcset="{{ delimit $srcset ", " }}"{{ end }}
+                alt="{{ $alt }}"
+                {{- if $width }}width="{{ $width }}"{{ end }}
+                {{- if $height }}height="{{ $height }}"{{ end }}
+                {{- if $isLazy }}loading="lazy"{{ else }}fetchpriority="high"{{ end }}
+                {{- if $title }}title="{{ $title }}"{{ end }}
+                oncontextmenu="return false;" 
+                ondragstart="return false;" 
+                onselectstart="return false;"
+                decoding="async">
+        </picture>
+        {{- if $title -}}
+            <figcaption>{{ $title }}</figcaption>
+        {{- end -}}
+    </figure>
+{{- else -}}
+    {{- /* Fallback for static images not in resources */ -}}
+    <figure class="image-container">
+        <img 
+            src="{{ $imagePath | relURL }}" 
+            alt="{{ $alt }}"
+            {{- if $isLazy }}loading="lazy"{{ else }}fetchpriority="high"{{ end }}
+            {{- if $title }}title="{{ $title }}"{{ end }}
+            oncontextmenu="return false;" 
+            ondragstart="return false;" 
+            onselectstart="return false;"
+            decoding="async">
+        {{- if $title -}}
+            <figcaption>{{ $title }}</figcaption>
+        {{- end -}}
+    </figure>
+{{- end -}}
+
