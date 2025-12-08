@@ -1,4 +1,4 @@
-baseURL = 'https://mussellportfolio.com/'
+baseURL = 'https://richardmussell.github.io/'
 languageCode = 'en-us'
 title = 'Mussell Portfolio'
 theme = 'mussell-portfolio'
