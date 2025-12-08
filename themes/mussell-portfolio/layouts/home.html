@@ -1,0 +1,154 @@
+{{ define "main" }}
+<!-- Featured Projects Section -->
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Featured Projects</h2>
+      <p class="subtitle">Hands-on implementations showcasing real-world infrastructure solutions.</p>
+    </div>
+    <div class="cards-grid">
+      {{ range first 3 (where .Site.RegularPages "Section" "projects") }}
+      <a href="{{ .RelPermalink }}" class="card card-link-wrapper">
+        <div class="card-categories">
+          {{ range .Params.categories }}
+          <span>{{ . }}</span>
+          {{ end }}
+        </div>
+        <div class="card-date">{{ .Date.Format "Jan 2, 2006" }}</div>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Description }}</p>
+        <div class="card-tags">
+          {{ range .Params.tags }}
+          <span class="tag">{{ . }}</span>
+          {{ end }}
+        </div>
+        <span class="card-link">Read Case Study →</span>
+      </a>
+      {{ end }}
+    </div>
+    <div style="text-align: center; margin-top: 2.5rem;">
+      <a href="{{ "/projects/" | relURL }}" class="btn btn-outline">View All Projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- Core Expertise Section -->
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Core Expertise</h2>
+      <p class="subtitle">Technologies and practices I leverage to build and maintain reliability.</p>
+    </div>
+    <div class="expertise-grid">
+      <div class="expertise-card">
+        <div class="expertise-icon">🐧</div>
+        <h3>Linux & Systems Engineering</h3>
+        <p class="expertise-tagline">The foundation of everything.</p>
+        <p>Bash scripting, kernel tuning, process management (systemd), and troubleshooting low-level system performance.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">☁️</div>
+        <h3>Cloud & Virtualization</h3>
+        <p class="expertise-tagline">Scalable environments.</p>
+        <p>Provisioning resources in AWS/Azure, managing VPC networking, and handling hybrid virtualization (KVM/VMware) setups.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">🔧</div>
+        <h3>Automation & IaC</h3>
+        <p class="expertise-tagline">Reproducible infrastructure.</p>
+        <p>Replacing manual runbooks with Ansible playbooks and defining infrastructure state with Terraform.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">☸</div>
+        <h3>Container Orchestration</h3>
+        <p class="expertise-tagline">Modern application delivery.</p>
+        <p>Deploying and maintaining Kubernetes clusters, writing Helm charts, and managing container networking (CNI).</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">🚀</div>
+        <h3>CI/CD & Operations</h3>
+        <p class="expertise-tagline">Streamlined delivery.</p>
+        <p>Building GitHub Actions/GitLab CI pipelines and implementing ArgoCD for automated, reliable code deployment.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">📡</div>
+        <h3>Networking & Observability</h3>
+        <p class="expertise-tagline">Deep visibility.</p>
+        <p>Diagnosing connectivity issues (DNS, TCP/IP), implementing PromQL queries, and leveraging eBPF for granular monitoring.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Work Section -->
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Recent Work</h2>
+      <p class="subtitle">Latest projects and implementations.</p>
+    </div>
+    <div class="cards-grid">
+      {{ range first 6 (where .Site.RegularPages "Section" "projects") }}
+      <a href="{{ .RelPermalink }}" class="card card-link-wrapper">
+        <div class="card-categories">
+          {{ range .Params.categories }}
+          <span>{{ . }}</span>
+          {{ end }}
+        </div>
+        <div class="card-date">{{ .Date.Format "Jan 2, 2006" }}</div>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Description }}</p>
+        <div class="card-tags">
+          {{ range .Params.tags }}
+          <span class="tag">{{ . }}</span>
+          {{ end }}
+        </div>
+        <span class="card-link">Read More →</span>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Engineering Insights Section -->
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Engineering Insights</h2>
+      <p class="subtitle">Thought processes, lessons learned, and technical deep-dives.</p>
+    </div>
+    <div class="cards-grid">
+      {{ range first 3 (where .Site.RegularPages "Section" "insights") }}
+      <a href="{{ .RelPermalink }}" class="card card-link-wrapper">
+        <div class="card-categories">
+          {{ range .Params.categories }}
+          <span>{{ . }}</span>
+          {{ end }}
+        </div>
+        <div class="card-date">{{ .Date.Format "Jan 2, 2006" }}</div>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Description }}</p>
+        <div class="card-tags">
+          {{ range .Params.tags }}
+          <span class="tag">{{ . }}</span>
+          {{ end }}
+        </div>
+        <span class="card-link">Explore Insight →</span>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="container">
+  <div class="cta-banner">
+    <h2>Ready to Build Something Great?</h2>
+    <p>Let's discuss how we can collaborate on your next infrastructure challenge.</p>
+    <div class="cta-buttons">
+      <a href="{{ "/contact/" | relURL }}" class="btn btn-white">Get in Touch</a>
+      <a href="{{ "/about/" | relURL }}" class="btn btn-white">Learn More About Me</a>
+    </div>
+  </div>
+</section>
+{{ end }}

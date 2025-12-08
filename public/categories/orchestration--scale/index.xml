@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ORCHESTRATION &amp; SCALE on Mussell Portfolio</title>
+    <link>http://localhost:1313/categories/orchestration--scale/</link>
+    <description>Recent content in ORCHESTRATION &amp; SCALE on Mussell Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 15 Sep 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/orchestration--scale/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building a Production-Ready Kubernetes Cluster with kubeadm</title>
+      <link>http://localhost:1313/projects/kubernetes-cluster-kubeadm/</link>
+      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/kubernetes-cluster-kubeadm/</guid>
+      <description>&lt;h2 id=&#34;executive-summary&#34;&gt;Executive Summary&lt;/h2&gt;&#xA;&lt;p&gt;This project demonstrates the design and implementation of a production-ready, multi-node Kubernetes cluster using kubeadm—the industry-standard tool for bootstrapping Kubernetes clusters. The implementation follows enterprise-grade best practices aligned with FAANG-level infrastructure standards, focusing on high availability, security hardening, network segmentation, and comprehensive observability.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Key Achievements:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Deployed a highly available control plane with multiple master nodes&lt;/li&gt;&#xA;&lt;li&gt;Implemented network policies and RBAC for security isolation&lt;/li&gt;&#xA;&lt;li&gt;Configured CNI networking (Calico) with advanced policy enforcement&lt;/li&gt;&#xA;&lt;li&gt;Established monitoring and logging infrastructure&lt;/li&gt;&#xA;&lt;li&gt;Achieved 99.9% uptime SLA through proper HA configuration&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;project-overview&#34;&gt;Project Overview&lt;/h2&gt;&#xA;&lt;h3 id=&#34;business-context&#34;&gt;Business Context&lt;/h3&gt;&#xA;&lt;p&gt;Modern containerized applications require robust orchestration platforms that can scale dynamically, maintain high availability, and enforce security boundaries. This project addresses the critical need for a production-grade Kubernetes infrastructure that can support enterprise workloads while adhering to security and compliance requirements.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>AWS Cloud Architecture: Multi-Region High Availability Design</title>
+      <link>http://localhost:1313/projects/aws-cloud-architecture/</link>
+      <pubDate>Sun, 20 Feb 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/aws-cloud-architecture/</guid>
+      <description>&lt;h2 id=&#34;executive-summary&#34;&gt;Executive Summary&lt;/h2&gt;&#xA;&lt;p&gt;This project demonstrates the design and implementation of a multi-region, highly available cloud architecture on AWS. The implementation follows enterprise-grade best practices for high availability, disaster recovery, and cost optimization, ensuring 99.99% uptime SLA across multiple geographic regions.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Key Achievements:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Deployed multi-region architecture with active-active configuration&lt;/li&gt;&#xA;&lt;li&gt;Implemented automated failover and disaster recovery procedures&lt;/li&gt;&#xA;&lt;li&gt;Achieved 99.99% uptime across primary and secondary regions&lt;/li&gt;&#xA;&lt;li&gt;Reduced infrastructure costs by 35% through optimization strategies&lt;/li&gt;&#xA;&lt;li&gt;Established comprehensive monitoring and alerting&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;project-overview&#34;&gt;Project Overview&lt;/h2&gt;&#xA;&lt;h3 id=&#34;business-context&#34;&gt;Business Context&lt;/h3&gt;&#xA;&lt;p&gt;Enterprise applications require high availability and disaster recovery capabilities to ensure business continuity. This project addresses the critical need for resilient cloud infrastructure that can withstand regional failures while maintaining optimal performance and cost efficiency.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Advanced GitOps Patterns with ArgoCD: Multi-Cluster Deployments</title>
+      <link>http://localhost:1313/projects/gitops-argocd-advanced/</link>
+      <pubDate>Tue, 25 Jan 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/gitops-argocd-advanced/</guid>
+      <description>&lt;h2 id=&#34;executive-summary&#34;&gt;Executive Summary&lt;/h2&gt;&#xA;&lt;p&gt;This project demonstrates the design and implementation of advanced GitOps workflows using ArgoCD for managing multi-cluster Kubernetes deployments. The implementation follows GitOps best practices, enabling automated, declarative application deployments across development, staging, and production environments with consistent, auditable change management.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Key Achievements:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Implemented GitOps workflows for 3+ Kubernetes clusters&lt;/li&gt;&#xA;&lt;li&gt;Automated application promotion across environments&lt;/li&gt;&#xA;&lt;li&gt;Reduced deployment time by 80% through automation&lt;/li&gt;&#xA;&lt;li&gt;Achieved 100% deployment consistency across clusters&lt;/li&gt;&#xA;&lt;li&gt;Established comprehensive sync policies and rollback procedures&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;project-overview&#34;&gt;Project Overview&lt;/h2&gt;&#xA;&lt;h3 id=&#34;business-context&#34;&gt;Business Context&lt;/h3&gt;&#xA;&lt;p&gt;Multi-cluster Kubernetes environments require consistent, automated deployment processes that maintain configuration parity and enable rapid, safe application delivery. This project addresses the need for GitOps-based deployment workflows that provide visibility, auditability, and automation across all environments.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

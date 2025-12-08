@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Automation on Mussell Portfolio</title>
+    <link>http://localhost:1313/tags/automation/</link>
+    <description>Recent content in Automation on Mussell Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Sep 2000 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/automation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building Robust CI/CD Pipelines with GitHub Actions for Infrastructure</title>
+      <link>http://localhost:1313/projects/cicd-github-actions/</link>
+      <pubDate>Fri, 15 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/cicd-github-actions/</guid>
+      <description>&lt;p&gt;Creating comprehensive CI/CD pipelines using GitHub Actions for infrastructure deployments. This project covers automated testing, security scanning, infrastructure provisioning, and deployment strategies for cloud-native applications.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linux System Administration Automation: From Manual Tasks to Infrastructure as Code</title>
+      <link>http://localhost:1313/insights/linux-automation-insight/</link>
+      <pubDate>Fri, 25 Aug 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/insights/linux-automation-insight/</guid>
+      <description>&lt;p&gt;Reflections on the journey from manual system administration to fully automated infrastructure. Key principles and patterns for successful automation initiatives.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linux System Administration Automation: From Manual Tasks to Infrastructure as Code</title>
+      <link>http://localhost:1313/projects/linux-system-admin-automation/</link>
+      <pubDate>Fri, 25 Aug 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/linux-system-admin-automation/</guid>
+      <description>&lt;p&gt;Transforming manual Linux system administration tasks into automated, repeatable processes using Infrastructure as Code principles. This project demonstrates configuration management, automated patching, and system hardening workflows.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Infrastructure Automation with Ansible: Configuration Management at Scale</title>
+      <link>http://localhost:1313/projects/ansible-infrastructure-automation/</link>
+      <pubDate>Wed, 15 Mar 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/ansible-infrastructure-automation/</guid>
+      <description>&lt;p&gt;Building scalable infrastructure automation workflows with Ansible. This project demonstrates playbook development, role organization, inventory management, and integration with cloud providers for multi-environment deployments.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

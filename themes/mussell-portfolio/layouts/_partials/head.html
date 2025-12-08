@@ -1,0 +1,30 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+<meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ site.Params.description }}{{ end }}">
+{{ partialCached "head/css.html" . }}
+<script>
+  // Prevent flash of unstyled content - apply theme immediately
+  // Default to dark mode for new visitors
+  (function() {
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      let theme = 'dark'; // Default to dark mode
+      
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        theme = savedTheme; // Use saved preference if exists
+      }
+      
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark-mode');
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch (e) {
+      // Fallback if localStorage not available - default to dark
+      document.documentElement.classList.add('dark-mode');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>

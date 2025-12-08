@@ -1,0 +1,76 @@
+{{ define "main" }}
+<div class="container">
+  <div class="section-title" style="padding-top: 2rem;">
+    <h1>Projects</h1>
+    <p class="subtitle">Exploring infrastructure, automation, and cloud-native technologies.</p>
+  </div>
+  
+  <div class="projects-layout">
+    <div class="projects-grid">
+      {{ range .Pages }}
+      <a href="{{ .RelPermalink }}" class="card card-link-wrapper">
+        <div class="card-categories">
+          {{ range .Params.categories }}
+          <span>{{ . }}</span>
+          {{ end }}
+          <span style="margin-left: auto;">{{ .Date.Format "Jan 2, 2000" }}</span>
+        </div>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Description }}</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+          <div class="card-tags">
+            {{ range .Params.tags }}
+            <span class="tag">{{ . }}</span>
+            {{ end }}
+          </div>
+          {{ if .Params.readTime }}
+          <span style="color: var(--color-text-light); font-size: 0.875rem;">{{ .Params.readTime }} min read</span>
+          {{ end }}
+        </div>
+        <span class="card-link" style="margin-top: 1rem; display: inline-block;">Read Full Article →</span>
+      </a>
+      {{ end }}
+    </div>
+    
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>CATEGORIES</h3>
+        <ul class="sidebar-categories">
+          {{ $allCategories := slice "ORCHESTRATION & SCALE" "INFRASTRUCTURE AS CODE" "RELIABILITY & SECURITY" "PIPELINES & DELIVERY" "HYBRID SYSTEMS LAB" "ENTERPRISE OPERATIONS" }}
+          {{ range $allCategories }}
+          {{ $categoryName := . }}
+          {{ $categoryLower := lower $categoryName }}
+          {{ $taxonomy := index $.Site.Taxonomies.categories $categoryLower }}
+          {{ $count := 0 }}
+          {{ if $taxonomy }}
+            {{ $count = len $taxonomy }}
+          {{ end }}
+          <li>
+            {{ $categoryURL := "" }}
+            {{ if or (eq $categoryLower "orchestration & scale") (eq $categoryLower "orchestration-and-scale") }}
+              {{ $categoryURL = "/categories/orchestration--scale/" }}
+            {{ else if or (eq $categoryLower "infrastructure as code") (eq $categoryLower "infrastructure-as-code") }}
+              {{ $categoryURL = "/categories/infrastructure-as-code/" }}
+            {{ else if or (eq $categoryLower "reliability & security") (eq $categoryLower "reliability-and-security") }}
+              {{ $categoryURL = "/categories/reliability--security/" }}
+            {{ else if or (eq $categoryLower "pipelines & delivery") (eq $categoryLower "pipelines-and-delivery") }}
+              {{ $categoryURL = "/categories/pipelines--delivery/" }}
+            {{ else if or (eq $categoryLower "hybrid systems lab") (eq $categoryLower "hybrid-systems-lab") }}
+              {{ $categoryURL = "/categories/hybrid-systems-lab/" }}
+            {{ else if or (eq $categoryLower "enterprise operations") (eq $categoryLower "enterprise-operations") }}
+              {{ $categoryURL = "/categories/enterprise-operations/" }}
+            {{ else }}
+              {{ $categoryURL = printf "/categories/%s/" ($categoryName | urlize) }}
+            {{ end }}
+            <a href="{{ $categoryURL | relURL }}">{{ $categoryName }} <span>({{ $count }})</span></a>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+    </aside>
+  </div>
+</div>
+{{ end }}
+
+
+

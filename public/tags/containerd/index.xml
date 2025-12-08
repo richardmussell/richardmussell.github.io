@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Containerd on Mussell Portfolio</title>
+    <link>http://localhost:1313/tags/containerd/</link>
+    <description>Recent content in Containerd on Mussell Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Jul 2000 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/containerd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deep Dive: containerd as Container Runtime for Kubernetes</title>
+      <link>http://localhost:1313/projects/containerd-container-runtime/</link>
+      <pubDate>Wed, 05 Jul 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/containerd-container-runtime/</guid>
+      <description>&lt;p&gt;Exploring containerd as a production container runtime for Kubernetes. This deep dive covers runtime architecture, image management, container lifecycle, and integration with Kubernetes CRI.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

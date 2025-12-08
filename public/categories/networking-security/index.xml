@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NETWORKING &amp; SECURITY on Mussell Portfolio</title>
+    <link>http://localhost:1313/categories/networking-security/</link>
+    <description>Recent content in NETWORKING &amp; SECURITY on Mussell Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/networking-security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Implementing Cilium with eBPF for Advanced Kubernetes Networking</title>
+      <link>http://localhost:1313/projects/cilium-ebpf-kubernetes/</link>
+      <pubDate>Thu, 20 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/cilium-ebpf-kubernetes/</guid>
+      <description>&lt;p&gt;Deep dive into Cilium&amp;rsquo;s eBPF-powered networking and security capabilities. Exploring how eBPF enables advanced network policies, load balancing, and observability at the kernel level.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Securing Sensitive Data in Terraform</title>
+      <link>http://localhost:1313/projects/terraform-secrets-management/</link>
+      <pubDate>Sat, 20 May 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/terraform-secrets-management/</guid>
+      <description>&lt;p&gt;Best practices for managing secrets and sensitive data in Terraform configurations. Covers secure credential storage, secret rotation, and integration with cloud provider secret management services.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Windows Server Hardening: Security Best Practices and Automation</title>
+      <link>http://localhost:1313/projects/windows-server-hardening/</link>
+      <pubDate>Mon, 10 Apr 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/windows-server-hardening/</guid>
+      <description>&lt;p&gt;Comprehensive guide to hardening Windows Server environments. Covers security baselines, firewall configuration, service minimization, and automated hardening using PowerShell and Group Policy.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Kubernetes Networking Deep Dive: CNI Plugins and Service Mesh</title>
+      <link>http://localhost:1313/projects/kubernetes-networking-deep-dive/</link>
+      <pubDate>Fri, 10 Dec 1999 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/kubernetes-networking-deep-dive/</guid>
+      <description>&lt;p&gt;Comprehensive exploration of Kubernetes networking fundamentals. Covers CNI plugins, pod networking, service discovery, ingress controllers, and service mesh implementations for advanced traffic management.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

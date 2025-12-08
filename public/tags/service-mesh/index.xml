@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Service Mesh on Mussell Portfolio</title>
+    <link>http://localhost:1313/tags/service-mesh/</link>
+    <description>Recent content in Service Mesh on Mussell Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 10 Dec 1999 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/service-mesh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes Networking Deep Dive: CNI Plugins and Service Mesh</title>
+      <link>http://localhost:1313/projects/kubernetes-networking-deep-dive/</link>
+      <pubDate>Fri, 10 Dec 1999 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/kubernetes-networking-deep-dive/</guid>
+      <description>&lt;p&gt;Comprehensive exploration of Kubernetes networking fundamentals. Covers CNI plugins, pod networking, service discovery, ingress controllers, and service mesh implementations for advanced traffic management.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

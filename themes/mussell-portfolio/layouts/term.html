@@ -1,0 +1,289 @@
+{{ define "main" }}
+{{ $categoryLower := lower .Title }}
+<div class="container">
+  <!-- Category Hero Section -->
+  <div class="category-hero">
+    <div class="category-hero-content">
+      <p class="category-description">
+        {{ if or (eq $categoryLower "orchestration & scale") (eq $categoryLower "orchestration-and-scale") }}
+        Kubernetes, Platform Engineering, and Cloud Infrastructure solutions that manage complexity at scale. These projects demonstrate orchestration capabilities for container platforms, multi-cluster deployments, and cloud-native architectures that enable scalable, reliable infrastructure operations.
+        {{ else if or (eq $categoryLower "infrastructure as code") (eq $categoryLower "infrastructure-as-code") }}
+        Infrastructure as Code implementations using Terraform, Ansible, and GitOps principles. These projects demonstrate modular, reusable infrastructure code, state management, multi-environment deployments, and infrastructure automation at scale—proving you don't click buttons manually.
+        {{ else if or (eq $categoryLower "reliability & security") (eq $categoryLower "reliability-and-security") }}
+        Monitoring, networking, security, and backup/restore solutions that merge protection with uptime. These projects target the SRE/SysAdmin mindset, demonstrating defense-in-depth security strategies combined with comprehensive observability for reliable infrastructure operations.
+        {{ else if or (eq $categoryLower "pipelines & delivery") (eq $categoryLower "pipelines-and-delivery") }}
+        CI/CD, GitOps, and release engineering workflows that deliver business value by getting code to customers. These projects demonstrate enterprise-grade deployment pipelines, automated testing, security scanning, and infrastructure deployment strategies that accelerate delivery.
+        {{ else if or (eq $categoryLower "hybrid systems lab") (eq $categoryLower "hybrid-systems-lab") }}
+        Professional homelab infrastructure showcasing production-ready solutions for personal environments. These projects demonstrate how to manage bare metal (Linux) and private clouds, applying enterprise patterns to build, automate, and manage sophisticated hybrid infrastructure setups.
+        {{ else if or (eq $categoryLower "enterprise operations") (eq $categoryLower "enterprise-operations") }}
+        IT support, systems administration, and operational excellence for enterprise environments. These projects demonstrate essential IT operations work including system hardening, configuration management, automated patching, and operational workflows that ensure reliable system operations.
+        {{ else if eq $categoryLower "automation" }}
+        Enterprise-grade automation solutions that streamline infrastructure operations and eliminate manual processes. These projects demonstrate how to automate infrastructure provisioning, configuration management, deployment workflows, and operational tasks using industry-standard tools and best practices. Learn how to build scalable, repeatable, and maintainable automation pipelines that reduce human error, accelerate delivery, and enable infrastructure as code principles across your entire stack.
+        {{ else if or (eq $categoryLower "automation & devops") (eq $categoryLower "automation-devops") }}
+        Comprehensive automation and DevOps practices combining infrastructure automation, CI/CD pipelines, and operational excellence. These projects showcase end-to-end automation workflows that accelerate delivery while maintaining reliability and security.
+        {{ else if or (eq $categoryLower "bleeding edge tech") (eq $categoryLower "bleeding-edge-tech") }}
+        Cutting-edge technologies and innovative solutions pushing the boundaries of infrastructure engineering. These projects explore next-generation tools and techniques that represent the future of cloud-native computing, system observability, and platform engineering at enterprise scale.
+        {{ else if or (eq $categoryLower "ci/cd & gitops") (eq $categoryLower "ci-cd-gitops") }}
+        Continuous integration, continuous deployment, and GitOps workflows that enable rapid, reliable software delivery. These projects demonstrate enterprise-grade CI/CD pipelines, automated testing, security scanning, and infrastructure deployment strategies.
+        {{ else if or (eq $categoryLower "cloud infrastructure") (eq $categoryLower "cloud-infrastructure") }}
+        Scalable cloud infrastructure architectures designed for high availability, performance, and cost optimization. These projects showcase multi-region deployments, hybrid cloud strategies, and cloud-native infrastructure patterns used in production environments.
+        {{ else if or (eq $categoryLower "containers & runtimes") (eq $categoryLower "containers-runtimes") }}
+        Container runtime technologies and containerization strategies for modern application deployment. These projects explore container orchestration, runtime security, image optimization, and container-based infrastructure patterns.
+        {{ else if or (eq $categoryLower "infrastructure as code") (eq $categoryLower "infrastructure-as-code") }}
+        Infrastructure as Code (IaC) implementations using industry-standard tools and best practices. These projects demonstrate modular, reusable infrastructure code, state management, multi-environment deployments, and infrastructure automation at scale.
+        {{ else if or (eq $categoryLower "kubernetes administration") (eq $categoryLower "kubernetes-administration") }}
+        Kubernetes cluster management, configuration, and operational best practices. These projects cover cluster deployment, networking, security policies, monitoring, and advanced Kubernetes administration techniques for production environments.
+        {{ else if or (eq $categoryLower "monitoring & observability") (eq $categoryLower "monitoring-observability") }}
+        Comprehensive monitoring and observability solutions for infrastructure and applications. These projects demonstrate metrics collection, log aggregation, distributed tracing, alerting systems, and observability platforms that provide deep insights into system behavior.
+        {{ else if or (eq $categoryLower "networking & security") (eq $categoryLower "networking-security") }}
+        Network architecture and security implementations for enterprise infrastructure. These projects showcase secure network design, firewall configurations, VPN implementations, network segmentation, and defense-in-depth security strategies.
+        {{ else if or (eq $categoryLower "platform engineering") (eq $categoryLower "platform-engineering") }}
+        Internal developer platforms and platform engineering practices that enable developer productivity and operational efficiency. These projects demonstrate self-service infrastructure, GitOps workflows, and platform capabilities that abstract complexity while maintaining control.
+        {{ else if or (eq $categoryLower "security & networking") (eq $categoryLower "security-networking") }}
+        Security-first network architectures and network security implementations. These projects focus on secure network design, threat protection, access controls, and security policies that protect infrastructure and data.
+        {{ else if or (eq $categoryLower "systems administration") (eq $categoryLower "systems-administration") }}
+        Systems administration automation and best practices for Linux and Windows environments. These projects demonstrate configuration management, system hardening, automated patching, and operational workflows that ensure reliable system operations.
+        {{ else if or (eq $categoryLower "systems engineering") (eq $categoryLower "systems-engineering") }}
+        Systems engineering approaches to designing, building, and operating complex infrastructure systems. These projects showcase holistic system design, integration patterns, and engineering practices that ensure scalability, reliability, and maintainability.
+        {{ else if eq $categoryLower "homelab" }}
+        Enterprise-grade homelab infrastructure showcasing production-ready solutions for personal environments. These projects demonstrate how to build, automate, and manage sophisticated homelab setups using industry best practices—from container orchestration and CI/CD pipelines to infrastructure as code and comprehensive monitoring. Transform your personal infrastructure into a professional-grade learning and development platform.
+        {{ else }}
+        {{ .Content | default "Explore projects in this category showcasing enterprise-level solutions and best practices." }}
+        {{ end }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Technology Stack Highlights -->
+  {{ $allTags := slice }}
+  {{ range .Pages }}
+    {{ $allTags = union $allTags .Params.tags }}
+  {{ end }}
+  {{ if $allTags }}
+  <div class="tech-stack-section">
+    <h2 class="tech-stack-title">Technology Stack</h2>
+    <div class="tech-stack-grid">
+      {{ range first 12 (sort $allTags) }}
+      <span class="tech-badge">{{ . }}</span>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  <!-- Projects Grid -->
+  <div class="category-projects-section">
+    <div class="category-header">
+      <h2 class="section-heading">Featured Projects</h2>
+      <p class="section-subheading">
+        {{ $categoryLower := lower .Title }}
+        {{ if or (eq $categoryLower "orchestration & scale") (eq $categoryLower "orchestration-and-scale") }}
+        Kubernetes, Platform Engineering, and Cloud Infrastructure projects managing complexity at scale
+        {{ else if or (eq $categoryLower "infrastructure as code") (eq $categoryLower "infrastructure-as-code") }}
+        Infrastructure as Code implementations following industry best practices
+        {{ else if or (eq $categoryLower "reliability & security") (eq $categoryLower "reliability-and-security") }}
+        Monitoring, security, and reliability solutions for SRE/SysAdmin operations
+        {{ else if or (eq $categoryLower "pipelines & delivery") (eq $categoryLower "pipelines-and-delivery") }}
+        CI/CD pipelines and delivery workflows that get code to customers
+        {{ else if or (eq $categoryLower "hybrid systems lab") (eq $categoryLower "hybrid-systems-lab") }}
+        Professional homelab projects applying enterprise patterns to personal infrastructure
+        {{ else if or (eq $categoryLower "enterprise operations") (eq $categoryLower "enterprise-operations") }}
+        Enterprise IT operations and systems administration best practices
+        {{ else if eq $categoryLower "automation" }}
+        Enterprise automation projects demonstrating infrastructure automation, configuration management, and deployment workflows
+        {{ else if or (eq $categoryLower "automation & devops") (eq $categoryLower "automation-devops") }}
+        End-to-end automation and DevOps solutions for modern infrastructure
+        {{ else if or (eq $categoryLower "bleeding edge tech") (eq $categoryLower "bleeding-edge-tech") }}
+        Next-generation technologies and innovative solutions for enterprise infrastructure
+        {{ else if or (eq $categoryLower "ci/cd & gitops") (eq $categoryLower "ci-cd-gitops") }}
+        Enterprise CI/CD pipelines and GitOps workflows for reliable deployments
+        {{ else if or (eq $categoryLower "cloud infrastructure") (eq $categoryLower "cloud-infrastructure") }}
+        Scalable cloud architectures designed for production workloads
+        {{ else if or (eq $categoryLower "containers & runtimes") (eq $categoryLower "containers-runtimes") }}
+        Container technologies and runtime solutions for modern applications
+        {{ else if or (eq $categoryLower "infrastructure as code") (eq $categoryLower "infrastructure-as-code") }}
+        Infrastructure as Code implementations following industry best practices
+        {{ else if or (eq $categoryLower "kubernetes administration") (eq $categoryLower "kubernetes-administration") }}
+        Kubernetes cluster management and operational excellence
+        {{ else if or (eq $categoryLower "monitoring & observability") (eq $categoryLower "monitoring-observability") }}
+        Comprehensive monitoring and observability solutions for infrastructure insights
+        {{ else if or (eq $categoryLower "networking & security") (eq $categoryLower "networking-security") }}
+        Secure network architectures and security implementations
+        {{ else if or (eq $categoryLower "platform engineering") (eq $categoryLower "platform-engineering") }}
+        Internal developer platforms enabling developer productivity
+        {{ else if or (eq $categoryLower "security & networking") (eq $categoryLower "security-networking") }}
+        Security-first network designs and network security solutions
+        {{ else if or (eq $categoryLower "systems administration") (eq $categoryLower "systems-administration") }}
+        Systems administration automation and operational best practices
+        {{ else if or (eq $categoryLower "systems engineering") (eq $categoryLower "systems-engineering") }}
+        Systems engineering approaches to complex infrastructure challenges
+        {{ else if eq $categoryLower "homelab" }}
+        Production-ready homelab projects applying enterprise patterns to personal infrastructure
+        {{ else }}
+        Enterprise-level solutions showcasing industry best practices and production-ready implementations
+        {{ end }}
+      </p>
+    </div>
+    
+    <div class="category-projects-grid">
+      {{ range .Pages }}
+      <article class="category-project-card">
+        <div class="project-card-header">
+          <div class="project-categories">
+            {{ range .Params.categories }}
+            <span class="project-category-badge">{{ . }}</span>
+            {{ end }}
+          </div>
+          {{ if .Params.featured }}
+          <span class="featured-badge">Featured</span>
+          {{ end }}
+        </div>
+        
+        <div class="project-card-content">
+          <h3 class="project-card-title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h3>
+          <p class="project-card-description">{{ .Description }}</p>
+          
+          <div class="project-card-meta">
+            <div class="project-tags">
+              {{ range first 4 .Params.tags }}
+              <span class="project-tag">{{ . }}</span>
+              {{ end }}
+              {{ if gt (len .Params.tags) 4 }}
+              <span class="project-tag-more">+{{ sub (len .Params.tags) 4 }} more</span>
+              {{ end }}
+            </div>
+            <div class="project-meta-info">
+              {{ if and .Params.readTime (ne (lower $.Title) "homelab") }}
+              <span class="read-time">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle; margin-right: 0.25rem;">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                {{ .Params.readTime }} min
+              </span>
+              {{ end }}
+              <span class="project-date">{{ .Date.Format "Jan 2006" }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card-footer">
+          <a href="{{ .RelPermalink }}" class="project-card-link">
+            View Project
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle; margin-left: 0.5rem;">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="category-cta">
+    <div class="cta-content">
+      <h2>
+        {{ $categoryLower := lower .Title }}
+        {{ if or (eq $categoryLower "orchestration & scale") (eq $categoryLower "orchestration-and-scale") }}
+        Ready to Orchestrate at Scale?
+        {{ else if or (eq $categoryLower "infrastructure as code") (eq $categoryLower "infrastructure-as-code") }}
+        Ready to Codify Your Infrastructure?
+        {{ else if or (eq $categoryLower "reliability & security") (eq $categoryLower "reliability-and-security") }}
+        Ready to Build Reliable and Secure Infrastructure?
+        {{ else if or (eq $categoryLower "pipelines & delivery") (eq $categoryLower "pipelines-and-delivery") }}
+        Ready to Accelerate Your Delivery Pipeline?
+        {{ else if or (eq $categoryLower "hybrid systems lab") (eq $categoryLower "hybrid-systems-lab") }}
+        Ready to Build Your Hybrid Systems Lab?
+        {{ else if or (eq $categoryLower "enterprise operations") (eq $categoryLower "enterprise-operations") }}
+        Ready to Optimize Your Enterprise Operations?
+        {{ else if eq $categoryLower "automation" }}
+        Ready to Automate Your Infrastructure?
+        {{ else if or (eq $categoryLower "automation & devops") (eq $categoryLower "automation-devops") }}
+        Ready to Transform Your DevOps Practices?
+        {{ else if or (eq $categoryLower "bleeding edge tech") (eq $categoryLower "bleeding-edge-tech") }}
+        Ready to Explore Cutting-Edge Technologies?
+        {{ else if or (eq $categoryLower "ci/cd & gitops") (eq $categoryLower "ci-cd-gitops") }}
+        Ready to Accelerate Your Delivery Pipeline?
+        {{ else if or (eq $categoryLower "cloud infrastructure") (eq $categoryLower "cloud-infrastructure") }}
+        Ready to Build Scalable Cloud Infrastructure?
+        {{ else if or (eq $categoryLower "containers & runtimes") (eq $categoryLower "containers-runtimes") }}
+        Ready to Modernize Your Container Strategy?
+        {{ else if or (eq $categoryLower "infrastructure as code") (eq $categoryLower "infrastructure-as-code") }}
+        Ready to Codify Your Infrastructure?
+        {{ else if or (eq $categoryLower "kubernetes administration") (eq $categoryLower "kubernetes-administration") }}
+        Ready to Master Kubernetes Operations?
+        {{ else if or (eq $categoryLower "monitoring & observability") (eq $categoryLower "monitoring-observability") }}
+        Ready to Gain Deep Infrastructure Insights?
+        {{ else if or (eq $categoryLower "networking & security") (eq $categoryLower "networking-security") }}
+        Ready to Secure Your Network Infrastructure?
+        {{ else if or (eq $categoryLower "platform engineering") (eq $categoryLower "platform-engineering") }}
+        Ready to Build Your Developer Platform?
+        {{ else if or (eq $categoryLower "security & networking") (eq $categoryLower "security-networking") }}
+        Ready to Enhance Your Security Posture?
+        {{ else if or (eq $categoryLower "systems administration") (eq $categoryLower "systems-administration") }}
+        Ready to Optimize Your Systems Operations?
+        {{ else if or (eq $categoryLower "systems engineering") (eq $categoryLower "systems-engineering") }}
+        Ready to Engineer Better Systems?
+        {{ else if eq $categoryLower "homelab" }}
+        Explore Homelab Solutions
+        {{ else }}
+        Ready to Get Started?
+        {{ end }}
+      </h2>
+      <p>
+        {{ $categoryLower := lower .Title }}
+        {{ if or (eq $categoryLower "orchestration & scale") (eq $categoryLower "orchestration-and-scale") }}
+        Let's explore how these orchestration and scaling solutions can help you manage complexity at scale. Whether you're deploying Kubernetes clusters, building platform engineering capabilities, or architecting cloud infrastructure, these projects demonstrate practical approaches to orchestrating infrastructure at enterprise scale.
+        {{ else if or (eq $categoryLower "infrastructure as code") (eq $categoryLower "infrastructure-as-code") }}
+        Let's explore how Infrastructure as Code can bring consistency, version control, and automation to your infrastructure. These projects demonstrate that you don't need to click buttons manually—everything can be codified, versioned, and automated.
+        {{ else if or (eq $categoryLower "reliability & security") (eq $categoryLower "reliability-and-security") }}
+        Let's discuss how these reliability and security solutions can protect your infrastructure while ensuring uptime. These projects merge security (protection) with observability (uptime), targeting the SRE/SysAdmin mindset for comprehensive infrastructure operations.
+        {{ else if or (eq $categoryLower "pipelines & delivery") (eq $categoryLower "pipelines-and-delivery") }}
+        Let's explore how these CI/CD and delivery pipelines can streamline your software delivery and infrastructure management. These projects demonstrate that CI/CD is more than a tool acronym—it's about delivering business value by getting code to customers.
+        {{ else if or (eq $categoryLower "hybrid systems lab") (eq $categoryLower "hybrid-systems-lab") }}
+        Discover professional-grade solutions for your hybrid systems lab. These projects showcase practical implementations you can apply to build, automate, and manage your personal infrastructure environment, demonstrating how to manage bare metal and private clouds with enterprise patterns.
+        {{ else if or (eq $categoryLower "enterprise operations") (eq $categoryLower "enterprise-operations") }}
+        Let's explore how enterprise operations automation can improve reliability and reduce operational overhead. These projects demonstrate essential IT operations work including system hardening, configuration management, and operational workflows that ensure reliable system operations.
+        {{ else if eq $categoryLower "automation" }}
+        Let's explore how these automation solutions can streamline your infrastructure operations and eliminate manual processes. Whether you're automating configuration management, building deployment pipelines, or implementing infrastructure as code, these projects demonstrate practical approaches to automating infrastructure at scale.
+        {{ else if or (eq $categoryLower "automation & devops") (eq $categoryLower "automation-devops") }}
+        Let's explore how these automation and DevOps practices can accelerate your development and deployment cycles.
+        {{ else if or (eq $categoryLower "bleeding edge tech") (eq $categoryLower "bleeding-edge-tech") }}
+        Let's explore how these innovative technologies can transform your infrastructure and unlock new capabilities.
+        {{ else if or (eq $categoryLower "ci/cd & gitops") (eq $categoryLower "ci-cd-gitops") }}
+        Let's discuss how these CI/CD and GitOps patterns can streamline your software delivery and infrastructure management.
+        {{ else if or (eq $categoryLower "cloud infrastructure") (eq $categoryLower "cloud-infrastructure") }}
+        Let's explore how these cloud architecture patterns can scale your infrastructure and optimize costs.
+        {{ else if or (eq $categoryLower "containers & runtimes") (eq $categoryLower "containers-runtimes") }}
+        Let's discuss how container technologies can modernize your application deployment and runtime strategies.
+        {{ else if or (eq $categoryLower "infrastructure as code") (eq $categoryLower "infrastructure-as-code") }}
+        Let's explore how Infrastructure as Code can bring consistency, version control, and automation to your infrastructure.
+        {{ else if or (eq $categoryLower "kubernetes administration") (eq $categoryLower "kubernetes-administration") }}
+        Let's discuss how these Kubernetes administration practices can improve your cluster operations and reliability.
+        {{ else if or (eq $categoryLower "monitoring & observability") (eq $categoryLower "monitoring-observability") }}
+        Let's explore how comprehensive monitoring and observability can provide insights into your infrastructure and applications.
+        {{ else if or (eq $categoryLower "networking & security") (eq $categoryLower "networking-security") }}
+        Let's discuss how secure network architectures can protect your infrastructure and enable secure communications.
+        {{ else if or (eq $categoryLower "platform engineering") (eq $categoryLower "platform-engineering") }}
+        Let's explore how platform engineering can empower your development teams and accelerate innovation.
+        {{ else if or (eq $categoryLower "security & networking") (eq $categoryLower "security-networking") }}
+        Let's discuss how security-first network designs can strengthen your infrastructure's security posture.
+        {{ else if or (eq $categoryLower "systems administration") (eq $categoryLower "systems-administration") }}
+        Let's explore how systems administration automation can improve reliability and reduce operational overhead.
+        {{ else if or (eq $categoryLower "systems engineering") (eq $categoryLower "systems-engineering") }}
+        Let's discuss how systems engineering approaches can help design and operate complex infrastructure systems.
+        {{ else if eq $categoryLower "homelab" }}
+        Discover enterprise-grade solutions for your homelab infrastructure. These projects showcase practical implementations you can apply to build, automate, and manage your personal infrastructure environment.
+        {{ else }}
+        Let's discuss how these solutions can address your organization's infrastructure needs.
+        {{ end }}
+      </p>
+      <div class="cta-buttons">
+        <a href="{{ "/contact/" | relURL }}" class="btn btn-primary">Get in Touch</a>
+        <a href="{{ "/projects/" | relURL }}" class="btn btn-outline">View All Projects</a>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

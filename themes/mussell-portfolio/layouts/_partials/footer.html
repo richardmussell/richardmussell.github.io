@@ -1,0 +1,22 @@
+<div class="footer-container">
+  <div class="footer-brand">
+    <h3>Mussell Portfolio</h3>
+    <p>{{ .Site.Params.tagline | default "Discover where your Joy meets the worlds needs" }}</p>
+  </div>
+  <div class="footer-section">
+    <h4>NAVIGATION</h4>
+    <ul class="footer-links">
+      {{ range .Site.Menus.main }}
+      <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+      {{ end }}
+    </ul>
+  </div>
+  <div class="footer-section footer-connect">
+    <h4>CONNECT</h4>
+    <p>Ready to collaborate or discuss infrastructure challenges?</p>
+    <a href="{{ "/contact/" | relURL }}">Get in Touch</a>
+  </div>
+</div>
+<div class="footer-copyright">
+  <p>© 2026 Richard Mussell III. All Rights Reserved.</p>
+</div>

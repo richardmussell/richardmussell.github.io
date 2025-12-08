@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EBPF on Mussell Portfolio</title>
+    <link>http://localhost:1313/tags/ebpf/</link>
+    <description>Recent content in EBPF on Mussell Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ebpf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Implementing Cilium with eBPF for Advanced Kubernetes Networking</title>
+      <link>http://localhost:1313/projects/cilium-ebpf-kubernetes/</link>
+      <pubDate>Thu, 20 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/cilium-ebpf-kubernetes/</guid>
+      <description>&lt;p&gt;Deep dive into Cilium&amp;rsquo;s eBPF-powered networking and security capabilities. Exploring how eBPF enables advanced network policies, load balancing, and observability at the kernel level.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>eBPF for System Observability: Monitoring Linux Systems at the Kernel Level</title>
+      <link>http://localhost:1313/projects/ebpf-system-observability/</link>
+      <pubDate>Thu, 15 Jun 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/ebpf-system-observability/</guid>
+      <description>&lt;p&gt;Leveraging eBPF for advanced system observability and monitoring. This project demonstrates how to use eBPF programs to trace system calls, monitor network traffic, and gain deep insights into application behavior without modifying kernel code.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

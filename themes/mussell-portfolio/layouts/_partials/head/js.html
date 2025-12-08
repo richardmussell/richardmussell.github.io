@@ -1,0 +1,140 @@
+{{- with resources.Get "js/main.js" }}
+  {{- $opts := dict
+    "minify" (not hugo.IsDevelopment)
+    "sourceMap" (cond hugo.IsDevelopment "external" "")
+    "targetPath" "js/main.js"
+  }}
+  {{- with . | js.Build $opts }}
+    {{- if hugo.IsDevelopment }}
+      <script src="{{ .RelPermalink }}"></script>
+    {{- else }}
+      {{- with . | fingerprint }}
+        <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+<script>
+  // Reading Progress Indicator
+  (function() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'reading-progress';
+    document.body.appendChild(progressBar);
+
+    function updateProgress() {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollableHeight = documentHeight - windowHeight;
+      const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+      progressBar.style.width = Math.min(Math.max(progress, 0), 100) + '%';
+    }
+
+    // Throttle scroll events
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateProgress();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    updateProgress();
+  })();
+
+  // Header scroll behavior removed - header scrolls normally with page
+
+  // Scroll to Top Button - Enterprise Ready with Accessibility
+  (function() {
+    const scrollToTopButton = document.getElementById('scroll-to-top');
+    if (!scrollToTopButton) return;
+
+    const scrollThreshold = 400; // Show button after scrolling 400px
+    let ticking = false;
+
+    function updateButtonVisibility() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop > scrollThreshold) {
+        scrollToTopButton.classList.add('visible');
+        scrollToTopButton.setAttribute('aria-hidden', 'false');
+      } else {
+        scrollToTopButton.classList.remove('visible');
+        scrollToTopButton.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    function scrollToTop() {
+      // Smooth scroll to top
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      
+      // Focus management for accessibility
+      scrollToTopButton.blur();
+      
+      // Announce to screen readers
+      const announcement = document.createElement('div');
+      announcement.setAttribute('role', 'status');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.setAttribute('aria-atomic', 'true');
+      announcement.className = 'sr-only';
+      announcement.textContent = 'Scrolled to top of page';
+      document.body.appendChild(announcement);
+      
+      setTimeout(() => {
+        document.body.removeChild(announcement);
+      }, 1000);
+    }
+
+    // Handle scroll events
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Handle button click
+    scrollToTopButton.addEventListener('click', scrollToTop);
+
+    // Handle keyboard navigation (Enter and Space)
+    scrollToTopButton.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        scrollToTop();
+      }
+    });
+
+    // Initial state
+    updateButtonVisibility();
+  })();
+
+  // Screen reader only class for accessibility announcements
+  if (!document.querySelector('style[data-sr-only]')) {
+    const style = document.createElement('style');
+    style.setAttribute('data-sr-only', 'true');
+    style.textContent = `
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+</script>

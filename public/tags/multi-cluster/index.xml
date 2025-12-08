@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Multi-Cluster on Mussell Portfolio</title>
+    <link>http://localhost:1313/tags/multi-cluster/</link>
+    <description>Recent content in Multi-Cluster on Mussell Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 25 Jan 2000 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/multi-cluster/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Advanced GitOps Patterns with ArgoCD: Multi-Cluster Deployments</title>
+      <link>http://localhost:1313/projects/gitops-argocd-advanced/</link>
+      <pubDate>Tue, 25 Jan 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/gitops-argocd-advanced/</guid>
+      <description>&lt;p&gt;Implementing advanced GitOps patterns for managing multi-cluster Kubernetes deployments with ArgoCD. Covers application sets, sync policies, and automated promotion workflows across development, staging, and production environments.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

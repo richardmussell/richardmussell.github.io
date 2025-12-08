@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Mussell Portfolio</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on Mussell Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 15 Sep 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CNI</title>
+      <link>http://localhost:1313/tags/cni/</link>
+      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/cni/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Container Orchestration</title>
+      <link>http://localhost:1313/tags/container-orchestration/</link>
+      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/container-orchestration/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>High Availability</title>
+      <link>http://localhost:1313/tags/high-availability/</link>
+      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/high-availability/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kubeadm</title>
+      <link>http://localhost:1313/tags/kubeadm/</link>
+      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/kubeadm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kubernetes</title>
+      <link>http://localhost:1313/tags/kubernetes/</link>
+      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Monitoring</title>
+      <link>http://localhost:1313/tags/monitoring/</link>
+      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/monitoring/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Networking</title>
+      <link>http://localhost:1313/tags/networking/</link>
+      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/networking/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Production Systems</title>
+      <link>http://localhost:1313/tags/production-systems/</link>
+      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/production-systems/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Security</title>
+      <link>http://localhost:1313/tags/security/</link>
+      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Blue</title>
+      <link>http://localhost:1313/tags/blue/</link>
+      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/blue/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Green</title>
+      <link>http://localhost:1313/tags/green/</link>
+      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/green/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Red</title>
+      <link>http://localhost:1313/tags/red/</link>
+      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/red/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cilium</title>
+      <link>http://localhost:1313/tags/cilium/</link>
+      <pubDate>Thu, 20 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/cilium/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>EBPF</title>
+      <link>http://localhost:1313/tags/ebpf/</link>
+      <pubDate>Thu, 20 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/ebpf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ArgoCD</title>
+      <link>http://localhost:1313/tags/argocd/</link>
+      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/argocd/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GitOps</title>
+      <link>http://localhost:1313/tags/gitops/</link>
+      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/gitops/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Platform Engineering</title>
+      <link>http://localhost:1313/tags/platform-engineering/</link>
+      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/platform-engineering/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>AlertManager</title>
+      <link>http://localhost:1313/tags/alertmanager/</link>
+      <pubDate>Mon, 25 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/alertmanager/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Grafana</title>
+      <link>http://localhost:1313/tags/grafana/</link>
+      <pubDate>Mon, 25 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/grafana/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Prometheus</title>
+      <link>http://localhost:1313/tags/prometheus/</link>
+      <pubDate>Mon, 25 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/prometheus/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Automation</title>
+      <link>http://localhost:1313/tags/automation/</link>
+      <pubDate>Fri, 15 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/automation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CI/CD</title>
+      <link>http://localhost:1313/tags/ci/cd/</link>
+      <pubDate>Fri, 15 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/ci/cd/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DevOps</title>
+      <link>http://localhost:1313/tags/devops/</link>
+      <pubDate>Fri, 15 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/devops/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GitHub Actions</title>
+      <link>http://localhost:1313/tags/github-actions/</link>
+      <pubDate>Fri, 15 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/github-actions/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ansible</title>
+      <link>http://localhost:1313/tags/ansible/</link>
+      <pubDate>Fri, 25 Aug 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/ansible/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Infrastructure as Code</title>
+      <link>http://localhost:1313/tags/infrastructure-as-code/</link>
+      <pubDate>Fri, 25 Aug 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/infrastructure-as-code/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>http://localhost:1313/tags/linux/</link>
+      <pubDate>Fri, 25 Aug 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux System Administration</title>
+      <link>http://localhost:1313/tags/linux-system-administration/</link>
+      <pubDate>Fri, 25 Aug 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/linux-system-administration/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Container Runtime</title>
+      <link>http://localhost:1313/tags/container-runtime/</link>
+      <pubDate>Wed, 05 Jul 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/container-runtime/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Containerd</title>
+      <link>http://localhost:1313/tags/containerd/</link>
+      <pubDate>Wed, 05 Jul 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/containerd/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kernel</title>
+      <link>http://localhost:1313/tags/kernel/</link>
+      <pubDate>Thu, 15 Jun 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/kernel/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Observability</title>
+      <link>http://localhost:1313/tags/observability/</link>
+      <pubDate>Thu, 15 Jun 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/observability/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>AWS</title>
+      <link>http://localhost:1313/tags/aws/</link>
+      <pubDate>Sat, 20 May 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/aws/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Data Sources</title>
+      <link>http://localhost:1313/tags/data-sources/</link>
+      <pubDate>Sat, 20 May 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/data-sources/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>HCL</title>
+      <link>http://localhost:1313/tags/hcl/</link>
+      <pubDate>Sat, 20 May 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/hcl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Secrets Management</title>
+      <link>http://localhost:1313/tags/secrets-management/</link>
+      <pubDate>Sat, 20 May 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/secrets-management/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Terraform</title>
+      <link>http://localhost:1313/tags/terraform/</link>
+      <pubDate>Sat, 20 May 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/terraform/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hardening</title>
+      <link>http://localhost:1313/tags/hardening/</link>
+      <pubDate>Mon, 10 Apr 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/hardening/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Opsec</title>
+      <link>http://localhost:1313/tags/opsec/</link>
+      <pubDate>Mon, 10 Apr 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/opsec/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Windows Firewall</title>
+      <link>http://localhost:1313/tags/windows-firewall/</link>
+      <pubDate>Mon, 10 Apr 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/windows-firewall/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Windows Server</title>
+      <link>http://localhost:1313/tags/windows-server/</link>
+      <pubDate>Mon, 10 Apr 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/windows-server/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Configuration Management</title>
+      <link>http://localhost:1313/tags/configuration-management/</link>
+      <pubDate>Wed, 15 Mar 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/configuration-management/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Infrastructure</title>
+      <link>http://localhost:1313/tags/infrastructure/</link>
+      <pubDate>Wed, 15 Mar 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/infrastructure/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cloud Architecture</title>
+      <link>http://localhost:1313/tags/cloud-architecture/</link>
+      <pubDate>Sun, 20 Feb 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/cloud-architecture/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Multi-Region</title>
+      <link>http://localhost:1313/tags/multi-region/</link>
+      <pubDate>Sun, 20 Feb 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/multi-region/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Multi-Cluster</title>
+      <link>http://localhost:1313/tags/multi-cluster/</link>
+      <pubDate>Tue, 25 Jan 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/multi-cluster/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Service Mesh</title>
+      <link>http://localhost:1313/tags/service-mesh/</link>
+      <pubDate>Fri, 10 Dec 1999 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/service-mesh/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Best Practices</title>
+      <link>http://localhost:1313/tags/best-practices/</link>
+      <pubDate>Mon, 15 Nov 1999 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/best-practices/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Modules</title>
+      <link>http://localhost:1313/tags/modules/</link>
+      <pubDate>Mon, 15 Nov 1999 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/modules/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

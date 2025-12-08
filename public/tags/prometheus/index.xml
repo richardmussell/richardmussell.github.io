@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Prometheus on Mussell Portfolio</title>
+    <link>http://localhost:1313/tags/prometheus/</link>
+    <description>Recent content in Prometheus on Mussell Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 25 Sep 2000 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes Monitoring Stack: Prometheus, Grafana, and AlertManager</title>
+      <link>http://localhost:1313/insights/kubernetes-monitoring-insight/</link>
+      <pubDate>Mon, 25 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/insights/kubernetes-monitoring-insight/</guid>
+      <description>&lt;p&gt;Thoughts and lessons learned from implementing a production monitoring stack. Key insights on metric collection strategies, alerting best practices, and visualization techniques.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Kubernetes Monitoring Stack: Prometheus, Grafana, and AlertManager</title>
+      <link>http://localhost:1313/projects/kubernetes-monitoring-stack/</link>
+      <pubDate>Mon, 25 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/kubernetes-monitoring-stack/</guid>
+      <description>&lt;p&gt;Complete setup of a production-grade monitoring stack for Kubernetes clusters. Includes Prometheus for metrics collection, Grafana for visualization, and AlertManager for alerting. Covers service discovery, persistent storage, and high availability configurations.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

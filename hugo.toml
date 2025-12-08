@@ -1,0 +1,37 @@
+baseURL = 'https://mussellportfolio.com/'
+languageCode = 'en-us'
+title = 'Mussell Portfolio'
+theme = 'mussell-portfolio'
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[params]
+  author = "Richard Mussell III"
+  description = "Discover where your Joy meets the worlds needs"
+  tagline = "Discover where your Joy meets the worlds needs"
+  github = "https://github.com/richardmussell"
+  linkedin = "https://www.linkedin.com/in/richard-mussell/"
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    identifier = "projects"
+    name = "Projects"
+    url = "/projects/"
+    weight = 2
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 3
+  [[menu.main]]
+    identifier = "contact"
+    name = "Contact"
+    url = "/contact/"
+    weight = 4

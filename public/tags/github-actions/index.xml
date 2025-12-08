@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GitHub Actions on Mussell Portfolio</title>
+    <link>http://localhost:1313/tags/github-actions/</link>
+    <description>Recent content in GitHub Actions on Mussell Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Sep 2000 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/github-actions/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building Robust CI/CD Pipelines with GitHub Actions for Infrastructure</title>
+      <link>http://localhost:1313/insights/cicd-pipelines-insight/</link>
+      <pubDate>Fri, 15 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/insights/cicd-pipelines-insight/</guid>
+      <description>&lt;p&gt;Engineering insights on designing CI/CD pipelines for infrastructure. Lessons learned about testing strategies, deployment patterns, and maintaining pipeline reliability.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Building Robust CI/CD Pipelines with GitHub Actions for Infrastructure</title>
+      <link>http://localhost:1313/projects/cicd-github-actions/</link>
+      <pubDate>Fri, 15 Sep 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/cicd-github-actions/</guid>
+      <description>&lt;p&gt;Creating comprehensive CI/CD pipelines using GitHub Actions for infrastructure deployments. This project covers automated testing, security scanning, infrastructure provisioning, and deployment strategies for cloud-native applications.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

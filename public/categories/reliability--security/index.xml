@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RELIABILITY &amp; SECURITY on Mussell Portfolio</title>
+    <link>http://localhost:1313/categories/reliability--security/</link>
+    <description>Recent content in RELIABILITY &amp; SECURITY on Mussell Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 20 May 2000 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/reliability--security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Securing Sensitive Data in Terraform</title>
+      <link>http://localhost:1313/projects/terraform-secrets-management/</link>
+      <pubDate>Sat, 20 May 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/terraform-secrets-management/</guid>
+      <description>&lt;h2 id=&#34;executive-summary&#34;&gt;Executive Summary&lt;/h2&gt;&#xA;&lt;p&gt;This project demonstrates best practices for managing secrets and sensitive data in Terraform configurations. The implementation focuses on secure credential storage, secret rotation, and integration with cloud provider secret management services to ensure sensitive data is never stored in version control while maintaining operational efficiency.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Key Achievements:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Eliminated hardcoded secrets from Terraform code&lt;/li&gt;&#xA;&lt;li&gt;Implemented secure secret retrieval from cloud providers&lt;/li&gt;&#xA;&lt;li&gt;Established secret rotation procedures&lt;/li&gt;&#xA;&lt;li&gt;Achieved 100% compliance with security policies&lt;/li&gt;&#xA;&lt;li&gt;Reduced secret management overhead by 60%&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;project-overview&#34;&gt;Project Overview&lt;/h2&gt;&#xA;&lt;h3 id=&#34;business-context&#34;&gt;Business Context&lt;/h3&gt;&#xA;&lt;p&gt;Terraform configurations often require sensitive data such as API keys, passwords, and certificates. Storing these secrets in version control creates security risks. This project addresses the need for secure secret management that maintains security while enabling efficient infrastructure automation.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Windows Server Hardening: Security Best Practices and Automation</title>
+      <link>http://localhost:1313/projects/windows-server-hardening/</link>
+      <pubDate>Mon, 10 Apr 2000 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/windows-server-hardening/</guid>
+      <description>&lt;h2 id=&#34;executive-summary&#34;&gt;Executive Summary&lt;/h2&gt;&#xA;&lt;p&gt;This project demonstrates comprehensive Windows Server hardening procedures following security best practices and compliance standards. The implementation focuses on security baselines, firewall configuration, service minimization, and automated hardening using PowerShell and Group Policy to achieve defense-in-depth security posture.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Key Achievements:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Implemented CIS benchmark compliance for Windows Server&lt;/li&gt;&#xA;&lt;li&gt;Reduced attack surface by 75% through service minimization&lt;/li&gt;&#xA;&lt;li&gt;Automated 90% of hardening procedures&lt;/li&gt;&#xA;&lt;li&gt;Achieved 100% compliance with security baselines&lt;/li&gt;&#xA;&lt;li&gt;Established comprehensive security monitoring&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;project-overview&#34;&gt;Project Overview&lt;/h2&gt;&#xA;&lt;h3 id=&#34;business-context&#34;&gt;Business Context&lt;/h3&gt;&#xA;&lt;p&gt;Windows Server environments are frequent targets for security attacks. Unhardened servers expose organizations to significant security risks. This project addresses the need for comprehensive server hardening that follows industry best practices and compliance standards while maintaining operational efficiency through automation.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

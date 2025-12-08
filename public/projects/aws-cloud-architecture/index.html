@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS Cloud Architecture: Multi-Region High Availability Design | Mussell Portfolio</title>
+<meta name="description" content="Designing and implementing a multi-region, highly available cloud architecture on AWS. Covers VPC design, load balancing, database replication, disaster recovery, and cost optimization strategies.">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+<script>
+  
+  
+  (function() {
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      let theme = 'dark'; 
+      
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        theme = savedTheme; 
+      }
+      
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark-mode');
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch (e) {
+      
+      document.documentElement.classList.add('dark-mode');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+
+</head>
+<body>
+  <header>
+    <div class="header-container">
+  <a href="/" class="logo">Mussell Portfolio</a>
+  <nav>
+    <ul class="nav-menu">
+      
+      <li>
+        <a href="/" class="">Home</a>
+      </li>
+      
+      <li>
+        <a href="/projects/" class="">Projects</a>
+      </li>
+      
+      <li>
+        <a href="/about/" class="">About</a>
+      </li>
+      
+      <li>
+        <a href="/contact/" class="">Contact</a>
+      </li>
+      
+    </ul>
+  </nav>
+  <div class="header-icons-container">
+    <button class="icon-btn" aria-label="Toggle dark mode" type="button" title="Toggle dark mode">
+      <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+      </svg>
+    </button>
+    <a href="https://github.com/richardmussell" class="icon-btn" aria-label="GitHub" target="_blank" rel="noopener">
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
+      </svg>
+    </a>
+    <a href="https://www.linkedin.com/in/richard-mussell/" class="icon-btn" aria-label="LinkedIn" target="_blank" rel="noopener">
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+  </header>
+  <main>
+    
+<div class="container">
+  <article class="project-article">
+    
+    <header class="project-header">
+      <div class="project-meta">
+        
+        <span class="project-category">ORCHESTRATION &amp; SCALE</span>
+        
+        
+      </div>
+      <h1 class="project-title">AWS Cloud Architecture: Multi-Region High Availability Design</h1>
+      
+      <p class="project-subtitle">Designing and implementing a multi-region, highly available cloud architecture on AWS. Covers VPC design, load balancing, database replication, disaster recovery, and cost optimization strategies.</p>
+      
+      <div class="project-info">
+        <time datetime="2000-02-20" class="project-date">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          February 20, 2000
+        </time>
+        
+        <span class="project-read-time">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          14 min read
+        </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="project-content">
+      <h2 id="executive-summary">Executive Summary</h2>
+<p>This project demonstrates the design and implementation of a multi-region, highly available cloud architecture on AWS. The implementation follows enterprise-grade best practices for high availability, disaster recovery, and cost optimization, ensuring 99.99% uptime SLA across multiple geographic regions.</p>
+<p><strong>Key Achievements:</strong></p>
+<ul>
+<li>Deployed multi-region architecture with active-active configuration</li>
+<li>Implemented automated failover and disaster recovery procedures</li>
+<li>Achieved 99.99% uptime across primary and secondary regions</li>
+<li>Reduced infrastructure costs by 35% through optimization strategies</li>
+<li>Established comprehensive monitoring and alerting</li>
+</ul>
+<hr>
+<h2 id="project-overview">Project Overview</h2>
+<h3 id="business-context">Business Context</h3>
+<p>Enterprise applications require high availability and disaster recovery capabilities to ensure business continuity. This project addresses the critical need for resilient cloud infrastructure that can withstand regional failures while maintaining optimal performance and cost efficiency.</p>
+<h3 id="technical-objectives">Technical Objectives</h3>
+<ol>
+<li><strong>High Availability</strong>: Multi-region deployment with active-active configuration</li>
+<li><strong>Disaster Recovery</strong>: Automated failover with RPO &lt; 1 hour and RTO &lt; 15 minutes</li>
+<li><strong>Network Architecture</strong>: VPC design with proper segmentation and security</li>
+<li><strong>Database Replication</strong>: Cross-region database replication for data resilience</li>
+<li><strong>Cost Optimization</strong>: Right-sizing and reserved instance strategies</li>
+</ol>
+<hr>
+<h2 id="architecture--design">Architecture &amp; Design</h2>
+<h3 id="multi-region-topology">Multi-Region Topology</h3>
+<pre tabindex="0"><code>┌─────────────────────────────────────────────────────────┐
+│                    Primary Region (us-east-1)            │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
+│  │   VPC A      │  │   VPC B      │  │   VPC C      │ │
+│  │  (Public)   │  │  (Private)   │  │  (Database)  │ │
+│  └──────────────┘  └──────────────┘  └──────────────┘ │
+└─────────────────────────────────────────────────────────┘
+                        │
+              ┌─────────┴─────────┐
+              │  Cross-Region      │
+              │  Replication       │
+              └─────────┬─────────┘
+                        │
+┌─────────────────────────────────────────────────────────┐
+│                 Secondary Region (us-west-2)            │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
+│  │   VPC A      │  │   VPC B      │  │   VPC C      │ │
+│  │  (Public)   │  │  (Private)   │  │  (Database)  │ │
+│  └──────────────┘  └──────────────┘  └──────────────┘ │
+└─────────────────────────────────────────────────────────┘
+</code></pre><h3 id="technology-stack">Technology Stack</h3>
+<p><strong>Core Components:</strong></p>
+<ul>
+<li><strong>Compute</strong>: EC2 Auto Scaling Groups with multi-AZ deployment</li>
+<li><strong>Load Balancing</strong>: Application Load Balancer with cross-region failover</li>
+<li><strong>Database</strong>: RDS Multi-AZ with cross-region read replicas</li>
+<li><strong>Storage</strong>: S3 with cross-region replication</li>
+<li><strong>CDN</strong>: CloudFront for global content delivery</li>
+</ul>
+<p><strong>Infrastructure Tools:</strong></p>
+<ul>
+<li><strong>Terraform</strong>: Infrastructure as Code for provisioning</li>
+<li><strong>CloudFormation</strong>: AWS-native resource management</li>
+<li><strong>Route 53</strong>: DNS and health-checked failover</li>
+<li><strong>CloudWatch</strong>: Monitoring and alerting</li>
+</ul>
+<hr>
+<h2 id="implementation-details">Implementation Details</h2>
+<h3 id="phase-1-vpc-design">Phase 1: VPC Design</h3>
+<p><strong>Network Architecture:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#75715e"># VPC with public and private subnets across 3 AZs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_vpc&#34; &#34;main&#34;</span> {
+</span></span><span style="display:flex;"><span>  cidr_block           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;10.0.0.0/16&#34;</span>
+</span></span><span style="display:flex;"><span>  enable_dns_hostnames <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  enable_dns_support   <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Subnet Configuration:</strong></p>
+<ul>
+<li>Public subnets: Internet-facing resources (ALB, NAT Gateway)</li>
+<li>Private subnets: Application servers and internal services</li>
+<li>Database subnets: Isolated database tier with no internet access</li>
+</ul>
+<h3 id="phase-2-high-availability-setup">Phase 2: High Availability Setup</h3>
+<p><strong>Auto Scaling Configuration:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_autoscaling_group&#34; &#34;app&#34;</span> {
+</span></span><span style="display:flex;"><span>  min_size         <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  max_size         <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>  desired_capacity <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>  vpc_zone_identifier <span style="color:#f92672">=</span> [<span style="color:#66d9ef">subnet1</span>, <span style="color:#66d9ef">subnet2</span>, <span style="color:#66d9ef">subnet3</span>]
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  health_check_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ELB&#34;</span>
+</span></span><span style="display:flex;"><span>  health_check_grace_period <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Load Balancer Configuration:</strong></p>
+<ul>
+<li>Application Load Balancer with SSL termination</li>
+<li>Health checks configured for automatic instance replacement</li>
+<li>Cross-zone load balancing enabled</li>
+</ul>
+<h3 id="phase-3-database-replication">Phase 3: Database Replication</h3>
+<p><strong>RDS Multi-AZ Setup:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_db_instance&#34; &#34;primary&#34;</span> {
+</span></span><span style="display:flex;"><span>  multi_az               <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  backup_retention_period  <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>  backup_window           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;03:00-04:00&#34;</span>
+</span></span><span style="display:flex;"><span>  maintenance_window      <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mon:04:00-mon:05:00&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Cross-Region Replication:</strong></p>
+<ul>
+<li>Read replicas in secondary region for disaster recovery</li>
+<li>Automated backup and snapshot replication</li>
+<li>Point-in-time recovery capability</li>
+</ul>
+<h3 id="phase-4-disaster-recovery">Phase 4: Disaster Recovery</h3>
+<p><strong>Route 53 Failover:</strong></p>
+<ul>
+<li>Primary region: Active health checks</li>
+<li>Secondary region: Failover endpoint</li>
+<li>Automatic DNS failover on primary region failure</li>
+</ul>
+<p><strong>Backup Strategy:</strong></p>
+<ul>
+<li>Daily automated backups with 30-day retention</li>
+<li>Cross-region backup replication</li>
+<li>Encrypted backups with KMS</li>
+</ul>
+<h3 id="phase-5-cost-optimization">Phase 5: Cost Optimization</h3>
+<p><strong>Reserved Instances:</strong></p>
+<ul>
+<li>1-year reserved instances for predictable workloads</li>
+<li>Savings Plans for flexible compute usage</li>
+<li>Spot instances for non-critical workloads</li>
+</ul>
+<p><strong>Right-Sizing:</strong></p>
+<ul>
+<li>CloudWatch metrics analysis for instance optimization</li>
+<li>Auto Scaling based on actual demand</li>
+<li>S3 lifecycle policies for cost reduction</li>
+</ul>
+<hr>
+<h2 id="production-readiness-checklist">Production Readiness Checklist</h2>
+<h3 id="high-availability">High Availability</h3>
+<ul>
+<li>✅ Multi-AZ deployment across all tiers</li>
+<li>✅ Auto Scaling Groups configured</li>
+<li>✅ Load balancer health checks active</li>
+<li>✅ Cross-region replication enabled</li>
+</ul>
+<h3 id="disaster-recovery">Disaster Recovery</h3>
+<ul>
+<li>✅ Automated failover procedures tested</li>
+<li>✅ RPO &lt; 1 hour, RTO &lt; 15 minutes</li>
+<li>✅ Backup and restore procedures documented</li>
+<li>✅ DR runbooks created and tested</li>
+</ul>
+<h3 id="security">Security</h3>
+<ul>
+<li>✅ VPC security groups configured</li>
+<li>✅ Network ACLs implemented</li>
+<li>✅ Encryption at rest and in transit</li>
+<li>✅ IAM roles with least privilege</li>
+</ul>
+<h3 id="monitoring">Monitoring</h3>
+<ul>
+<li>✅ CloudWatch dashboards configured</li>
+<li>✅ Alarms for critical metrics</li>
+<li>✅ SNS notifications for incidents</li>
+<li>✅ Cost monitoring and alerts</li>
+</ul>
+<hr>
+<h2 id="results--impact">Results &amp; Impact</h2>
+<h3 id="performance-metrics">Performance Metrics</h3>
+<p><strong>Availability:</strong></p>
+<ul>
+<li><strong>Uptime</strong>: 99.99% across both regions</li>
+<li><strong>Failover Time</strong>: &lt; 5 minutes for automated failover</li>
+<li><strong>RPO</strong>: &lt; 1 hour (backup frequency)</li>
+<li><strong>RTO</strong>: &lt; 15 minutes (recovery time)</li>
+</ul>
+<p><strong>Cost Optimization:</strong></p>
+<ul>
+<li><strong>Infrastructure Costs</strong>: 35% reduction through optimization</li>
+<li><strong>Reserved Instances</strong>: 40% savings on compute</li>
+<li><strong>Storage Costs</strong>: 25% reduction through lifecycle policies</li>
+</ul>
+<h3 id="business-value">Business Value</h3>
+<ol>
+<li><strong>Resilience</strong>: Multi-region architecture ensures business continuity</li>
+<li><strong>Performance</strong>: Global CDN and regional deployment reduce latency</li>
+<li><strong>Cost Efficiency</strong>: Optimized infrastructure reduces operational costs</li>
+<li><strong>Scalability</strong>: Auto Scaling handles traffic spikes automatically</li>
+<li><strong>Compliance</strong>: Multi-region deployment supports data residency requirements</li>
+</ol>
+<hr>
+<h2 id="lessons-learned--best-practices">Lessons Learned &amp; Best Practices</h2>
+<h3 id="key-insights">Key Insights</h3>
+<ol>
+<li><strong>Network Design</strong>: Proper VPC segmentation is critical for security</li>
+<li><strong>Cost Management</strong>: Regular cost reviews prevent budget overruns</li>
+<li><strong>Monitoring</strong>: Comprehensive monitoring enables proactive issue detection</li>
+<li><strong>Testing</strong>: Regular DR drills validate failover procedures</li>
+<li><strong>Documentation</strong>: Well-documented architecture supports team knowledge</li>
+</ol>
+<h3 id="best-practices-applied">Best Practices Applied</h3>
+<ul>
+<li><strong>Infrastructure as Code</strong>: All resources managed with Terraform</li>
+<li><strong>Multi-Region</strong>: Active-active configuration for high availability</li>
+<li><strong>Automation</strong>: Automated failover and scaling reduce manual intervention</li>
+<li><strong>Security</strong>: Defense-in-depth with multiple security layers</li>
+<li><strong>Cost Optimization</strong>: Continuous monitoring and optimization</li>
+</ul>
+<hr>
+<h2 id="future-enhancements">Future Enhancements</h2>
+<h3 id="planned-improvements">Planned Improvements</h3>
+<ol>
+<li><strong>Multi-Cloud Strategy</strong>: Extend to Azure for additional redundancy</li>
+<li><strong>Edge Computing</strong>: CloudFront Lambda@Edge for dynamic content</li>
+<li><strong>Advanced Monitoring</strong>: X-Ray for distributed tracing</li>
+<li><strong>Cost Optimization</strong>: Further automation of cost optimization</li>
+<li><strong>Compliance</strong>: Enhanced compliance automation and reporting</li>
+</ol>
+<hr>
+<h2 id="technical-skills-demonstrated">Technical Skills Demonstrated</h2>
+<p>This project showcases expertise in:</p>
+<ul>
+<li><strong>Cloud Architecture</strong>: Multi-region, highly available system design</li>
+<li><strong>AWS Services</strong>: Deep knowledge of AWS compute, storage, and networking</li>
+<li><strong>Disaster Recovery</strong>: Enterprise-grade DR planning and implementation</li>
+<li><strong>Cost Optimization</strong>: Infrastructure cost management strategies</li>
+<li><strong>Infrastructure as Code</strong>: Terraform and CloudFormation expertise</li>
+<li><strong>Problem Solving</strong>: Complex cloud architecture design and troubleshooting</li>
+</ul>
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>This AWS multi-region architecture project demonstrates production-ready cloud infrastructure capabilities, following enterprise best practices for high availability, disaster recovery, and cost optimization. The implementation showcases the ability to design, deploy, and operate resilient cloud architectures that ensure business continuity.</p>
+<p>The architecture patterns and practices used in this project are directly applicable to enterprise environments, making it a valuable demonstration of real-world cloud engineering skills.</p>
+<hr>
+<p><em>This project represents a comprehensive understanding of cloud architecture, high availability design, and disaster recovery planning. For questions or collaboration opportunities, please reach out through the contact page.</em></p>
+
+    </div>
+
+    
+    
+    <footer class="project-footer">
+      <div class="project-tags-section">
+        <h3>Technologies & Tools</h3>
+        <div class="project-tags-list">
+          
+          <span class="project-tag">AWS</span>
+          
+          <span class="project-tag">Cloud Architecture</span>
+          
+          <span class="project-tag">High Availability</span>
+          
+          <span class="project-tag">Multi-Region</span>
+          
+        </div>
+      </div>
+    </footer>
+    
+  </article>
+</div>
+
+  </main>
+  <footer>
+    <div class="footer-container">
+  <div class="footer-brand">
+    <h3>Mussell Portfolio</h3>
+    <p>Discover where your Joy meets the worlds needs</p>
+  </div>
+  <div class="footer-section">
+    <h4>NAVIGATION</h4>
+    <ul class="footer-links">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/projects/">Projects</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/contact/">Contact</a></li>
+      
+    </ul>
+  </div>
+  <div class="footer-section footer-connect">
+    <h4>CONNECT</h4>
+    <p>Ready to collaborate or discuss infrastructure challenges?</p>
+    <a href="/contact/">Get in Touch</a>
+  </div>
+</div>
+<div class="footer-copyright">
+  <p>© 2026 Richard Mussell III. All Rights Reserved.</p>
+</div>
+
+  </footer>
+  
+  
+  <button 
+    id="scroll-to-top" 
+    class="scroll-to-top" 
+    aria-label="Scroll to top"
+    title="Scroll to top"
+    tabindex="0">
+    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+  
+  
+      <script src="/js/main.js"></script>
+
+<script>
+  
+  (function() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'reading-progress';
+    document.body.appendChild(progressBar);
+
+    function updateProgress() {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollableHeight = documentHeight - windowHeight;
+      const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+      progressBar.style.width = Math.min(Math.max(progress, 0), 100) + '%';
+    }
+
+    
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateProgress();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    updateProgress();
+  })();
+
+  
+
+  
+  (function() {
+    const scrollToTopButton = document.getElementById('scroll-to-top');
+    if (!scrollToTopButton) return;
+
+    const scrollThreshold = 400; 
+    let ticking = false;
+
+    function updateButtonVisibility() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop > scrollThreshold) {
+        scrollToTopButton.classList.add('visible');
+        scrollToTopButton.setAttribute('aria-hidden', 'false');
+      } else {
+        scrollToTopButton.classList.remove('visible');
+        scrollToTopButton.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    function scrollToTop() {
+      
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      
+      
+      scrollToTopButton.blur();
+      
+      
+      const announcement = document.createElement('div');
+      announcement.setAttribute('role', 'status');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.setAttribute('aria-atomic', 'true');
+      announcement.className = 'sr-only';
+      announcement.textContent = 'Scrolled to top of page';
+      document.body.appendChild(announcement);
+      
+      setTimeout(() => {
+        document.body.removeChild(announcement);
+      }, 1000);
+    }
+
+    
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    
+    scrollToTopButton.addEventListener('click', scrollToTop);
+
+    
+    scrollToTopButton.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        scrollToTop();
+      }
+    });
+
+    
+    updateButtonVisibility();
+  })();
+
+  
+  if (!document.querySelector('style[data-sr-only]')) {
+    const style = document.createElement('style');
+    style.setAttribute('data-sr-only', 'true');
+    style.textContent = `
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+</script>
+
+</body>
+</html>
