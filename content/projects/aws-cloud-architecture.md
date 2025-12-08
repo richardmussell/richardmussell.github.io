@@ -1,6 +1,6 @@
 ---
 title: "AWS Cloud Architecture: Multi-Region High Availability Design"
-date: 2000-02-20
+date: 2025-12-08
 categories: ["ORCHESTRATION & SCALE"]
 tags: ["AWS", "Cloud Architecture", "High Availability", "Multi-Region"]
 description: "Designing and implementing a multi-region, highly available cloud architecture on AWS. Covers VPC design, load balancing, database replication, disaster recovery, and cost optimization strategies."

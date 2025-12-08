@@ -1,6 +1,6 @@
 ---
 title: "Building a Production-Ready Kubernetes Cluster with kubeadm"
-date: 2024-09-15
+date: 2025-12-08
 categories: ["ORCHESTRATION & SCALE"]
 tags: ["kubeadm", "Kubernetes", "Networking", "CNI", "Container Orchestration", "High Availability", "Security", "Monitoring", "Production Systems"]
 description: "Enterprise-grade Kubernetes cluster deployment using kubeadm, implementing production-ready patterns including high availability, network policies, RBAC, and comprehensive monitoring. This project demonstrates industry-standard practices for building scalable, secure container orchestration platforms."

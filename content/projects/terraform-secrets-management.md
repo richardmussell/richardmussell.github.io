@@ -1,6 +1,6 @@
 ---
 title: "Securing Sensitive Data in Terraform"
-date: 2000-05-20
+date: 2025-12-08
 categories: ["RELIABILITY & SECURITY"]
 tags: ["Terraform", "Secrets Management", "Security", "AWS", "Data Sources", "HCL"]
 description: "Best practices for managing secrets and sensitive data in Terraform configurations. Covers secure credential storage, secret rotation, and integration with cloud provider secret management services."
