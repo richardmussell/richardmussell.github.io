@@ -1,7 +1,7 @@
 ---
 title: "Terraform Modules: Building Reusable Infrastructure Components"
 date: 2025-12-08
-categories: ["INFRASTRUCTURE AS CODE"]
+categories: ["CLOUD AUTOMATION & IAC"]
 tags: ["Terraform", "Modules", "Infrastructure as Code", "Best Practices"]
 description: "Creating reusable Terraform modules for common infrastructure patterns. This project demonstrates module design principles, versioning strategies, and composition patterns for building scalable infrastructure codebases."
 readTime: 10

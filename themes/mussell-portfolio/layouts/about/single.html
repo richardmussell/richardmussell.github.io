@@ -9,102 +9,110 @@
         </div>
         <div class="about-hero-text">
           <h1 class="about-title">Richard Mussell III</h1>
-          <p class="about-subtitle">Infrastructure & Systems Engineer</p>
-          <p class="about-tagline">Building enterprise-grade infrastructure with a focus on automation, security, and scalability</p>
+          <p class="about-subtitle">Specializing in Distributed Systems, Cloud-Native Orchestration, and Security Engineering</p>
+          <p class="about-tagline">{{ .Content }}</p>
         </div>
       </div>
     </header>
     
     <!-- Main Content -->
     <div class="about-content">
-      <div class="about-intro">
-        {{ .Content }}
-      </div>
-    <div class="background-section">
-      <h2>Professional Background</h2>
+      <!-- Core Engineering Pillars -->
+      <section class="pillars-section">
+        <h2 class="section-heading">
+          <span class="status-indicator"></span>
+          <span class="heading-label">CORE_EXPERTISE</span>
+        </h2>
+        
+        <div class="pillars-grid">
+          <div class="pillar-card">
+            <h3 class="pillar-title">
+              <span class="status-indicator-small"></span>
+              Orchestration & Distributed Systems
+            </h3>
+            <p class="pillar-content">Operating a multi-node R&D environment to simulate enterprise-grade distributed systems. Implementing K8s clusters, automated provisioning with Terraform, and zero-trust networking to test high-availability patterns before production deployment.</p>
+          </div>
+          
+          <div class="pillar-card">
+            <h3 class="pillar-title">
+              <span class="status-indicator-small"></span>
+              Infrastructure-as-Code & Automation
+            </h3>
+            <p class="pillar-content">Treating infrastructure as a software product. My personal resume and portfolio are not just 'hosted'; they are a fully versioned codebase deployed via a GitHub Actions CI/CD pipeline to GCP, utilizing Terraform for resource lifecycle management.</p>
+          </div>
+          
+          <div class="pillar-card">
+            <h3 class="pillar-title">
+              <span class="status-indicator-small"></span>
+              Security Engineering & Hardening
+            </h3>
+            <p class="pillar-content">Advocating for 'Shift-Left' security. Expertise in translating CIS Benchmarks and NIST frameworks into automated hardening scripts. Experience in threat modeling and incident response within SOC environments, ensuring security is a feature, not a bottleneck.</p>
+          </div>
+          
+          <div class="pillar-card">
+            <h3 class="pillar-title">
+              <span class="status-indicator-small"></span>
+              Systems Architecture & Networking
+            </h3>
+            <p class="pillar-content">Deep understanding of OSI Layer 2-7. Transitioning traditional networking fundamentals (VLANs, Routing, BGP) into the Cloud-Native era via Software-Defined Networking (SDN) and Service Mesh architectures.</p>
+          </div>
+        </div>
+      </section>
       
-      <div class="background-item">
-        <h3>Homelab Engineering & Linux Systems Management</h3>
-        <p class="subtitle">CORE EXPERTISE</p>
-        <p>Hands-on experience running a multi-device homelab centered on secure application hosting, Linux systems management, and cybersecurity experimentation. Skilled in virtualization, container orchestration, automated deployments, log centralization, system hardening, and OpSec best practices. Maintain and secure self-hosted services across Ubuntu Server and Raspberry Pi environments.</p>
-      </div>
+      <!-- Engineering Principles -->
+      <section class="principles-section">
+        <h2 class="section-heading">
+          <span class="status-indicator"></span>
+          <span class="heading-label">ENGINEERING_PRINCIPLES</span>
+        </h2>
+        
+        <div class="principles-grid">
+          <div class="principle-card">
+            <h3 class="principle-title">Automation over Manual</h3>
+            <p class="principle-content">If it has to be done twice, it belongs in a script.</p>
+          </div>
+          
+          <div class="principle-card">
+            <h3 class="principle-title">Security by Default</h3>
+            <p class="principle-content">Least privilege isn't a setting; it's a foundation.</p>
+          </div>
+          
+          <div class="principle-card">
+            <h3 class="principle-title">Observability First</h3>
+            <p class="principle-content">If it isn't measured, it isn't running.</p>
+          </div>
+        </div>
+      </section>
       
-      <div class="background-item">
-        <h3>Cybersecurity Specialization (University Program)</h3>
-        <p class="subtitle">CORE EXPERTISE</p>
-        <p>Experience in system hardening, enterprise security architecture, SIEM operations, secure network design, incident response procedures, and adversarial techniques mapped to the MITRE ATT&CK framework. Training in Red Hat Linux administration, digital forensics workflows, applied security principles, and implementing security controls aligned with industry standards.</p>
-      </div>
-      
-      <div class="background-item">
-        <h3>Security Operations Exposure (SOC Training)</h3>
-        <p class="subtitle">CORE EXPERTISE</p>
-        <p>SOC-modeled environment through the PISCES (Public Infrastructure Security Cyber Education System) program, monitoring municipal networks and contributing to real-time threat detection for public-sector organizations. Strengthened capabilities in SIEM operations using Kibana, advanced log analysis, incident triage and escalation, event documentation, and end-to-end threat investigations. Completed specialized training focused on cybersecurity support for schools, local governments, and nonprofits, including instruction in security telemetry, early threat detection, incident response procedures, threat hunting, intrusion detection, vulnerability assessment, and operational security best practices.</p>
-      </div>
-      
-      <div class="background-item">
-        <h3>System Hardening & Security Configuration</h3>
-        <p class="subtitle">CORE EXPERTISE</p>
-        <p>Experience applying security hardening standards to Windows and Linux systems using CIS benchmarks, baseline policies, and configuration workflows. Tasks include firewall rule setup, service minimization, privilege reduction, secure authentication, system hardening with Windows hosts, implementing SSH hardening, and secure logging.</p>
-      </div>
-      
-      <div class="background-item">
-        <h3>Cisco Networking Academy</h3>
-        <p class="subtitle">CORE EXPERTISE</p>
-        <p>Completion of the CCNA Introduction to Networks curriculum, including configuration of rack-mounted Cisco routers and switches, device initialization, interface setup, VLAN and trunk configuration, port security enforcement, routing implementation, and verification using show/debug commands. Practical network topologies, connecting switches and servers, structured troubleshooting, subnetting, IP addressing schemes, executed pathing, ARP and DHCP behavior, and validated end-to-end connectivity in lab environments.</p>
-      </div>
-    </div>
-    
-    <div class="background-section">
-      <h2>Resume Hosted on GCP</h2>
-      <p style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.7;">My resume is hosted on Google Cloud Platform (GCP) and configured with Terraform for infrastructure as code, demonstrating expertise in cloud infrastructure automation and best practices.</p>
-      <a href="https://storage.googleapis.com/richard-mussell-resume-pdf/resume.pdf" class="btn btn-primary" style="display: inline-block; font-size: 0.9375rem; padding: 0.75rem 1.75rem;" target="_blank" rel="noopener noreferrer">View Resume PDF →</a>
-    </div>
-    
-    <div class="background-section">
-      <h2>Core Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-item">
-          <h3>Cloud Platforms (Azure & AWS)</h3>
-          <p>Proficient in designing and deploying cloud architectures across Azure and AWS. Experience implementing secure, scalable, and cost-optimized solutions. Integrating compute, networking, storage, and identity services into cohesive environments.</p>
+      <!-- Infrastructure Manifest -->
+      <section class="infrastructure-section">
+        <h2 class="section-heading">
+          <span class="status-indicator"></span>
+          <span class="heading-label">INFRASTRUCTURE_MANIFEST</span>
+        </h2>
+        
+        <div class="infrastructure-manifest">
+          <div class="manifest-content">
+            <div class="manifest-item">
+              <span class="manifest-label">Compute:</span>
+              <span class="manifest-value">Cloud Run</span>
+            </div>
+            <div class="manifest-item">
+              <span class="manifest-label">CI/CD:</span>
+              <span class="manifest-value">Cloud Build, GitHub Actions</span>
+            </div>
+            <div class="manifest-item">
+              <span class="manifest-label">IaC:</span>
+              <span class="manifest-value">Terraform</span>
+            </div>
+            <div class="manifest-item">
+              <span class="manifest-label">Storage:</span>
+              <span class="manifest-value">Cloud Storage</span>
+            </div>
+          </div>
+          <a href="https://storage.googleapis.com/richard-mussell-resume-pdf/resume.pdf" class="btn btn-primary manifest-btn" target="_blank" rel="noopener noreferrer">View Resume PDF →</a>
         </div>
-        <div class="skill-item">
-          <h3>Infrastructure as Code (Terraform)</h3>
-          <p>Building modular, production-ready Infrastructure as Code solutions using Terraform. Skilled in managing remote state, implementing reusable modules, enforcing version control workflows, and applying 'git-ops' best practices across multi-environment deployments.</p>
-        </div>
-        <div class="skill-item">
-          <h3>Containerization (Docker)</h3>
-          <p>Developing and maintaining containerized application environments. Experienced with containerized flexible builds, multi-stage workflows, image hardening, and enabling container-based development and testing pipelines.</p>
-        </div>
-        <div class="skill-item">
-          <h3>CI/CD Pipelines</h3>
-          <p>Capable of designing and maintaining automated CI/CD pipelines using GitLab, GitHub Actions, or Azure DevOps. Experience integrating build automation, security scanning, infrastructure deployments, and environment promotion workflows into streamlined delivery processes.</p>
-        </div>
-        <div class="skill-item">
-          <h3>Systems Administration (Windows & Linux)</h3>
-          <p>Strong operational background across Windows server and Linux systems. Skilled in directory services, Group Policy, system hardening, patching, workflow, shell scripting, and troubleshooting across hybrid cloud and on-premises environments.</p>
-        </div>
-        <div class="skill-item">
-          <h3>Virtualization & Homelabs</h3>
-          <p>Building advanced lab environments using Hyper-V, Raspberry Pi clusters, and virtual networks to simulate cloud-like and hybrid infrastructure scenarios. Leveraging homelabs for continuous skill development, testing, and automation experiments.</p>
-        </div>
-        <div class="skill-item">
-          <h3>Networking & Hybrid Connectivity</h3>
-          <p>Robust understanding of networking concepts including routing, VPN, load balancing, DNS, firewall rules, and VPC/VNet architecture. Experience operating secure cloud networking, on-premises connectivity, and troubleshooting multi-layer network issues.</p>
-        </div>
-        <div class="skill-item">
-          <h3>Secrets & Identity Management</h3>
-          <p>Managing identities, service principals, and secure credentials across cloud platforms. Implementing RBAC, MFA enforcement, least-privilege models, automated secret rotation, and secure vault integrations to protect infrastructure and workflows.</p>
-        </div>
-        <div class="skill-item">
-          <h3>Cybersecurity & Cloud Security Practices</h3>
-          <p>Applying security best practices across infrastructure, implementing defense-in-depth strategies, and ensuring compliance with industry standards.</p>
-        </div>
-        <div class="skill-item">
-          <h3>Monitoring, Logging & Observability</h3>
-          <p>Designing and implementing end-to-end observability solutions using tools such as Prometheus, Grafana, Azure Monitor, CloudWatch, ELK/Elastic, or Loki. Skilled in metric collection, alerting, log aggregation, tracing, and optimizing system health visibility.</p>
-        </div>
-      </div>
-    </div>
+      </section>
     
     </div>
     

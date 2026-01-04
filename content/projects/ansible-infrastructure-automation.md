@@ -1,7 +1,7 @@
 ---
 title: "Infrastructure Automation with Ansible: Configuration Management at Scale"
 date: 2025-12-08
-categories: ["INFRASTRUCTURE AS CODE"]
+categories: ["CLOUD AUTOMATION & IAC"]
 tags: ["Ansible", "Configuration Management", "Automation", "Infrastructure"]
 description: "Building scalable infrastructure automation workflows with Ansible. This project demonstrates playbook development, role organization, inventory management, and integration with cloud providers for multi-environment deployments."
 readTime: 9

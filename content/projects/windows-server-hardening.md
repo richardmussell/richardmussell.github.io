@@ -1,7 +1,7 @@
 ---
 title: "Windows Server Hardening: Security Best Practices and Automation"
 date: 2025-12-08
-categories: ["ENTERPRISE OPERATIONS", "RELIABILITY & SECURITY"]
+categories: ["PLATFORM ENGINEERING & GOVERNANCE", "SRE & SECURITY ENGINEERING"]
 tags: ["Windows Server", "Security", "Windows Firewall", "Opsec", "Hardening"]
 description: "Comprehensive guide to hardening Windows Server environments. Covers security baselines, firewall configuration, service minimization, and automated hardening using PowerShell and Group Policy."
 readTime: 11

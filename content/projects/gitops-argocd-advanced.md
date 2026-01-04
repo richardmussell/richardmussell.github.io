@@ -1,9 +1,9 @@
 ---
 title: "Advanced GitOps Patterns with ArgoCD: Multi-Cluster Deployments"
 date: 2025-12-08
-categories: ["ORCHESTRATION & SCALE", "PIPELINES & DELIVERY"]
+categories: ["DISTRIBUTED SYSTEMS & SCALE", "RELEASE ENGINEERING & CI/CD"]
 tags: ["GitOps", "ArgoCD", "Multi-Cluster", "Platform Engineering"]
-description: "Implementing advanced GitOps patterns for managing multi-cluster Kubernetes deployments with ArgoCD. Covers application sets, sync policies, and automated promotion workflows across development, staging, and production environments."
+description: "Designed ApplicationSet generators and sync wave orchestration to enable declarative multi-cluster deployments. Implemented automated promotion workflows with health checks and rollback policies for zero-downtime environment promotion."
 readTime: 13
 ---
 

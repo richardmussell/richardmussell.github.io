@@ -22,7 +22,23 @@
           <span class="tag">{{ . }}</span>
           {{ end }}
         </div>
-        <span class="card-link">Read Case Study →</span>
+        <div class="card-technical-metadata">
+          {{ if .Params.iac }}
+          <span class="tech-badge" title="Infrastructure as Code">{{ .Params.iac }}</span>
+          {{ end }}
+          {{ if .Params.provider }}
+          <span class="tech-badge" title="Cloud Provider">{{ .Params.provider }}</span>
+          {{ end }}
+          {{ if .Params.reliabilitySlo }}
+          <span class="tech-badge slo-badge" title="Service Level Objective">{{ index (split .Params.reliabilitySlo " ") 0 }}</span>
+          {{ end }}
+        </div>
+        <div class="card-actions">
+          {{ if .Params.githubLink }}
+          <a href="{{ .Params.githubLink }}" class="card-link-secondary" target="_blank" rel="noopener" onclick="event.stopPropagation();">View Code</a>
+          {{ end }}
+          <span class="card-link">Read Case Study →</span>
+        </div>
       </a>
       {{ end }}
     </div>

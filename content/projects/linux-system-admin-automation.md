@@ -1,7 +1,7 @@
 ---
 title: "Linux System Administration Automation: From Manual Tasks to Infrastructure as Code"
 date: 2025-12-08
-categories: ["ENTERPRISE OPERATIONS", "INFRASTRUCTURE AS CODE", "HYBRID SYSTEMS LAB"]
+categories: ["PLATFORM ENGINEERING & GOVERNANCE", "CLOUD AUTOMATION & IAC", "HYBRID CLOUD & EDGE R&D"]
 tags: ["Linux System Administration", "Automation", "Infrastructure as Code", "Ansible"]
 description: "Transforming manual Linux system administration tasks into automated, repeatable processes using Infrastructure as Code principles. This project demonstrates configuration management, automated patching, and system hardening workflows."
 readTime: 7

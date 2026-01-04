@@ -1093,7 +1093,7 @@ footer {
   border-left: 3px solid var(--color-primary);
 }
 
-/* Sidebar */
+/* Sidebar - Enterprise Control Plane */
 .sidebar {
   background: var(--bg-secondary);
   padding: 1.5rem;
@@ -1103,6 +1103,20 @@ footer {
   top: 100px;
   border: 1px solid var(--border-color);
   transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.enterprise-sidebar {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+[data-theme="dark"] .enterprise-sidebar,
+.dark-mode .enterprise-sidebar {
+  background: #1F2937;
+  border-color: #374151;
 }
 
 .sidebar-search {
@@ -1135,25 +1149,99 @@ footer {
   transition: color 0.3s ease;
 }
 
-.sidebar-categories {
+.categories-section {
+  margin-top: 0;
+}
+
+.categories-title {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  margin: 0 0 1rem;
+}
+
+.category-nav-list {
   list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.sidebar-categories li {
-  margin-bottom: 0.5rem;
+.category-nav-item {
+  margin: 0;
+  padding: 0;
 }
 
-.sidebar-categories a {
-  color: var(--text-primary);
-  text-decoration: none;
+.category-nav-link {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--border-color);
-  transition: color 0.3s ease, border-color 0.3s ease;
+  align-items: center;
+  padding: 0.625rem 0.75rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+  margin: 0.125rem 0;
 }
 
-.sidebar-categories a:hover {
+.category-nav-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .category-nav-link:hover,
+.dark-mode .category-nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.category-nav-item.active-category .category-nav-link {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .category-nav-item.active-category .category-nav-link,
+.dark-mode .category-nav-item.active-category .category-nav-link {
+  background: rgba(220, 38, 38, 0.15);
+}
+
+.category-text {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  flex: 1;
+  min-width: 0;
+  font-weight: 500;
+}
+
+.category-count-badge {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+  margin-left: 0.75rem;
+}
+
+[data-theme="dark"] .category-count-badge,
+.dark-mode .category-count-badge {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.category-nav-link:hover .category-count-badge {
+  background: rgba(220, 38, 38, 0.2);
+  color: var(--color-primary);
+}
+
+.category-nav-item.active-category .category-count-badge {
+  background: rgba(220, 38, 38, 0.2);
   color: var(--color-primary);
 }
 
@@ -2439,3 +2527,1598 @@ footer {
     padding-top: 2rem;
   }
 }
+
+/* ============================================
+   FAANG-Level Portfolio Enhancements
+   System Status Aesthetic (Datadog/AWS Console Style)
+   ============================================ */
+
+/* Technical Metadata Badges on Cards */
+.card-technical-metadata {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.tech-badge {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+}
+
+.tech-badge:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.slo-badge {
+  color: #10B981;
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+[data-theme="dark"] .slo-badge,
+.dark-mode .slo-badge {
+  color: #34D399;
+  border-color: rgba(52, 211, 153, 0.3);
+  background: rgba(52, 211, 153, 0.1);
+}
+
+/* Card Actions (View Code + Read Article) */
+.card-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.card-link-secondary {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  transition: color 0.2s ease;
+}
+
+.card-link-secondary:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Production-Ready Badge */
+.production-badge {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  background: rgba(16, 185, 129, 0.1);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+}
+
+[data-theme="dark"] .production-badge,
+.dark-mode .production-badge {
+  color: #34D399;
+  border-color: rgba(52, 211, 153, 0.3);
+  background: rgba(52, 211, 153, 0.1);
+}
+
+/* Key Impact Box */
+.key-impact-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.key-impact-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+}
+
+.key-impact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.key-impact-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.key-impact-list li:last-child {
+  border-bottom: none;
+}
+
+.key-impact-list li strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Project Sections */
+.project-section {
+  margin: 3rem 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.project-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.section-intro {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 0.9375rem;
+}
+
+/* Engineering Trade-offs */
+.tradeoffs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tradeoff-item {
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* Architecture Diagram */
+.architecture-section {
+  margin: 3rem 0;
+}
+
+.architecture-diagram-container {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.architecture-diagram {
+  width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
+  display: block;
+}
+
+.architecture-caption {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Reliability SLO Box */
+.reliability-section {
+  margin: 3rem 0;
+}
+
+.slo-box {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.slo-metric {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 1rem;
+  color: #10B981;
+  display: block;
+  line-height: 1.6;
+}
+
+[data-theme="dark"] .slo-metric,
+.dark-mode .slo-metric {
+  color: #34D399;
+}
+
+/* Security Posturing */
+.security-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+/* Failure Mode Section */
+.failure-mode-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid #F59E0B;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+/* FinOps Section */
+.finops-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.finops-item {
+  padding: 0.875rem 1rem;
+  margin-bottom: 0.5rem;
+  background: var(--bg-secondary);
+  border-left: 3px solid #3B82F6;
+  border-radius: 0.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+}
+
+/* GitHub Link in Project Header */
+.project-github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.project-github-link:hover {
+  color: var(--color-primary);
+}
+
+.project-github-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Enhanced Project Info Layout */
+.project-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+/* Category Sidebar Production-Ready Counts */
+.sidebar-section ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-section ul li .project-count {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-left: 0.5rem;
+}
+
+.sidebar-section ul li .production-count {
+  color: #10B981;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .sidebar-section ul li .production-count,
+.dark-mode .sidebar-section ul li .production-count {
+  color: #34D399;
+}
+
+/* ============================================
+   FAANG-Level About Page Refactor
+   Technical Dark Mode Aesthetic
+   ============================================ */
+
+/* Section Headings with Terminal Font and Status Indicator */
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.heading-label {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.status-indicator-small {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
+  flex-shrink: 0;
+  display: inline-block;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+[data-theme="dark"] .status-indicator,
+.dark-mode .status-indicator {
+  background: #34D399;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
+}
+
+[data-theme="dark"] .status-indicator-small,
+.dark-mode .status-indicator-small {
+  background: #34D399;
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.5);
+}
+
+/* Core Engineering Pillars Grid */
+.pillars-section {
+  margin-bottom: 5rem;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.pillar-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.pillar-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.pillar-card:hover {
+  box-shadow: 0 8px 24px var(--shadow-hover);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.pillar-card:hover::before {
+  width: 4px;
+}
+
+.pillar-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.01em;
+}
+
+.pillar-content {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Engineering Principles Grid */
+.principles-section {
+  margin-bottom: 5rem;
+}
+
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.principle-card {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--card-bg) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.principle-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), #FF4D4D);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.principle-card:hover {
+  box-shadow: 0 8px 24px var(--shadow-hover);
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+}
+
+.principle-card:hover::after {
+  opacity: 1;
+}
+
+.principle-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  letter-spacing: 0.02em;
+}
+
+.principle-content {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Infrastructure Manifest */
+.infrastructure-section {
+  margin-bottom: 5rem;
+}
+
+.infrastructure-manifest {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.infrastructure-manifest::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #3B82F6, #1E40AF);
+}
+
+.manifest-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.manifest-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.manifest-label {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  min-width: 80px;
+}
+
+.manifest-value {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.manifest-btn {
+  display: inline-block;
+  font-size: 0.9375rem;
+  padding: 0.75rem 1.75rem;
+  margin-top: 0.5rem;
+}
+
+/* Responsive Design for About Page */
+@media (max-width: 768px) {
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .principles-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .manifest-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .pillar-card,
+  .principle-card {
+    padding: 1.5rem;
+  }
+  
+  .pillar-title {
+    font-size: 1.125rem;
+  }
+  
+  .principle-title {
+    font-size: 1rem;
+  }
+  
+  .heading-label {
+    font-size: 0.75rem;
+  }
+}
+
+/* ============================================
+   Engineering Dashboard - Projects Page
+   High Information Density, System Status Aesthetic
+   ============================================ */
+
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Update Body Font */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Dashboard Card - Glassmorphism Effect */
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+[data-theme="dark"] .dashboard-card,
+.dark-mode .dashboard-card {
+  background: rgba(31, 41, 55, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Simplified Border Effect */
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dashboard-card:hover::before {
+  opacity: 1;
+}
+
+.dashboard-card-inner {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.dashboard-title {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+  flex: 1;
+  letter-spacing: -0.02em;
+}
+
+.dashboard-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.dashboard-date {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.dashboard-github-icon {
+  color: var(--text-secondary);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-github-icon:hover {
+  color: var(--color-primary);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Metadata Line */
+.dashboard-metadata {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-date-inline {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.metadata-separator {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  opacity: 0.4;
+}
+
+.category-label-inline {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Impact Chips Row */
+.dashboard-impact-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+.impact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 0.25rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #10B981;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .impact-chip,
+.dark-mode .impact-chip {
+  background: rgba(52, 211, 153, 0.15);
+  border-color: rgba(52, 211, 153, 0.4);
+  color: #34D399;
+}
+
+.impact-icon {
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.impact-text {
+  font-size: 0.6875rem;
+}
+
+/* Dashboard Content Grid */
+.dashboard-content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-content-grid {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+.dashboard-description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.dashboard-description p {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dashboard-architecture-preview {
+  display: none;
+  width: 200px;
+  height: 150px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-secondary);
+  flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-architecture-preview {
+    display: block;
+  }
+}
+
+.architecture-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.3) contrast(1.1);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.dashboard-card:hover .architecture-preview-img {
+  filter: grayscale(0) contrast(1.2);
+  opacity: 1;
+}
+
+/* Dashboard Action with Inline Stack */
+.dashboard-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.dashboard-stack-inline {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.stack-badge {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.625rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
+.dashboard-action-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dashboard-read-link {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.dashboard-read-time {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* Dashboard Sidebar - System Status */
+.dashboard-sidebar {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .dashboard-sidebar,
+.dark-mode .dashboard-sidebar {
+  background: rgba(31, 41, 55, 0.6);
+}
+
+.system-status-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.status-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.status-dot-live {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #10B981;
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+[data-theme="dark"] .status-dot-live,
+.dark-mode .status-dot-live {
+  background: #34D399;
+}
+
+.system-status-title {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  margin: 0;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+  align-items: center;
+}
+
+.status-row {
+  display: contents;
+}
+
+.status-label {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  text-align: left;
+}
+
+.status-value {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.status-success {
+  color: #10B981;
+}
+
+[data-theme="dark"] .status-success,
+.dark-mode .status-success {
+  color: #34D399;
+}
+
+.metric-label {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metric-value {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #10B981;
+}
+
+[data-theme="dark"] .metric-value,
+.dark-mode .metric-value {
+  color: #34D399;
+}
+
+.metric-success {
+  color: #10B981;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .metric-success,
+.dark-mode .metric-success {
+  color: #34D399;
+}
+
+/* Active Category Styling - Handled in .category-nav-item.active-category above */
+
+/* Executive Summary Table */
+.executive-summary-section {
+  margin: 3rem 0;
+}
+
+.executive-summary-table {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-top: 1.5rem;
+  border-collapse: collapse;
+}
+
+.summary-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-cell {
+  padding: 1rem 1.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.summary-label {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-right: 1px dashed var(--border-color);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.summary-value {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Decision Log */
+.decision-log-section {
+  margin: 3rem 0;
+}
+
+.decision-log {
+  margin-top: 1.5rem;
+}
+
+.decision-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.decision-marker {
+  width: 2px;
+  background: var(--color-primary);
+  flex-shrink: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.decision-content {
+  flex: 1;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0.25rem;
+}
+
+.decision-content p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+/* Failure Analysis */
+.failure-analysis-section {
+  margin: 3rem 0;
+}
+
+.status-indicator-warning {
+  background: #F59E0B !important;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.6) !important;
+}
+
+[data-theme="dark"] .status-indicator-warning,
+.dark-mode .status-indicator-warning {
+  background: #FBBF24 !important;
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.6) !important;
+}
+
+.failure-analysis-content {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.failure-scenario,
+.failure-solution {
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+}
+
+.failure-scenario {
+  border-left: 3px solid #EF4444;
+}
+
+.failure-solution {
+  border-left: 3px solid #10B981;
+}
+
+[data-theme="dark"] .failure-solution,
+.dark-mode .failure-solution {
+  border-left-color: #34D399;
+}
+
+.failure-title {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin: 0 0 0.75rem;
+}
+
+.failure-description {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.failure-placeholder {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border: 1px dashed var(--border-color);
+  border-radius: 0.5rem;
+}
+
+/* Responsive Design for Dashboard */
+@media (max-width: 768px) {
+  .dashboard-card-inner {
+    padding: 1.25rem;
+  }
+  
+  .dashboard-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .dashboard-title {
+    font-size: 1.125rem;
+  }
+  
+  .dashboard-impact-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .dashboard-content-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-architecture-preview {
+    display: none;
+  }
+  
+  .summary-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .summary-label {
+    border-right: none;
+    border-bottom: 1px dashed var(--border-color);
+  }
+  
+  .failure-analysis-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   System Manifest - Category Pages
+   Engineering-First, Data-Dense Layout
+   ============================================ */
+
+/* North Star Metrics Section */
+.north-star-section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.category-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1rem;
+  letter-spacing: -0.03em;
+}
+
+.engineering-philosophy {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0 0 2rem;
+  font-style: italic;
+  max-width: 800px;
+}
+
+.north-star-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.metric-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+}
+
+.metric-label {
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+}
+
+.metric-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #10B981;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+}
+
+[data-theme="dark"] .metric-value,
+.dark-mode .metric-value {
+  color: #34D399;
+}
+
+/* Capability Stack Section */
+.capability-stack-section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.capability-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.capability-group {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid #3B82F6;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+}
+
+.capability-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+  opacity: 0.8;
+}
+
+.capability-tools {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* System Records (Horizontal Layout) */
+.system-records-section {
+  margin-bottom: 4rem;
+}
+
+.system-records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.system-record {
+  display: grid;
+  grid-template-columns: 100px 1fr auto 200px;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.25rem 0;
+  border-bottom: 1px dashed var(--border-color);
+  transition: background-color 0.2s ease;
+}
+
+.system-record:hover {
+  background: var(--bg-secondary);
+}
+
+.system-record:last-child {
+  border-bottom: none;
+}
+
+.record-status-badge {
+  display: flex;
+  align-items: center;
+}
+
+.status-badge {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.status-stable {
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-active {
+  color: #3B82F6;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+[data-theme="dark"] .status-stable,
+.dark-mode .status-stable {
+  color: #34D399;
+  background: rgba(52, 211, 153, 0.15);
+  border-color: rgba(52, 211, 153, 0.4);
+}
+
+[data-theme="dark"] .status-active,
+.dark-mode .status-active {
+  color: #60A5FA;
+  background: rgba(96, 165, 250, 0.15);
+  border-color: rgba(96, 165, 250, 0.4);
+}
+
+.record-identity {
+  min-width: 0;
+}
+
+.record-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+}
+
+.record-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.record-title a:hover {
+  color: var(--color-primary);
+}
+
+.record-objective {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.record-impact {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.record-impact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 0.25rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #10B981;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .record-impact-chip,
+.dark-mode .record-impact-chip {
+  background: rgba(52, 211, 153, 0.15);
+  border-color: rgba(52, 211, 153, 0.4);
+  color: #34D399;
+}
+
+.record-impact-chip .impact-icon {
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.record-impact-chip .impact-text {
+  font-size: 0.625rem;
+}
+
+.record-stack-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.record-stack-icons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.stack-icon-mini {
+  font-size: 0.875rem;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.stack-icon-mini:hover {
+  opacity: 1;
+}
+
+.record-link {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  transition: opacity 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.record-link:hover {
+  opacity: 0.8;
+}
+
+/* Elite Footer */
+.elite-footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.footer-text {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.terminal-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--color-primary);
+  border-radius: 0.25rem;
+  background: transparent;
+  transition: all 0.2s ease;
+  text-transform: lowercase;
+}
+
+.terminal-link:hover {
+  background: var(--color-primary);
+  color: var(--color-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* Responsive Design for System Manifest */
+@media (max-width: 1024px) {
+  .north-star-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .capability-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .system-record {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1rem 0;
+  }
+  
+  .record-status-badge {
+    justify-content: flex-start;
+  }
+  
+  .record-impact {
+    justify-content: flex-start;
+  }
+  
+  .record-stack-action {
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .category-title {
+    font-size: 2rem;
+  }
+  
+  .north-star-metrics {
+    grid-template-columns: 1fr;
+  }
+  
+  .metric-box {
+    padding: 0.875rem 1rem;
+  }
+}
+

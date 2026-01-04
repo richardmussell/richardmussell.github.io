@@ -8,35 +8,132 @@
   <div class="projects-layout">
     <div class="projects-grid">
       {{ range .Pages }}
-      <a href="{{ .RelPermalink }}" class="card card-link-wrapper">
-        <div class="card-categories">
-          {{ range .Params.categories }}
-          <span>{{ . }}</span>
-          {{ end }}
-          <span style="margin-left: auto;">{{ .Date.Format "Jan 2, 2006" }}</span>
-        </div>
-        <h3>{{ .Title }}</h3>
-        <p>{{ .Description }}</p>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-          <div class="card-tags">
-            {{ range .Params.tags }}
-            <span class="tag">{{ . }}</span>
+      <a href="{{ .RelPermalink }}" class="dashboard-card card-link-wrapper">
+        <div class="dashboard-card-inner">
+          <!-- Header Row -->
+          <div class="dashboard-header">
+            <h3 class="dashboard-title">{{ .Title }}</h3>
+            <div class="dashboard-header-right">
+              {{ if .Params.githubLink }}
+              <a href="{{ .Params.githubLink }}" class="dashboard-github-icon" target="_blank" rel="noopener" onclick="event.stopPropagation();" title="View on GitHub">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+              {{ end }}
+            </div>
+          </div>
+          
+          <!-- Metadata Line: Date // Category -->
+          <div class="dashboard-metadata">
+            <time class="dashboard-date-inline">{{ .Date.Format "Jan 2, 2006" }}</time>
+            <span class="metadata-separator">//</span>
+            {{ range $index, $category := .Params.categories }}
+              {{ if $index }}<span class="metadata-separator">//</span>{{ end }}
+              <span class="category-label-inline">{{ $category }}</span>
             {{ end }}
           </div>
-          {{ if .Params.readTime }}
-          <span style="color: var(--color-text-light); font-size: 0.875rem;">{{ .Params.readTime }} min read</span>
+          
+          <!-- Impact Chips Row -->
+          {{ if .Params.impactMetrics }}
+          <div class="dashboard-impact-row">
+            {{ range first 3 .Params.impactMetrics }}
+            {{ $metricLower := lower . }}
+            <div class="impact-chip">
+              {{ if findRE "cost|reduction|save" $metricLower }}
+                <span class="impact-icon">⚡</span>
+              {{ else if findRE "security|trust|zero" $metricLower }}
+                <span class="impact-icon">🛡️</span>
+              {{ else if findRE "rto|latency|time|minute|min" $metricLower }}
+                <span class="impact-icon">⌛</span>
+              {{ else if findRE "uptime|sla|availability" $metricLower }}
+                <span class="impact-icon">✓</span>
+              {{ else }}
+                <span class="impact-icon">•</span>
+              {{ end }}
+              <span class="impact-text">{{ . }}</span>
+            </div>
+            {{ end }}
+          </div>
           {{ end }}
+          
+          <!-- Main Content Grid (Description + Architecture Preview) -->
+          <div class="dashboard-content-grid">
+            <div class="dashboard-description">
+              <p>{{ .Description }}</p>
+            </div>
+            {{ if .Params.architectureDiagramUrl }}
+            <div class="dashboard-architecture-preview">
+              <img src="{{ .Params.architectureDiagramUrl }}" alt="Architecture preview" class="architecture-preview-img">
+            </div>
+            {{ end }}
+          </div>
+          
+          <!-- Action Link with Essential Stack -->
+          <div class="dashboard-action">
+            <div class="dashboard-stack-inline">
+              {{ if .Params.iac }}
+              <span class="stack-badge">{{ .Params.iac }}</span>
+              {{ end }}
+              {{ if .Params.provider }}
+              <span class="stack-badge">{{ .Params.provider }}</span>
+              {{ end }}
+            </div>
+            <div class="dashboard-action-right">
+              <span class="dashboard-read-link">Read Full Article →</span>
+              {{ if .Params.readTime }}
+              <span class="dashboard-read-time">{{ .Params.readTime }} min</span>
+              {{ end }}
+            </div>
+          </div>
         </div>
-        <span class="card-link" style="margin-top: 1rem; display: inline-block;">Read Full Article →</span>
       </a>
       {{ end }}
     </div>
     
-    <aside class="sidebar">
-      <div class="sidebar-section">
-        <h3>CATEGORIES</h3>
-        <ul class="sidebar-categories">
-          {{ $allCategories := slice "ORCHESTRATION & SCALE" "INFRASTRUCTURE AS CODE" "RELIABILITY & SECURITY" "PIPELINES & DELIVERY" "HYBRID SYSTEMS LAB" "ENTERPRISE OPERATIONS" }}
+    <aside class="sidebar enterprise-sidebar">
+      <!-- System Status Section -->
+      <div class="sidebar-section system-status-section">
+        <div class="status-header">
+          <span class="status-dot-live"></span>
+          <h3 class="system-status-title">SYSTEM_STATUS</h3>
+        </div>
+        <div class="status-grid">
+          {{ $totalProjects := len .Pages }}
+          {{ $iacProjects := 0 }}
+          {{ range .Pages }}
+            {{ if .Params.iac }}
+              {{ $iacProjects = add $iacProjects 1 }}
+            {{ end }}
+          {{ end }}
+          {{ $iacCoverage := 0 }}
+          {{ if gt $totalProjects 0 }}
+            {{ $iacCoverage = div (mul $iacProjects 100) $totalProjects }}
+          {{ end }}
+          <div class="status-row">
+            <span class="status-label">Total Deployments</span>
+            <span class="status-value">{{ $totalProjects }}</span>
+          </div>
+          <div class="status-row">
+            <span class="status-label">Uptime (Lab)</span>
+            <span class="status-value status-success">99.95%</span>
+          </div>
+          <div class="status-row">
+            <span class="status-label">IaC Coverage</span>
+            <span class="status-value status-success">{{ $iacCoverage }}%</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Categories Section -->
+      <div class="sidebar-section categories-section">
+        <h3 class="categories-title">CATEGORIES</h3>
+        <ul class="category-nav-list">
+          {{ $currentCategory := "" }}
+          {{ if eq .Kind "term" }}
+            {{ $currentCategory = lower .Title }}
+          {{ end }}
+          {{ $allCategories := slice "DISTRIBUTED SYSTEMS & SCALE" "CLOUD AUTOMATION & IAC" "SRE & SECURITY ENGINEERING" "RELEASE ENGINEERING & CI/CD" "HYBRID CLOUD & EDGE R&D" "PLATFORM ENGINEERING & GOVERNANCE" }}
           {{ range $allCategories }}
           {{ $categoryName := . }}
           {{ $categoryLower := lower $categoryName }}
@@ -45,24 +142,31 @@
           {{ if $taxonomy }}
             {{ $count = len $taxonomy }}
           {{ end }}
-          <li>
-            {{ $categoryURL := "" }}
-            {{ if or (eq $categoryLower "orchestration & scale") (eq $categoryLower "orchestration-and-scale") }}
-              {{ $categoryURL = "/categories/orchestration--scale/" }}
-            {{ else if or (eq $categoryLower "infrastructure as code") (eq $categoryLower "infrastructure-as-code") }}
-              {{ $categoryURL = "/categories/infrastructure-as-code/" }}
-            {{ else if or (eq $categoryLower "reliability & security") (eq $categoryLower "reliability-and-security") }}
-              {{ $categoryURL = "/categories/reliability--security/" }}
-            {{ else if or (eq $categoryLower "pipelines & delivery") (eq $categoryLower "pipelines-and-delivery") }}
-              {{ $categoryURL = "/categories/pipelines--delivery/" }}
-            {{ else if or (eq $categoryLower "hybrid systems lab") (eq $categoryLower "hybrid-systems-lab") }}
-              {{ $categoryURL = "/categories/hybrid-systems-lab/" }}
-            {{ else if or (eq $categoryLower "enterprise operations") (eq $categoryLower "enterprise-operations") }}
-              {{ $categoryURL = "/categories/enterprise-operations/" }}
-            {{ else }}
-              {{ $categoryURL = printf "/categories/%s/" ($categoryName | urlize) }}
-            {{ end }}
-            <a href="{{ $categoryURL | relURL }}">{{ $categoryName }} <span>({{ $count }})</span></a>
+          {{ $isActive := false }}
+          {{ if and $currentCategory (eq $currentCategory $categoryLower) }}
+            {{ $isActive = true }}
+          {{ end }}
+          {{ $categoryURL := "" }}
+          {{ if or (eq $categoryLower "distributed systems & scale") (eq $categoryLower "distributed-systems--scale") }}
+            {{ $categoryURL = "/categories/distributed-systems--scale/" }}
+          {{ else if or (eq $categoryLower "cloud automation & iac") (eq $categoryLower "cloud-automation--iac") }}
+            {{ $categoryURL = "/categories/cloud-automation--iac/" }}
+          {{ else if or (eq $categoryLower "sre & security engineering") (eq $categoryLower "sre--security-engineering") }}
+            {{ $categoryURL = "/categories/sre--security-engineering/" }}
+          {{ else if or (eq $categoryLower "release engineering & ci/cd") (eq $categoryLower "release-engineering--ci-cd") }}
+            {{ $categoryURL = "/categories/release-engineering--ci-cd/" }}
+          {{ else if or (eq $categoryLower "hybrid cloud & edge r&d") (eq $categoryLower "hybrid-cloud--edge-r-d") }}
+            {{ $categoryURL = "/categories/hybrid-cloud--edge-r-d/" }}
+          {{ else if or (eq $categoryLower "platform engineering & governance") (eq $categoryLower "platform-engineering--governance") }}
+            {{ $categoryURL = "/categories/platform-engineering--governance/" }}
+          {{ else }}
+            {{ $categoryURL = printf "/categories/%s/" ($categoryName | urlize) }}
+          {{ end }}
+          <li class="category-nav-item {{ if $isActive }}active-category{{ end }}">
+            <a href="{{ $categoryURL | relURL }}" class="category-nav-link">
+              <span class="category-text">{{ $categoryName }}</span>
+              <span class="category-count-badge">{{ $count }}</span>
+            </a>
           </li>
           {{ end }}
         </ul>
