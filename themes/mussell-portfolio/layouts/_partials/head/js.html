@@ -422,14 +422,8 @@
             behavior: 'smooth'
           });
           
-          // Add highlight flash effect when scroll completes
+          // Mark scrolling as complete after animation
           setTimeout(() => {
-            if (targetHeading) {
-              targetHeading.classList.add('section-highlight');
-              setTimeout(() => {
-                targetHeading.classList.remove('section-highlight');
-              }, 1000);
-            }
             isScrolling = false;
           }, 600); // Wait for scroll animation to complete
           

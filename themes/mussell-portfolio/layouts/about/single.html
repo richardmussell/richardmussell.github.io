@@ -1,12 +1,17 @@
 {{ define "main" }}
 <div class="container">
   <article class="about-page">
-    <!-- About Hero Section -->
+    <!-- About Hero Section - Architect Profile -->
     <header class="about-hero">
-      <div class="about-hero-content">
-        <div class="about-avatar-wrapper">
-          <img src="{{ "/profile.jpg" | relURL }}" alt="Richard Mussell III" class="about-avatar" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+      <div class="about-hero-grid">
+        <!-- Left: Visual (40%) -->
+        <div class="about-hero-visual">
+          <div class="about-avatar-wrapper">
+            <img src="{{ "/profile.jpg" | relURL }}" alt="Richard Mussell III" class="about-avatar" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+            <span class="about-status-dot" aria-label="Status: Operational"></span>
+          </div>
         </div>
+        <!-- Right: Context (60%) -->
         <div class="about-hero-text">
           <h1 class="about-title">Richard Mussell III</h1>
           <p class="about-subtitle">Specializing in Distributed Systems, Cloud-Native Orchestration, and Security Engineering</p>
@@ -27,7 +32,9 @@
         <div class="pillars-grid">
           <div class="pillar-card">
             <h3 class="pillar-title">
-              <span class="status-indicator-small"></span>
+              <svg class="pillar-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+              </svg>
               Orchestration & Distributed Systems
             </h3>
             <p class="pillar-content">Operating a multi-node R&D environment to simulate enterprise-grade distributed systems. Implementing K8s clusters, automated provisioning with Terraform, and zero-trust networking to test high-availability patterns before production deployment.</p>
@@ -35,7 +42,9 @@
           
           <div class="pillar-card">
             <h3 class="pillar-title">
-              <span class="status-indicator-small"></span>
+              <svg class="pillar-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+              </svg>
               Infrastructure-as-Code & Automation
             </h3>
             <p class="pillar-content">Treating infrastructure as a software product. My personal resume and portfolio are not just 'hosted'; they are a fully versioned codebase deployed via a GitHub Actions CI/CD pipeline to GCP, utilizing Terraform for resource lifecycle management.</p>
@@ -43,7 +52,9 @@
           
           <div class="pillar-card">
             <h3 class="pillar-title">
-              <span class="status-indicator-small"></span>
+              <svg class="pillar-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
               Security Engineering & Hardening
             </h3>
             <p class="pillar-content">Advocating for 'Shift-Left' security. Expertise in translating CIS Benchmarks and NIST frameworks into automated hardening scripts. Experience in threat modeling and incident response within SOC environments, ensuring security is a feature, not a bottleneck.</p>
@@ -51,7 +62,9 @@
           
           <div class="pillar-card">
             <h3 class="pillar-title">
-              <span class="status-indicator-small"></span>
+              <svg class="pillar-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+              </svg>
               Systems Architecture & Networking
             </h3>
             <p class="pillar-content">Deep understanding of OSI Layer 2-7. Transitioning traditional networking fundamentals (VLANs, Routing, BGP) into the Cloud-Native era via Software-Defined Networking (SDN) and Service Mesh architectures.</p>
@@ -66,20 +79,22 @@
           <span class="heading-label">ENGINEERING_PRINCIPLES</span>
         </h2>
         
-        <div class="principles-grid">
-          <div class="principle-card">
-            <h3 class="principle-title">Automation over Manual</h3>
-            <p class="principle-content">If it has to be done twice, it belongs in a script.</p>
-          </div>
-          
-          <div class="principle-card">
-            <h3 class="principle-title">Security by Default</h3>
-            <p class="principle-content">Least privilege isn't a setting; it's a foundation.</p>
-          </div>
-          
-          <div class="principle-card">
-            <h3 class="principle-title">Observability First</h3>
-            <p class="principle-content">If it isn't measured, it isn't running.</p>
+        <div class="principles-container">
+          <div class="principles-grid">
+            <div class="principle-card">
+              <h4 class="principle-title">AUTOMATION > MANUAL</h4>
+              <p class="principle-content">If it has to be done twice, it belongs in a script.</p>
+            </div>
+            
+            <div class="principle-card">
+              <h4 class="principle-title">SECURITY BY DEFAULT</h4>
+              <p class="principle-content">Least privilege isn't a setting; it's a foundation.</p>
+            </div>
+            
+            <div class="principle-card">
+              <h4 class="principle-title">OBSERVABILITY FIRST</h4>
+              <p class="principle-content">If it isn't measured, it isn't running.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -92,25 +107,25 @@
         </h2>
         
         <div class="infrastructure-manifest">
-          <div class="manifest-content">
-            <div class="manifest-item">
-              <span class="manifest-label">Compute:</span>
+          <div class="manifest-registry">
+            <div class="manifest-row">
+              <span class="manifest-label">COMPUTE</span>
               <span class="manifest-value">Cloud Run</span>
             </div>
-            <div class="manifest-item">
-              <span class="manifest-label">CI/CD:</span>
-              <span class="manifest-value">Cloud Build, GitHub Actions</span>
-            </div>
-            <div class="manifest-item">
-              <span class="manifest-label">IaC:</span>
+            <div class="manifest-row">
+              <span class="manifest-label">IAC</span>
               <span class="manifest-value">Terraform</span>
             </div>
-            <div class="manifest-item">
-              <span class="manifest-label">Storage:</span>
+            <div class="manifest-row">
+              <span class="manifest-label">CI/CD</span>
+              <span class="manifest-value">Cloud Build, GitHub Actions</span>
+            </div>
+            <div class="manifest-row">
+              <span class="manifest-label">STORAGE</span>
               <span class="manifest-value">Cloud Storage</span>
             </div>
           </div>
-          <a href="https://storage.googleapis.com/richard-mussell-resume-pdf/resume.pdf" class="btn btn-primary manifest-btn" target="_blank" rel="noopener noreferrer">View Resume PDF →</a>
+          <a href="https://storage.googleapis.com/richard-mussell-resume-pdf/resume.pdf" class="manifest-btn" target="_blank" rel="noopener noreferrer">View Resume PDF →</a>
         </div>
       </section>
     
@@ -122,8 +137,8 @@
         <h2>Let's Connect</h2>
         <p>Interested in discussing infrastructure challenges, automation strategies, or potential collaboration opportunities?</p>
         <div class="about-cta-buttons">
-          <a href="{{ "/contact/" | relURL }}" class="btn btn-primary">Get in Touch</a>
-          <a href="{{ "/projects/" | relURL }}" class="btn btn-outline">View Projects</a>
+          <a href="{{ "/contact/" | relURL }}" class="cta-btn-primary">Get in Touch</a>
+          <a href="{{ "/projects/" | relURL }}" class="cta-btn-secondary">View Projects</a>
         </div>
       </div>
     </div>
