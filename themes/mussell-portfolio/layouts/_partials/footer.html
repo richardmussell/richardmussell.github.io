@@ -14,13 +14,18 @@
   <div class="footer-section footer-connect">
     <h4>CONNECT</h4>
     <p>Ready to collaborate or discuss infrastructure challenges?</p>
-    <a href="{{ "/contact/" | relURL }}">Get in Touch</a>
+    <a href="{{ "/contact/" | relURL }}" aria-label="Get in Touch - Contact page">Get in Touch</a>
   </div>
 </div>
 <div class="footer-copyright">
   <div class="footer-status">
     <span class="status-dot status-operational" aria-label="System operational"></span>
     <span class="status-text">System Status: Operational</span>
+    {{ if .GitInfo }}
+    <span class="build-metadata">Last Deployed: <code class="commit-hash">{{ substr .GitInfo.Hash 0 7 }}</code></span>
+    {{ else }}
+    <span class="build-metadata">Last Deployed: <code class="commit-hash">[BUILD]</code></span>
+    {{ end }}
   </div>
   <p>© 2026 Richard Mussell III. All Rights Reserved.</p>
 </div>

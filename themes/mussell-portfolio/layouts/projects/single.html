@@ -282,39 +282,98 @@
       </aside>
     </div>
 
-    <!-- Decision Log Section -->
+    <!-- Architectural Decision Records (ADR Vault) -->
     {{ if .Params.designTradeoffs }}
-    <section class="project-section decision-log-section">
-      <h2 class="section-heading">
-        <span class="status-indicator"></span>
-        <span class="heading-label">DECISION_LOG</span>
-      </h2>
-      <p class="section-intro">Critical architectural decisions and their rationale:</p>
-      <div class="decision-log">
-        {{ range .Params.designTradeoffs }}
-        <div class="decision-item">
-          <div class="decision-marker"></div>
-          <div class="decision-content">
-            <p>{{ . }}</p>
-          </div>
-        </div>
+    <section class="project-section adr-vault-section">
+      <h2 class="section-heading-whitepaper">ARCHITECTURAL_DECISION_RECORDS</h2>
+      <p class="section-intro">Technical decision-making rationale and trade-offs:</p>
+      <div class="adr-vault">
+        {{ range $index, $adr := .Params.designTradeoffs }}
+          {{ if eq (printf "%T" $adr) "string" }}
+            <!-- Simple string format -->
+            <div class="adr-record">
+              <div class="adr-header">
+                <span class="adr-id">ADR-{{ $.File.UniqueID }}-{{ $index }}</span>
+                <span class="adr-status">APPROVED</span>
+              </div>
+              <div class="adr-body">
+                <div class="adr-field">
+                  <span class="adr-label">DECISION</span>
+                  <span class="adr-value">{{ $adr }}</span>
+                </div>
+              </div>
+            </div>
+          {{ else }}
+            <!-- Structured ADR object -->
+            <div class="adr-record">
+              <div class="adr-header">
+                <span class="adr-id">{{ $adr.id | default (printf "ADR-%s-%d" $.File.UniqueID $index) }}</span>
+                <span class="adr-status">{{ $adr.status | default "APPROVED" }}</span>
+              </div>
+              <div class="adr-body">
+                {{ if $adr.context }}
+                <div class="adr-field">
+                  <span class="adr-label">CONTEXT</span>
+                  <span class="adr-value">{{ $adr.context }}</span>
+                </div>
+                {{ end }}
+                {{ if $adr.decision }}
+                <div class="adr-field">
+                  <span class="adr-label">DECISION</span>
+                  <span class="adr-value">{{ $adr.decision }}</span>
+                </div>
+                {{ end }}
+                {{ if $adr.consequences }}
+                <div class="adr-field">
+                  <span class="adr-label">CONSEQUENCES</span>
+                  <span class="adr-value">{{ $adr.consequences }}</span>
+                </div>
+                {{ end }}
+              </div>
+            </div>
+          {{ end }}
         {{ end }}
       </div>
     </section>
     {{ end }}
 
     <!-- Architecture Diagram Section - Lightbox -->
-    {{ if .Params.architectureDiagramUrl }}
     <section class="project-section architecture-section">
       <h2 class="section-heading-whitepaper">Architecture Diagram</h2>
+      {{ if .Params.architectureDiagramUrl }}
       <div class="architecture-lightbox">
-        <div class="lightbox-container">
-          <img src="{{ .Params.architectureDiagramUrl }}" alt="Architecture diagram for {{ .Title }}" class="architecture-diagram">
+        <div class="lightbox-container" id="diagram-lightbox-{{ .File.UniqueID }}">
+          <img 
+            src="{{ .Params.architectureDiagramUrl }}" 
+            alt="Architecture diagram for {{ .Title }}" 
+            class="architecture-diagram diagram-clickable"
+            data-diagram-id="{{ .File.UniqueID }}"
+          >
+          <button class="lightbox-expand-btn" aria-label="Expand architecture diagram to full screen">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+            </svg>
+          </button>
         </div>
         <p class="architecture-caption">{{ if .Params.architectureCaption }}{{ .Params.architectureCaption }}{{ else }}Data flow and component interactions within the system architecture.{{ end }}</p>
       </div>
+      {{ else }}
+      <!-- Blueprint-style SVG Placeholder -->
+      <div class="architecture-placeholder">
+        <svg class="blueprint-placeholder" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid-{{ .File.UniqueID }}" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(99, 102, 241, 0.2)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="800" height="600" fill="rgba(9, 9, 11, 0.6)" fill-opacity="0.4"/>
+          <rect width="800" height="600" fill="url(#grid-{{ .File.UniqueID }})"/>
+          <text x="400" y="280" text-anchor="middle" fill="rgba(99, 102, 241, 0.6)" font-family="JetBrains Mono, monospace" font-size="24" font-weight="700" letter-spacing="0.1em">SYSTEM_ARCHITECTURE_PENDING_VERIFICATION</text>
+          <text x="400" y="320" text-anchor="middle" fill="rgba(113, 113, 122, 0.6)" font-family="JetBrains Mono, monospace" font-size="14" letter-spacing="0.05em">[ DIAGRAM_UPLOAD_REQUIRED ]</text>
+        </svg>
+      </div>
+      {{ end }}
     </section>
-    {{ end }}
 
     <!-- Reliability SLO Section -->
     {{ if .Params.reliabilitySlo }}

@@ -130,6 +130,18 @@ header::before {
 }
 
 
+/* Scroll Progress Bar (Top of Page) */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: rgb(99, 102, 241); /* Indigo-500 */
+  z-index: 100;
+  transition: width 0.1s ease-out;
+}
+
 /* Reading Progress Bar - Subtle */
 .reading-progress {
   position: fixed;
@@ -6660,6 +6672,83 @@ body {
   color: var(--text-primary);
 }
 
+/* ADR Vault - Architectural Decision Records */
+.adr-vault-section {
+  margin: 3rem 0;
+}
+
+.adr-vault {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.adr-record {
+  background: rgba(39, 39, 42, 0.4); /* bg-zinc-900/40 */
+  border-left: 2px solid rgb(99, 102, 241); /* border-l-2 border-indigo-500 */
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.adr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(39, 39, 42, 0.5);
+}
+
+.adr-id {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(244, 244, 245, 0.9);
+}
+
+.adr-status {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgb(16, 185, 129); /* emerald-500 */
+  padding: 0.25rem 0.5rem;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 0.25rem;
+}
+
+.adr-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.adr-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.adr-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(113, 113, 122, 0.9); /* text-zinc-500 */
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.adr-value {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(244, 244, 245, 0.95);
+  font-family: 'Inter', sans-serif;
+}
+
 /* Failure Analysis */
 .failure-analysis-section {
   margin: 3rem 0;
@@ -8710,10 +8799,26 @@ body {
 .footer-status {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  flex-wrap: wrap;
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   color: var(--text-secondary);
+}
+
+.build-metadata {
+  font-size: 0.625rem; /* text-[10px] */
+  font-family: 'JetBrains Mono', monospace;
+  color: rgba(113, 113, 122, 0.8); /* text-zinc-500 */
+  letter-spacing: 0.05em;
+}
+
+.commit-hash {
+  color: rgba(99, 102, 241, 0.8); /* text-indigo-400 */
+  background: rgba(99, 102, 241, 0.1);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .status-dot {

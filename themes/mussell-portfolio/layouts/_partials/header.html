@@ -1,10 +1,13 @@
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress-bar" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+
 <div class="header-container">
-  <a href="{{ "/" | relURL }}" class="logo">Mussell Portfolio</a>
-  <nav>
+  <a href="{{ "/" | relURL }}" class="logo" aria-label="Home - Mussell Portfolio">Mussell Portfolio</a>
+  <nav aria-label="Main navigation">
     <ul class="nav-menu">
       {{ range .Site.Menus.main }}
       <li>
-        <a href="{{ .URL }}" class="{{ if eq $.RelPermalink .URL }}active{{ end }}">{{ .Name }}</a>
+        <a href="{{ .URL }}" class="{{ if eq $.RelPermalink .URL }}active{{ end }}" aria-label="{{ .Name }}">{{ .Name }}</a>
       </li>
       {{ end }}
     </ul>

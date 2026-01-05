@@ -860,6 +860,190 @@ spec:
     });
   })();
   
+  // Scroll Progress Bar (Top of Page)
+  (function() {
+    const progressBar = document.querySelector('.scroll-progress-bar');
+    if (!progressBar) return;
+    
+    function updateProgress() {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollableHeight = documentHeight - windowHeight;
+      const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+      
+      progressBar.style.width = Math.min(Math.max(progress, 0), 100) + '%';
+      progressBar.setAttribute('aria-valuenow', Math.round(progress));
+    }
+    
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateProgress();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+    
+    updateProgress();
+  })();
+  
+  // Diagram Lightbox Modal
+  (function() {
+    const diagrams = document.querySelectorAll('.diagram-clickable');
+    const expandButtons = document.querySelectorAll('.lightbox-expand-btn');
+    
+    function openLightbox(img) {
+      const modal = document.createElement('div');
+      modal.className = 'diagram-modal active';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      modal.setAttribute('aria-label', 'Full-screen architecture diagram');
+      
+      const content = document.createElement('div');
+      content.className = 'diagram-modal-content';
+      
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'diagram-modal-close';
+      closeBtn.setAttribute('aria-label', 'Close diagram modal');
+      closeBtn.innerHTML = `
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      `;
+      
+      const modalImg = document.createElement('img');
+      modalImg.src = img.src;
+      modalImg.alt = img.alt;
+      
+      content.appendChild(closeBtn);
+      content.appendChild(modalImg);
+      modal.appendChild(content);
+      document.body.appendChild(modal);
+      
+      function closeModal() {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+      }
+      
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
+      });
+      
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          closeModal();
+        }
+      });
+    }
+    
+    diagrams.forEach(diagram => {
+      diagram.addEventListener('click', function() {
+        openLightbox(this);
+      });
+    });
+    
+    expandButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const container = this.closest('.lightbox-container');
+        const img = container?.querySelector('.architecture-diagram');
+        if (img) openLightbox(img);
+      });
+    });
+  })();
+  
+  // Loom Lazy Loading
+  (function() {
+    const loomPosters = document.querySelectorAll('.loom-poster');
+    loomPosters.forEach(poster => {
+      const playBtn = poster.querySelector('.loom-play-button');
+      const iframe = poster.parentElement?.querySelector('.loom-iframe');
+      
+      if (playBtn && iframe) {
+        playBtn.addEventListener('click', function() {
+          const src = iframe.getAttribute('data-src');
+          if (src) {
+            iframe.src = src;
+            iframe.classList.add('loaded');
+            iframe.style.display = 'block';
+            poster.style.display = 'none';
+          }
+        });
+      }
+    });
+  })();
+  
+  // Resume Page Functionality
+  (function() {
+    const downloadBtn = document.getElementById('download-pdf-btn');
+    const viewYamlBtn = document.getElementById('view-yaml-btn');
+    const yamlModal = document.getElementById('yaml-modal');
+    
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', function() {
+        window.print();
+      });
+    }
+    
+    if (viewYamlBtn && yamlModal) {
+      viewYamlBtn.addEventListener('click', function() {
+        // Generate YAML from page data
+        const projects = Array.from(document.querySelectorAll('.resume-project')).map(project => {
+          return {
+            title: project.querySelector('.resume-project-title')?.textContent || '',
+            description: project.querySelector('.resume-project-description')?.textContent || '',
+            tags: Array.from(project.querySelectorAll('.resume-tag')).map(tag => tag.textContent),
+            impact: Array.from(project.querySelectorAll('.resume-project-impact li')).map(li => li.textContent)
+          };
+        });
+        
+        const yamlContent = {
+          author: document.querySelector('.resume-name')?.textContent || '',
+          title: document.querySelector('.resume-title')?.textContent || '',
+          projects: projects
+        };
+        
+        const yamlText = JSON.stringify(yamlContent, null, 2);
+        const yamlCode = document.getElementById('yaml-content');
+        if (yamlCode) {
+          yamlCode.textContent = yamlText;
+        }
+        
+        yamlModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        
+        const closeBtn = yamlModal.querySelector('.modal-close');
+        if (closeBtn) {
+          closeBtn.focus();
+        }
+      });
+    }
+    
+    // Close YAML modal
+    if (yamlModal) {
+      const closeBtn = yamlModal.querySelector('.modal-close');
+      const overlay = yamlModal.querySelector('.modal-overlay');
+      
+      function closeModal() {
+        yamlModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (overlay) overlay.addEventListener('click', closeModal);
+      
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && yamlModal.getAttribute('aria-hidden') === 'false') {
+          closeModal();
+        }
+      });
+    }
+  })();
+  
   // Global Deployment Map - Node Hover Popup
   (function() {
     const nodes = document.querySelectorAll('.deployment-node');
