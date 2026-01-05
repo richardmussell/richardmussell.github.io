@@ -1,3 +1,46 @@
+# Richard Mussell III - Infrastructure Architect Portfolio
+
+[![Deploy](https://github.com/richardmussell/richardmussell.github.io/actions/workflows/hugo.yaml/badge.svg)](https://github.com/richardmussell/richardmussell.github.io/actions/workflows/hugo.yaml)
+
+A high-performance, FAANG-ready portfolio website built with Hugo, showcasing expertise in Distributed Systems, Cloud-Native Orchestration, and Security Engineering.
+
+## Infrastructure
+
+- **Static Site Generator**: Hugo (Extended Edition)
+- **Deployment**: GitHub Actions → GitHub Pages
+- **Build**: Automated on every push to `main` branch
+- **Status**: [![Deploy](https://github.com/richardmussell/richardmussell.github.io/actions/workflows/hugo.yaml/badge.svg)](https://github.com/richardmussell/richardmussell.github.io/actions/workflows/hugo.yaml)
+
+## Local Development
+
+```bash
+# Install Hugo Extended (required for Sass/PostCSS)
+# See: https://gohugo.io/installation/
+
+# Run local server
+hugo server
+
+# Build for production
+hugo --gc --minify
+```
+
+## Deployment
+
+The site is automatically built and deployed via GitHub Actions on every push to the `main` branch. The workflow:
+
+1. Checks out the repository
+2. Sets up Hugo Extended Edition
+3. Builds the site with `--gc --minify` flags
+4. Deploys to the `gh-pages` branch
+
+## Configuration
+
+- **Base URL**: `https://richardmussell.github.io/`
+- **Theme**: Custom `mussell-portfolio` theme
+- **Build Output**: `./public/` directory
+
+---
+
 [bep]: https://github.com/bep
 [bugs]: https://github.com/gohugoio/hugo/issues?q=is%3Aopen+is%3Aissue+label%3ABug
 [contributing]: CONTRIBUTING.md

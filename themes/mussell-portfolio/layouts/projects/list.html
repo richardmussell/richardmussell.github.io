@@ -179,6 +179,86 @@
           GLOBAL_RESEARCH_&_DEVELOPMENT_INITIATIVES
         </h2>
         
+        <!-- Global Deployment Map -->
+        <div class="global-deployment-map-container">
+          <div class="deployment-map-header">
+            <h3 class="map-title">GLOBAL_DEPLOYMENT_MAP</h3>
+            <span class="map-subtitle">Edge Nodes & Autonomous Systems</span>
+          </div>
+          <div class="deployment-map-wrapper">
+            <svg class="global-deployment-map" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" aria-label="Global deployment map showing edge nodes">
+              <!-- Dot Grid Pattern Background -->
+              <defs>
+                <pattern id="dot-grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <circle cx="10" cy="10" r="0.5" fill="rgba(113, 113, 122, 0.2)" />
+                </pattern>
+              </defs>
+              <rect width="1000" height="500" fill="rgba(9, 9, 11, 0.4)" />
+              <rect width="1000" height="500" fill="url(#dot-grid)" />
+              
+              <!-- Simplified World Map Outline (Minimalist) -->
+              <g class="world-outline" fill="none" stroke="rgba(63, 63, 70, 0.3)" stroke-width="0.5">
+                <!-- North America -->
+                <path d="M 150 100 L 180 80 L 220 90 L 250 110 L 280 130 L 300 150 L 320 180 L 330 200 L 320 220 L 300 240 L 280 250 L 250 260 L 220 250 L 200 240 L 180 220 L 170 200 L 160 180 L 150 150 Z" />
+                <!-- South America -->
+                <path d="M 250 250 L 280 240 L 300 250 L 320 270 L 330 300 L 340 330 L 350 360 L 340 380 L 320 400 L 300 410 L 280 400 L 260 380 L 250 360 L 240 330 L 250 300 Z" />
+                <!-- Europe -->
+                <path d="M 450 80 L 480 70 L 500 80 L 520 100 L 530 120 L 520 140 L 500 150 L 480 140 L 460 120 L 450 100 Z" />
+                <!-- Africa -->
+                <path d="M 480 150 L 520 140 L 540 160 L 550 200 L 540 240 L 530 280 L 520 320 L 500 340 L 480 330 L 470 300 L 480 250 L 490 200 Z" />
+                <!-- Asia -->
+                <path d="M 550 60 L 650 50 L 750 60 L 800 80 L 820 120 L 800 160 L 750 200 L 700 220 L 650 240 L 600 250 L 550 240 L 520 220 L 500 180 L 520 140 L 550 100 Z" />
+                <!-- Australia -->
+                <path d="M 750 280 L 780 270 L 800 280 L 820 300 L 800 320 L 780 330 L 750 320 L 730 300 Z" />
+              </g>
+              
+              <!-- Deployment Nodes -->
+              <!-- Maine, USA (Approx: 300, 120) -->
+              <g class="deployment-node" data-node="maine">
+                <circle cx="300" cy="120" r="8" fill="rgb(99, 102, 241)" class="node-pulse" />
+                <circle cx="300" cy="120" r="12" fill="rgba(99, 102, 241, 0.2)" class="node-ring" />
+                <circle cx="300" cy="120" r="16" fill="rgba(99, 102, 241, 0.1)" class="node-ring-outer" />
+              </g>
+              
+              <!-- Tokyo, Japan (Approx: 800, 140) -->
+              <g class="deployment-node" data-node="tokyo">
+                <circle cx="800" cy="140" r="8" fill="rgb(99, 102, 241)" class="node-pulse" />
+                <circle cx="800" cy="140" r="12" fill="rgba(99, 102, 241, 0.2)" class="node-ring" />
+                <circle cx="800" cy="140" r="16" fill="rgba(99, 102, 241, 0.1)" class="node-ring-outer" />
+              </g>
+              
+              <!-- Quintana Roo, Mexico (Approx: 220, 200) -->
+              <g class="deployment-node" data-node="quintana-roo">
+                <circle cx="220" cy="200" r="8" fill="rgb(99, 102, 241)" class="node-pulse" />
+                <circle cx="220" cy="200" r="12" fill="rgba(99, 102, 241, 0.2)" class="node-ring" />
+                <circle cx="220" cy="200" r="16" fill="rgba(99, 102, 241, 0.1)" class="node-ring-outer" />
+              </g>
+            </svg>
+            
+            <!-- System Pulse Popup -->
+            <div class="system-pulse-popup" id="system-pulse-popup" role="tooltip" aria-hidden="true">
+              <div class="pulse-header">
+                <span class="pulse-title">SYSTEM_PULSE</span>
+                <span class="pulse-status-dot"></span>
+              </div>
+              <div class="pulse-metrics">
+                <div class="pulse-metric">
+                  <span class="pulse-label">LATENCY</span>
+                  <span class="pulse-value">&lt;5ms</span>
+                </div>
+                <div class="pulse-metric">
+                  <span class="pulse-label">UPTIME</span>
+                  <span class="pulse-value">99.999%</span>
+                </div>
+                <div class="pulse-metric">
+                  <span class="pulse-label">POWER</span>
+                  <span class="pulse-value">OTEC RENEWABLE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         {{ range $index, $project := $rdProjects }}
         <article class="system-spec rd-spec" data-project-id="{{ $project.File.UniqueID }}" data-tags="{{ range $project.Params.tags }}{{ . | lower }} {{ end }}" data-index="{{ $index }}">
           <!-- R&D Phase Ribbon -->

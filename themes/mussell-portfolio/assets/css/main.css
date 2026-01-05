@@ -4512,6 +4512,71 @@ footer {
   margin-bottom: 0;
 }
 
+/* Physical Layer Metadata - Industrial Spec Sheet */
+.spec-item-physical-layer {
+  margin-top: 0.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid rgba(59, 130, 246, 0.3); /* Blue accent for R&D */
+  border-bottom: 1px solid rgba(39, 39, 42, 0.3);
+}
+
+.physical-layer-title {
+  font-size: 0.625rem; /* text-[10px] */
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(96, 165, 250, 0.9); /* text-blue-400 - R&D theme */
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.physical-layer-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: rgba(9, 9, 11, 0.3); /* Subtle background */
+  border: 1px solid rgba(39, 39, 42, 0.4);
+  border-radius: 0.25rem;
+  padding: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.physical-spec-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(39, 39, 42, 0.15);
+}
+
+.physical-spec-row:last-child {
+  border-bottom: none;
+}
+
+.physical-spec-label {
+  font-size: 0.6875rem; /* text-[11px] */
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(113, 113, 122, 0.9); /* text-zinc-500 */
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.physical-spec-value {
+  font-size: 0.75rem; /* text-xs */
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  color: rgba(244, 244, 245, 0.95); /* text-zinc-100 */
+  line-height: 1.5;
+  word-break: break-word;
+  letter-spacing: 0.02em;
+}
+
 .spec-label {
   display: block;
   font-size: 0.6875rem;
@@ -4945,6 +5010,197 @@ footer {
   position: relative;
 }
 
+/* Global Deployment Map Component */
+.global-deployment-map-container {
+  margin: 2rem 0 3rem;
+  padding: 1.5rem;
+  background: rgba(9, 9, 11, 0.5);
+  border: 1px solid rgba(39, 39, 42, 0.4);
+  border-radius: 0.5rem;
+}
+
+.deployment-map-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(39, 39, 42, 0.3);
+}
+
+.map-title {
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(96, 165, 250, 0.9);
+  margin-bottom: 0.25rem;
+}
+
+.map-subtitle {
+  font-size: 0.6875rem;
+  font-family: 'Inter', sans-serif;
+  color: rgba(113, 113, 122, 0.8);
+  text-transform: none;
+  letter-spacing: 0.05em;
+}
+
+.deployment-map-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  background: rgba(9, 9, 11, 0.6);
+}
+
+.global-deployment-map {
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+  display: block;
+}
+
+.world-outline {
+  opacity: 0.4;
+}
+
+/* Deployment Node Styling */
+.deployment-node {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.deployment-node:hover {
+  transform: scale(1.2);
+}
+
+.deployment-node:hover .node-pulse {
+  fill: rgb(129, 140, 248); /* Lighter indigo on hover */
+}
+
+.node-pulse {
+  fill: rgb(99, 102, 241); /* Indigo-500 */
+  filter: drop-shadow(0 0 4px rgba(99, 102, 241, 0.6));
+  animation: nodePulse 2s ease-in-out infinite;
+}
+
+.node-ring {
+  animation: nodeRing 2s ease-in-out infinite;
+  animation-delay: 0.3s;
+}
+
+.node-ring-outer {
+  animation: nodeRing 2s ease-in-out infinite;
+  animation-delay: 0.6s;
+}
+
+@keyframes nodePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes nodeRing {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+/* System Pulse Popup */
+.system-pulse-popup {
+  position: absolute;
+  background: rgba(9, 9, 11, 0.95);
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  border-radius: 0.375rem;
+  padding: 0.875rem;
+  min-width: 200px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 100;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.system-pulse-popup.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.pulse-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(39, 39, 42, 0.4);
+}
+
+.pulse-title {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(96, 165, 250, 0.9);
+}
+
+.pulse-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(16, 185, 129); /* Emerald green */
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+  animation: pulseStatus 2s ease-in-out infinite;
+}
+
+@keyframes pulseStatus {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.pulse-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pulse-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.375rem 0;
+}
+
+.pulse-label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(113, 113, 122, 0.9);
+}
+
+.pulse-value {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(244, 244, 245, 0.95);
+  letter-spacing: 0.02em;
+}
+
 .rd-spec {
   background: rgba(9, 9, 11, 0.4);
   border: 1px dashed rgba(63, 63, 70, 0.8); /* border-dashed border-zinc-700 */
@@ -5370,6 +5626,131 @@ footer {
   font-size: 0.9375rem;
   line-height: 1.6;
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+}
+
+/* Hardened Resilience Matrix - Technical Audit Aesthetic */
+.resilience-matrix-section {
+  margin: 3rem 0;
+}
+
+.resilience-matrix-container {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+  border: 2px solid rgba(39, 39, 42, 0.8); /* High-contrast border */
+  border-radius: 0.375rem;
+  background: rgba(9, 9, 11, 0.6);
+}
+
+.resilience-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.resilience-matrix-table thead {
+  background: rgba(39, 39, 42, 0.6);
+  border-bottom: 2px solid rgba(39, 39, 42, 0.9);
+}
+
+.matrix-header {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(244, 244, 245, 0.95);
+  border-right: 1px solid rgba(39, 39, 42, 0.6);
+  font-size: 0.6875rem;
+}
+
+.matrix-header:last-child {
+  border-right: none;
+}
+
+.matrix-row {
+  border-bottom: 1px solid rgba(39, 39, 42, 0.5);
+  transition: background-color 0.2s ease;
+}
+
+.matrix-row:hover {
+  background: rgba(39, 39, 42, 0.3);
+}
+
+.matrix-row:last-child {
+  border-bottom: none;
+}
+
+.matrix-label {
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(244, 244, 245, 0.95);
+  border-right: 1px solid rgba(39, 39, 42, 0.6);
+  white-space: nowrap;
+  vertical-align: top;
+  width: 20%;
+}
+
+.matrix-status {
+  padding: 1rem 1.25rem;
+  border-right: 1px solid rgba(39, 39, 42, 0.6);
+  vertical-align: top;
+  width: 15%;
+}
+
+.status-badge-hardened {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.6);
+  border-radius: 0.25rem;
+  color: rgb(16, 185, 129);
+  font-weight: 600;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.matrix-value {
+  padding: 1rem 1.25rem;
+  color: rgba(244, 244, 245, 0.9);
+  border-right: 1px solid rgba(39, 39, 42, 0.6);
+  vertical-align: top;
+  width: 35%;
+  line-height: 1.7;
+}
+
+.matrix-verification {
+  padding: 1rem 1.25rem;
+  color: rgba(113, 113, 122, 0.9);
+  font-size: 0.75rem;
+  vertical-align: top;
+  width: 30%;
+  line-height: 1.7;
+}
+
+/* Responsive: Stack on mobile */
+@media (max-width: 768px) {
+  .resilience-matrix-table {
+    font-size: 0.75rem;
+  }
+  
+  .matrix-header,
+  .matrix-label,
+  .matrix-status,
+  .matrix-value,
+  .matrix-verification {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.6875rem;
+  }
+  
+  .matrix-label {
+    white-space: normal;
+  }
 }
 
 /* GitHub Link in Project Header */
