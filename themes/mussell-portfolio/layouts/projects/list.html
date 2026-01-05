@@ -24,8 +24,8 @@
     <ul class="toc-list">
       {{ range $allCategories }}
       {{ $categoryName := . }}
-      {{ $categoryLower := lower $categoryName }}
-      {{ $taxonomy := index $.Site.Taxonomies.categories $categoryLower }}
+      {{ $categorySlug := $categoryName | lower | replaceRE "&" "-" | replaceRE "/" "-" | replaceRE "\\s+" "-" | replaceRE "-+" "-" | replaceRE "^-|-$" "" | urlize }}
+      {{ $taxonomy := index $.Site.Taxonomies.categories ($categoryName | lower) }}
       {{ $categoryProjects := slice }}
       {{ if $taxonomy }}
         {{ range $taxonomy }}
@@ -34,9 +34,9 @@
       {{ end }}
       {{ if gt (len $categoryProjects) 0 }}
       <li class="toc-item">
-        <a href="#{{ $categoryLower | urlize }}" class="toc-link" data-category="{{ $categoryLower }}">
+        <a href="#{{ $categorySlug }}" class="toc-link" data-category="{{ $categoryName | lower }}" data-section-id="{{ $categorySlug }}">
           <span class="toc-category">{{ $categoryName }}</span>
-          <span class="toc-count">{{ len $categoryProjects }}</span>
+          <span class="toc-count-badge">{{ len $categoryProjects }}</span>
         </a>
       </li>
       {{ end }}
@@ -91,8 +91,8 @@
     <div class="registry-content">
       {{ range $allCategories }}
       {{ $categoryName := . }}
-      {{ $categoryLower := lower $categoryName }}
-      {{ $taxonomy := index $.Site.Taxonomies.categories $categoryLower }}
+      {{ $categorySlug := $categoryName | lower | replaceRE "&" "-" | replaceRE "/" "-" | replaceRE "\\s+" "-" | replaceRE "-+" "-" | replaceRE "^-|-$" "" | urlize }}
+      {{ $taxonomy := index $.Site.Taxonomies.categories ($categoryName | lower) }}
       {{ $categoryProjects := slice }}
       {{ if $taxonomy }}
         {{ range $taxonomy }}
@@ -100,8 +100,8 @@
         {{ end }}
       {{ end }}
       {{ if gt (len $categoryProjects) 0 }}
-      <section id="{{ $categoryLower | urlize }}" class="registry-section" data-category="{{ $categoryLower }}">
-        <h2 class="section-heading">{{ $categoryName }}</h2>
+      <section id="{{ $categorySlug }}" class="registry-section" data-category="{{ $categoryName | lower }}">
+        <h2 id="heading-{{ $categorySlug }}" class="section-heading">{{ $categoryName }}</h2>
         
         {{ range $index, $project := $categoryProjects }}
         <article class="system-spec" data-project-id="{{ $project.File.UniqueID }}" data-tags="{{ range $project.Params.tags }}{{ . | lower }} {{ end }}" data-index="{{ $index }}" style="--stagger-delay: {{ mul $index 0.05 }}s;">
