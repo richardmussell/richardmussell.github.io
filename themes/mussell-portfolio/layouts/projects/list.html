@@ -1,180 +1,331 @@
 {{ define "main" }}
-<div class="container">
-  <div class="section-title" style="padding-top: 2rem;">
-    <h1>Projects</h1>
-    <p class="subtitle">Exploring infrastructure, automation, and cloud-native technologies.</p>
-  </div>
-  
-  <div class="projects-layout">
-    <div class="projects-grid">
-      {{ range .Pages }}
-      <a href="{{ .RelPermalink }}" class="dashboard-card card-link-wrapper">
-        <div class="dashboard-card-inner">
-          <!-- Header Row -->
-          <div class="dashboard-header">
-            <h3 class="dashboard-title">{{ .Title }}</h3>
-            <div class="dashboard-header-right">
-              {{ if .Params.githubLink }}
-              <a href="{{ .Params.githubLink }}" class="dashboard-github-icon" target="_blank" rel="noopener" onclick="event.stopPropagation();" title="View on GitHub">
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-              </a>
-              {{ end }}
-            </div>
-          </div>
-          
-          <!-- Metadata Line: Date // Category -->
-          <div class="dashboard-metadata">
-            <time class="dashboard-date-inline">{{ .Date.Format "Jan 2, 2006" }}</time>
-            <span class="metadata-separator">//</span>
-            {{ range $index, $category := .Params.categories }}
-              {{ if $index }}<span class="metadata-separator">//</span>{{ end }}
-              <span class="category-label-inline">{{ $category }}</span>
-            {{ end }}
-          </div>
-          
-          <!-- Impact Chips Row -->
-          {{ if .Params.impactMetrics }}
-          <div class="dashboard-impact-row">
-            {{ range first 3 .Params.impactMetrics }}
-            {{ $metricLower := lower . }}
-            <div class="impact-chip">
-              {{ if findRE "cost|reduction|save" $metricLower }}
-                <span class="impact-icon">⚡</span>
-              {{ else if findRE "security|trust|zero" $metricLower }}
-                <span class="impact-icon">🛡️</span>
-              {{ else if findRE "rto|latency|time|minute|min" $metricLower }}
-                <span class="impact-icon">⌛</span>
-              {{ else if findRE "uptime|sla|availability" $metricLower }}
-                <span class="impact-icon">✓</span>
-              {{ else }}
-                <span class="impact-icon">•</span>
-              {{ end }}
-              <span class="impact-text">{{ . }}</span>
-            </div>
-            {{ end }}
-          </div>
-          {{ end }}
-          
-          <!-- Main Content Grid (Description + Architecture Preview) -->
-          <div class="dashboard-content-grid">
-            <div class="dashboard-description">
-              <p>{{ .Description }}</p>
-            </div>
-            {{ if .Params.architectureDiagramUrl }}
-            <div class="dashboard-architecture-preview">
-              <img src="{{ .Params.architectureDiagramUrl }}" alt="Architecture preview" class="architecture-preview-img">
-            </div>
-            {{ end }}
-          </div>
-          
-          <!-- Action Link with Essential Stack -->
-          <div class="dashboard-action">
-            <div class="dashboard-stack-inline">
-              {{ if .Params.iac }}
-              <span class="stack-badge">{{ .Params.iac }}</span>
-              {{ end }}
-              {{ if .Params.provider }}
-              <span class="stack-badge">{{ .Params.provider }}</span>
-              {{ end }}
-            </div>
-            <div class="dashboard-action-right">
-              <span class="dashboard-read-link">Read Full Article →</span>
-              {{ if .Params.readTime }}
-              <span class="dashboard-read-time">{{ .Params.readTime }} min</span>
-              {{ end }}
-            </div>
-          </div>
+{{ $allProjects := where .Site.RegularPages "Section" "projects" }}
+{{ $allCategories := slice "DISTRIBUTED SYSTEMS & SCALE" "CLOUD AUTOMATION & IAC" "SRE & SECURITY ENGINEERING" "RELEASE ENGINEERING & CI/CD" "HYBRID CLOUD & EDGE R&D" "PLATFORM ENGINEERING & GOVERNANCE" }}
+
+<!-- Collect all unique tags for filter -->
+{{ $allTags := slice }}
+{{ range $allProjects }}
+  {{ range .Params.tags }}
+    {{ $allTags = $allTags | append . }}
+  {{ end }}
+{{ end }}
+{{ $uniqueTags := $allTags | uniq | sort }}
+
+<div class="technical-registry">
+  <!-- Sticky Sidebar TOC -->
+  <nav class="registry-sidebar" aria-label="Project Categories">
+    <div class="sidebar-header">
+      <h2 class="sidebar-title">Registry</h2>
+      <span class="sidebar-count">{{ len $allProjects }} Services</span>
+    </div>
+    <ul class="toc-list">
+      {{ range $allCategories }}
+      {{ $categoryName := . }}
+      {{ $categoryLower := lower $categoryName }}
+      {{ $taxonomy := index $.Site.Taxonomies.categories $categoryLower }}
+      {{ $categoryProjects := slice }}
+      {{ if $taxonomy }}
+        {{ range $taxonomy }}
+          {{ $categoryProjects = $categoryProjects | append .Page }}
+        {{ end }}
+      {{ end }}
+      {{ if gt (len $categoryProjects) 0 }}
+      <li class="toc-item">
+        <a href="#{{ $categoryLower | urlize }}" class="toc-link" data-category="{{ $categoryLower }}">
+          <span class="toc-category">{{ $categoryName }}</span>
+          <span class="toc-count">{{ len $categoryProjects }}</span>
+        </a>
+      </li>
+      {{ end }}
+      {{ end }}
+    </ul>
+  </nav>
+
+  <!-- Main Content Area -->
+  <div class="registry-main">
+    <!-- Enterprise Discovery Layer -->
+    <div class="discovery-layer">
+      <div class="search-container">
+        <label for="service-search" class="sr-only">Search services by name, description, or technology</label>
+        <div class="search-input-wrapper">
+          <svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <input 
+            type="search" 
+            id="service-search" 
+            class="service-search" 
+            placeholder="Search services..." 
+            aria-label="Search services"
+            autocomplete="off"
+          />
         </div>
-      </a>
+      </div>
+
+      <div class="filter-container">
+        <label class="filter-label">Filter by Technology:</label>
+        <div class="tag-filters" role="group" aria-label="Technology filters">
+          {{ range $uniqueTags }}
+          <button 
+            type="button" 
+            class="tag-filter" 
+            data-tag="{{ . | lower }}"
+            role="checkbox"
+            aria-checked="false"
+            aria-label="Filter by {{ . }}"
+          >
+            <span class="tag-name">{{ . }}</span>
+            <svg class="tag-check" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </button>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+
+    <!-- System Registry Content -->
+    <div class="registry-content">
+      {{ range $allCategories }}
+      {{ $categoryName := . }}
+      {{ $categoryLower := lower $categoryName }}
+      {{ $taxonomy := index $.Site.Taxonomies.categories $categoryLower }}
+      {{ $categoryProjects := slice }}
+      {{ if $taxonomy }}
+        {{ range $taxonomy }}
+          {{ $categoryProjects = $categoryProjects | append .Page }}
+        {{ end }}
+      {{ end }}
+      {{ if gt (len $categoryProjects) 0 }}
+      <section id="{{ $categoryLower | urlize }}" class="registry-section" data-category="{{ $categoryLower }}">
+        <h2 class="section-heading">{{ $categoryName }}</h2>
+        
+        {{ range $categoryProjects }}
+        <article class="system-spec" data-project-id="{{ .File.UniqueID }}" data-tags="{{ range .Params.tags }}{{ . | lower }} {{ end }}">
+          <!-- Header Section -->
+          <div class="spec-header">
+            <div class="spec-title-row">
+              <h3 class="spec-title">{{ .Title }}</h3>
+              <div class="spec-status-badges">
+                {{ if .Params.productionReady }}
+                <span class="status-badge status-production" aria-label="Production ready">PRODUCTION</span>
+                {{ else }}
+                <span class="status-badge status-experimental" aria-label="Experimental">EXPERIMENTAL</span>
+                {{ end }}
+              </div>
+            </div>
+            
+            <!-- Quick Metrics -->
+            {{ if .Params.impactMetrics }}
+            <div class="spec-metrics">
+              {{ range first 4 .Params.impactMetrics }}
+              <div class="metric-item">
+                <span class="metric-label">{{ . }}</span>
+              </div>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+
+          <!-- Split-Pane Core -->
+          <div class="spec-core">
+            <!-- Column A: Context -->
+            <div class="spec-context">
+              <div class="spec-abstract">
+                <p>{{ .Description }}</p>
+              </div>
+              
+              {{ if or .Params.designTradeoffs .Params.failureModes }}
+              <div class="architecture-ledger">
+                <h4 class="ledger-title">Architecture Ledger</h4>
+                <ul class="ledger-list">
+                  {{ if .Params.designTradeoffs }}
+                  <li class="ledger-item">
+                    <strong>Design Decision:</strong> {{ .Params.designTradeoffs }}
+                  </li>
+                  {{ end }}
+                  {{ if .Params.failureModes }}
+                    {{ range first 2 .Params.failureModes }}
+                    <li class="ledger-item">
+                      <strong>Resilience Pattern:</strong> {{ .scenario | default "N/A" }} → {{ .response | default "N/A" }}
+                    </li>
+                    {{ end }}
+                  {{ end }}
+                </ul>
+              </div>
+              {{ end }}
+            </div>
+
+            <!-- Column B: Media Stage -->
+            <div class="spec-media">
+              <div class="media-viewport">
+                <div class="viewport-tabs" role="tablist" aria-label="Technical viewport tabs">
+                  <button 
+                    class="viewport-tab active" 
+                    role="tab" 
+                    aria-selected="true" 
+                    aria-controls="diagram-{{ .File.UniqueID }}"
+                    id="tab-diagram-{{ .File.UniqueID }}"
+                    data-tab="diagram"
+                  >
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                    </svg>
+                    Diagram
+                  </button>
+                  <button 
+                    class="viewport-tab" 
+                    role="tab" 
+                    aria-selected="false" 
+                    aria-controls="loom-{{ .File.UniqueID }}"
+                    id="tab-loom-{{ .File.UniqueID }}"
+                    data-tab="loom"
+                  >
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Walkthrough
+                  </button>
+                  <button 
+                    class="viewport-tab" 
+                    role="tab" 
+                    aria-selected="false" 
+                    aria-controls="code-{{ .File.UniqueID }}"
+                    id="tab-code-{{ .File.UniqueID }}"
+                    data-tab="code"
+                  >
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                    </svg>
+                    Code
+                  </button>
+                </div>
+
+                <div class="viewport-content">
+                  <!-- Diagram Tab -->
+                  <div 
+                    id="diagram-{{ .File.UniqueID }}" 
+                    class="viewport-pane active" 
+                    role="tabpanel" 
+                    aria-labelledby="tab-diagram-{{ .File.UniqueID }}"
+                  >
+                    {{ if .Params.architectureDiagramUrl }}
+                    <div class="diagram-container">
+                      <img 
+                        src="{{ .Params.architectureDiagramUrl }}" 
+                        alt="Architecture diagram for {{ .Title }}"
+                        class="diagram-image"
+                        loading="lazy"
+                      />
+                    </div>
+                    {{ else if .Params.mermaidDiagram }}
+                    <div class="mermaid-container">
+                      <div class="mermaid">{{ .Params.mermaidDiagram }}</div>
+                    </div>
+                    {{ else }}
+                    <div class="diagram-placeholder">
+                      <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                      </svg>
+                      <p>Architecture Diagram</p>
+                    </div>
+                    {{ end }}
+                  </div>
+
+                  <!-- Loom Tab -->
+                  <div 
+                    id="loom-{{ .File.UniqueID }}" 
+                    class="viewport-pane" 
+                    role="tabpanel" 
+                    aria-labelledby="tab-loom-{{ .File.UniqueID }}"
+                  >
+                    {{ if .Params.loomUrl }}
+                    <div class="loom-container">
+                      <iframe 
+                        src="{{ .Params.loomUrl }}" 
+                        class="loom-iframe"
+                        title="System walkthrough video for {{ .Title }}"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                      ></iframe>
+                      <button class="transcript-button" aria-label="View transcript">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Transcript
+                      </button>
+                    </div>
+                    {{ else }}
+                    <div class="loom-placeholder">
+                      <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      <p>System Walkthrough</p>
+                    </div>
+                    {{ end }}
+                  </div>
+
+                  <!-- Code Tab -->
+                  <div 
+                    id="code-{{ .File.UniqueID }}" 
+                    class="viewport-pane" 
+                    role="tabpanel" 
+                    aria-labelledby="tab-code-{{ .File.UniqueID }}"
+                  >
+                    {{ if .Params.codeSnippet }}
+                    <div class="code-container">
+                      <pre class="code-block"><code class="language-{{ .Params.codeLanguage | default "hcl" }}">{{ .Params.codeSnippet }}</code></pre>
+                    </div>
+                    {{ else }}
+                    <div class="code-placeholder">
+                      <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                      </svg>
+                      <p>Code Snippet</p>
+                    </div>
+                    {{ end }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Actions -->
+          <div class="spec-footer">
+            <a href="{{ .RelPermalink }}" class="spec-link">View Full Specification →</a>
+            <button class="manifest-button" data-project-id="{{ .File.UniqueID }}" aria-label="View deployment manifest">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              Deployment Manifest
+            </button>
+          </div>
+        </article>
+        {{ end }}
+      </section>
+      {{ end }}
       {{ end }}
     </div>
-    
-    <aside class="sidebar enterprise-sidebar">
-      <!-- System Status Section -->
-      <div class="sidebar-section system-status-section">
-        <div class="status-header">
-          <span class="status-dot-live"></span>
-          <h3 class="system-status-title">SYSTEM_STATUS</h3>
-        </div>
-        <div class="status-grid">
-          {{ $totalProjects := len .Pages }}
-          {{ $iacProjects := 0 }}
-          {{ range .Pages }}
-            {{ if .Params.iac }}
-              {{ $iacProjects = add $iacProjects 1 }}
-            {{ end }}
-          {{ end }}
-          {{ $iacCoverage := 0 }}
-          {{ if gt $totalProjects 0 }}
-            {{ $iacCoverage = div (mul $iacProjects 100) $totalProjects }}
-          {{ end }}
-          <div class="status-row">
-            <span class="status-label">Total Deployments</span>
-            <span class="status-value">{{ $totalProjects }}</span>
-          </div>
-          <div class="status-row">
-            <span class="status-label">Uptime (Lab)</span>
-            <span class="status-value status-success">99.95%</span>
-          </div>
-          <div class="status-row">
-            <span class="status-label">IaC Coverage</span>
-            <span class="status-value status-success">{{ $iacCoverage }}%</span>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Categories Section -->
-      <div class="sidebar-section categories-section">
-        <h3 class="categories-title">CATEGORIES</h3>
-        <ul class="category-nav-list">
-          {{ $currentCategory := "" }}
-          {{ if eq .Kind "term" }}
-            {{ $currentCategory = lower .Title }}
-          {{ end }}
-          {{ $allCategories := slice "DISTRIBUTED SYSTEMS & SCALE" "CLOUD AUTOMATION & IAC" "SRE & SECURITY ENGINEERING" "RELEASE ENGINEERING & CI/CD" "HYBRID CLOUD & EDGE R&D" "PLATFORM ENGINEERING & GOVERNANCE" }}
-          {{ range $allCategories }}
-          {{ $categoryName := . }}
-          {{ $categoryLower := lower $categoryName }}
-          {{ $taxonomy := index $.Site.Taxonomies.categories $categoryLower }}
-          {{ $count := 0 }}
-          {{ if $taxonomy }}
-            {{ $count = len $taxonomy }}
-          {{ end }}
-          {{ $isActive := false }}
-          {{ if and $currentCategory (eq $currentCategory $categoryLower) }}
-            {{ $isActive = true }}
-          {{ end }}
-          {{ $categoryURL := "" }}
-          {{ if or (eq $categoryLower "distributed systems & scale") (eq $categoryLower "distributed-systems--scale") }}
-            {{ $categoryURL = "/categories/distributed-systems--scale/" }}
-          {{ else if or (eq $categoryLower "cloud automation & iac") (eq $categoryLower "cloud-automation--iac") }}
-            {{ $categoryURL = "/categories/cloud-automation--iac/" }}
-          {{ else if or (eq $categoryLower "sre & security engineering") (eq $categoryLower "sre--security-engineering") }}
-            {{ $categoryURL = "/categories/sre--security-engineering/" }}
-          {{ else if or (eq $categoryLower "release engineering & ci/cd") (eq $categoryLower "release-engineering--ci-cd") }}
-            {{ $categoryURL = "/categories/release-engineering--ci-cd/" }}
-          {{ else if or (eq $categoryLower "hybrid cloud & edge r&d") (eq $categoryLower "hybrid-cloud--edge-r-d") }}
-            {{ $categoryURL = "/categories/hybrid-cloud--edge-r-d/" }}
-          {{ else if or (eq $categoryLower "platform engineering & governance") (eq $categoryLower "platform-engineering--governance") }}
-            {{ $categoryURL = "/categories/platform-engineering--governance/" }}
-          {{ else }}
-            {{ $categoryURL = printf "/categories/%s/" ($categoryName | urlize) }}
-          {{ end }}
-          <li class="category-nav-item {{ if $isActive }}active-category{{ end }}">
-            <a href="{{ $categoryURL | relURL }}" class="category-nav-link">
-              <span class="category-text">{{ $categoryName }}</span>
-              <span class="category-count-badge">{{ $count }}</span>
-            </a>
-          </li>
-          {{ end }}
-        </ul>
-      </div>
-    </aside>
+  </div>
+</div>
+
+<!-- Deployment Manifest Modal -->
+<div id="manifest-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal-overlay" aria-label="Close modal"></div>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modal-title" class="modal-title">Deployment Manifest</h3>
+      <button class="modal-close" aria-label="Close modal">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <pre class="manifest-yaml"><code id="manifest-content" class="language-yaml"></code></pre>
+    </div>
   </div>
 </div>
 {{ end }}
-
-
-

@@ -1,96 +1,191 @@
 {{ define "main" }}
-<!-- Featured Projects Section -->
+<!-- Hero Section -->
+<section class="section hero-section">
+  <div class="container">
+    <div class="hero">
+      <h1>Architecting Resilient Infrastructure at Scale</h1>
+      <p class="subtitle">Building high-availability distributed systems with a focus on state reconciliation, observability, and cloud-native security.</p>
+    </div>
+    
+    <!-- KPI Dashboard - System Health Metrics -->
+    <div class="stats-bento">
+      <div class="stat-item">
+        <div class="stat-value">{{ len (where .Site.RegularPages "Section" "projects") }}</div>
+        <div class="stat-label">Production Environments</div>
+        <div class="stat-proof">Verified via Terraform State</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">99.95%</div>
+        <div class="stat-label">Uptime SLA</div>
+        <div class="stat-proof">Measured via Prometheus/Grafana</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">IaC Coverage</div>
+        <div class="stat-proof">All infrastructure defined as code</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">&lt; 15m</div>
+        <div class="stat-label">Mean RTO</div>
+        <div class="stat-proof">Automated failover tested monthly</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Projects - Wide-Format Case Studies -->
 <section class="section">
   <div class="container">
     <div class="section-title">
       <h2>Featured Projects</h2>
       <p class="subtitle">Hands-on implementations showcasing real-world infrastructure solutions.</p>
     </div>
-    <div class="cards-grid">
-      {{ range first 3 (where .Site.RegularPages "Section" "projects") }}
-      <a href="{{ .RelPermalink }}" class="card card-link-wrapper">
-        <div class="card-categories">
-          {{ range .Params.categories }}
-          <span>{{ . }}</span>
-          {{ end }}
+    <div class="case-studies-grid">
+      {{ range $index, $project := first 3 (where .Site.RegularPages "Section" "projects") }}
+      <article class="case-study" style="animation-delay: {{ mul $index 0.15 }}s;">
+        <div class="case-study-grid">
+          <!-- Cols 1-5: Deep Content -->
+          <div class="case-study-content">
+            <h3 class="case-study-title">{{ $project.Title }}</h3>
+            
+            <div class="case-study-challenge">
+              <h4 class="case-study-section-label">The Challenge</h4>
+              <p>{{ $project.Description }}</p>
+            </div>
+            
+            {{ if $project.Params.impactMetrics }}
+            <div class="case-study-impact">
+              <h4 class="case-study-section-label">The Impact</h4>
+              <div class="impact-grid">
+                {{ range first 3 $project.Params.impactMetrics }}
+                <div class="impact-item">
+                  <div class="impact-value">{{ . }}</div>
+                </div>
+                {{ end }}
+              </div>
+            </div>
+            {{ end }}
+            
+            <div class="case-study-stack">
+              <h4 class="case-study-section-label">The Stack</h4>
+              <div class="stack-icons">
+                {{ if $project.Params.iac }}
+                <div class="stack-icon" title="{{ $project.Params.iac }}">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                  </svg>
+                </div>
+                {{ end }}
+                {{ if $project.Params.provider }}
+                <div class="stack-icon" title="{{ $project.Params.provider }}">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+                  </svg>
+                </div>
+                {{ end }}
+              </div>
+            </div>
+          </div>
+          
+          <!-- Cols 6-12: Media Stage -->
+          <div class="case-study-media">
+            <div class="mac-window">
+              <div class="mac-window-header">
+                <div class="mac-window-controls">
+                  <span class="mac-control mac-control-close"></span>
+                  <span class="mac-control mac-control-minimize"></span>
+                  <span class="mac-control mac-control-maximize"></span>
+                </div>
+                <div class="mac-window-tabs">
+                  <button class="mac-tab active" data-tab="diagram">DIAGRAM</button>
+                  <button class="mac-tab" data-tab="demo">SYSTEM DEMO</button>
+                  <button class="mac-tab" data-tab="repo">REPO</button>
+                </div>
+              </div>
+              <div class="mac-window-content">
+                <div class="mac-tab-content active" data-content="diagram">
+                  {{ if $project.Params.architectureDiagramUrl }}
+                  <img src="{{ $project.Params.architectureDiagramUrl }}" alt="Architecture diagram" class="architecture-diagram-img">
+                  {{ else }}
+                  <div class="architecture-placeholder">
+                    <svg width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                    </svg>
+                    <p>Architecture Diagram</p>
+                  </div>
+                  {{ end }}
+                </div>
+                <div class="mac-tab-content" data-content="demo">
+                  <div class="video-placeholder">
+                    <div class="video-play-button">
+                      <svg width="48" height="48" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                      </svg>
+                    </div>
+                    <p>System Demo Video</p>
+                  </div>
+                </div>
+                <div class="mac-tab-content" data-content="repo">
+                  {{ if $project.Params.githubLink }}
+                  <div class="repo-placeholder">
+                    <svg width="48" height="48" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
+                    </svg>
+                    <a href="{{ $project.Params.githubLink }}" target="_blank" rel="noopener" class="repo-link">View Repository</a>
+                  </div>
+                  {{ else }}
+                  <div class="repo-placeholder">
+                    <p>Repository not available</p>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card-date">{{ .Date.Format "Jan 2, 2006" }}</div>
-        <h3>{{ .Title }}</h3>
-        <p>{{ .Description }}</p>
-        <div class="card-tags">
-          {{ range .Params.tags }}
-          <span class="tag">{{ . }}</span>
-          {{ end }}
-        </div>
-        <div class="card-technical-metadata">
-          {{ if .Params.iac }}
-          <span class="tech-badge" title="Infrastructure as Code">{{ .Params.iac }}</span>
-          {{ end }}
-          {{ if .Params.provider }}
-          <span class="tech-badge" title="Cloud Provider">{{ .Params.provider }}</span>
-          {{ end }}
-          {{ if .Params.reliabilitySlo }}
-          <span class="tech-badge slo-badge" title="Service Level Objective">{{ index (split .Params.reliabilitySlo " ") 0 }}</span>
-          {{ end }}
-        </div>
-        <div class="card-actions">
-          {{ if .Params.githubLink }}
-          <a href="{{ .Params.githubLink }}" class="card-link-secondary" target="_blank" rel="noopener" onclick="event.stopPropagation();">View Code</a>
-          {{ end }}
-          <span class="card-link">Read Case Study →</span>
-        </div>
-      </a>
+      </article>
       {{ end }}
     </div>
-    <div style="text-align: center; margin-top: 2.5rem;">
+    <div style="text-align: center; margin-top: 3rem;">
       <a href="{{ "/projects/" | relURL }}" class="btn btn-outline">View All Projects</a>
     </div>
   </div>
 </section>
 
-<!-- Core Expertise Section -->
+<!-- Core Expertise - Technical Blueprints -->
 <section class="section">
   <div class="container">
     <div class="section-title">
       <h2>Core Expertise</h2>
-      <p class="subtitle">Technologies and practices I leverage to build and maintain reliability.</p>
+      <p class="subtitle">Technical blueprints and architectural patterns.</p>
     </div>
     <div class="expertise-grid">
-      <div class="expertise-card">
-        <div class="expertise-icon">🐧</div>
-        <h3>Linux & Systems Engineering</h3>
-        <p class="expertise-tagline">The foundation of everything.</p>
-        <p>Bash scripting, kernel tuning, process management (systemd), and troubleshooting low-level system performance.</p>
+      <div class="blueprint-card" style="animation-delay: 0.1s;">
+        <h3>Immutable Infrastructure</h3>
+        <p class="blueprint-spec">Infrastructure-as-Code patterns, declarative state management, and automated provisioning workflows. Terraform, Ansible, and GitOps-driven deployments.</p>
+        <div class="blueprint-tags">
+          <span class="blueprint-tag">Terraform</span>
+          <span class="blueprint-tag">Ansible</span>
+          <span class="blueprint-tag">GitOps</span>
+        </div>
       </div>
-      <div class="expertise-card">
-        <div class="expertise-icon">☁️</div>
-        <h3>Cloud & Virtualization</h3>
-        <p class="expertise-tagline">Scalable environments.</p>
-        <p>Provisioning resources in AWS/Azure, managing VPC networking, and handling hybrid virtualization (KVM/VMware) setups.</p>
+      <div class="blueprint-card" style="animation-delay: 0.2s;">
+        <h3>Distributed Systems Architecture</h3>
+        <p class="blueprint-spec">Kubernetes orchestration, service mesh implementation, and container networking. High-availability patterns and stateful workload management.</p>
+        <div class="blueprint-tags">
+          <span class="blueprint-tag">Kubernetes</span>
+          <span class="blueprint-tag">Service Mesh</span>
+          <span class="blueprint-tag">CNI</span>
+        </div>
       </div>
-      <div class="expertise-card">
-        <div class="expertise-icon">🔧</div>
-        <h3>Automation & IaC</h3>
-        <p class="expertise-tagline">Reproducible infrastructure.</p>
-        <p>Replacing manual runbooks with Ansible playbooks and defining infrastructure state with Terraform.</p>
-      </div>
-      <div class="expertise-card">
-        <div class="expertise-icon">☸</div>
-        <h3>Container Orchestration</h3>
-        <p class="expertise-tagline">Modern application delivery.</p>
-        <p>Deploying and maintaining Kubernetes clusters, writing Helm charts, and managing container networking (CNI).</p>
-      </div>
-      <div class="expertise-card">
-        <div class="expertise-icon">🚀</div>
-        <h3>CI/CD & Operations</h3>
-        <p class="expertise-tagline">Streamlined delivery.</p>
-        <p>Building GitHub Actions/GitLab CI pipelines and implementing ArgoCD for automated, reliable code deployment.</p>
-      </div>
-      <div class="expertise-card">
-        <div class="expertise-icon">📡</div>
-        <h3>Networking & Observability</h3>
-        <p class="expertise-tagline">Deep visibility.</p>
-        <p>Diagnosing connectivity issues (DNS, TCP/IP), implementing PromQL queries, and leveraging eBPF for granular monitoring.</p>
+      <div class="blueprint-card" style="animation-delay: 0.3s;">
+        <h3>Observability & SRE</h3>
+        <p class="blueprint-spec">SLI/SLO definition, metric collection, distributed tracing, and incident response automation. Prometheus, Grafana, and ELK stack implementations.</p>
+        <div class="blueprint-tags">
+          <span class="blueprint-tag">Prometheus</span>
+          <span class="blueprint-tag">Grafana</span>
+          <span class="blueprint-tag">SLOs</span>
+        </div>
       </div>
     </div>
   </div>
@@ -126,30 +221,25 @@
   </div>
 </section>
 
-<!-- Engineering Insights Section -->
+<!-- Engineering Insights - Technical Whitepapers -->
 <section class="section">
   <div class="container">
     <div class="section-title">
       <h2>Engineering Insights</h2>
-      <p class="subtitle">Thought processes, lessons learned, and technical deep-dives.</p>
+      <p class="subtitle">Technical whitepapers and architectural deep-dives.</p>
     </div>
-    <div class="cards-grid">
-      {{ range first 3 (where .Site.RegularPages "Section" "insights") }}
-      <a href="{{ .RelPermalink }}" class="card card-link-wrapper">
-        <div class="card-categories">
-          {{ range .Params.categories }}
-          <span>{{ . }}</span>
+    <div class="whitepaper-list">
+      {{ range $index, $insight := first 5 (where .Site.RegularPages "Section" "insights") }}
+      <a href="{{ $insight.RelPermalink }}" class="whitepaper-item" style="animation-delay: {{ mul $index 0.1 }}s;">
+        <div class="whitepaper-meta">
+          <time class="whitepaper-date">{{ $insight.Date.Format "January 2, 2006" }}</time>
+          {{ if $insight.Params.readTime }}
+          <span class="whitepaper-read-time">{{ $insight.Params.readTime }} min read</span>
           {{ end }}
+          <span class="whitepaper-depth">L400: Advanced</span>
         </div>
-        <div class="card-date">{{ .Date.Format "Jan 2, 2006" }}</div>
-        <h3>{{ .Title }}</h3>
-        <p>{{ .Description }}</p>
-        <div class="card-tags">
-          {{ range .Params.tags }}
-          <span class="tag">{{ . }}</span>
-          {{ end }}
-        </div>
-        <span class="card-link">Explore Insight →</span>
+        <h3 class="whitepaper-title">{{ $insight.Title }}</h3>
+        <p class="whitepaper-excerpt">{{ $insight.Description }}</p>
       </a>
       {{ end }}
     </div>
