@@ -1,15 +1,40 @@
 {{ define "main" }}
 {{ $allProjects := where .Site.RegularPages "Section" "projects" }}
-{{ $allCategories := slice "DISTRIBUTED SYSTEMS & SCALE" "CLOUD AUTOMATION & IAC" "SRE & SECURITY ENGINEERING" "RELEASE ENGINEERING & CI/CD" "HYBRID CLOUD & EDGE R&D" "PLATFORM ENGINEERING & GOVERNANCE" }}
+{{ $allCategories := slice "DISTRIBUTED SYSTEMS & SCALE" "CLOUD AUTOMATION & IAC" "SRE & SECURITY ENGINEERING" "RELEASE ENGINEERING & CI/CD" "PLATFORM ENGINEERING & GOVERNANCE" }}
+{{ $rdCategory := "HYBRID CLOUD & EDGE R&D" }}
+{{ $rdTaxonomy := index .Site.Taxonomies.categories ($rdCategory | lower) }}
+{{ $rdProjects := slice }}
+{{ if $rdTaxonomy }}
+  {{ range $rdTaxonomy }}
+    {{ $rdProjects = $rdProjects | append .Page }}
+  {{ end }}
+{{ end }}
 
-<!-- Collect all unique tags for filter -->
+<!-- Collect all unique tags for filter, excluding generic tags -->
+{{ $genericTags := slice "Automation" "Best Practices" "Infrastructure" "Infrastructure as Code" "Platform Engineering" "Production Systems" "Security" "Monitoring" "Modules" "Configuration Management" }}
 {{ $allTags := slice }}
 {{ range $allProjects }}
   {{ range .Params.tags }}
-    {{ $allTags = $allTags | append . }}
+    {{ $tag := . }}
+    {{ $isGeneric := false }}
+    {{ range $genericTags }}
+      {{ if eq (lower $tag) (lower .) }}
+        {{ $isGeneric = true }}
+      {{ end }}
+    {{ end }}
+    {{ if not $isGeneric }}
+      {{ $allTags = $allTags | append $tag }}
+    {{ end }}
   {{ end }}
 {{ end }}
 {{ $uniqueTags := $allTags | uniq | sort }}
+
+<!-- Strategic Domain Tags (High-Signal Mastery) -->
+{{ $strategicDomains := dict
+  "Runtime & Performance" (slice "eBPF" "Cilium" "WasmEdge" "NVIDIA MIG" "TSN (IEEE 802.1)")
+  "Edge & Sovereign" (slice "Bare-Metal" "Tinkerbell" "Redfish" "DTN (Delay-Tolerant)" "TPM / Root-of-Trust")
+  "Advanced Orchestration" (slice "Multi-Cluster GitOps" "SPIFFE/SPIRE" "Sovereign AI" "OTEC Integration" "Cross-Region High Availability")
+}}
 
 <!-- Skip to Content Link -->
 <a href="#registry-content" class="skip-to-content">Skip to Content</a>
@@ -22,6 +47,7 @@
       <span class="sidebar-count">{{ len $allProjects }} Services</span>
     </div>
     <ul class="toc-list">
+      <!-- Production Services -->
       {{ range $allCategories }}
       {{ $categoryName := . }}
       {{ $categorySlug := $categoryName | lower | replaceRE "&" "-" | replaceRE "/" "-" | replaceRE "\\s+" "-" | replaceRE "-+" "-" | replaceRE "^-|-$" "" | urlize }}
@@ -35,11 +61,28 @@
       {{ if gt (len $categoryProjects) 0 }}
       <li class="toc-item">
         <a href="#{{ $categorySlug }}" class="toc-link" data-category="{{ $categoryName | lower }}" data-section-id="{{ $categorySlug }}">
+          <span class="toc-status-dot"></span>
           <span class="toc-category">{{ $categoryName }}</span>
           <span class="toc-count-badge">{{ len $categoryProjects }}</span>
         </a>
       </li>
       {{ end }}
+      {{ end }}
+      
+      <!-- Visual Separator -->
+      {{ if gt (len $rdProjects) 0 }}
+      <li class="toc-separator" aria-hidden="true"></li>
+      {{ end }}
+      
+      <!-- Strategic R&D -->
+      {{ if gt (len $rdProjects) 0 }}
+      <li class="toc-item">
+        <a href="#global-rd-initiatives" class="toc-link toc-link-rd" data-category="rd" data-section-id="global-rd-initiatives">
+          <span class="toc-status-dot toc-status-dot-rd"></span>
+          <span class="toc-category">GLOBAL R&D INITIATIVES</span>
+          <span class="toc-count-badge">{{ len $rdProjects }}</span>
+        </a>
+      </li>
       {{ end }}
     </ul>
   </nav>
@@ -62,33 +105,204 @@
             aria-label="Search services"
             autocomplete="off"
           />
+          <span class="search-shortcut-hint" aria-hidden="true">⌘K</span>
         </div>
       </div>
 
       <div class="filter-container">
-        <label class="filter-label">Filter by Technology:</label>
-        <div class="tag-filters" role="group" aria-label="Technology filters">
-          {{ range $uniqueTags }}
-          <button 
-            type="button" 
-            class="tag-filter" 
-            data-tag="{{ . | lower }}"
-            role="checkbox"
-            aria-checked="false"
-            aria-label="Filter by {{ . }}"
-          >
-            <span class="tag-name">{{ . }}</span>
-            <svg class="tag-check" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-          </button>
+        <label class="filter-label">FILTER BY STRATEGIC DOMAIN</label>
+        <div class="strategic-domains-filters">
+          {{ range $domainName, $domainTags := $strategicDomains }}
+          <div class="domain-filter-group">
+            <h4 class="domain-group-title">{{ $domainName | upper }}</h4>
+            <div class="tag-filters" role="group" aria-label="{{ $domainName }} filters">
+              {{ range $domainTags }}
+              <button 
+                type="button" 
+                class="tag-filter strategic-tag" 
+                data-tag="{{ . | lower }}"
+                role="checkbox"
+                aria-checked="false"
+                aria-label="Filter by {{ . }}"
+              >
+                <span class="tag-name">{{ . }}</span>
+                <svg class="tag-check" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </button>
+              {{ end }}
+            </div>
+          </div>
           {{ end }}
         </div>
+        <!-- Legacy tags (non-generic) - Always Expanded -->
+        {{ if $uniqueTags }}
+        <div class="legacy-tags-section">
+          <h4 class="legacy-tags-header">EXTENDED STACK</h4>
+          <div class="tag-filters legacy-tags" role="group" aria-label="Additional technology filters">
+            {{ range $uniqueTags }}
+            <button 
+              type="button" 
+              class="tag-filter legacy-tag" 
+              data-tag="{{ . | lower }}"
+              role="checkbox"
+              aria-checked="false"
+              aria-label="Filter by {{ . }}"
+            >
+              <span class="tag-name">{{ . }}</span>
+              <svg class="tag-check" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </button>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
       </div>
     </div>
 
     <!-- System Registry Content -->
     <div class="registry-content">
+      <!-- Global R&D Initiatives Sub-Registry -->
+      {{ $rdCategory := "HYBRID CLOUD & EDGE R&D" }}
+      {{ $rdTaxonomy := index $.Site.Taxonomies.categories ($rdCategory | lower) }}
+      {{ $rdProjects := slice }}
+      {{ if $rdTaxonomy }}
+        {{ range $rdTaxonomy }}
+          {{ $rdProjects = $rdProjects | append .Page }}
+        {{ end }}
+      {{ end }}
+      {{ if gt (len $rdProjects) 0 }}
+      <section id="global-rd-initiatives" class="registry-section rd-registry" data-category="rd">
+        <h2 id="heading-rd" class="section-heading">
+          <span class="rd-indicator"></span>
+          GLOBAL_RESEARCH_&_DEVELOPMENT_INITIATIVES
+        </h2>
+        
+        {{ range $index, $project := $rdProjects }}
+        <article class="system-spec rd-spec" data-project-id="{{ $project.File.UniqueID }}" data-tags="{{ range $project.Params.tags }}{{ . | lower }} {{ end }}" data-index="{{ $index }}">
+          <!-- R&D Phase Ribbon -->
+          <div class="rd-phase-ribbon">
+            <span class="rd-phase-text">R&D_PHASE: ALPHA</span>
+          </div>
+          
+          <!-- Header Section -->
+          <div class="spec-header">
+            <div class="spec-title-row">
+              <h3 class="spec-title">
+                <a href="{{ $project.RelPermalink }}" class="spec-title-link">{{ $project.Title }}</a>
+              </h3>
+              <div class="spec-status-badges">
+                <span class="status-badge status-experimental" aria-label="Experimental R&D">EXPERIMENTAL</span>
+              </div>
+            </div>
+            
+            <!-- R&D Metadata -->
+            <div class="rd-metadata">
+              <span class="rd-meta-item">LATITUDE: [COORD]</span>
+              <span class="rd-meta-separator">|</span>
+              <span class="rd-meta-item">SYSTEM: EXPERIMENTAL</span>
+            </div>
+            
+            <!-- Quick Metrics -->
+            {{ if $project.Params.impactMetrics }}
+            <div class="spec-metrics">
+              {{ range first 4 $project.Params.impactMetrics }}
+              <span class="metric-tag">{{ . }}</span>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+          
+          <!-- Split-Pane Core -->
+          <div class="spec-core">
+            <!-- Column A: Context -->
+            <div class="spec-context">
+              <div class="spec-abstract">
+                <p>{{ $project.Description }}</p>
+              </div>
+              
+              {{ if or $project.Params.designTradeoffs $project.Params.failureModes }}
+              <div class="architecture-ledger">
+                <h4 class="ledger-title">Architecture Ledger</h4>
+                <ul class="ledger-list">
+                  {{ if $project.Params.designTradeoffs }}
+                  <li class="ledger-item">
+                    <strong>Design Decision:</strong> {{ $project.Params.designTradeoffs }}
+                  </li>
+                  {{ end }}
+                  {{ if $project.Params.failureModes }}
+                    {{ range first 2 $project.Params.failureModes }}
+                    <li class="ledger-item">
+                      <strong>Resilience Pattern:</strong> {{ .scenario | default "N/A" }} → {{ .response | default "N/A" }}
+                    </li>
+                    {{ end }}
+                  {{ end }}
+                </ul>
+              </div>
+              {{ end }}
+            </div>
+
+            <!-- Column B: Media Stage -->
+            <div class="spec-media">
+              <div class="media-viewport blueprint-viewport">
+                <div class="blueprint-grid-overlay"></div>
+                <div class="viewport-tabs" role="tablist" aria-label="Technical viewport tabs">
+                  <button 
+                    class="viewport-tab active" 
+                    role="tab" 
+                    aria-selected="true" 
+                    aria-expanded="true"
+                    aria-controls="diagram-{{ $project.File.UniqueID }}"
+                    id="tab-diagram-{{ $project.File.UniqueID }}"
+                    data-tab="diagram"
+                    data-project-id="{{ $project.File.UniqueID }}"
+                  >
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                    </svg>
+                    Diagram
+                  </button>
+                </div>
+                <div class="viewport-content">
+                  <div 
+                    id="diagram-{{ $project.File.UniqueID }}" 
+                    class="viewport-pane active" 
+                    role="tabpanel" 
+                    aria-labelledby="tab-diagram-{{ $project.File.UniqueID }}"
+                  >
+                    {{ if $project.Params.architectureDiagramUrl }}
+                    <div class="diagram-container">
+                      <img 
+                        data-src="{{ $project.Params.architectureDiagramUrl }}" 
+                        alt="Architecture diagram for {{ $project.Title }}"
+                        class="diagram-image lazy-diagram"
+                        loading="lazy"
+                      />
+                    </div>
+                    {{ else }}
+                    <div class="diagram-placeholder">
+                      <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                      </svg>
+                      <p>Architecture Diagram</p>
+                    </div>
+                    {{ end }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Actions -->
+          <div class="spec-footer">
+            <a href="{{ $project.RelPermalink }}" class="spec-link">View Full Specification →</a>
+          </div>
+        </article>
+        {{ end }}
+      </section>
+      {{ end }}
+      
       {{ range $allCategories }}
       {{ $categoryName := . }}
       {{ $categorySlug := $categoryName | lower | replaceRE "&" "-" | replaceRE "/" "-" | replaceRE "\\s+" "-" | replaceRE "-+" "-" | replaceRE "^-|-$" "" | urlize }}
@@ -119,6 +333,30 @@
                 {{ end }}
               </div>
             </div>
+            
+            <!-- Mastery Ribbon (Strategic Domain Tags) -->
+            {{ $strategicTags := slice }}
+            {{ range $project.Params.tags }}
+              {{ $tag := . }}
+              {{ $isStrategic := false }}
+              {{ range $domainName, $domainTags := $strategicDomains }}
+                {{ range $domainTags }}
+                  {{ if eq (lower $tag) (lower .) }}
+                    {{ $isStrategic = true }}
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+              {{ if $isStrategic }}
+                {{ $strategicTags = $strategicTags | append $tag }}
+              {{ end }}
+            {{ end }}
+            {{ if $strategicTags }}
+            <div class="mastery-ribbon">
+              {{ range $strategicTags }}
+              <span class="mastery-tag">{{ . }}</span>
+              {{ end }}
+            </div>
+            {{ end }}
             
             <!-- Quick Metrics -->
             {{ if $project.Params.impactMetrics }}
@@ -161,7 +399,8 @@
 
             <!-- Column B: Media Stage -->
             <div class="spec-media">
-              <div class="media-viewport">
+              <div class="media-viewport blueprint-viewport">
+                <div class="blueprint-grid-overlay"></div>
                 <div class="viewport-tabs" role="tablist" aria-label="Technical viewport tabs">
                   <button 
                     class="viewport-tab active" 

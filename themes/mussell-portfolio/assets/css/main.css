@@ -2681,24 +2681,7 @@ footer {
   border: 2px solid rgba(39, 39, 42, 0.6);
 }
 
-.about-status-dot {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 12px;
-  height: 12px;
-  background: #22C55E; /* green-500 */
-  border: 2px solid var(--bg-secondary);
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
-  animation: statusPulse 2s ease-in-out infinite;
-  z-index: 2;
-}
-
-[data-theme="dark"] .about-status-dot,
-.dark-mode .about-status-dot {
-  border-color: var(--bg-secondary);
-}
+/* About status dot removed - clean profile picture only */
 
 .about-avatar-wrapper:hover .about-avatar {
   transform: scale(1.01);
@@ -4885,6 +4868,175 @@ footer {
   box-shadow: 0 2px 6px rgba(220, 38, 38, 0.25);
 }
 
+/* Engineering Philosophy Section */
+.philosophy-section {
+  margin: 4rem 0;
+}
+
+.philosophy-blocks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.philosophy-block {
+  border-left: 2px solid rgba(99, 102, 241, 0.3); /* border-l border-indigo-500/30 */
+  padding-left: 1.5rem;
+  padding-top: 0.5rem;
+}
+
+.philosophy-number {
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.philosophy-title {
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.philosophy-content {
+  font-size: 0.9375rem;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* R&D Status Indicator (Blue Glowing Dot) */
+.status-indicator-rd {
+  width: 8px;
+  height: 8px;
+  background: rgb(59, 130, 246); /* blue-500 */
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.5rem;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6); /* Glowing blue */
+  animation: pulse-rd 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-rd {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.8);
+  }
+}
+
+/* R&D Registry Styling */
+.rd-registry {
+  background: rgba(39, 39, 42, 0.2); /* Terminal/Radar aesthetic */
+  border: 1px dashed rgba(63, 63, 70, 0.8); /* border-dashed border-zinc-700 */
+  border-radius: 0.5rem;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.rd-spec {
+  background: rgba(9, 9, 11, 0.4);
+  border: 1px dashed rgba(63, 63, 70, 0.8); /* border-dashed border-zinc-700 */
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  position: relative;
+  /* Grid Pattern Background (5% opacity) */
+  background-image: 
+    linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 0;
+}
+
+/* R&D Diagram Placeholder - Blue Tint */
+.rd-spec .diagram-placeholder {
+  background: rgba(59, 130, 246, 0.05); /* Subtle blue tint */
+  border: 1px dashed rgba(59, 130, 246, 0.3);
+}
+
+.rd-spec .diagram-container {
+  position: relative;
+}
+
+.rd-spec .blueprint-grid-overlay {
+  background-image: 
+    linear-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.rd-phase-ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(99, 102, 241, 0.2);
+  border-bottom-left-radius: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  z-index: 10;
+  border-left: 1px solid rgba(99, 102, 241, 0.4);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.4);
+}
+
+.rd-phase-text {
+  font-size: 0.625rem;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgb(99, 102, 241);
+  font-weight: 700;
+}
+
+.rd-indicator {
+  width: 8px;
+  height: 8px;
+  background: rgb(59, 130, 246);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.75rem;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+  animation: pulse-rd 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.rd-metadata {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.6875rem;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.rd-meta-item {
+  color: rgba(96, 165, 250, 0.8); /* text-blue-400/80 - R&D theme */
+}
+
+.rd-meta-separator {
+  color: rgba(96, 165, 250, 0.6); /* Muted blue separator */
+}
+
+@media (max-width: 1024px) {
+  .philosophy-blocks {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
 /* Responsive adjustments for project pages */
 @media (max-width: 768px) {
   .project-article {
@@ -6715,6 +6867,32 @@ body {
   transition: all 0.2s ease;
   font-size: 0.875rem;
   position: relative;
+  gap: 0.75rem;
+}
+
+.toc-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgb(16, 185, 129); /* bg-emerald-500 - Production "Active System" */
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6); /* shadow-[0_0_8px_rgba(16,185,129,0.6)] - subtle emerald outer glow */
+}
+
+.toc-status-dot-rd {
+  background: rgb(59, 130, 246); /* bg-blue-500 - R&D/Experimental */
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6); /* subtle blue glow */
+}
+
+.toc-link-rd {
+  /* R&D link styling - can add hover effects if needed */
+}
+
+.toc-separator {
+  height: 1px;
+  background: rgba(39, 39, 42, 0.3);
+  margin: 1rem 0;
+  list-style: none;
 }
 
 .toc-link:hover,
@@ -6804,6 +6982,9 @@ body {
   position: relative;
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(39, 39, 42, 0.6); /* border-b border-zinc-800 */
 }
 
 .search-icon {
@@ -6816,14 +6997,54 @@ body {
 .service-search {
   width: 100%;
   padding: 0.875rem 1rem 0.875rem 3rem;
+  padding-right: 4rem; /* Space for ⌘K indicator */
   font-size: 1rem;
   line-height: 1.5;
   color: var(--text-primary);
   background: var(--bg-primary);
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(39, 39, 42, 0.6); /* border-zinc-800/60 */
   border-radius: 0.5rem;
   font-family: 'Inter', sans-serif;
   transition: all 0.2s ease;
+  position: relative;
+}
+
+.service-search::placeholder {
+  color: var(--text-muted);
+}
+
+.search-shortcut-hint {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  pointer-events: none;
+  padding: 0.25rem 0.5rem;
+  background: rgba(39, 39, 42, 0.3);
+  border: 1px solid rgba(39, 39, 42, 0.4);
+  border-radius: 0.25rem;
+}
+
+.search-shortcut-hint {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%); /* Perfectly vertically centered */
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: rgb(113, 113, 122); /* text-zinc-500 - slightly lighter */
+  pointer-events: none;
+  padding: 0.25rem 0.5rem;
+  background: rgba(39, 39, 42, 0.3);
+  border: 1px solid rgba(39, 39, 42, 0.4);
+  border-radius: 0.25rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Light mode search bar */
@@ -6855,21 +7076,106 @@ body {
 .filter-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .filter-label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-size: 0.625rem; /* text-[10px] */
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.2em; /* tracking-[0.2em] */
+  color: rgb(113, 113, 122); /* text-zinc-500 */
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(39, 39, 42, 0.6); /* border-b border-zinc-800 */
+}
+
+.strategic-domains-filters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Strict 3-column grid */
+  gap: 0;
+  margin-bottom: 1.5rem;
+  border-top: 1px solid rgba(39, 39, 42, 0.3);
+}
+
+.domain-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-right: 1px solid rgba(39, 39, 42, 0.4); /* border-r border-zinc-800/40 - very muted */
+  align-items: flex-start; /* Equal vertical alignment */
+}
+
+.domain-filter-group:last-child {
+  border-right: none;
+}
+
+.domain-group-title {
+  font-size: 0.625rem; /* text-[10px] */
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.2em; /* tracking-[0.2em] */
+  color: rgb(113, 113, 122); /* text-zinc-500 */
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(39, 39, 42, 0.3);
+}
+
+.legacy-tags-section {
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(39, 39, 42, 0.3);
+}
+
+.legacy-tags-header {
+  font-size: 0.625rem; /* text-[10px] */
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace; /* font-mono */
+  text-transform: uppercase;
+  letter-spacing: 0.2em; /* tracking-[0.2em] */
+  color: rgb(113, 113, 122); /* text-zinc-500 */
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(39, 39, 42, 0.3);
+}
+
+.legacy-tags {
+  margin-top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* gap-2 */
+}
+
+.legacy-tag {
+  opacity: 0.6; /* Muted appearance */
+  border: 1px solid transparent; /* Transparent border by default */
+  transition: border-color 0.2s ease;
+}
+
+.legacy-tag:hover {
+  border-color: rgba(99, 102, 241, 0.5); /* border-indigo-500/50 on hover */
+  /* No layout shift - border already exists */
+}
+
+.legacy-tag .tag-name {
+  color: rgb(113, 113, 122); /* text-zinc-500 */
+  font-size: 0.75rem; /* Smaller than strategic tags */
 }
 
 .tag-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .strategic-domains-filters {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 }
 
 .tag-filter {

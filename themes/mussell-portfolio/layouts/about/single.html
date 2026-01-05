@@ -8,7 +8,6 @@
         <div class="about-hero-visual">
           <div class="about-avatar-wrapper">
             <img src="{{ "/profile.jpg" | relURL }}" alt="Richard Mussell III" class="about-avatar" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
-            <span class="about-status-dot" aria-label="Status: Operational"></span>
           </div>
         </div>
         <!-- Right: Context (60%) -->
@@ -72,12 +71,40 @@
         </div>
       </section>
       
-      <!-- Engineering Principles -->
-      <section class="principles-section">
-        <h2 class="section-heading">
-          <span class="status-indicator"></span>
-          <span class="heading-label">ENGINEERING_PRINCIPLES</span>
-        </h2>
+          <!-- Engineering Philosophy -->
+          <section class="philosophy-section">
+            <h2 class="section-heading">
+              <span class="status-indicator status-indicator-rd"></span>
+              <span class="heading-label">ENGINEERING_PHILOSOPHY</span>
+            </h2>
+            
+            <div class="philosophy-blocks">
+              <div class="philosophy-block">
+                <h3 class="philosophy-number">01</h3>
+                <h4 class="philosophy-title">DETERMINISTIC PERFORMANCE</h4>
+                <p class="philosophy-content">Edge computing demands predictable latency and deterministic resource allocation. Research focuses on eBPF-based observability, WasmEdge runtime optimization, and TSN (Time-Sensitive Networking) for real-time workloads.</p>
+              </div>
+              
+              <div class="philosophy-block">
+                <h3 class="philosophy-number">02</h3>
+                <h4 class="philosophy-title">SOVEREIGN INFRASTRUCTURE</h4>
+                <p class="philosophy-content">Bare-metal provisioning with Tinkerbell, Redfish API integration, and Root-of-Trust (TPM) enable air-gapped, sovereign deployments. DTN (Delay-Tolerant Networking) patterns for disconnected edge scenarios.</p>
+              </div>
+              
+              <div class="philosophy-block">
+                <h3 class="philosophy-number">03</h3>
+                <h4 class="philosophy-title">MULTI-CLUSTER ORCHESTRATION</h4>
+                <p class="philosophy-content">Cross-region high availability through Multi-Cluster GitOps, SPIFFE/SPIRE for zero-trust service identity, and Sovereign AI workloads with OTEC (Ocean Thermal Energy Conversion) integration for sustainable edge computing.</p>
+              </div>
+            </div>
+          </section>
+          
+          <!-- Engineering Principles -->
+          <section class="principles-section">
+            <h2 class="section-heading">
+              <span class="status-indicator"></span>
+              <span class="heading-label">ENGINEERING_PRINCIPLES</span>
+            </h2>
         
         <div class="principles-container">
           <div class="principles-grid">
