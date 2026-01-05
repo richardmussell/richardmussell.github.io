@@ -26,12 +26,14 @@ hugo --gc --minify
 
 ## Deployment
 
-The site is automatically built and deployed via GitHub Actions on every push to the `main` branch. The workflow:
+The site is automatically built and deployed via GitHub Actions on every push to the `main` branch using the official GitHub Actions Deployment Engine. The workflow:
 
-1. Checks out the repository
-2. Sets up Hugo Extended Edition
-3. Builds the site with `--gc --minify` flags
-4. Deploys to the `gh-pages` branch
+1. Checks out the repository (including submodules)
+2. Configures GitHub Pages
+3. Sets up Hugo Extended Edition
+4. Builds the site with `--gc --minify` flags
+5. Uploads build artifact
+6. Deploys atomically to GitHub Pages (no gh-pages branch required)
 
 ## Configuration
 
