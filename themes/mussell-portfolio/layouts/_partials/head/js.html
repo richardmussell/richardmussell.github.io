@@ -792,6 +792,36 @@ spec:
     });
   })();
   
+  // Mac Terminal Header for Code Blocks
+  (function() {
+    document.querySelectorAll('.project-content pre').forEach(pre => {
+      // Check if already wrapped
+      if (pre.querySelector('.mac-terminal-header')) return;
+      
+      const code = pre.querySelector('code');
+      if (!code) return;
+      
+      // Create terminal header
+      const header = document.createElement('div');
+      header.className = 'mac-terminal-header';
+      header.innerHTML = `
+        <div class="mac-terminal-dot"></div>
+        <div class="mac-terminal-dot"></div>
+        <div class="mac-terminal-dot"></div>
+      `;
+      
+      // Wrap code in container
+      const codeContainer = document.createElement('div');
+      codeContainer.className = 'mac-terminal-code';
+      codeContainer.appendChild(code.cloneNode(true));
+      
+      // Clear pre and add header + code
+      pre.innerHTML = '';
+      pre.appendChild(header);
+      pre.appendChild(codeContainer);
+    });
+  })();
+  
   // Copy Code to Clipboard
   (function() {
     document.querySelectorAll('.copy-code-button').forEach(button => {

@@ -1,59 +1,90 @@
 {{ define "main" }}
-<div class="container">
-  <article class="project-article">
-    <!-- Project Header -->
+<div class="project-page-wrapper">
+  <div class="project-container">
+    <!-- Breadcrumbs -->
+    <nav class="project-breadcrumbs" aria-label="Breadcrumb">
+      <a href="{{ "/projects/" | relURL }}" class="breadcrumb-link">PROJECTS</a>
+      <span class="breadcrumb-separator">/</span>
+      {{ range first 1 .Params.categories }}
+      <span class="breadcrumb-current">{{ . | upper }}</span>
+      {{ end }}
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">{{ .Title | upper }}</span>
+    </nav>
+
+    <!-- Project Header - Left Aligned -->
     <header class="project-header">
-      <div class="project-meta">
-        {{ range .Params.categories }}
-        <span class="project-category">{{ . }}</span>
-        {{ end }}
-        {{ if .Params.featured }}
-        <span class="featured-badge">Featured</span>
-        {{ end }}
-        {{ if .Params.productionReady }}
-        <span class="production-badge">Production-Ready</span>
-        {{ end }}
-      </div>
       <h1 class="project-title">{{ .Title }}</h1>
       {{ if .Params.description }}
       <p class="project-subtitle">{{ .Params.description }}</p>
       {{ end }}
-      <div class="project-info">
-        <time datetime="{{ .Date.Format "2006-01-02" }}" class="project-date">
-          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;">
+      
+      <!-- System Metadata Bar -->
+      <div class="project-metadata-bar">
+        <div class="metadata-item">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
           </svg>
-          {{ .Date.Format "January 2, 2006" }}
-        </time>
+          <time datetime="{{ .Date.Format "2006-01-02" }}" class="metadata-value">{{ .Date.Format "January 2, 2006" }}</time>
+        </div>
         {{ if .Params.readTime }}
-        <span class="project-read-time">
-          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;">
+        <div class="metadata-item">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
-          {{ .Params.readTime }} min read
-        </span>
+          <span class="metadata-value">{{ .Params.readTime }} min read</span>
+        </div>
         {{ end }}
         {{ if .Params.githubLink }}
-        <a href="{{ .Params.githubLink }}" class="project-github-link" target="_blank" rel="noopener">
-          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;">
+        <div class="metadata-item">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
           </svg>
-          View Code
-        </a>
+          <a href="{{ .Params.githubLink }}" class="metadata-value metadata-link" target="_blank" rel="noopener">View Code</a>
+        </div>
         {{ end }}
       </div>
+      
+      <!-- Category Tags -->
+      {{ if .Params.categories }}
+      <div class="project-category-tags">
+        {{ range .Params.categories }}
+        <span class="category-pill">{{ . }}</span>
+        {{ end }}
+        {{ if .Params.productionReady }}
+        <span class="category-pill category-pill-production">PRODUCTION</span>
+        {{ end }}
+      </div>
+      {{ end }}
     </header>
 
-    <!-- Key Impact Box -->
+    <!-- Impact Registry - 2x2 Metric Grid -->
     {{ if .Params.impactMetrics }}
-    <div class="key-impact-box">
-      <h3 class="key-impact-title">Key Impact</h3>
-      <ul class="key-impact-list">
-        {{ range .Params.impactMetrics }}
-        <li><strong>{{ . }}</strong></li>
+    <section class="impact-registry-section">
+      <h2 class="section-heading-whitepaper">Results & Impact</h2>
+      <div class="impact-metric-grid">
+        {{ range first 4 .Params.impactMetrics }}
+        {{ $metric := . }}
+        {{ $label := "" }}
+        {{ $value := $metric }}
+        {{ if findRE "reduction|reduced|decrease|↓" $metric }}
+          {{ $label = "PERFORMANCE IMPROVEMENT" }}
+        {{ else if findRE "uptime|SLA|availability" $metric }}
+          {{ $label = "RELIABILITY" }}
+        {{ else if findRE "cost|save|savings|$" $metric }}
+          {{ $label = "COST OPTIMIZATION" }}
+        {{ else if findRE "RTO|RPO|failover" $metric }}
+          {{ $label = "RESILIENCE" }}
+        {{ else }}
+          {{ $label = "IMPACT METRIC" }}
         {{ end }}
-      </ul>
-    </div>
+        <div class="metric-card">
+          <span class="metric-label">{{ $label }}</span>
+          <span class="metric-value">{{ $value }}</span>
+        </div>
+        {{ end }}
+      </div>
+    </section>
     {{ end }}
 
     <!-- Executive Summary Table -->
@@ -80,9 +111,148 @@
     </section>
     {{ end }}
 
-    <!-- Project Content -->
-    <div class="project-content">
-      {{ .Content }}
+    <!-- Dual-Pane Layout: Main Content + Spec Rail -->
+    <div class="project-whitepaper-layout">
+      <!-- Left: Main Content Column -->
+      <div class="project-main-content">
+        <div class="project-content">
+          {{ .Content }}
+        </div>
+        
+        <!-- Production Readiness Checklist - In Main Column -->
+        {{ if .Params.productionReady }}
+        <section class="readiness-checklist-section">
+          <h2 class="section-heading-whitepaper">Production Readiness Checklist</h2>
+          <div class="readiness-checklist">
+            <div class="checklist-grid">
+              <!-- Security Column -->
+              <div class="checklist-column">
+                <h3 class="checklist-category">Security</h3>
+                <div class="checklist-item checked">
+                  <svg class="checkmark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Authentication</span>
+                </div>
+                <div class="checklist-item checked">
+                  <svg class="checkmark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Encryption</span>
+                </div>
+                <div class="checklist-item checked">
+                  <svg class="checkmark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Access Control</span>
+                </div>
+              </div>
+              
+              <!-- Operations Column -->
+              <div class="checklist-column">
+                <h3 class="checklist-category">Operations</h3>
+                <div class="checklist-item checked">
+                  <svg class="checkmark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Monitoring</span>
+                </div>
+                <div class="checklist-item checked">
+                  <svg class="checkmark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Logging</span>
+                </div>
+                <div class="checklist-item checked">
+                  <svg class="checkmark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Alerting</span>
+                </div>
+              </div>
+              
+              <!-- Resilience Column -->
+              <div class="checklist-column">
+                <h3 class="checklist-category">Resilience</h3>
+                <div class="checklist-item checked">
+                  <svg class="checkmark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>High Availability</span>
+                </div>
+                <div class="checklist-item checked">
+                  <svg class="checkmark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Backup Strategy</span>
+                </div>
+                <div class="checklist-item checked">
+                  <svg class="checkmark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Disaster Recovery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {{ end }}
+      </div>
+      
+      <!-- Right: Spec Rail (Sticky Sidebar) -->
+      <aside class="project-spec-rail" aria-label="Project specifications">
+        <div class="spec-rail-content">
+          <h3 class="spec-rail-title">QUICK SPECS</h3>
+          
+          <!-- Status -->
+          <div class="spec-item">
+            <span class="spec-label">STATUS</span>
+            <span class="spec-value spec-status">
+              {{ if .Params.productionReady }}PRODUCTION{{ else }}EXPERIMENTAL{{ end }}
+            </span>
+          </div>
+          
+          <!-- Stack -->
+          {{ if .Params.tags }}
+          <div class="spec-item">
+            <span class="spec-label">STACK</span>
+            <div class="spec-value spec-stack">
+              {{ range first 5 .Params.tags }}
+              <span class="stack-tag">{{ . }}</span>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+          
+          <!-- Core Metrics -->
+          {{ if .Params.impactMetrics }}
+          <div class="spec-item">
+            <span class="spec-label">CORE METRICS</span>
+            <div class="spec-value spec-metrics">
+              {{ range first 3 .Params.impactMetrics }}
+              <span class="metric-tag">{{ . }}</span>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+          
+          <!-- Provider -->
+          {{ if .Params.provider }}
+          <div class="spec-item">
+            <span class="spec-label">PROVIDER</span>
+            <span class="spec-value">{{ .Params.provider }}</span>
+          </div>
+          {{ end }}
+          
+          <!-- IaC -->
+          {{ if .Params.iac }}
+          <div class="spec-item">
+            <span class="spec-label">IAC</span>
+            <span class="spec-value">{{ .Params.iac }}</span>
+          </div>
+          {{ end }}
+        </div>
+      </aside>
     </div>
 
     <!-- Decision Log Section -->
@@ -106,13 +276,15 @@
     </section>
     {{ end }}
 
-    <!-- Architecture Diagram Section -->
+    <!-- Architecture Diagram Section - Lightbox -->
     {{ if .Params.architectureDiagramUrl }}
     <section class="project-section architecture-section">
-      <h2>Architecture Diagram</h2>
-      <div class="architecture-diagram-container">
-        <img src="{{ .Params.architectureDiagramUrl }}" alt="Architecture diagram for {{ .Title }}" class="architecture-diagram">
-        <p class="architecture-caption">Data flow and component interactions within the system architecture.</p>
+      <h2 class="section-heading-whitepaper">Architecture Diagram</h2>
+      <div class="architecture-lightbox">
+        <div class="lightbox-container">
+          <img src="{{ .Params.architectureDiagramUrl }}" alt="Architecture diagram for {{ .Title }}" class="architecture-diagram">
+        </div>
+        <p class="architecture-caption">{{ if .Params.architectureCaption }}{{ .Params.architectureCaption }}{{ else }}Data flow and component interactions within the system architecture.{{ end }}</p>
       </div>
     </section>
     {{ end }}
@@ -180,19 +352,15 @@
     </section>
     {{ end }}
 
-    <!-- Project Tags -->
-    {{ if .Params.tags }}
-    <footer class="project-footer">
-      <div class="project-tags-section">
-        <h3>Technologies & Tools</h3>
-        <div class="project-tags-list">
-          {{ range .Params.tags }}
-          <span class="project-tag">{{ . }}</span>
-          {{ end }}
-        </div>
-      </div>
-    </footer>
-    {{ end }}
+    <!-- Back to Registry CTA -->
+    <div class="project-cta">
+      <a href="{{ "/projects/" | relURL }}" class="back-to-registry-btn">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to Registry
+      </a>
+    </div>
   </article>
 </div>
 {{ end }}

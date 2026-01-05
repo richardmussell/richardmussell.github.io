@@ -108,7 +108,9 @@
           <!-- Header Section -->
           <div class="spec-header">
             <div class="spec-title-row">
-              <h3 class="spec-title">{{ $project.Title }}</h3>
+              <h3 class="spec-title">
+                <a href="{{ $project.RelPermalink }}" class="spec-title-link">{{ $project.Title }}</a>
+              </h3>
               <div class="spec-status-badges">
                 {{ if $project.Params.productionReady }}
                 <span class="status-badge status-production" aria-label="Production ready">PRODUCTION</span>
@@ -122,9 +124,7 @@
             {{ if $project.Params.impactMetrics }}
             <div class="spec-metrics">
               {{ range first 4 $project.Params.impactMetrics }}
-              <div class="metric-item">
-                <span class="metric-label">{{ . }}</span>
-              </div>
+              <span class="metric-tag">{{ . }}</span>
               {{ end }}
             </div>
             {{ end }}
