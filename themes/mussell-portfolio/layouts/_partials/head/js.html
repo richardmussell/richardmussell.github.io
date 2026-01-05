@@ -281,11 +281,11 @@
       }
     }
     
-    // Tab Switching
+    // Tab Switching with Lazy Loading
     document.querySelectorAll('.viewport-tab').forEach(tab => {
       tab.addEventListener('click', function(e) {
         e.preventDefault();
-        const projectId = this.id.split('-').slice(-2).join('-');
+        const projectId = this.getAttribute('data-project-id');
         const tabName = this.getAttribute('data-tab');
         const viewport = this.closest('.media-viewport');
         
@@ -293,9 +293,11 @@
         viewport.querySelectorAll('.viewport-tab').forEach(t => {
           t.classList.remove('active');
           t.setAttribute('aria-selected', 'false');
+          t.setAttribute('aria-expanded', 'false');
         });
         this.classList.add('active');
         this.setAttribute('aria-selected', 'true');
+        this.setAttribute('aria-expanded', 'true');
         
         // Update active pane
         viewport.querySelectorAll('.viewport-pane').forEach(pane => {
@@ -304,6 +306,35 @@
         const targetPane = viewport.querySelector(`#${tabName}-${projectId}`);
         if (targetPane) {
           targetPane.classList.add('active');
+          
+          // Lazy load content when tab becomes active
+          if (tabName === 'loom') {
+            const iframe = targetPane.querySelector('.loom-iframe.lazy-iframe');
+            const poster = targetPane.querySelector('.loom-poster');
+            if (iframe && !iframe.src) {
+              const src = iframe.getAttribute('data-src');
+              if (src) {
+                iframe.src = src;
+                iframe.classList.add('loaded');
+                iframe.style.display = 'block';
+                if (poster) {
+                  poster.style.display = 'none';
+                }
+              }
+            }
+          } else if (tabName === 'diagram') {
+            const facade = targetPane.querySelector('.diagram-facade');
+            const lazyImage = targetPane.querySelector('.lazy-diagram');
+            if (facade && lazyImage && !lazyImage.classList.contains('loaded')) {
+              const diagramUrl = facade.getAttribute('data-diagram-url');
+              if (diagramUrl) {
+                lazyImage.src = diagramUrl;
+                lazyImage.classList.add('loaded');
+                facade.classList.add('loaded');
+                lazyImage.style.display = 'block';
+              }
+            }
+          }
         }
       });
     });
@@ -447,5 +478,274 @@ spec:
         }
       });
     }
+  })();
+  
+  // Command Palette (Cmd+K / Ctrl+K)
+  (function() {
+    const palette = document.getElementById('command-palette');
+    const paletteSearch = document.getElementById('palette-search');
+    const paletteResults = document.getElementById('palette-results');
+    const paletteClose = document.querySelector('.palette-close');
+    const paletteOverlay = document.querySelector('.palette-overlay');
+    
+    if (!palette || !paletteSearch) return;
+    
+    // Collect all projects for search
+    const projects = Array.from(document.querySelectorAll('.system-spec')).map(spec => {
+      const title = spec.querySelector('.spec-title')?.textContent || '';
+      const category = spec.closest('.registry-section')?.querySelector('.section-heading')?.textContent || '';
+      const tags = spec.getAttribute('data-tags')?.split(' ').filter(t => t) || [];
+      const link = spec.querySelector('.spec-link')?.getAttribute('href') || '';
+      return { title, category, tags, link, element: spec };
+    });
+    
+    function openPalette() {
+      palette.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      paletteSearch.focus();
+      updatePaletteResults('');
+    }
+    
+    function closePalette() {
+      palette.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    
+    function updatePaletteResults(query) {
+      const queryLower = query.toLowerCase().trim();
+      paletteResults.innerHTML = '';
+      
+      if (!queryLower) {
+        // Show all projects
+        projects.forEach((project, index) => {
+          const item = createPaletteItem(project, index);
+          paletteResults.appendChild(item);
+        });
+        return;
+      }
+      
+      // Filter projects
+      const filtered = projects.filter(project => {
+        const matchesTitle = project.title.toLowerCase().includes(queryLower);
+        const matchesCategory = project.category.toLowerCase().includes(queryLower);
+        const matchesTags = project.tags.some(tag => tag.includes(queryLower));
+        return matchesTitle || matchesCategory || matchesTags;
+      });
+      
+      filtered.forEach((project, index) => {
+        const item = createPaletteItem(project, index);
+        paletteResults.appendChild(item);
+      });
+      
+      if (filtered.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'palette-result-item';
+        noResults.textContent = 'No results found';
+        noResults.style.color = 'var(--text-secondary)';
+        noResults.style.cursor = 'default';
+        paletteResults.appendChild(noResults);
+      }
+    }
+    
+    function createPaletteItem(project, index) {
+      const item = document.createElement('div');
+      item.className = 'palette-result-item';
+      item.setAttribute('role', 'option');
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('aria-selected', 'false');
+      item.setAttribute('data-index', index);
+      
+      item.innerHTML = `
+        <div>
+          <div class="palette-result-title">${project.title}</div>
+          <div class="palette-result-meta">${project.category}</div>
+        </div>
+      `;
+      
+      item.addEventListener('click', () => {
+        project.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        project.element.setAttribute('tabindex', '-1');
+        project.element.focus();
+        closePalette();
+      });
+      
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          item.click();
+        }
+      });
+      
+      return item;
+    }
+    
+    // Keyboard shortcut
+    document.addEventListener('keydown', (e) => {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      const isCmdK = (isMac && e.metaKey && e.key === 'k') || (!isMac && e.ctrlKey && e.key === 'k');
+      
+      if (isCmdK) {
+        e.preventDefault();
+        if (palette.getAttribute('aria-hidden') === 'true') {
+          openPalette();
+        } else {
+          closePalette();
+        }
+      }
+      
+      // Close on Escape
+      if (e.key === 'Escape' && palette.getAttribute('aria-hidden') === 'false') {
+        closePalette();
+      }
+    });
+    
+    // Search input
+    paletteSearch.addEventListener('input', (e) => {
+      updatePaletteResults(e.target.value);
+    });
+    
+    // Close buttons
+    if (paletteClose) {
+      paletteClose.addEventListener('click', closePalette);
+    }
+    
+    if (paletteOverlay) {
+      paletteOverlay.addEventListener('click', closePalette);
+    }
+    
+    // Arrow key navigation in results
+    paletteSearch.addEventListener('keydown', (e) => {
+      const items = Array.from(paletteResults.querySelectorAll('.palette-result-item'));
+      const currentIndex = items.findIndex(item => item.getAttribute('aria-selected') === 'true');
+      
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+        items.forEach((item, i) => {
+          item.setAttribute('aria-selected', i === nextIndex ? 'true' : 'false');
+        });
+        items[nextIndex].focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+        items.forEach((item, i) => {
+          item.setAttribute('aria-selected', i === prevIndex ? 'true' : 'false');
+        });
+        items[prevIndex].focus();
+      }
+    });
+  })();
+  
+  // Lazy Load Diagrams (Media Facade Pattern)
+  (function() {
+    // Load diagram when Diagram tab is clicked
+    document.querySelectorAll('.viewport-tab[data-tab="diagram"]').forEach(tab => {
+      tab.addEventListener('click', function() {
+        const projectId = this.getAttribute('data-project-id');
+        const pane = document.getElementById(this.getAttribute('aria-controls'));
+        const facade = pane?.querySelector('.diagram-facade');
+        const lazyImage = pane?.querySelector('.lazy-diagram');
+        
+        if (facade && lazyImage && !lazyImage.classList.contains('loaded')) {
+          const diagramUrl = facade.getAttribute('data-diagram-url');
+          if (diagramUrl) {
+            lazyImage.src = diagramUrl;
+            lazyImage.classList.add('loaded');
+            facade.classList.add('loaded');
+            lazyImage.style.display = 'block';
+          }
+        }
+        
+        // Load Mermaid diagram if present
+        const mermaidContainer = pane?.querySelector('.mermaid');
+        if (mermaidContainer && !mermaidContainer.classList.contains('rendered')) {
+          const mermaidCode = mermaidContainer.getAttribute('data-mermaid') || mermaidContainer.textContent;
+          if (mermaidCode && typeof mermaid !== 'undefined') {
+            mermaidContainer.classList.add('rendered');
+            // Mermaid will auto-render on next tick
+          }
+        }
+      });
+    });
+    
+    // Load diagram when Load button is clicked
+    document.querySelectorAll('.diagram-load-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const facade = this.closest('.diagram-facade');
+        const container = facade?.closest('.diagram-container');
+        const lazyImage = container?.querySelector('.lazy-diagram');
+        
+        if (facade && lazyImage) {
+          const diagramUrl = facade.getAttribute('data-diagram-url');
+          if (diagramUrl) {
+            lazyImage.src = diagramUrl;
+            lazyImage.classList.add('loaded');
+            facade.classList.add('loaded');
+            lazyImage.style.display = 'block';
+          }
+        }
+      });
+    });
+  })();
+  
+  // Lazy Load Loom Iframes (Media Facade Pattern)
+  (function() {
+    document.querySelectorAll('.loom-play-button').forEach(playButton => {
+      playButton.addEventListener('click', function() {
+        const poster = this.closest('.loom-poster');
+        const container = poster?.closest('.loom-container');
+        const iframe = container?.querySelector('.loom-iframe.lazy-iframe');
+        
+        if (iframe && !iframe.src) {
+          const src = iframe.getAttribute('data-src');
+          if (src) {
+            iframe.src = src;
+            iframe.classList.add('loaded');
+            iframe.style.display = 'block';
+            if (poster) {
+              poster.style.display = 'none';
+            }
+          }
+        }
+      });
+    });
+  })();
+  
+  // Copy Code to Clipboard
+  (function() {
+    document.querySelectorAll('.copy-code-button').forEach(button => {
+      button.addEventListener('click', async function() {
+        const codeContainer = this.closest('.code-container');
+        const codeBlock = codeContainer?.querySelector('code');
+        if (!codeBlock) return;
+        
+        // Get text content, handling Prism.js highlighting
+        const code = codeBlock.textContent || codeBlock.innerText;
+        
+        try {
+          await navigator.clipboard.writeText(code);
+          this.classList.add('copied');
+          
+          setTimeout(() => {
+            this.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy code:', err);
+        }
+      });
+    });
+  })();
+  
+  // Update aria-expanded on tab switchers
+  (function() {
+    document.querySelectorAll('.viewport-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        const viewport = this.closest('.media-viewport');
+        const allTabs = viewport.querySelectorAll('.viewport-tab');
+        allTabs.forEach(t => {
+          t.setAttribute('aria-expanded', t === this ? 'true' : 'false');
+        });
+      });
+    });
   })();
 </script>

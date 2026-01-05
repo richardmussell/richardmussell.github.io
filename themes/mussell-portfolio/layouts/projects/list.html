@@ -11,6 +11,9 @@
 {{ end }}
 {{ $uniqueTags := $allTags | uniq | sort }}
 
+<!-- Skip to Content Link -->
+<a href="#registry-content" class="skip-to-content">Skip to Content</a>
+
 <div class="technical-registry">
   <!-- Sticky Sidebar TOC -->
   <nav class="registry-sidebar" aria-label="Project Categories">
@@ -42,7 +45,7 @@
   </nav>
 
   <!-- Main Content Area -->
-  <div class="registry-main">
+  <div class="registry-main" id="registry-content">
     <!-- Enterprise Discovery Layer -->
     <div class="discovery-layer">
       <div class="search-container">
@@ -100,14 +103,14 @@
       <section id="{{ $categoryLower | urlize }}" class="registry-section" data-category="{{ $categoryLower }}">
         <h2 class="section-heading">{{ $categoryName }}</h2>
         
-        {{ range $categoryProjects }}
-        <article class="system-spec" data-project-id="{{ .File.UniqueID }}" data-tags="{{ range .Params.tags }}{{ . | lower }} {{ end }}">
+        {{ range $index, $project := $categoryProjects }}
+        <article class="system-spec" data-project-id="{{ $project.File.UniqueID }}" data-tags="{{ range $project.Params.tags }}{{ . | lower }} {{ end }}" data-index="{{ $index }}" style="--stagger-delay: {{ mul $index 0.05 }}s;">
           <!-- Header Section -->
           <div class="spec-header">
             <div class="spec-title-row">
-              <h3 class="spec-title">{{ .Title }}</h3>
+              <h3 class="spec-title">{{ $project.Title }}</h3>
               <div class="spec-status-badges">
-                {{ if .Params.productionReady }}
+                {{ if $project.Params.productionReady }}
                 <span class="status-badge status-production" aria-label="Production ready">PRODUCTION</span>
                 {{ else }}
                 <span class="status-badge status-experimental" aria-label="Experimental">EXPERIMENTAL</span>
@@ -116,9 +119,9 @@
             </div>
             
             <!-- Quick Metrics -->
-            {{ if .Params.impactMetrics }}
+            {{ if $project.Params.impactMetrics }}
             <div class="spec-metrics">
-              {{ range first 4 .Params.impactMetrics }}
+              {{ range first 4 $project.Params.impactMetrics }}
               <div class="metric-item">
                 <span class="metric-label">{{ . }}</span>
               </div>
@@ -132,20 +135,20 @@
             <!-- Column A: Context -->
             <div class="spec-context">
               <div class="spec-abstract">
-                <p>{{ .Description }}</p>
+                <p>{{ $project.Description }}</p>
               </div>
               
-              {{ if or .Params.designTradeoffs .Params.failureModes }}
+              {{ if or $project.Params.designTradeoffs $project.Params.failureModes }}
               <div class="architecture-ledger">
                 <h4 class="ledger-title">Architecture Ledger</h4>
                 <ul class="ledger-list">
-                  {{ if .Params.designTradeoffs }}
+                  {{ if $project.Params.designTradeoffs }}
                   <li class="ledger-item">
-                    <strong>Design Decision:</strong> {{ .Params.designTradeoffs }}
+                    <strong>Design Decision:</strong> {{ $project.Params.designTradeoffs }}
                   </li>
                   {{ end }}
-                  {{ if .Params.failureModes }}
-                    {{ range first 2 .Params.failureModes }}
+                  {{ if $project.Params.failureModes }}
+                    {{ range first 2 $project.Params.failureModes }}
                     <li class="ledger-item">
                       <strong>Resilience Pattern:</strong> {{ .scenario | default "N/A" }} → {{ .response | default "N/A" }}
                     </li>
@@ -164,9 +167,11 @@
                     class="viewport-tab active" 
                     role="tab" 
                     aria-selected="true" 
-                    aria-controls="diagram-{{ .File.UniqueID }}"
-                    id="tab-diagram-{{ .File.UniqueID }}"
+                    aria-expanded="true"
+                    aria-controls="diagram-{{ $project.File.UniqueID }}"
+                    id="tab-diagram-{{ $project.File.UniqueID }}"
                     data-tab="diagram"
+                    data-project-id="{{ $project.File.UniqueID }}"
                   >
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
@@ -177,9 +182,11 @@
                     class="viewport-tab" 
                     role="tab" 
                     aria-selected="false" 
-                    aria-controls="loom-{{ .File.UniqueID }}"
-                    id="tab-loom-{{ .File.UniqueID }}"
+                    aria-expanded="false"
+                    aria-controls="loom-{{ $project.File.UniqueID }}"
+                    id="tab-loom-{{ $project.File.UniqueID }}"
                     data-tab="loom"
+                    data-project-id="{{ $project.File.UniqueID }}"
                   >
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
@@ -191,9 +198,11 @@
                     class="viewport-tab" 
                     role="tab" 
                     aria-selected="false" 
-                    aria-controls="code-{{ .File.UniqueID }}"
-                    id="tab-code-{{ .File.UniqueID }}"
+                    aria-expanded="false"
+                    aria-controls="code-{{ $project.File.UniqueID }}"
+                    id="tab-code-{{ $project.File.UniqueID }}"
                     data-tab="code"
+                    data-project-id="{{ $project.File.UniqueID }}"
                   >
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
@@ -205,23 +214,41 @@
                 <div class="viewport-content">
                   <!-- Diagram Tab -->
                   <div 
-                    id="diagram-{{ .File.UniqueID }}" 
+                    id="diagram-{{ $project.File.UniqueID }}" 
                     class="viewport-pane active" 
                     role="tabpanel" 
-                    aria-labelledby="tab-diagram-{{ .File.UniqueID }}"
+                    aria-labelledby="tab-diagram-{{ $project.File.UniqueID }}"
                   >
-                    {{ if .Params.architectureDiagramUrl }}
+                    {{ if $project.Params.architectureDiagramUrl }}
                     <div class="diagram-container">
+                      {{ if $project.Params.diagramPoster }}
+                      <!-- Media Facade: Show poster until diagram tab is clicked -->
+                      <div class="diagram-facade" data-diagram-url="{{ $project.Params.architectureDiagramUrl }}" data-project-id="{{ $project.File.UniqueID }}">
+                        <img 
+                          src="{{ $project.Params.diagramPoster }}" 
+                          alt="Architecture diagram preview for {{ $project.Title }}"
+                          class="diagram-poster"
+                          loading="lazy"
+                        />
+                        <button class="diagram-load-button" aria-label="Load full architecture diagram">
+                          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                          </svg>
+                          <span>Load Diagram</span>
+                        </button>
+                      </div>
+                      {{ end }}
                       <img 
-                        src="{{ .Params.architectureDiagramUrl }}" 
-                        alt="Architecture diagram for {{ .Title }}"
-                        class="diagram-image"
+                        data-src="{{ $project.Params.architectureDiagramUrl }}" 
+                        alt="Architecture diagram for {{ $project.Title }}"
+                        class="diagram-image lazy-diagram"
+                        style="display: {{ if $project.Params.diagramPoster }}none{{ else }}block{{ end }};"
                         loading="lazy"
                       />
                     </div>
-                    {{ else if .Params.mermaidDiagram }}
+                    {{ else if $project.Params.mermaidDiagram }}
                     <div class="mermaid-container">
-                      <div class="mermaid">{{ .Params.mermaidDiagram }}</div>
+                      <div class="mermaid" data-mermaid="{{ $project.Params.mermaidDiagram | htmlEscape }}">{{ $project.Params.mermaidDiagram }}</div>
                     </div>
                     {{ else }}
                     <div class="diagram-placeholder">
@@ -235,19 +262,31 @@
 
                   <!-- Loom Tab -->
                   <div 
-                    id="loom-{{ .File.UniqueID }}" 
+                    id="loom-{{ $project.File.UniqueID }}" 
                     class="viewport-pane" 
                     role="tabpanel" 
-                    aria-labelledby="tab-loom-{{ .File.UniqueID }}"
+                    aria-labelledby="tab-loom-{{ $project.File.UniqueID }}"
                   >
-                    {{ if .Params.loomUrl }}
+                    {{ if $project.Params.loomUrl }}
                     <div class="loom-container">
+                      {{ if $project.Params.loomPoster }}
+                      <!-- Media Facade: Show poster until Loom tab is clicked -->
+                      <div class="loom-poster" data-loom-url="{{ $project.Params.loomUrl }}" data-project-id="{{ $project.File.UniqueID }}">
+                        <img src="{{ $project.Params.loomPoster }}" alt="Video thumbnail for {{ $project.Title }}" class="loom-poster-image" loading="lazy" />
+                        <button class="loom-play-button" aria-label="Play system walkthrough video">
+                          <svg width="48" height="48" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8 5v14l11-7z"></path>
+                          </svg>
+                        </button>
+                      </div>
+                      {{ end }}
                       <iframe 
-                        src="{{ .Params.loomUrl }}" 
-                        class="loom-iframe"
-                        title="System walkthrough video for {{ .Title }}"
+                        data-src="{{ $project.Params.loomUrl }}" 
+                        class="loom-iframe lazy-iframe"
+                        title="System walkthrough video for {{ $project.Title }}"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen
+                        style="display: none;"
                       ></iframe>
                       <button class="transcript-button" aria-label="View transcript">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -269,14 +308,25 @@
 
                   <!-- Code Tab -->
                   <div 
-                    id="code-{{ .File.UniqueID }}" 
+                    id="code-{{ $project.File.UniqueID }}" 
                     class="viewport-pane" 
                     role="tabpanel" 
-                    aria-labelledby="tab-code-{{ .File.UniqueID }}"
+                    aria-labelledby="tab-code-{{ $project.File.UniqueID }}"
                   >
-                    {{ if .Params.codeSnippet }}
+                    {{ if $project.Params.codeSnippet }}
                     <div class="code-container">
-                      <pre class="code-block"><code class="language-{{ .Params.codeLanguage | default "hcl" }}">{{ .Params.codeSnippet }}</code></pre>
+                      <div class="code-header">
+                        <span class="code-language">{{ $project.Params.codeLanguage | default "hcl" | upper }}</span>
+                        <button class="copy-code-button" aria-label="Copy code to clipboard">
+                          <svg class="copy-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                          </svg>
+                          <svg class="check-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="display: none;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                        </button>
+                      </div>
+                      <pre class="code-block"><code class="language-{{ $project.Params.codeLanguage | default "hcl" }}">{{ $project.Params.codeSnippet }}</code></pre>
                     </div>
                     {{ else }}
                     <div class="code-placeholder">
@@ -294,8 +344,8 @@
 
           <!-- Footer Actions -->
           <div class="spec-footer">
-            <a href="{{ .RelPermalink }}" class="spec-link">View Full Specification →</a>
-            <button class="manifest-button" data-project-id="{{ .File.UniqueID }}" aria-label="View deployment manifest">
+            <a href="{{ $project.RelPermalink }}" class="spec-link">View Full Specification →</a>
+            <button class="manifest-button" data-project-id="{{ $project.File.UniqueID }}" aria-label="View deployment manifest">
               <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
               </svg>
@@ -307,6 +357,41 @@
       </section>
       {{ end }}
       {{ end }}
+    </div>
+  </div>
+</div>
+
+<!-- Command Palette Modal -->
+<div id="command-palette" class="command-palette" role="dialog" aria-labelledby="palette-title" aria-hidden="true">
+  <div class="palette-overlay" aria-label="Close command palette"></div>
+  <div class="palette-content">
+    <div class="palette-header">
+      <h3 id="palette-title" class="palette-title">Command Palette</h3>
+      <button class="palette-close" aria-label="Close command palette">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="palette-search-wrapper">
+      <svg class="palette-search-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      <input 
+        type="search" 
+        id="palette-search" 
+        class="palette-search" 
+        placeholder="Jump to project or filter by tech stack..."
+        aria-label="Search projects"
+        autocomplete="off"
+      />
+      <kbd class="palette-shortcut">
+        <kbd class="kbd-key">{{ if eq .Site.Params.os "mac" }}⌘{{ else }}Ctrl{{ end }}</kbd>
+        <kbd class="kbd-key">K</kbd>
+      </kbd>
+    </div>
+    <div class="palette-results" id="palette-results" role="listbox" aria-label="Search results">
+      <!-- Results populated by JavaScript -->
     </div>
   </div>
 </div>

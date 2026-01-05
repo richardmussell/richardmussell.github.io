@@ -1,9 +1,9 @@
 {{ define "main" }}
 <!-- Hero Section -->
-<section class="section hero-section">
+<section class="section hero-section" aria-labelledby="hero-heading">
   <div class="container">
     <div class="hero">
-      <h1>Architecting Resilient Infrastructure at Scale</h1>
+      <h1 id="hero-heading">Architecting Resilient Infrastructure at Scale</h1>
       <p class="subtitle">Building high-availability distributed systems with a focus on state reconciliation, observability, and cloud-native security.</p>
     </div>
     
@@ -34,10 +34,10 @@
 </section>
 
 <!-- Featured Projects - Wide-Format Case Studies -->
-<section class="section">
+<section class="section" aria-labelledby="featured-projects-heading">
   <div class="container">
     <div class="section-title">
-      <h2>Featured Projects</h2>
+      <h2 id="featured-projects-heading">Featured Projects</h2>
       <p class="subtitle">Hands-on implementations showcasing real-world infrastructure solutions.</p>
     </div>
     <div class="case-studies-grid">
@@ -153,10 +153,10 @@
 </section>
 
 <!-- Core Expertise - Technical Blueprints -->
-<section class="section">
+<section class="section" aria-labelledby="core-expertise-heading">
   <div class="container">
     <div class="section-title">
-      <h2>Core Expertise</h2>
+      <h2 id="core-expertise-heading">Core Expertise</h2>
       <p class="subtitle">Technical blueprints and architectural patterns.</p>
     </div>
     <div class="expertise-grid">
@@ -191,65 +191,122 @@
   </div>
 </section>
 
-<!-- Recent Work Section -->
-<section class="section">
+<!-- Platform Capability Registry -->
+<section class="section" aria-labelledby="platform-offerings-heading">
   <div class="container">
     <div class="section-title">
-      <h2>Recent Work</h2>
-      <p class="subtitle">Latest projects and implementations.</p>
+      <div class="platform-sync-indicator">
+        <span class="sync-label">Last Platform Sync:</span>
+        <time class="sync-time" datetime="{{ now.Format "2006-01-02T15:04:05Z07:00" }}">{{ now.Format "January 2, 2006 15:04 MST" }}</time>
+      </div>
+      <h2 id="platform-offerings-heading">Platform Offerings & Patterns</h2>
+      <p class="subtitle">Reusable infrastructure services and architectural patterns for engineering teams.</p>
     </div>
-    <div class="cards-grid">
-      {{ range first 6 (where .Site.RegularPages "Section" "projects") }}
-      <a href="{{ .RelPermalink }}" class="card card-link-wrapper">
-        <div class="card-categories">
-          {{ range .Params.categories }}
-          <span>{{ . }}</span>
-          {{ end }}
+    <div class="platform-services-grid">
+      <article class="service-card">
+        <div class="service-header">
+          <h3 class="service-title">Automated Environment Provisioning</h3>
+          <span class="service-version">v2.1-STABLE</span>
         </div>
-        <div class="card-date">{{ .Date.Format "Jan 2, 2006" }}</div>
-        <h3>{{ .Title }}</h3>
-        <p>{{ .Description }}</p>
-        <div class="card-tags">
-          {{ range .Params.tags }}
-          <span class="tag">{{ . }}</span>
-          {{ end }}
+        <p class="service-value-prop">Standardizes multi-cloud infrastructure provisioning, reducing environment spin-up from hours to minutes via declarative IaC.</p>
+        <div class="service-metrics">
+          <span class="service-metric">↓ 85% TIME</span>
+          <span class="service-metric">↑ 100% IaC</span>
+          <span class="service-metric">✓ ZERO-DRIFT</span>
         </div>
-        <span class="card-link">Read More →</span>
-      </a>
-      {{ end }}
+        <div class="service-stack">
+          <span class="service-stack-item">Terraform</span>
+          <span class="service-stack-item">Ansible</span>
+          <span class="service-stack-item">GitOps</span>
+        </div>
+      </article>
+      
+      <article class="service-card">
+        <div class="service-header">
+          <h3 class="service-title">Hardened Kubernetes Distributions</h3>
+          <span class="service-version">v1.8-STABLE</span>
+        </div>
+        <p class="service-value-prop">Secure-by-default multi-tenant compute orchestration with network policies, RBAC, and admission controllers pre-configured.</p>
+        <div class="service-metrics">
+          <span class="service-metric">🛡️ ZERO-TRUST</span>
+          <span class="service-metric">↑ 99.95% UPTIME</span>
+          <span class="service-metric">⚡ &lt;2m SCALE</span>
+        </div>
+        <div class="service-stack">
+          <span class="service-stack-item">Kubernetes</span>
+          <span class="service-stack-item">Cilium</span>
+          <span class="service-stack-item">OPA</span>
+        </div>
+      </article>
+      
+      <article class="service-card">
+        <div class="service-header">
+          <h3 class="service-title">Identity & Access Governance</h3>
+          <span class="service-version">v3.0-STABLE</span>
+        </div>
+        <p class="service-value-prop">Zero-Trust access control via policy-as-code enforcement, automated role provisioning, and centralized identity federation.</p>
+        <div class="service-metrics">
+          <span class="service-metric">🔐 ZERO-TRUST</span>
+          <span class="service-metric">↓ 90% MANUAL</span>
+          <span class="service-metric">✓ POLICY-AS-CODE</span>
+        </div>
+        <div class="service-stack">
+          <span class="service-stack-item">OPA</span>
+          <span class="service-stack-item">IAM</span>
+          <span class="service-stack-item">OIDC</span>
+        </div>
+      </article>
+      
+      <article class="service-card">
+        <div class="service-header">
+          <h3 class="service-title">Observability & Telemetry Stack</h3>
+          <span class="service-version">v2.5-STABLE</span>
+        </div>
+        <p class="service-value-prop">Unified SLI/SLO definition and metric collection across distributed systems, enabling data-driven reliability engineering.</p>
+        <div class="service-metrics">
+          <span class="service-metric">📊 100% COVERAGE</span>
+          <span class="service-metric">⚡ &lt;5s ALERT</span>
+          <span class="service-metric">✓ SLO-DRIVEN</span>
+        </div>
+        <div class="service-stack">
+          <span class="service-stack-item">Prometheus</span>
+          <span class="service-stack-item">Grafana</span>
+          <span class="service-stack-item">Loki</span>
+        </div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- Engineering Insights - Technical Whitepapers -->
-<section class="section">
+<!-- Architectural Principles -->
+<section class="section principles-section" aria-labelledby="principles-heading">
   <div class="container">
-    <div class="section-title">
-      <h2>Engineering Insights</h2>
-      <p class="subtitle">Technical whitepapers and architectural deep-dives.</p>
-    </div>
-    <div class="whitepaper-list">
-      {{ range $index, $insight := first 5 (where .Site.RegularPages "Section" "insights") }}
-      <a href="{{ $insight.RelPermalink }}" class="whitepaper-item" style="animation-delay: {{ mul $index 0.1 }}s;">
-        <div class="whitepaper-meta">
-          <time class="whitepaper-date">{{ $insight.Date.Format "January 2, 2006" }}</time>
-          {{ if $insight.Params.readTime }}
-          <span class="whitepaper-read-time">{{ $insight.Params.readTime }} min read</span>
-          {{ end }}
-          <span class="whitepaper-depth">L400: Advanced</span>
-        </div>
-        <h3 class="whitepaper-title">{{ $insight.Title }}</h3>
-        <p class="whitepaper-excerpt">{{ $insight.Description }}</p>
-      </a>
-      {{ end }}
+    <h2 id="principles-heading" class="principles-title">Architectural Principles</h2>
+    <div class="principles-grid">
+      <div class="principle-item">
+        <h4 class="principle-title">Immutability First</h4>
+        <p class="principle-description">All changes occur via GitOps reconciliation, never manual. Infrastructure state is version-controlled and auditable.</p>
+      </div>
+      <div class="principle-item">
+        <h4 class="principle-title">Declarative State</h4>
+        <p class="principle-description">The system always moves toward the desired state defined in YAML/HCL. No imperative commands, only configuration.</p>
+      </div>
+      <div class="principle-item">
+        <h4 class="principle-title">Shift-Left Security</h4>
+        <p class="principle-description">Hardened policy enforcement at the PR stage, not just production. Security is validated before deployment.</p>
+      </div>
+      <div class="principle-item">
+        <h4 class="principle-title">Observability-Driven Development</h4>
+        <p class="principle-description">If it isn't measured, it doesn't exist. SLIs, SLOs, and distributed tracing are first-class requirements.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CTA Banner -->
-<section class="container">
+<section class="container" aria-labelledby="cta-heading">
   <div class="cta-banner">
-    <h2>Ready to Build Something Great?</h2>
+    <h2 id="cta-heading">Ready to Build Something Great?</h2>
     <p>Let's discuss how we can collaborate on your next infrastructure challenge.</p>
     <div class="cta-buttons">
       <a href="{{ "/contact/" | relURL }}" class="btn btn-white">Get in Touch</a>
