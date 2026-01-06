@@ -152,46 +152,72 @@
   
   const protectImage = () => {
     const avatar = document.querySelector('.about-avatar');
-    if (!avatar) {
-      // Retry if image not loaded yet
+    const overlay = document.querySelector('.about-avatar-overlay');
+    const wrapper = document.querySelector('.about-avatar-wrapper');
+    
+    if (!avatar || !overlay || !wrapper) {
+      // Retry if elements not loaded yet
       setTimeout(protectImage, 100);
       return;
     }
 
-    // Prevent right-click context menu
-    avatar.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
-    }, true);
+    // Protection function for both image and overlay
+    const applyProtection = (element) => {
+      // Prevent right-click context menu
+      element.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }, true);
 
-    // Prevent drag
-    avatar.addEventListener('dragstart', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
-    }, true);
+      // Prevent drag
+      element.addEventListener('dragstart', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }, true);
 
-    // Prevent selection
-    avatar.addEventListener('selectstart', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
-    }, true);
+      // Prevent selection
+      element.addEventListener('selectstart', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }, true);
 
-    // Prevent copy
-    avatar.addEventListener('copy', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
-    }, true);
+      // Prevent copy
+      element.addEventListener('copy', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }, true);
 
-    // Prevent cut
-    avatar.addEventListener('cut', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
-    }, true);
+      // Prevent cut
+      element.addEventListener('cut', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }, true);
+
+      // Prevent mobile long-press
+      element.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      element.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+      }, { passive: false });
+
+      element.addEventListener('touchend', (e) => {
+        e.preventDefault();
+      }, { passive: false });
+    };
+
+    // Apply protection to all elements
+    applyProtection(avatar);
+    applyProtection(overlay);
+    applyProtection(wrapper);
   };
 
   // Apply protection when DOM is ready

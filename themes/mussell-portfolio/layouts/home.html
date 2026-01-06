@@ -65,26 +65,6 @@
               </div>
             </div>
             {{ end }}
-            
-            <div class="case-study-stack">
-              <h4 class="case-study-section-label">The Stack</h4>
-              <div class="stack-icons">
-                {{ if $project.Params.iac }}
-                <div class="stack-icon" title="{{ $project.Params.iac }}">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                  </svg>
-                </div>
-                {{ end }}
-                {{ if $project.Params.provider }}
-                <div class="stack-icon" title="{{ $project.Params.provider }}">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
-                  </svg>
-                </div>
-                {{ end }}
-              </div>
-            </div>
           </div>
           
           <!-- Cols 6-12: Media Stage -->
@@ -313,22 +293,36 @@
 <section class="section principles-section" aria-labelledby="principles-heading">
   <div class="container">
     <h2 id="principles-heading" class="principles-title">Architectural Principles</h2>
-    <div class="principles-grid">
-      <div class="principle-item">
+    <div class="principles-bento-grid">
+      <div class="principle-card">
+        <span class="principle-number">01</span>
         <h4 class="principle-title">Immutability First</h4>
         <p class="principle-description">All changes occur via GitOps reconciliation, never manual. Infrastructure state is version-controlled and auditable.</p>
       </div>
-      <div class="principle-item">
+      <div class="principle-card">
+        <span class="principle-number">02</span>
         <h4 class="principle-title">Declarative State</h4>
         <p class="principle-description">The system always moves toward the desired state defined in YAML/HCL. No imperative commands, only configuration.</p>
       </div>
-      <div class="principle-item">
+      <div class="principle-card">
+        <span class="principle-number">03</span>
         <h4 class="principle-title">Shift-Left Security</h4>
         <p class="principle-description">Hardened policy enforcement at the PR stage, not just production. Security is validated before deployment.</p>
       </div>
-      <div class="principle-item">
+      <div class="principle-card">
+        <span class="principle-number">04</span>
         <h4 class="principle-title">Observability-Driven Development</h4>
         <p class="principle-description">If it isn't measured, it doesn't exist. SLIs, SLOs, and distributed tracing are first-class requirements.</p>
+      </div>
+      <div class="principle-card">
+        <span class="principle-number">05</span>
+        <h4 class="principle-title">Self-Healing Infrastructure</h4>
+        <p class="principle-description">Engineered for automated recovery. Health checks and reconciliation loops ensure the system always converges to the desired state without human intervention.</p>
+      </div>
+      <div class="principle-card">
+        <span class="principle-number">06</span>
+        <h4 class="principle-title">Zero-Trust Architecture</h4>
+        <p class="principle-description">No implicit trust. Every workload is isolated via granular network policies, mTLS, and identity-based RBAC to ensure a hardened security posture.</p>
       </div>
     </div>
   </div>
