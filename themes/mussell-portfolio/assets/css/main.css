@@ -981,19 +981,17 @@ main {
   gap: 1.5rem;
 }
 
-.spec-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+/* Legacy spec-header - consolidated into main definition below */
+
+/* Structural Relocation: Remove category label from top of card */
+.spec-category {
+  /* Hide category from top - relocated to footer badge */
+  display: none !important; /* Remove from top of card */
 }
 
-.spec-category {
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-secondary);
-  opacity: 0.7;
+/* Alternative: If category appears in spec-title-row, hide it */
+.spec-title-row .spec-category {
+  display: none !important; /* Remove category from title row */
 }
 
 .spec-title {
@@ -1047,15 +1045,25 @@ main {
   object-fit: cover;
 }
 
+/* Empty/Loading State: Architecture Icon at opacity-20 */
 .diagram-placeholder {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
   color: var(--text-secondary);
-  opacity: 0.5;
+  opacity: 0.2; /* opacity-20 - Professional placeholder */
   font-size: 0.875rem;
+  position: relative;
+  z-index: 1; /* Below grid, above background */
+}
+
+.diagram-placeholder svg {
+  width: 48px;
+  height: 48px;
+  opacity: 0.2; /* opacity-20 - Architecture Icon */
 }
 
 /* Compact Spec Cards */
@@ -3098,7 +3106,8 @@ footer {
 /* Contact Page - Communication Gateway */
 .contact-page-wrapper {
   min-height: calc(100vh - 400px);
-  padding: 4rem 0 6rem;
+  padding-top: 6rem; /* pt-24: 96px - Significant vertical offset from header */
+  padding-bottom: 6rem; /* pb-24: 96px */
   background: #030712; /* Deep zinc-950 */
 }
 
@@ -3108,13 +3117,19 @@ footer {
 }
 
 .contact-container {
-  max-width: 1280px; /* Max-width: 5xl */
+  max-width: 80rem; /* max-w-7xl: 1280px - Horizontal anchoring */
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem; /* px-6: 24px */
   display: grid;
   grid-template-columns: 1fr 1fr; /* 2-column split */
-  gap: 4rem;
+  gap: 6rem; /* gap-24: 96px - Generous horizontal gap between columns */
   align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .contact-container {
+    padding: 0 3rem; /* lg:px-12: 48px - Balanced responsive padding */
+  }
 }
 
 /* Left Column: Registry Info */
@@ -3128,7 +3143,7 @@ footer {
   font-size: 2.5rem;
   font-weight: 800;
   color: rgb(244, 244, 245); /* text-zinc-100 */
-  margin: 0;
+  margin: 0 0 3rem; /* mb-12: 48px - Drastically increased margin-bottom for visual pause */
   letter-spacing: -0.05em; /* tracking-tighter */
   line-height: 1.1;
   font-family: 'Inter', sans-serif;
@@ -3319,7 +3334,7 @@ footer {
 }
 
 .contact-form-card {
-  padding: 2.5rem;
+  padding: 3rem; /* p-12: 48px - Substantial internal padding so inputs aren't 'choked' */
   background: rgba(39, 39, 42, 0.5); /* bg-zinc-900/50 */
   border: 1px solid rgba(39, 39, 42, 0.6); /* border-zinc-800 */
   border-radius: 0.75rem; /* rounded-xl */
@@ -3363,18 +3378,18 @@ footer {
 }
 
 .form-group {
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem; /* space-y-8: 32px - Generous spacing between field groups */
 }
 
 .form-group:last-of-type {
-  margin-bottom: 2rem;
+  margin-bottom: 0; /* Remove bottom margin from last group */
 }
 
 .form-label {
   display: block;
   font-weight: 500;
   color: rgba(161, 161, 170, 0.8); /* text-zinc-500 */
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem; /* space-y-2: 8px - Strict spacing between label and input */
   font-size: 0.75rem;
   font-family: 'JetBrains Mono', monospace;
   text-transform: uppercase;
@@ -4801,48 +4816,36 @@ footer {
 
 .stack-tag,
 .impact-tag,
-.metric-tag {
-  display: inline-block;
-  padding: 0.25rem 0.75rem; /* px-3 py-1 */
-  background: rgba(39, 39, 42, 0.5); /* bg-zinc-900/50 */
-  color: var(--text-primary);
-  font-size: 0.625rem; /* text-[10px] */
-  font-family: 'JetBrains Mono', monospace;
+/* Legacy metric-tag override - ensure consistency */
+.metric-tag.legacy {
+  /* Use same styling as new telemetry bar metrics */
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  font-family: 'JetBrains Mono', 'Geist Mono', monospace;
+  font-size: 0.625rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-radius: 0.375rem; /* rounded-md */
-  border: 1px solid rgba(39, 39, 42, 0.6); /* border-zinc-800 */
-  width: auto; /* w-auto - only as wide as text */
-  margin-bottom: 0; /* Remove vertical margin */
-  white-space: nowrap; /* Prevent text wrapping inside tag */
+  letter-spacing: 0.1em;
 }
 
 /* Light mode metric tags */
 .stack-tag,
 .impact-tag,
-.metric-tag {
-  background: rgba(244, 244, 245, 0.5);
-  border: 1px solid #E4E4E7;
+/* Light mode metric cells */
+[data-theme="light"] .metric-tag {
+  background: rgba(0, 0, 0, 0.02); /* bg-white/[0.03] equivalent for light mode */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
   color: var(--text-primary);
 }
 
-[data-theme="dark"] .stack-tag,
-[data-theme="dark"] .impact-tag,
-[data-theme="dark"] .metric-tag,
-.dark-mode .stack-tag,
-.dark-mode .impact-tag,
-.dark-mode .metric-tag {
-  background: rgba(39, 39, 42, 0.5);
-  border: 1px solid rgba(39, 39, 42, 0.6);
+[data-theme="light"] .metric-tag.has-divider::after {
+  background: rgba(0, 0, 0, 0.08); /* bg-white/10 equivalent */
 }
 
-.spec-metrics {
-  display: flex;
-  flex-wrap: wrap; /* flex-wrap */
-  gap: 0.75rem; /* gap-3 */
-  align-items: center; /* items-center */
-  margin-bottom: 1.5rem; /* mb-6 - separate from content below */
-}
+/* Legacy spec-metrics - consolidated into main definition below */
 
 /* Production Readiness Checklist - In Main Column */
 .readiness-checklist-section {
@@ -5201,6 +5204,21 @@ footer {
   position: relative;
 }
 
+/* Strategic Break: R&D/Research Section (Priority-Based Discovery) */
+.rd-registry-bottom {
+  /* Visual Hierarchy & Transition: Significant vertical spacing before R&D section */
+  /* Creates a 'Strategic Break,' signaling transition from core infrastructure to R&D/Research */
+  padding-top: 6rem; /* py-24: 96px - Significant vertical spacing (8px grid: 12 * 8px = 96px) */
+  margin-top: 0;
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .rd-registry-bottom {
+    padding-top: 8rem; /* py-32: 128px on large screens - Even more breathing room (8px grid: 16 * 8px = 128px) */
+  }
+}
+
 
 .rd-spec {
   background: rgba(9, 9, 11, 0.4);
@@ -5236,15 +5254,15 @@ footer {
 }
 
 
+/* Structural Relocation: Remove category label and blue dot from top of card/section */
 .rd-indicator {
-  width: 8px;
-  height: 8px;
-  background: rgb(59, 130, 246);
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 0.75rem;
-  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
-  animation: pulse-rd 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  /* Hide the indicator from section heading - moved to footer badge */
+  display: none !important; /* Remove from top - relocated to footer */
+}
+
+/* Hide category label from section heading */
+.section-heading .rd-indicator {
+  display: none !important; /* Remove blue dot from section heading */
 }
 
 
@@ -7203,27 +7221,51 @@ body {
 
 /* Technical Registry Container */
 .technical-registry {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 2rem;
+  /* Root Layout & Global Constraints: Encapsulation with max-w-7xl */
+  max-width: 80rem; /* max-w-7xl: 1280px */
+  margin: 0 auto; /* mx-auto - Centers everything */
+  padding: 6rem 1.5rem 0; /* pt-24 px-6 - Prevents 'gutter bleed' */
   min-height: 100vh;
-  background: var(--bg-primary);
+  background: #0A0A0A; /* Deep Obsidian */
   color: var(--text-primary);
+  /* Master Grid: grid grid-cols-1 lg:grid-cols-12 gap-12 */
+  display: grid;
+  grid-template-columns: 1fr; /* grid-cols-1 on mobile */
+  gap: 3rem; /* gap-12: 48px - Strict 8px vertical rhythm */
 }
 
-/* Sticky Sidebar TOC */
+@media (min-width: 1024px) {
+  .technical-registry {
+    padding-left: 2rem; /* lg:px-8: 32px */
+    padding-right: 2rem;
+    grid-template-columns: repeat(12, minmax(0, 1fr)); /* lg:grid-cols-12 */
+  }
+}
+
+[data-theme="light"] .technical-registry {
+  background: #FAFAFA;
+}
+
+/* Registry Sidebar: lg:col-span-3 sticky with top-offset pt-24 */
 .registry-sidebar {
+  grid-column: span 1; /* Full width on mobile */
   position: sticky;
-  top: 100px;
+  top: 6rem; /* pt-24: 96px - Top-offset */
+  align-self: start;
   height: calc(100vh - 120px);
   overflow-y: auto;
-  padding: 1.5rem;
+  padding: 1.5rem 2rem;
   background: var(--bg-secondary);
   border-right: 1px solid var(--border-color);
   border-radius: 0.5rem;
-  /* No animation for sidebar - instant visibility */
   opacity: 1;
   transform: none;
+}
+
+@media (min-width: 1024px) {
+  .registry-sidebar {
+    grid-column: span 3; /* lg:col-span-3 - Exactly 3 columns */
+  }
 }
 
 /* Light mode sidebar - pure white */
@@ -7239,18 +7281,22 @@ body {
 }
 
 .sidebar-header {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 0; /* Remove bottom margin for top alignment */
+  padding-bottom: 0; /* Remove padding for baseline alignment */
+  border-bottom: none; /* Remove border for clean alignment */
+  /* Top Alignment: Registry header baseline-aligned with Search input */
+  padding-top: 0; /* Match search container top padding */
 }
 
 .sidebar-title {
+  /* Global Baseline: Aligned with Search input */
   font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 0.25rem;
+  margin: 0; /* Remove margin for baseline alignment */
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  line-height: 1.5; /* Match search input line-height for baseline alignment */
 }
 
 .sidebar-count {
@@ -7274,27 +7320,31 @@ body {
 }
 
 .toc-link {
+  /* Cloud Resource Tree: Smaller text, increased line-height */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1rem; /* py-3: 12px - Smaller padding */
   color: var(--text-secondary);
   text-decoration: none;
-  border-left: 2px solid transparent;
+  border-left: 2px solid transparent; /* Active state: 2px vertical bar on left edge */
   border-radius: 0.375rem;
   transition: all 0.2s ease;
-  font-size: 0.875rem;
+  font-size: 0.8125rem; /* text-sm - Smaller text */
+  line-height: 1.6; /* Increased line-height */
   position: relative;
   gap: 0.75rem;
 }
 
 .toc-status-dot {
+  /* Clean Status Dots: Small, high-contrast, perfectly vertically aligned */
   width: 6px;
   height: 6px;
   border-radius: 50%;
   flex-shrink: 0;
-  background: rgb(16, 185, 129); /* bg-emerald-500 - Production "Active System" */
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6); /* shadow-[0_0_8px_rgba(16,185,129,0.6)] - subtle emerald outer glow */
+  background: rgb(16, 185, 129); /* bg-emerald-500 - High-contrast */
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+  align-self: center; /* Perfectly vertically aligned with text */
 }
 
 .toc-status-dot-rd {
@@ -7336,22 +7386,23 @@ body {
 }
 
 .toc-link.active {
-  background: rgba(63, 63, 70, 0.5); /* bg-zinc-800/50 */
-  border-left: 2px solid rgb(99, 102, 241); /* border-l-2 border-indigo-500 */
+  /* Active State: Subtle 2px vertical bar on left edge (not full border) */
+  background: rgba(63, 63, 70, 0.3); /* Lighter background - not heavy */
+  border-left: 2px solid rgb(99, 102, 241); /* 2px vertical bar on left edge */
   color: rgb(244, 244, 245); /* text-zinc-100 */
   font-weight: 500;
 }
 
-/* Light mode active state - soft indigo */
-.toc-link.active {
-  background: #EEF2FF; /* bg-indigo-50 */
+/* Light mode active state */
+[data-theme="light"] .toc-link.active {
+  background: rgba(99, 102, 241, 0.08); /* Lighter background */
   border-left: 2px solid #4F46E5; /* border-indigo-600 */
   color: #4338CA; /* text-indigo-700 */
 }
 
 [data-theme="dark"] .toc-link.active,
 .dark-mode .toc-link.active {
-  background: rgba(63, 63, 70, 0.5);
+  background: rgba(63, 63, 70, 0.3);
   border-left: 2px solid rgb(99, 102, 241);
   color: rgb(244, 244, 245);
 }
@@ -7362,15 +7413,18 @@ body {
 }
 
 .toc-count-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: rgba(161, 161, 170, 0.8); /* text-zinc-500 */
-  background: rgba(39, 39, 42, 0.3);
-  padding: 0.125rem 0.5rem;
-  border-radius: 0.25rem;
+  /* System Counts: Muted monospaced font */
+  font-family: 'JetBrains Mono', monospace; /* Monospaced font */
+  font-size: 0.625rem; /* text-xs */
+  color: rgba(161, 161, 170, 0.6); /* Muted color - System Counts */
+  background: transparent; /* No background - cleaner look */
+  border: none;
+  padding: 0;
   min-width: 1.5rem;
   text-align: center;
   transition: all 0.2s ease;
+  margin-left: auto; /* Right-aligned */
+  font-variant-numeric: tabular-nums; /* Aligned numbers */
 }
 
 .toc-link.active .toc-count-badge {
@@ -7378,91 +7432,177 @@ body {
   background: rgba(99, 102, 241, 0.2);
 }
 
-/* Main Content Area */
+/* Feed (The Projects): lg:col-span-9 */
 .registry-main {
-  padding: 2rem 0;
+  grid-column: span 1; /* Full width on mobile */
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+@media (min-width: 1024px) {
+  .registry-main {
+    grid-column: span 9; /* lg:col-span-9 - Exactly 9 columns */
+  }
+}
+
+[data-theme="light"] .registry-main {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* Enterprise Discovery Layer */
 .discovery-layer {
   margin-bottom: 3rem;
-  padding: 1.5rem;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
+  padding: 0; /* Remove padding for clean alignment */
+  background: transparent; /* Remove background for cleaner separation */
+  border: none; /* Remove border */
+  border-radius: 0;
 }
 
 .search-container {
-  margin-bottom: 1.5rem;
+  /* The 'Search services' input must span the full width of the 9-column feed area */
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  /* Gutter: Reduce vertical margin below search bar to mb-6 */
+  margin-bottom: 1.5rem; /* mb-6: 24px - Reduced from mb-12 for compression */
+  position: relative;
+  display: flex;
+  justify-content: flex-start; /* Align to feed start */
+  width: 100%; /* Full width of 9-column feed area */
+}
+
+/* Line Materiality: Ultra-thin dividers (border-t border-white/5) - Structural 'ghost lines' */
+.search-container::after {
+  content: '';
+  position: absolute;
+  /* Global Spatial System: Adjust divider position for compressed layout */
+  bottom: -1.5rem; /* Lower Gutter: mb-6 (24px) below search, above label - Reduced */
+  left: 0;
+  right: 0;
+  width: 100%; /* Span full width of 9-column feed area */
+  height: 1px; /* border-t-[1px] - Ultra-thin stroke */
+  background: rgba(255, 255, 255, 0.05); /* border-white/5 - Ultra-thin, structural 'ghost line' */
+  pointer-events: none;
+}
+
+[data-theme="light"] .search-container::after {
+  background: rgba(0, 0, 0, 0.05); /* border-neutral-800 equivalent for light mode */
 }
 
 .search-input-wrapper {
+  /* The 'Search services' input must span the full width of the 9-column feed area */
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(39, 39, 42, 0.6); /* border-b border-zinc-800 */
+  width: 100%; /* Full width of 9-column feed area */
+  margin: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .search-icon {
   position: absolute;
-  left: 1rem;
+  left: 0.75rem; /* Reduced from 1rem for compact look */
   color: var(--text-secondary);
   pointer-events: none;
+  width: 14px; /* Smaller icon */
+  height: 14px;
 }
 
 .service-search {
+  /* Command Palette: Refined look with bg-neutral-900/40, ring-1 ring-inset ring-white/10 */
   width: 100%;
-  padding: 0.875rem 1rem 0.875rem 3rem;
-  padding-right: 4rem; /* Space for ⌘K indicator */
-  font-size: 1rem;
-  line-height: 1.5;
+  /* Dimensions: Reduce height by 30-40% (from 0.875rem to 0.5rem vertical padding) */
+  padding: 0.5rem 0.75rem 0.5rem 2.5rem; /* Reduced padding: 8px vertical, 12px horizontal */
+  padding-right: 3rem; /* Space for ⌘K indicator (reduced) */
+  /* Search Bar Typography: Increase placeholder to text-sm (14px) to match primary tags */
+  font-size: 0.875rem; /* text-sm: 14px - Unified horizontal typographic line with primary tags */
+  font-weight: 400; /* Regular weight for input text */
+  line-height: 1.4; /* Tighter line-height for compact look */
   color: var(--text-primary);
-  background: var(--bg-primary);
-  border: 1px solid rgba(39, 39, 42, 0.6); /* border-zinc-800/60 */
-  border-radius: 0.5rem;
+  background: rgba(23, 23, 23, 0.4); /* bg-neutral-900/40 */
+  border: none;
+  border-radius: 0.375rem; /* Slightly smaller radius */
   font-family: 'Inter', sans-serif;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease; /* Visual-only feedback */
   position: relative;
+  /* ring-1 ring-inset ring-white/10 */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* ring-inset */
+}
+
+.service-search:focus {
+  outline: none;
+  box-shadow: 
+    inset 0 0 0 1px rgba(99, 102, 241, 0.4), /* Focus ring inset */
+    0 0 0 3px rgba(99, 102, 241, 0.1); /* Outer glow */
+  background: rgba(23, 23, 23, 0.5);
+}
+
+[data-theme="light"] .service-search {
+  background: rgba(0, 0, 0, 0.02);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .service-search:focus {
+  box-shadow: 
+    inset 0 0 0 1px rgba(79, 70, 229, 0.3),
+    0 0 0 3px rgba(79, 70, 229, 0.08);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .service-search::placeholder {
+  /* Search Bar Typography: Placeholder matches text-sm (14px) for unified typographic line */
   color: var(--text-muted);
+  font-size: 0.875rem; /* text-sm: 14px - Match primary tags for unified horizontal typographic line */
+  font-weight: 400; /* Regular weight for placeholder */
 }
 
 .search-shortcut-hint {
   position: absolute;
-  right: 1rem;
+  right: 0.5rem; /* Closer to edge for compact look */
   top: 50%;
   transform: translateY(-50%);
-  font-size: 0.75rem;
+  /* CMD+K badge: Tiny and perfectly centered */
+  font-size: 0.625rem; /* text-[10px] - Tiny badge */
   font-family: 'JetBrains Mono', monospace;
   color: var(--text-muted);
   pointer-events: none;
-  padding: 0.25rem 0.5rem;
+  padding: 0.125rem 0.375rem; /* Reduced padding: px-1.5 py-0.5 */
   background: rgba(39, 39, 42, 0.3);
+  border-radius: 0.25rem; /* Smaller radius */
+  line-height: 1.2; /* Tighter line-height */
   border: 1px solid rgba(39, 39, 42, 0.4);
   border-radius: 0.25rem;
 }
 
 .search-shortcut-hint {
+  /* Cmd+K badge: Perfectly vertically centered, monospaced font */
   position: absolute;
   right: 1rem;
   top: 50%;
   transform: translateY(-50%); /* Perfectly vertically centered */
-  font-size: 0.75rem;
-  font-family: 'JetBrains Mono', monospace;
-  color: rgb(113, 113, 122); /* text-zinc-500 - slightly lighter */
+  font-size: 0.625rem; /* text-xs */
+  font-family: 'JetBrains Mono', monospace; /* Monospaced */
+  color: rgba(161, 161, 170, 0.8); /* text-zinc-500 */
   pointer-events: none;
-  padding: 0.25rem 0.5rem;
-  background: rgba(39, 39, 42, 0.3);
-  border: 1px solid rgba(39, 39, 42, 0.4);
+  padding: 0.25rem 0.5rem; /* px-2 py-1: 8px horizontal, 4px vertical - Strict 8px grid */
+  background: rgba(255, 255, 255, 0.05); /* bg-white/5 */
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 0.25rem;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+[data-theme="light"] .search-shortcut-hint {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: rgba(113, 113, 122, 0.8);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 /* Light mode search bar */
@@ -7492,128 +7632,286 @@ body {
 }
 
 .filter-container {
+  /* The 8px Grid: Audit all margins - vertical spacing exactly mb-12 or mb-16 */
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0;
+  padding-top: 0; /* Label proximity handled by filter-label padding-top */
+  padding-bottom: 3rem; /* pb-12: 48px - Strict 8px grid (mb-12) */
+  /* Alignment Check: Container centered to match search input */
+  width: 100%;
+  max-width: 42rem; /* Match search input container width */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .filter-label {
+  /* The 'Filter' Label: The most muted element on the page - text-neutral-700 */
   font-size: 0.625rem; /* text-[10px] */
   font-weight: 700;
   font-family: 'JetBrains Mono', monospace;
   text-transform: uppercase;
   letter-spacing: 0.2em; /* tracking-[0.2em] */
-  color: rgb(113, 113, 122); /* text-zinc-500 */
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(39, 39, 42, 0.6); /* border-b border-zinc-800 */
+  color: rgb(63, 63, 70); /* text-neutral-700 - Most muted element */
+  margin-bottom: 1rem; /* mb-4: 16px - Strict 8px grid */
+  /* Label Proximity: Optically grouped with categories below, not stuck to divider */
+  padding-top: 1.5rem; /* pt-6: 24px - Small offset from line to label (strict 8px grid) */
+  padding-bottom: 0;
+  border-bottom: none;
+  position: relative;
+  /* Alignment Check: Perfectly flush-left with Search input's left edge */
+  padding-left: 0;
+  margin-left: 0;
+  width: 100%;
+  max-width: 42rem; /* Match search input container width */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .strategic-domains-filters {
+  /* Strategic Domain Grid: Optical Alignment - Column Locking */
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Strict 3-column grid */
-  gap: 0;
-  margin-bottom: 1.5rem;
-  border-top: 1px solid rgba(39, 39, 42, 0.3);
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* Perfectly equal width columns */
+  column-gap: 2rem; /* gap-x-8: 32px - Strict 8px grid */
+  row-gap: 0;
+  /* Column Locking: Ensure 3 columns are perfectly baseline-aligned */
+  align-items: baseline; /* Perfect baseline alignment */
+  /* Alignment Check: Grid stays perfectly rigid regardless of which tags are selected */
+  grid-auto-rows: min-content; /* Prevent row height changes */
+  /* Global Spacing: Vertical gap between Domain Grid and Dependency Graph */
+  margin-bottom: 3rem; /* mt-12: 48px - Strict 8px grid */
+  border-top: none;
+  padding-top: 0;
+  /* Alignment Check: Same width as search input container */
+  width: 100%;
+  max-width: 42rem; /* Match search input container width */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .domain-filter-group {
+  /* Flush-Left Precision: First button perfectly flush-left with header */
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1rem;
-  border-right: 1px solid rgba(39, 39, 42, 0.4); /* border-r border-zinc-800/40 - very muted */
-  align-items: flex-start; /* Equal vertical alignment */
+  /* Global Spatial System: Strict 4px grid for all internal spacing */
+  gap: 0.25rem; /* gap-1: 4px - Strict 4px grid */
+  padding: 0;
+  align-items: flex-start; /* Flush-left alignment - Perfect flush-left precision */
+  position: relative;
 }
 
-.domain-filter-group:last-child {
-  border-right: none;
-}
+/* Kill the Dividers: Remove all vertical divider lines */
 
 .domain-group-title {
-  font-size: 0.625rem; /* text-[10px] */
-  font-weight: 700;
-  font-family: 'JetBrains Mono', monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.2em; /* tracking-[0.2em] */
-  color: rgb(113, 113, 122); /* text-zinc-500 */
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(39, 39, 42, 0.3);
+  /* Strategic Domain Headers: Increase to confident text-xs (12px) or text-[13px] */
+  font-size: 0.75rem; /* text-xs: 12px - Professional enterprise size for better legibility */
+  font-weight: 600; /* Medium or semibold to maintain sharp, engineered edge */
+  font-family: 'JetBrains Mono', monospace; /* font-mono - Maintain font-mono */
+  text-transform: uppercase; /* Maintain uppercase styling */
+  letter-spacing: 0.2em; /* tracking-[0.2em] - Maintain existing tracking */
+  color: rgb(82, 82, 91); /* text-neutral-600 - Muted */
+  /* Global Spatial System: Strict 4px grid - Maintain current spatial grid */
+  margin-bottom: 0.5rem; /* mb-2: 8px - Strict 4px grid */
+  padding-bottom: 0;
+  border-bottom: none;
+  width: 100%;
+  /* Flush-Left Precision: Zero horizontal offset - flush-left with buttons */
+  padding-left: 0;
+  line-height: 1.2;
 }
 
 .legacy-tags-section {
-  margin-top: 1rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(39, 39, 42, 0.3);
+  /* Dependency Graph: The Metadata Cleanup */
+  margin-top: 0;
+  /* Global Spacing: Vertical gap between Domain Grid and Dependency Graph - mt-12 */
+  padding-top: 0; /* Spacing handled by strategic-domains-filters margin-bottom */
+  position: relative;
+  width: 100%;
+  max-width: 100%; /* Match the width of strategic-domains-filters */
+  /* Alignment Check: Dependency Graph should not move a single pixel when a domain above is clicked */
+  min-height: fit-content; /* Prevent height changes */
+  will-change: auto; /* No layout shifts */
 }
 
 .legacy-tags-header {
-  font-size: 0.625rem; /* text-[10px] */
-  font-weight: 700;
+  /* Dependency Graph Typography: Increase header to match Strategic Domain headers */
+  font-size: 0.75rem; /* text-xs: 12px - Match Strategic Domain headers */
+  font-weight: 600; /* Medium or semibold to maintain sharp, engineered edge */
   font-family: 'JetBrains Mono', monospace; /* font-mono */
-  text-transform: uppercase;
-  letter-spacing: 0.2em; /* tracking-[0.2em] */
-  color: rgb(113, 113, 122); /* text-zinc-500 */
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(39, 39, 42, 0.3);
+  text-transform: uppercase; /* Maintain uppercase styling */
+  letter-spacing: 0.2em; /* tracking-[0.2em] - Match Strategic Domain headers */
+  color: rgb(82, 82, 91); /* text-neutral-600 - Muted */
+  /* Global Spatial System: Strict 4px grid - Maintain current spatial grid */
+  margin-bottom: 0.5rem; /* mb-2: 8px - Strict 4px grid */
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .legacy-tags {
+  /* Dependency Graph: High-density flex flex-wrap with strict gap-x-4 gap-y-2 */
   margin-top: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem; /* gap-2 */
+  /* Layout: Strict gap-x-4 gap-y-2 */
+  gap: 0.5rem 1rem; /* gap-x-4 gap-y-2: 16px horizontal, 8px vertical - Strict 4px/8px system */
 }
 
 .legacy-tag {
-  opacity: 0.6; /* Muted appearance */
-  border: 1px solid transparent; /* Transparent border by default */
-  transition: border-color 0.2s ease;
-}
-
-.legacy-tag:hover {
-  border-color: rgba(99, 102, 241, 0.5); /* border-indigo-500/50 on hover */
-  /* No layout shift - border already exists */
+  /* Dependency Graph: Abolish Inconsistency - Remove all checkmarks, dots, and uneven icons */
+  /* The 'Ghost Tag' Refactor: No backgrounds, no borders by default */
+  opacity: 1;
+  background: transparent !important; /* No background */
+  border: none !important; /* Zero border by default */
+  /* Styling: Muted text-neutral-500 and razor-sharp monospaced font */
+  color: rgb(113, 113, 122) !important; /* text-neutral-500 - Muted */
+  transition: color 0.2s ease, text-decoration-color 0.2s ease, background-color 0.2s ease; /* Smooth transition - Visual-only feedback */
+  position: relative;
+  /* Global Spatial System: Strict 4px grid - Minimal padding */
+  padding: 0.125rem 0.25rem; /* px-1 py-0.5: 4px horizontal, 2px vertical - Minimal */
+  transform: none; /* Zero-Shift: No movement */
+  /* Layout: Do not allow text to wrap within a tag - each tag must be a single, solid unit */
+  white-space: nowrap; /* No text wrapping within tag */
+  display: inline-flex; /* Solid unit */
+  align-items: center;
 }
 
 .legacy-tag .tag-name {
-  color: rgb(113, 113, 122); /* text-zinc-500 */
-  font-size: 0.75rem; /* Smaller than strategic tags */
+  /* Dependency Graph Typography: Upscale dependency items to text-xs (12px) */
+  color: rgb(113, 113, 122); /* text-neutral-500 - Muted */
+  font-size: 0.75rem; /* text-xs: 12px - Upscaled for significantly better legibility */
+  font-weight: 500; /* Medium weight to maintain sharp, engineered edge */
+  font-family: 'JetBrains Mono', 'Geist Mono', 'Fira Code', monospace; /* Razor-sharp monospaced */
+  letter-spacing: 0.01em; /* Slight tracking for readability */
+  position: relative;
+  /* Abolish Inconsistency: Every tag must have identical styling */
+  display: inline-block;
+}
+
+/* Dependency Graph: Abolish Inconsistency - Remove all dots, checkmarks, and icons */
+.legacy-tag::after,
+.legacy-tag::before {
+  display: none !important; /* Abolish all decorative elements */
+}
+
+.legacy-tag svg,
+.legacy-tag img,
+.legacy-tag .tag-check,
+.legacy-tag .tag-icon {
+  display: none !important; /* Abolish all icons and checkmarks */
+}
+
+/* Interaction: On hover, text should cleanly transition to text-neutral-200 with subtle underline or tiny bg-white/5 highlight */
+.legacy-tag:hover {
+  background: rgba(255, 255, 255, 0.05) !important; /* Tiny bg-white/5 highlight */
+  border: none !important; /* Keep zero border */
+  color: rgb(229, 231, 235) !important; /* text-neutral-200 - Cleanly transition */
+  text-decoration: underline; /* Subtle underline */
+  text-decoration-color: rgba(229, 231, 235, 0.3); /* Subtle underline color */
+  text-underline-offset: 2px; /* Subtle underline offset */
+  opacity: 1;
+  transform: none; /* No layout shifts */
+}
+
+[data-theme="light"] .legacy-tag {
+  border: none !important; /* Zero border */
+  color: rgb(113, 113, 122) !important; /* text-neutral-500 */
+  transform: none; /* Zero-Shift */
+}
+
+[data-theme="light"] .legacy-tag:hover {
+  background: rgba(0, 0, 0, 0.03) !important; /* Tiny bg-black/3 highlight for light mode */
+  border: none !important; /* Keep zero border */
+  color: rgb(55, 65, 81) !important; /* text-neutral-700 - Cleanly transition */
+  text-decoration: underline; /* Subtle underline */
+  text-decoration-color: rgba(55, 65, 81, 0.3); /* Subtle underline color */
+  text-underline-offset: 2px; /* Subtle underline offset */
+  transform: none; /* No layout shifts */
 }
 
 .tag-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.5rem; /* gap-2: 8px - Standard gap for primary strategic domain tags */
 }
 
+/* Extended Stack uses tighter gap (already set in .legacy-tags) */
+
 @media (max-width: 1024px) {
+  .technical-registry {
+    grid-template-columns: 1fr;
+    padding-top: 4rem; /* Reduced top padding on tablet */
+  }
+  
+  .registry-sidebar {
+    position: static;
+    height: auto;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
   .strategic-domains-filters {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    column-gap: 0;
+    row-gap: 2rem; /* Reduced vertical gap on tablet */
+  }
+  
+  .contact-container {
+    grid-template-columns: 1fr; /* Single column on tablet */
+    gap: 4rem; /* Reduced gap on tablet */
   }
 }
 
 .tag-filter {
-  display: flex;
+  /* Project Tags (Strategic Domains): Upscale to text-sm (14px) */
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.875rem;
-  font-size: 0.875rem;
-  font-family: 'Inter', sans-serif;
-  color: var(--text-secondary);
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 0.375rem;
+  gap: 0.25rem; /* gap-1: 4px - Strict 4px grid - Maintain external gaps */
+  /* Proportional Adjustment: Slightly increase internal padding (px-4 py-1.5) for larger text */
+  padding: 0.375rem 1rem; /* px-4 py-1.5: 16px horizontal, 6px vertical - More internal 'air' */
+  /* Font: Upscale to text-sm (14px) - Professional enterprise size */
+  font-size: 0.875rem; /* text-sm: 14px - Upscaled for better legibility */
+  font-weight: 500; /* Medium weight to maintain sharp, engineered edge */
+  font-family: 'JetBrains Mono', 'Geist Mono', 'Fira Code', monospace; /* High-fidelity monospaced font */
+  letter-spacing: 0.02em; /* Slight tracking for readability */
+  color: var(--text-primary);
+  /* Surface: Minimal bg-neutral-900/40 and subtle border border-white/5 */
+  background: rgba(23, 23, 23, 0.4); /* bg-neutral-900/40 - Minimal */
+  backdrop-filter: blur(8px); /* Reduced blur for compact look */
+  -webkit-backdrop-filter: blur(8px);
+  /* Dimensional Stability: Transparent border in default state - changes color, not width */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* border-white/5 - Deterministic footprint */
+  border-radius: 0.125rem; /* rounded-sm: 2px - Sharp rounded-sm */
   cursor: pointer;
-  transition: all 0.2s ease;
+  /* Visual State Transitions: Instant or very fast duration-75 ease */
+  transition: border-color 75ms ease, background-color 75ms ease, color 75ms ease, box-shadow 75ms ease; /* duration-75 - Fast transitions */
+  position: relative;
+  /* Deterministic Footprint: Ensure active and inactive states share exact same height and width */
+  min-width: fit-content; /* Prevent width changes */
+  box-sizing: border-box; /* Include border in width calculation */
+  /* Zero-Shift Hovers: No scaling, lifting, or translation */
+  transform: none; /* Ensure no transforms */
+}
+
+[data-theme="light"] .tag-filter {
+  background: rgba(244, 244, 245, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .tag-filter:hover {
-  border-color: var(--color-primary);
+  /* Visual-Only Feedback: Subtle color shifts - zero layout shift */
+  border-color: rgba(255, 255, 255, 0.3); /* border-white/10 to border-white/30 - Same border width */
   color: var(--text-primary);
+  background: rgba(23, 23, 23, 0.5); /* Very faint background highlight */
+  transform: none; /* Zero-Shift: No movement */
+  /* Deterministic Footprint: Maintain exact same dimensions */
+  box-shadow: none; /* No shadow changes that could affect layout */
+}
+
+[data-theme="light"] .tag-filter:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+  background: rgba(244, 244, 245, 0.8);
+  transform: none; /* Zero-Shift */
 }
 
 .tag-filter:focus-visible {
@@ -7622,26 +7920,58 @@ body {
 }
 
 .tag-filter[aria-checked="true"] {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: white;
+  /* Active Aesthetic: Subtle Inset look - bg-white/5, text-white, ring-1 ring-white/20 */
+  background: rgba(255, 255, 255, 0.05); /* bg-white/5 - Subtle background shift */
+  /* Dimensional Stability: Same border width, only color changes */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* border-white/20 - Same 1px width */
+  color: rgb(255, 255, 255); /* text-white - High contrast */
+  /* Border/Ring Logic: Use ring utilities (ring-1 ring-inset) for visual feedback without affecting dimensions */
+  box-shadow: 
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2); /* ring-1 ring-inset ring-white/20 - Subtle inset ring */
+  transform: none; /* Zero-Shift: No movement */
+  /* Deterministic Footprint: Exact same height and width as inactive state */
+  min-width: fit-content; /* Prevent width changes */
+  box-sizing: border-box; /* Include border in width calculation */
 }
 
+/* Icon Insertion Strategy: Remove interior icons entirely - use subtle background shift instead */
+/* Option: Remove icons and use high-contrast 'Active Glow' or subtle background shift */
+.tag-filter[aria-checked="true"]::after {
+  display: none !important; /* Remove operational dot - cleaner and more enterprise */
+}
+
+[data-theme="light"] .tag-filter[aria-checked="true"] {
+  /* Active Aesthetic: Subtle Inset look for light mode */
+  background: rgba(0, 0, 0, 0.03); /* bg-black/3 - Subtle background shift */
+  /* Dimensional Stability: Same border width, only color changes */
+  border: 1px solid rgba(0, 0, 0, 0.15); /* border-black/15 - Same 1px width */
+  color: rgb(0, 0, 0); /* text-black - High contrast */
+  /* Border/Ring Logic: Use ring utilities for visual feedback */
+  box-shadow: 
+    inset 0 0 0 1px rgba(0, 0, 0, 0.15); /* ring-1 ring-inset ring-black/15 - Subtle inset ring */
+  /* Deterministic Footprint: Exact same height and width */
+  min-width: fit-content;
+  box-sizing: border-box;
+}
+
+/* Icon Insertion Strategy: Remove checkmark icons entirely - use subtle background shift instead */
 .tag-check {
-  display: none;
-  width: 16px;
-  height: 16px;
+  display: none !important; /* Remove checkmark icons - cleaner and more enterprise */
+  width: 0;
+  height: 0;
 }
 
 .tag-filter[aria-checked="true"] .tag-check {
-  display: block;
+  display: none !important; /* Keep hidden - no icons */
 }
 
 /* Registry Content */
 .registry-content {
+  /* Vertical Rhythm: Strict space-y-16 or space-y-24 between cards */
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 0; /* Spacing handled by card margin-bottom */
+  padding-left: 0; /* Flush-left: Zero horizontal offsets */
 }
 
 .registry-section {
@@ -7649,37 +7979,46 @@ body {
 }
 
 .section-heading {
-  scroll-margin-top: 120px; /* Account for sticky navbar (80px) + breathing room (40px) */
-  font-size: 1.5rem;
+  /* Stealth Anchors: text-[10px], font-mono, uppercase, tracking-[0.3em], text-neutral-500 */
+  scroll-margin-top: 120px;
+  font-size: 0.625rem; /* text-[10px] */
   font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid var(--border-color);
-  letter-spacing: -0.02em;
+  font-family: 'JetBrains Mono', monospace; /* font-mono */
+  text-transform: uppercase;
+  letter-spacing: 0.3em; /* tracking-[0.3em] - Wider tracking */
+  color: rgb(113, 113, 122); /* text-neutral-500 - Muted */
+  margin: 0 0 1.5rem; /* mb-6: 24px */
+  padding-bottom: 0.75rem; /* pb-3: 12px */
+  /* border-b border-white/5 that spans the full 9-column content width */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* border-b border-white/5 */
   position: relative;
-  /* No transitions on background-color, color, or opacity - static visual state */
+  padding-left: 0;
+  margin-left: 0;
+  width: 100%; /* Span full 9-column content width */
 }
 
-/* System Spec Layout */
+/* The 'Case Study' Module: High-Density Engineering Showcase */
 .system-spec {
-  margin-bottom: 3rem;
-  padding: 2rem;
-  background: var(--bg-secondary);
-  border: 1px solid rgba(39, 39, 42, 0.4);
-  border-radius: 0.75rem;
-  transition: all 0.3s ease;
-  
-  /* Performance Optimizations */
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 500px;
-  will-change: transform;
-  
-  /* Eager Staggering Mount Animation */
-  opacity: 0;
-  transform: translateY(20px);
-  animation: specMount 0.3s cubic-bezier(0.33, 1, 0.68, 1) forwards;
-  animation-delay: var(--stagger-delay, 0s);
+  /* Dimensionality: Case Study Module rather than a card */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 6rem; /* py-24: 96px - Narrative Isolation for each case study */
+  /* Symmetrical Internal Padding: Uniform horizontal padding (px-12) for perfect optical symmetry */
+  padding: 3rem 3rem; /* px-12 py-12: 48px horizontal, 48px vertical - Uniform horizontal padding */
+  background: rgba(23, 23, 23, 0.2); /* bg-neutral-900/20 */
+  backdrop-filter: blur(24px); /* backdrop-blur-xl */
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 0.5rem;
+  /* Materiality: Machine-Milled border system */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* border-white/5 outer edge */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* ring-1 ring-inset ring-white/10 inner edge */
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  transform: none;
+  will-change: box-shadow, border-color;
+  opacity: 1;
+  animation: none;
 }
 
 /* Light mode - Premium Paper with shadow */
@@ -7707,39 +8046,85 @@ body {
   display: none;
 }
 
+/* Hover Logic: Machine-Milled border system - subtle increase in opacity */
 .system-spec:hover {
-  border-color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);
+  border-color: rgba(255, 255, 255, 0.1); /* Slightly brighter outer edge */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15); /* Slightly brighter inner edge */
+  transform: none; /* Disable all movement */
 }
 
-/* Light mode hover - enhanced shadow */
-.system-spec:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+[data-theme="light"] .system-spec {
+  background: rgba(244, 244, 245, 0.4); /* bg-neutral-900/20 equivalent for light mode */
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 0, 0, 0.05); /* border-white/5 equivalent */
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08); /* ring-1 ring-inset ring-black/8 */
 }
 
-[data-theme="dark"] .system-spec:hover,
-.dark-mode .system-spec:hover {
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);
+[data-theme="light"] .system-spec:hover {
+  border-color: rgba(0, 0, 0, 0.1); /* Slightly brighter outer edge */
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); /* Slightly brighter inner edge */
+  transform: none; /* Disable all movement */
 }
 
-/* Spec Header */
+/* Dual-Pane Composition: Use grid-cols-12 within the module */
+.spec-core {
+  display: grid;
+  grid-template-columns: 1fr; /* grid-cols-1 on mobile */
+  gap: 3rem; /* gap-12: 48px - Strict Tailwind unit spacing on mobile */
+  margin-bottom: 1.5rem; /* mb-6: 24px - Space before footer */
+}
+
+@media (min-width: 1280px) {
+  .spec-core {
+    grid-template-columns: repeat(12, minmax(0, 1fr)); /* grid-cols-12 within module */
+    /* The Central Gutter: gap-20 (80px) - Essential for distinguishing Narrative from Evidence */
+    gap: 5rem; /* gap-20: 80px - Wide, consistent margin prevents 'visual noise' */
+  }
+}
+
+/* Context Pane (5 columns): Contains Title, Description, and Architecture Ledger */
 .spec-header {
-  margin-bottom: 1.5rem;
+  grid-column: span 1; /* Full width on mobile */
+  /* Symmetrical Internal Padding: Left edge of text to card border matches right edge spacing */
+  padding-left: 0; /* Left padding handled by card container */
+  /* Optical Alignment Check: Project Title perfectly top-aligned with Tab Bar */
+  align-self: start; /* Top-align with canvas - Title aligns with Tab Bar */
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1280px) {
+  .spec-header {
+    grid-column: span 5; /* Context Pane: 5 columns */
+  }
 }
 
 .spec-title-row {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0; /* Spacing handled by metrics row */
+  gap: 0;
+  /* Global Symmetry Audit: Project Title is now the highest element in card's visual hierarchy */
+  /* Perfectly top-aligned with top of diagram canvas on the right */
 }
 
 .spec-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  /* Font Selection: High-fidelity sans-serif for titles */
+  font-family: 'Inter', 'Geist', -apple-system, BlinkMacSystemFont, sans-serif; /* High-fidelity sans-serif */
+  font-size: 1.5rem; /* text-2xl: 24px */
+  font-weight: 700; /* font-bold */
   color: var(--text-primary);
-  margin: 0;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  /* Title & Description Rhythm: Significant vertical spacing below Project Title */
+  margin: 0 0 2rem; /* mb-8: 32px - Clear visual pause before description */
+  letter-spacing: -0.02em; /* tracking-tight */
+  line-height: 1.3;
+  padding-left: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  /* Global Symmetry Audit: Title is immediate focal point - highest element in visual hierarchy */
+  /* Perfectly top-aligned with top of diagram canvas on the right */
 }
 
 .spec-title-link {
@@ -7821,80 +8206,169 @@ body {
 }
 
 /* Registry page spec-metrics - horizontal row */
+/* Telemetry & Metrics: The 'Bento' Data - Dedicated Telemetry Row */
+/* Telemetry Bar: FAANG-standard 'Telemetry Bar' aesthetic */
 .spec-metrics {
+  /* Structural Logic: flex flex-wrap items-center gap-3 */
   display: flex;
-  flex-wrap: wrap; /* flex-wrap */
-  gap: 0.75rem; /* gap-3 - consistent spacing */
+  flex-wrap: wrap; /* flex-wrap - Ensures clean wrapping instead of squashing */
   align-items: center; /* items-center */
-  margin-bottom: 1.5rem; /* mb-6 - separate from content below */
+  gap: 0.75rem; /* gap-3: 12px - Isolation: Each metric is standalone, backgrounds don't touch */
+  margin-top: 1.5rem; /* mt-6: 24px - Vertical Gap: Spacing between Project Title and Metrics Row (default) */
+  margin-bottom: 1.5rem; /* mb-6: 24px */
+  padding-left: 0; /* Left-Alignment: First metric cell perfectly flush-left with title */
 }
 
-.metric-item {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  padding: 0.5rem 0.875rem;
-  background: var(--bg-primary);
-  border: 1px solid rgba(39, 39, 42, 0.4);
-  border-radius: 0.375rem;
-  /* Prevent layout shift with monospace */
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
+/* Variant: mt-8 spacing for more breathing room */
+.spec-metrics.spacious {
+  margin-top: 2rem; /* mt-8: 32px - Increased vertical gap */
 }
 
-/* Light mode metric pills */
+/* Component Engineering: The Metric Cell */
+.metric-tag {
+  /* Materiality: Very subtle subsurface look */
+  background: rgba(255, 255, 255, 0.03); /* bg-white/[0.03] - Very subtle subsurface */
+  border-radius: 0.375rem; /* rounded-md */
+  /* Border: 1px border using border-white/5 or ring-1 ring-inset ring-white/10 */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* border-white/5 - Creates 'Milled' look */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* ring-1 ring-inset ring-white/10 */
+  /* Padding: Strict internal padding scale */
+  padding: 0.25rem 0.75rem; /* px-3 py-1: 12px horizontal, 4px vertical */
+  /* Typography: High-contrast monospaced font */
+  font-family: 'JetBrains Mono', 'Geist Mono', monospace; /* High-contrast monospaced */
+  font-size: 0.625rem; /* text-[10px] - High-contrast monospaced */
+  font-weight: 500;
+  color: var(--text-primary);
+  text-transform: uppercase; /* uppercase */
+  letter-spacing: 0.1em; /* tracking-wider */
+  white-space: nowrap; /* Prevent text wrapping inside cell */
+  /* Isolation: Each metric is its own standalone component */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2: 8px - Space for optional divider */
+}
+
+/* Advanced Data Visualization: Optional vertical divider between value and description */
+.metric-tag.has-divider {
+  position: relative;
+  padding-right: 1rem; /* Extra padding for divider */
+}
+
+.metric-tag.has-divider::after {
+  content: '';
+  position: absolute;
+  right: 0.5rem; /* Position divider */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px; /* w-[1px] */
+  height: 0.75rem; /* h-3: 12px */
+  background: rgba(255, 255, 255, 0.1); /* bg-white/10 - Tiny vertical divider */
+}
+
+/* Alternative: Large gap between cells (gap-6) instead of dividers */
+.spec-metrics.large-gap {
+  gap: 1.5rem; /* gap-6: 24px - Large enough that no dividers are needed */
+}
+
+/* Metric Item: Consistent with Telemetry Bar aesthetic */
 .metric-item {
-  background: #F4F4F5; /* bg-zinc-100 */
-  color: #3F3F46; /* text-zinc-700 */
-  border: 1px solid #E4E4E7; /* border-zinc-200 */
+  /* Component Engineering: Same styling as metric-tag */
+  background: rgba(255, 255, 255, 0.03); /* bg-white/[0.03] - Very subtle subsurface */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* border-white/5 */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* ring-1 ring-inset ring-white/10 */
+  border-radius: 0.375rem; /* rounded-md */
+  padding: 0.25rem 0.75rem; /* px-3 py-1 - Strict internal padding scale */
+  /* Typography: High-contrast monospaced font */
+  font-family: 'JetBrains Mono', 'Geist Mono', monospace; /* High-contrast monospaced */
+  font-size: 0.625rem; /* text-[10px] - Consistent with metric-tag */
+  font-weight: 500;
+  color: var(--text-primary);
+  text-transform: uppercase; /* uppercase */
+  letter-spacing: 0.1em; /* tracking-wider */
+  font-variant-numeric: tabular-nums; /* Prevent layout shift with monospace */
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Light mode metric items */
+[data-theme="light"] .metric-item {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  color: var(--text-primary);
 }
 
 [data-theme="dark"] .metric-item,
 .dark-mode .metric-item {
-  background: var(--bg-primary);
-  color: var(--text-secondary);
-  border: 1px solid rgba(39, 39, 42, 0.4);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
 }
 
-/* Split-Pane Core */
-.spec-core {
-  display: grid;
-  grid-template-columns: 40% 60%;
-  gap: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-/* Column A: Context */
+/* Context Pane: Title, Description, Architecture Ledger */
 .spec-context {
+  grid-column: span 1; /* Full width on mobile */
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5rem; /* gap-6: 24px */
+  padding-left: 0;
+  /* Optical Alignment: Description aligns with top of Media Viewport (below tabs) */
+  align-self: start; /* Top-align for optical alignment */
+}
+
+@media (min-width: 1280px) {
+  .spec-context {
+    grid-column: span 5; /* Context Pane: 5 columns */
+  }
 }
 
 .spec-abstract {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--text-primary);
+  /* Font Selection: High-fidelity sans-serif (Inter or Geist) for prose */
+  font-family: 'Inter', 'Geist', -apple-system, BlinkMacSystemFont, sans-serif; /* High-fidelity sans-serif */
+  font-size: 0.9375rem; /* text-base: 15px */
+  /* Title & Description Rhythm: Increased line-height (leading-relaxed) for elite editorial feel */
+  line-height: 1.75; /* leading-relaxed: 1.75 - Improves readability and elite editorial feel */
+  color: rgb(161, 161, 170); /* text-neutral-400 */
+  margin: 0;
+  max-width: 65ch; /* max-w-prose */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Optical Alignment: Description aligns with top of Media Viewport (below tabs) */
+@media (min-width: 1280px) {
+  .spec-abstract {
+    /* Title has mb-8 (2rem), tab bar is 3rem tall, so add 1rem to align description with viewport content */
+    margin-top: 1rem; /* mt-4: 16px - Total 3rem from title top aligns description with Media Viewport content */
+  }
 }
 
 .spec-abstract p {
   margin: 0;
 }
 
+/* Architecture Ledger Refactor */
 .architecture-ledger {
-  padding: 1rem;
-  background: var(--bg-primary);
-  border: 1px solid rgba(39, 39, 42, 0.4);
-  border-radius: 0.5rem;
+  /* Internal Padding: Add p-4 or p-6 - text should not hit box edges */
+  padding: 1.5rem; /* p-6: 24px - Generous internal padding so text doesn't hit edges */
+  /* Materiality: Set background to slightly darker bg-black/20 to differentiate from primary card surface */
+  background: rgba(0, 0, 0, 0.2); /* bg-black/20 - Slightly darker to differentiate */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0.375rem; /* rounded-md */
+  margin-top: 0;
 }
 
 .ledger-title {
-  font-size: 0.875rem;
+  /* Typography: Labels must be text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-500 */
+  font-family: 'JetBrains Mono', 'Geist Mono', monospace; /* font-mono */
+  font-size: 0.625rem; /* text-[10px] */
   font-weight: 600;
-  color: var(--text-secondary);
+  color: rgb(113, 113, 122); /* text-neutral-500 */
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 0 0 0.75rem;
+  letter-spacing: 0.2em; /* tracking-[0.2em] */
+  margin: 0 0 0.75rem; /* mb-3: 12px - Strict 8px vertical rhythm */
 }
 
 .ledger-list {
@@ -7903,70 +8377,219 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  /* Typography: Every decision on its own line or separated by clear visual break */
+  gap: 1rem; /* gap-4: 16px - Clear visual break between decisions for increased 'scannability' */
 }
 
 .ledger-item {
-  font-size: 0.875rem;
-  line-height: 1.5;
+  /* Typography: Use monospaced font for decisions */
+  font-family: 'JetBrains Mono', 'Geist Mono', monospace; /* Monospaced font for decisions */
+  font-size: 0.8125rem; /* text-sm: 13px */
+  line-height: 1.6;
   color: var(--text-primary);
+  /* Visual Break: Each decision on its own line */
+  display: block; /* Each decision on its own line */
+  padding-bottom: 0.5rem; /* Additional spacing for scannability */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Clear visual break between decisions */
+}
+
+.ledger-item:last-child {
+  border-bottom: none; /* No border on last item */
+  padding-bottom: 0; /* No extra padding on last item */
+}
+
+/* Light mode Architecture Ledger */
+[data-theme="light"] .architecture-ledger {
+  background: rgba(0, 0, 0, 0.05); /* bg-black/5 - Slightly darker for light mode */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .ledger-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Visual break for light mode */
+}
+
+[data-theme="light"] .spec-link {
+  color: rgba(0, 0, 0, 0.8); /* High-contrast black with opacity-80 for light mode */
+}
+
+[data-theme="light"] .spec-link:hover {
+  color: rgba(0, 0, 0, 1); /* Full opacity on hover */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3); /* Subtle bottom border */
+}
+
+[data-theme="light"] .manifest-button {
+  background: rgba(0, 0, 0, 0.02); /* bg-black/2 - Very subtle subsurface for light mode */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* border-black/10 */
+}
+
+[data-theme="light"] .manifest-button:hover {
+  background: rgba(0, 0, 0, 0.04); /* Slightly brighter background */
+  border-color: rgba(0, 0, 0, 0.15); /* Slightly brighter border */
+}
+
+/* Light mode Domain Category Badge */
+[data-theme="light"] .domain-category-badge {
+  background: rgba(0, 0, 0, 0.02); /* bg-black/2 - Very subtle for light mode */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* border-black/5 */
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08); /* ring-1 ring-inset ring-black/8 */
+  /* Color: Mute text color to professional text-neutral-500 for light mode */
+  color: rgb(113, 113, 122); /* text-neutral-500 - Muted, professional */
+}
+
+[data-theme="light"] .domain-category-badge .category-dot {
+  background: rgb(59, 130, 246); /* Blue dot - same color in light mode */
+  box-shadow: 0 0 4px rgba(59, 130, 246, 0.4); /* Subtle glow */
 }
 
 .ledger-item strong {
   color: var(--text-secondary);
   font-weight: 600;
+  font-family: 'JetBrains Mono', 'Geist Mono', monospace; /* Monospace for labels */
 }
 
-/* Column B: Media Stage */
+/* Evidence Pane (7 columns): Contains the Engineering Canvas (The Diagram) */
 .spec-media {
+  grid-column: span 1; /* Full width on mobile */
   display: flex;
   flex-direction: column;
+  /* Optical Alignment Check: Canvas encapsulated, separated from narrative by global gutter */
+  align-items: flex-start;
+  /* The Canvas Tab Bar Offset: Encapsulated, doesn't 'bleed' toward the left */
+  width: 100%; /* Full width of its grid column */
+  /* Symmetrical Internal Padding: Right-side container locked with pr-12 to match left padding */
+  padding-right: 0; /* Right padding handled by card container - ensures no bleeding */
 }
 
+@media (min-width: 1280px) {
+  .spec-media {
+    grid-column: span 7; /* Evidence Pane: 7 columns */
+    /* Spacing: gap-12 or gap-16 between left column and canvas */
+    margin-left: 0; /* Spacing handled by grid gap */
+    /* Engineering Canvas Alignment: Canvas should not stretch to absolute edge */
+    /* Right padding ensures clear buffer zone between canvas and card border */
+    padding-right: 0; /* Padding handled by card container for symmetry */
+  }
+}
+
+/* The Viewport Framework: Standardized, enterprise-grade Engineering Canvas */
 .media-viewport {
-  background: #FAFAFA; /* bg-slate-50 - slightly darker than card for light mode */
-  border: 1px solid #E4E4E7; /* zinc-200 */
-  border-radius: 0.5rem;
+  /* Outer Frame: bg-black/40 with rounded-md and overflow-hidden */
+  background: rgba(0, 0, 0, 0.4); /* bg-black/40 */
+  border-radius: 0.375rem; /* rounded-md */
   overflow: hidden;
+  /* Standardized Aspect Ratio: Strict aspect-video (16:9) to prevent layout jumps */
+  aspect-ratio: 16 / 9; /* aspect-video */
+  position: relative;
+  /* Engineering Canvas Alignment: Canvas should not stretch to absolute edge */
+  width: 100%;
+  max-width: 100%; /* Prevent stretching beyond container */
+  display: flex;
+  flex-direction: column; /* Stack header bar and viewport */
+  /* Border & Ring Harmony: Clear buffer zone between canvas and card border */
+  /* Buffer zone created by card padding - no collision with card's outer border */
 }
 
-[data-theme="dark"] .media-viewport,
-.dark-mode .media-viewport {
-  background: var(--bg-primary);
-  border: 1px solid rgba(39, 39, 42, 0.4);
+.blueprint-grid-overlay {
+  /* Blueprint Background: Very faint 10px grid pattern or bg-dot-white/[0.1] */
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 10px 10px; /* 10px grid pattern - Technical workspace */
+  pointer-events: none;
+  z-index: 1;
 }
 
+[data-theme="light"] .media-viewport {
+  background: rgba(244, 244, 245, 0.4); /* bg-black/40 equivalent for light mode */
+}
+
+[data-theme="light"] .viewport-pane {
+  /* Subsurface Material: 10px grid pattern for light mode */
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 10px 10px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05); /* inset ring-1 ring-black/5 */
+}
+
+[data-theme="light"] .viewport-tabs {
+  background: rgba(244, 244, 245, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .viewport-tab.active {
+  background: rgba(0, 0, 0, 0.03); /* bg-white/5 equivalent */
+  border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .diagram-container {
+  background: rgba(250, 250, 250, 0.8);
+  /* Background: Subtle 10px grid pattern at low opacity for light mode */
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 10px 10px; /* 10px grid pattern */
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .blueprint-grid-overlay {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+}
+
+/* Tab Navigation: The Control Bar - Integrated Header Bar at top of canvas */
 .viewport-tabs {
   display: flex;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid rgba(39, 39, 42, 0.4);
+  /* Header height should be fixed (e.g., h-10 or h-12) */
+  height: 3rem; /* h-12: 48px - Fixed header height */
+  min-height: 3rem;
+  background: rgba(23, 23, 23, 0.3); /* Subtle background */
+  /* Subtle bottom border (border-b border-white/5) to separate controls from media */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* border-b border-white/5 */
+  /* Canvas Tab Bar Offset: Internal padding (px-4) - Tab bar has its own internal padding */
+  padding-left: 1rem; /* px-4: 16px - Internal padding */
+  padding-right: 1rem; /* px-4: 16px - Internal padding */
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .viewport-tab {
+  /* Typography: Use monospaced font (text-[11px]) for tab labels */
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 1.25rem;
-  font-size: 0.875rem;
+  padding: 0 1rem; /* px-4: 16px horizontal, no vertical padding (height handled by header) */
+  height: 100%; /* Fill header height */
+  font-family: 'JetBrains Mono', 'Geist Mono', monospace; /* Monospaced font */
+  font-size: 0.6875rem; /* text-[11px] - Maintain technical aesthetic */
   font-weight: 500;
   color: var(--text-secondary);
   background: transparent;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid transparent; /* Space for active state */
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: 'Inter', sans-serif;
+  position: relative;
 }
 
 .viewport-tab:hover {
   color: var(--text-primary);
-  background: var(--bg-primary);
+  background: rgba(255, 255, 255, 0.02); /* Subtle hover background */
 }
 
+/* Active State: High-contrast 'Active Tab' look */
 .viewport-tab.active {
-  color: var(--color-primary);
-  border-bottom-color: var(--color-primary);
-  background: var(--bg-primary);
+  color: var(--text-primary);
+  /* Slightly brighter background (bg-white/5) */
+  background: rgba(255, 255, 255, 0.05); /* bg-white/5 */
+  /* Solid 2px bottom border that is perfectly flush with the header's edge */
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* High-contrast bottom border */
+  margin-bottom: -1px; /* Flush with header edge (compensate for border) */
 }
 
 .viewport-tab:focus-visible {
@@ -7980,36 +8603,68 @@ body {
   height: 16px;
 }
 
+/* Inner Viewport: Where actual media lives */
 .viewport-content {
   position: relative;
-  min-height: 400px;
+  width: 100%;
+  flex: 1; /* Take remaining space after header */
+  /* Inner Viewport: relative w-full h-full flex items-center justify-center */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0; /* Allow flex shrinking */
 }
 
 .viewport-pane {
   display: none;
-  padding: 1.5rem;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* Subsurface Material: Subtle 10px grid background, strictly contained */
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 10px 10px; /* 10px grid pattern */
+  /* Add inset ring-1 ring-white/5 to give media an 'embedded' look */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05); /* inset ring-1 ring-white/5 */
 }
 
 .viewport-pane.active {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Diagram Container */
+/* Diagram Container: Media insertion within Inner Viewport */
 .diagram-container {
   width: 100%;
-  border-radius: 0.375rem;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  aspect-ratio: 16 / 9;
+  height: 100%;
   position: relative;
-  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Background handled by viewport-pane */
+  background: transparent;
 }
 
+/* Media Insertion Logic: Handling Content */
 .diagram-image {
+  /* Images/Diagrams: Use object-contain or object-cover, centered */
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* object-contain - Preserve aspect ratio, show full image */
+  display: block;
+  position: relative;
+  z-index: 2; /* Above grid background */
+}
+
+/* For architecture diagrams that should fill: use object-cover */
+.diagram-image.fill {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  display: block;
+  object-fit: cover; /* object-cover - Fill container */
 }
 
 .diagram-facade {
@@ -8110,8 +8765,54 @@ body {
   opacity: 0.5;
 }
 
-/* Loom Container */
+/* Video/Walkthroughs: Video Overlay state */
 .loom-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Video Overlay: Play icon with backdrop-blur-sm circle background */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.play-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  backdrop-filter: blur(4px); /* backdrop-blur-sm */
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 50%; /* Circle */
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.play-icon:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: scale(1.1);
+}
+
+.play-icon svg {
+  width: 24px;
+  height: 24px;
+  margin-left: 2px; /* Optical centering for play triangle */
+}
+
+/* Loom Container (legacy) */
+.loom-container-legacy {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -8182,46 +8883,130 @@ body {
 }
 
 /* Spec Footer */
+/* Footer Links: Move INSIDE the card container at the bottom */
+/* Footer Architecture: The Bottom Row - Encapsulation */
 .spec-footer {
+  /* Encapsulation: Entire bottom row wrapped in dedicated footer container */
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(39, 39, 42, 0.4);
+  justify-content: space-between; /* Anchor 'Specification' link to left, Domain Badge/Deployment on right */
+  align-items: center; /* Perfect horizontal alignment */
+  width: 100%; /* w-full - Full width container */
+  /* Gutter Constraints: Footer subject to same internal padding as rest of card */
+  /* Padding handled by card container (px-12) - content never touches card's edge */
+  padding-left: 0; /* Padding handled by parent card */
+  padding-right: 0; /* Padding handled by parent card */
+  /* The Separator Line: Ultra-thin border-t border-white/5 above footer */
+  border-top: 1px solid rgba(255, 255, 255, 0.05); /* border-t border-white/5 - Ultra-thin */
+  /* Vertical Spacer: Consistent pt-6 mt-6 to isolate CTAs from body text */
+  padding-top: 1.5rem; /* pt-6: 24px - Consistent vertical spacer */
+  margin-top: 1.5rem; /* mt-6: 24px - Isolate CTAs from body text */
+  position: relative;
+  /* Optical Balance: Footer links perfectly horizontally aligned with each other */
+  /* Footer Layout: Use 8px grid for all internal padding */
+  gap: 0; /* Gap handled by justify-content: space-between */
 }
 
+/* Footer Right Side: Domain Badge and Deployment Manifest container */
+.spec-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* gap-4: 16px - Stack Deployment Manifest horizontally with Domain Badge (8px grid) */
+  justify-content: flex-end; /* Align to right edge */
+}
+
+/* Specification Link Refine: Left Side */
 .spec-link {
-  font-size: 0.875rem;
+  /* Typography: text-sm font-mono */
+  font-size: 0.875rem; /* text-sm: 14px */
   font-weight: 500;
-  color: var(--color-primary);
+  font-family: 'JetBrains Mono', 'Geist Mono', monospace; /* font-mono */
+  /* Typography: Change from 'Standard Web Blue' to sophisticated 'Enterprise Indigo' or high-contrast white */
+  color: rgba(255, 255, 255, 0.8); /* white with opacity-80 - High-contrast, sophisticated */
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: opacity 0.2s ease, border-color 0.2s ease; /* Clean, no-shift hover */
+  position: relative;
+  /* Optical Balance: Perfectly horizontally aligned with Deployment button */
 }
 
 .spec-link:hover {
-  color: var(--color-primary-hover);
-  text-decoration: underline;
+  /* Hover: Clean, no-shift hover effect - opacity-100 or subtle bottom border */
+  opacity: 1; /* hover:opacity-100 - Clean transition */
+  color: rgba(255, 255, 255, 1); /* Full opacity on hover */
+  /* Alternative: Subtle bottom border */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Subtle bottom border */
+  text-decoration: none; /* No underline - cleaner look */
 }
 
+/* Deployment Manifest Fix: Right Side */
 .manifest-button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+  /* Size Constraint: Remove any arbitrary fixed widths - use w-auto or max-w-fit */
+  width: auto; /* w-auto - No fixed width */
+  max-width: fit-content; /* max-w-fit - Prevent overflow */
+  /* Internal Padding: Balanced internal space (px-4 py-1.5) */
+  padding: 0.375rem 1rem; /* px-4 py-1.5: 16px horizontal, 6px vertical - Balanced */
+  font-size: 0.875rem; /* text-sm: 14px */
+  font-weight: 500;
   font-family: 'Inter', sans-serif;
-  color: var(--text-secondary);
-  background: transparent;
-  border: 1px solid rgba(39, 39, 42, 0.4);
-  border-radius: 0.375rem;
+  color: var(--text-primary);
+  /* Materiality: Transform to 'Subsurface CTA' */
+  background: rgba(255, 255, 255, 0.03); /* bg-white/[0.03] - Very subtle subsurface */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* border-white/10 - Thin border */
+  border-radius: 0.375rem; /* rounded-md */
   cursor: pointer;
   transition: all 0.2s ease;
+  /* Footer Layout: Stack horizontally with Domain Badge using gap-3 */
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .manifest-button:hover {
   color: var(--text-primary);
-  border-color: var(--color-primary);
-  background: var(--bg-primary);
+  border-color: rgba(255, 255, 255, 0.2); /* Slightly brighter border */
+  background: rgba(255, 255, 255, 0.05); /* Slightly brighter background */
+  transform: none; /* No-shift hover */
+}
+
+/* Domain Category Badge: System Metadata in Footer */
+.domain-category-badge {
+  /* Formatting as 'System Metadata': Operational Metadata look */
+  display: inline-flex;
+  align-items: center; /* Perfectly vertically center icon and text */
+  gap: 0.375rem; /* gap-1.5: 6px - Space between icon and text (8px grid) */
+  /* Typography: Sharp monospaced font (text-[10px] or text-xs), uppercase, wide letter-spacing */
+  font-family: 'JetBrains Mono', 'Geist Mono', monospace; /* Sharp monospaced font */
+  font-size: 0.625rem; /* text-[10px] - Operational Metadata size */
+  font-weight: 500; /* Medium weight for sharp, engineered edge */
+  text-transform: uppercase; /* uppercase */
+  letter-spacing: 0.2em; /* tracking-[0.2em] - Wide letter-spacing */
+  /* Color: Mute text color to professional text-neutral-500 so it doesn't compete with primary CTA */
+  color: rgb(113, 113, 122); /* text-neutral-500 - Muted, professional */
+  /* The Component: Transform label into 'Status Badge' */
+  /* Surface: Very subtle bg-white/[0.03] and rounded-sm */
+  background: rgba(255, 255, 255, 0.03); /* bg-white/[0.03] - Very subtle */
+  border-radius: 0.125rem; /* rounded-sm: 2px */
+  /* Border: Thin border border-white/5 or ring-1 ring-inset ring-white/10 */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* border-white/5 - Thin border */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* ring-1 ring-inset ring-white/10 */
+  /* Internal Padding: Use 8px grid for all internal padding */
+  padding: 0.25rem 0.5rem; /* px-2 py-1: 8px horizontal, 4px vertical - 8px grid */
+  /* Optical Balance: Perfectly horizontally aligned with other footer elements */
+  flex-shrink: 0; /* Prevent shrinking */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* The Icon: Keep blue dot, shrink it (w-1.5 h-1.5) and ensure perfectly vertically centered */
+.domain-category-badge .category-dot {
+  width: 0.375rem; /* w-1.5: 6px - Shrunk from 8px */
+  height: 0.375rem; /* h-1.5: 6px - Shrunk from 8px */
+  background: rgb(59, 130, 246); /* Blue dot color */
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0; /* Prevent shrinking */
+  /* Perfectly vertically centered next to text inside badge */
+  align-self: center; /* Vertical centering */
+  box-shadow: 0 0 4px rgba(59, 130, 246, 0.4); /* Subtle glow */
 }
 
 .manifest-button:focus-visible {
@@ -8349,7 +9134,8 @@ body {
   }
   
   .system-spec {
-    padding: 1.5rem;
+    /* Responsive: Reduce padding on mobile but maintain breathing room */
+    padding: 2rem; /* p-8: 32px - Still generous on mobile */
   }
   
   .spec-title-row {
