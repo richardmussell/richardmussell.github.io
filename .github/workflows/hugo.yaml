@@ -117,27 +117,16 @@ jobs:
 
       - name: HTML Proofer (Broken Links & Accessibility Guard)
         run: |
-          gem install html-proofer --user-install
-          # Get the absolute path to the gem's bin directory
-          USER_BIN=$(ruby -e 'print Gem.user_dir')/bin
-          # Call html-proofer using its absolute path
-          $USER_BIN/html-proofer ./public \
+          # Force install the binary into the current working directory
+          gem install html-proofer --no-document --bindir .
+          ./html-proofer ./public \
             --check-html \
             --check-img-http \
-            --check-opengraph \
             --enforce-https \
-            --empty-alt-ignore \
-            --http-status-ignore "429" \
-            --alt-ignore "/^https://formspree.io/.*$/" \
             --allow-hash-href \
-            --log-level :error
+            --ignore-urls "/^https://formspree.io/.*$/" \
+            || (echo "❌ HTML Proofer failed" && exit 1)
           echo "✅ HTML Proofer passed."
-
-      - name: Install Lighthouse CI
-        run: |
-          npm install @lhci/cli@0.12.x
-          # Record the absolute path to the lhci binary
-          echo "LHCI_BIN=$GITHUB_WORKSPACE/node_modules/.bin/lhci" >> $GITHUB_ENV
 
       - name: Start Local Server for Lighthouse
         run: |
@@ -150,8 +139,9 @@ jobs:
       - name: Lighthouse CI (Performance Guard)
         run: |
           export LHCI_BASE_URL="http://localhost:1313"
-          ${{ env.LHCI_BIN }} autorun --config=.lighthouserc.js || (pkill -f "python3 -m http.server" && echo "❌ Lighthouse CI failed - scores below threshold" && exit 1)
-          echo "✅ Lighthouse CI passed - all scores ≥95 (Performance, Accessibility, SEO)"
+          # npx handles downloading and executing without path issues
+          npx @lhci/cli@0.12.x autorun --config=./.lighthouserc.js || (pkill -f "python3 -m http.server" && echo "❌ Lighthouse failed" && exit 1)
+          echo "✅ Lighthouse passed."
 
       - name: Stop Local Server
         if: always()
