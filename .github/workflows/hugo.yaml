@@ -117,7 +117,7 @@ jobs:
 
       - name: HTML Proofer (Broken Links & Accessibility Guard)
         run: |
-          gem install html-proofer
+          sudo gem install html-proofer
           html-proofer ./public \
             --check-html \
             --check-img-http \
@@ -134,14 +134,14 @@ jobs:
 
       - name: Install Lighthouse CI
         run: |
-          npm install -g @lhci/cli@0.12.x
+          sudo npm install -g @lhci/cli@0.12.x
 
       - name: Start Local Server for Lighthouse
         run: |
           cd public
           python3 -m http.server 1313 > /dev/null 2>&1 &
           echo $! > /tmp/server.pid
-          sleep 3
+          sleep 5
           echo "✅ Local server started on port 1313"
 
       - name: Lighthouse CI (Performance Guard)
