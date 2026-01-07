@@ -264,7 +264,8 @@
                         class="diagram-image lazy-diagram"
                         loading="lazy"
                         decoding="async"
-                        loading="lazy"
+                        width="800"
+                        height="600"
                       />
                     </div>
                     {{ else }}
@@ -465,8 +466,9 @@
                         class="diagram-image lazy-diagram"
                         loading="lazy"
                         decoding="async"
+                        width="800"
+                        height="600"
                         style="display: {{ if $project.Params.diagramPoster }}none{{ else }}block{{ end }};"
-                        loading="lazy"
                       />
                     </div>
                     {{ else if $project.Params.mermaidDiagram }}
@@ -495,7 +497,7 @@
                       {{ if $project.Params.loomPoster }}
                       <!-- Media Facade: Show poster until Loom tab is clicked -->
                       <div class="loom-poster" data-loom-url="{{ $project.Params.loomUrl }}" data-project-id="{{ $project.File.UniqueID }}">
-                        <img src="{{ $project.Params.loomPoster }}" alt="Video thumbnail for {{ $project.Title }}" class="loom-poster-image" loading="lazy" decoding="async" />
+                        <img src="{{ $project.Params.loomPoster }}" alt="Video thumbnail for {{ $project.Title }}" class="loom-poster-image" loading="lazy" decoding="async" width="800" height="450" />
                         <button class="loom-play-button" aria-label="Play system walkthrough video">
                           <svg width="48" height="48" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M8 5v14l11-7z"></path>
