@@ -119,27 +119,35 @@ body {
   color: var(--text-primary);
 }
 
-/* Header - Glassmorphism - Always-On-Top */
+/* Header - Glassmorphism - Fixed Top Position */
 header {
-  background: rgba(3, 7, 18, 0.8); /* bg-zinc-950/80 */
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 1rem 2rem;
-  border-bottom: 1px solid var(--glass-border);
-  position: sticky;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50; /* Highest z-index - always on top */
   transition: all 0.3s ease;
 }
 
 /* Light mode navbar - semi-transparent white */
 header {
-  background: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better contrast */
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] header,
 .dark-mode header {
-  background: rgba(3, 7, 18, 0.8); /* bg-zinc-950/80 */
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 header::before {
@@ -293,7 +301,7 @@ header::before {
 /* Main Content */
 main {
   min-height: calc(100vh - 400px);
-  padding-top: 0;
+  padding-top: 0; /* Hero section handles its own spacing */
 }
 
 .container {
@@ -305,14 +313,19 @@ main {
 
 /* Hero Section */
 /* Hero - The Authority with Grid Background */
+/* Hero Section - Homepage Specific (only on homepage) */
 .hero-section {
   position: relative;
-  padding: 8rem 0 6rem;
+  /* Header height (65px: 16px top + ~28px content + 16px bottom + 1px border) + 4vh elite gap */
+  padding-top: calc(65px + 4vh);
+  padding-bottom: 6rem;
+  margin-top: 0; /* Remove any margin */
   background-image: 
     linear-gradient(rgba(79, 70, 229, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(79, 70, 229, 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
-  background-position: 0 0, 0 0;
+  background-position: 0 0, 0 0; /* Grid starts at viewport top (under transparent header) */
+  background-attachment: fixed; /* Grid stays fixed while content scrolls */
   overflow: hidden;
 }
 
@@ -332,6 +345,11 @@ main {
   position: relative;
   z-index: 1;
   animation: fadeInUp 0.6s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to top */
+  align-items: flex-start;
+  gap: 0; /* No gap, controlled spacing via margins */
 }
 
 .hero h1 {
@@ -472,10 +490,7 @@ main {
   font-style: italic;
 }
 
-.hero-section {
-  padding-top: 0;
-  border-top: none;
-}
+/* Remove duplicate hero-section rule - padding handled above */
 
 .hero-buttons {
   display: flex;
@@ -557,6 +572,11 @@ main {
 .section:first-of-type {
   border-top: none;
   padding-top: 0;
+}
+
+/* Override for hero-section - homepage specific spacing */
+.hero-section.section:first-of-type {
+  padding-top: calc(65px + 4vh) !important; /* Header height (65px) + 4vh elite gap */
 }
 
 .section-title {
@@ -3604,13 +3624,22 @@ footer {
 }
 
 .btn-secondary {
-  background-color: var(--color-light);
-  color: var(--color-text);
-  border: 2px solid var(--color-border);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff !important;
+  border: 2px solid #ffffff;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
-  background-color: #F3F4F6;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 1);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-secondary:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /* Responsive */
@@ -9004,5 +9033,499 @@ body {
     align-items: flex-start;
     gap: 0.25rem;
   }
+}
+
+/* ========================================
+   RESUME PAGE - Professional Layout
+   ======================================== */
+
+.resume-page {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  padding-top: 100px; /* Space for fixed header */
+}
+
+.resume-container {
+  max-width: clamp(20rem, 90vw, 900px);
+  margin: 0 auto;
+  padding: 2rem clamp(1rem, 2vw, 2rem);
+  position: relative;
+  z-index: 1; /* Below fixed header */
+}
+
+/* Resume Header - Not Sticky (Scrolls Normally) */
+.resume-header {
+  position: relative !important; /* Force not sticky - scrolls normally */
+  padding: 2.5rem 0 2rem 0; /* Extra top padding for button, bottom padding for content */
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 3rem;
+  top: auto !important; /* Override any sticky positioning */
+}
+
+/* Download PDF Button - Absolute Positioned in Header */
+.resume-download-wrapper {
+  position: absolute;
+  top: 2.5rem;
+  right: 0;
+  z-index: 10;
+}
+
+.resume-download-btn {
+  margin-bottom: 0;
+  transform: scale(0.9); /* Reduced scale - less 'loud' */
+  font-size: 0.875rem; /* Slightly smaller text */
+  padding: 0.75rem 1.5rem; /* Slightly smaller padding */
+  transition: transform 0.2s ease;
+}
+
+.resume-download-btn:hover {
+  transform: scale(0.92); /* Subtle hover scale */
+}
+
+.resume-name {
+  /* Fluid Typography - High contrast white */
+  font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  line-height: clamp(1.1, 1.1 + 0.05vw, 1.2);
+  letter-spacing: -0.02em;
+}
+
+[data-theme="dark"] .resume-name,
+.dark-mode .resume-name {
+  color: #ffffff;
+}
+
+.resume-title {
+  /* Fluid Typography - Clean slate grey */
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+  color: #94a3b8; /* slate-400 - clean slate grey */
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .resume-title,
+.dark-mode .resume-title {
+  color: #94a3b8; /* slate-400 */
+}
+
+.resume-contact {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.resume-contact-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.resume-contact-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.resume-contact-link svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+/* Resume Sections - Clean Vertical Timeline */
+.resume-section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.resume-section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: -2rem;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-primary), transparent);
+  opacity: 0.3;
+}
+
+.resume-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.resume-section:last-child::before {
+  display: none;
+}
+
+.resume-section-title {
+  /* Fluid Typography - Clear Section Headers */
+  font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.125rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+  padding-left: 0;
+}
+
+.resume-section-title::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  border: 2px solid var(--bg-primary);
+}
+
+/* Resume Projects */
+.resume-project {
+  margin-bottom: 2rem;
+}
+
+.resume-project:last-child {
+  margin-bottom: 0;
+}
+
+.resume-project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.resume-project-title {
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.resume-project-date {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.resume-project-description {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+}
+
+.resume-project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.resume-tag {
+  display: inline-block;
+  padding: 0.375rem 0.875rem;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.resume-tag:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: rgba(79, 70, 229, 0.1);
+}
+
+/* Impact Metrics - Standout Bullets */
+.resume-project-impact {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+}
+
+.resume-project-impact li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  line-height: 1.6;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+}
+
+.resume-project-impact li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.resume-project-impact li:last-child {
+  margin-bottom: 0;
+}
+
+/* ========================================
+   PRINT OPTIMIZATION - PDF Ready
+   ======================================== */
+
+@media print {
+  /* Hide navigation and non-essential elements */
+  header,
+  .resume-download-wrapper,
+  footer,
+  .scroll-to-top,
+  .scroll-progress-bar {
+    display: none !important;
+  }
+
+  /* Reset colors for print - Pure white background, black text */
+  body,
+  .resume-page {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Resume container */
+  .resume-container {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Resume header - black text */
+  .resume-name {
+    color: #000000 !important;
+  }
+
+  .resume-title {
+    color: #666666 !important;
+  }
+
+  .resume-contact-link {
+    color: #000000 !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Sections - Clean dividers */
+  .resume-section {
+    padding-left: 0 !important;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #cccccc !important;
+    page-break-inside: avoid; /* Prevent page breaks in sections */
+  }
+
+  .resume-section::before {
+    display: none !important;
+  }
+
+  .resume-section-title {
+    color: #000000 !important;
+    border-bottom: 2px solid #000000 !important;
+    padding-bottom: 0.5rem;
+    padding-left: 0 !important;
+  }
+
+  .resume-section-title::before {
+    display: none !important;
+  }
+
+  .resume-project-title {
+    color: #000000 !important;
+  }
+
+  .resume-project-date {
+    color: #666666 !important;
+  }
+
+  .resume-project-description {
+    color: #333333 !important;
+  }
+
+  .resume-project-impact li {
+    color: #000000 !important;
+  }
+
+  .resume-project-impact li::before {
+    color: #000000 !important;
+  }
+
+  .resume-tag {
+    background: transparent !important;
+    border-color: #cccccc !important;
+    color: #000000 !important;
+  }
+
+  /* Prevent page breaks in job descriptions */
+  .resume-project {
+    page-break-inside: avoid;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Optimize spacing for print */
+  .resume-header {
+    padding: 1rem 0;
+    border-bottom: 2px solid #000000;
+  }
+
+  /* Ensure links are visible */
+  a {
+    color: #000000 !important;
+    text-decoration: underline;
+  }
+
+  /* Remove all shadows and effects */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
+
+/* ========================================
+   404 ERROR PAGE - Terminal Aesthetic
+   ======================================== */
+
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--bg-primary);
+  padding-top: 100px; /* Account for fixed header */
+}
+
+.error-container {
+  max-width: 800px;
+  width: 100%;
+}
+
+.error-terminal {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-premium);
+  margin-bottom: 2rem;
+}
+
+.terminal-body {
+  padding: 2rem;
+  font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Fira Code', 'Inconsolata', monospace;
+  background: var(--bg-primary);
+  min-height: 300px;
+}
+
+.terminal-line {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.terminal-line:last-child {
+  margin-bottom: 0;
+}
+
+.terminal-prompt {
+  color: #10B981; /* green-500 */
+  font-weight: 600;
+  user-select: none;
+}
+
+.terminal-command {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.terminal-cursor {
+  color: var(--text-primary);
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.terminal-error {
+  margin-top: 1rem;
+}
+
+.error-code {
+  color: #EF4444; /* red-500 */
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.terminal-info {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+}
+
+.info-text {
+  color: #3B82F6; /* blue-500 */
+}
+
+.terminal-success {
+  margin-top: 1rem;
+}
+
+.success-text {
+  color: #10B981; /* green-500 */
+  font-weight: 500;
+}
+
+.term-dot-red {
+  background: #FF5F57;
+}
+
+.term-dot-yellow {
+  background: #FFBD2E;
+}
+
+.term-dot-green {
+  background: #28CA42;
+}
+
+.error-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.error-return-btn {
+  min-width: 200px;
 }
 
