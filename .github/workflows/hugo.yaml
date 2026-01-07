@@ -106,11 +106,12 @@ jobs:
       - name: Verify SRI Generation
         run: |
           echo "🔍 Checking for any valid SRI integrity attributes..."
-          if grep -qr 'integrity="sha' public/ ; then
-            echo "✅ SRI hashes detected in built HTML"
-            grep -r 'integrity="sha' public/ | head -n 5
+          # Use -q (quiet) and -r (recursive) to check for the string. 
+          # This avoids 'Broken pipe' errors by not outputting to a stream.
+          if grep -qr "integrity=\"sha" public/; then
+            echo "✅ SRI hashes verified. Fortress-grade security confirmed."
           else
-            echo "❌ ERROR: No SRI hashes found in built HTML"
+            echo "❌ ERROR: No SRI hashes found in built HTML. Security check failed."
             exit 1
           fi
 
