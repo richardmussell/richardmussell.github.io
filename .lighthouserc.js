@@ -6,10 +6,7 @@ module.exports = {
         process.env.LHCI_BASE_URL ? `${process.env.LHCI_BASE_URL}/projects/` : 'http://localhost:1313/projects/',
         process.env.LHCI_BASE_URL ? `${process.env.LHCI_BASE_URL}/about/` : 'http://localhost:1313/about/',
       ],
-      numberOfRuns: 3,
-      startServerCommand: 'hugo server -D --bind 0.0.0.0 --port 1313 --baseURL http://localhost:1313',
-      startServerReadyPattern: 'Web Server is available',
-      startServerReadyTimeout: 30000,
+      numberOfRuns: 1, // Fast builds - can increase to 3 for deeper averages later
     },
     assert: {
       assertions: {
