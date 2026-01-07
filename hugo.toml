@@ -3,6 +3,8 @@ languageCode = 'en-us'
 title = 'Mussell Portfolio'
 theme = 'mussell-portfolio'
 enableGitInfo = true
+enableRobotsTXT = true
+canonifyURLs = true
 
 [build]
   writeStats = true

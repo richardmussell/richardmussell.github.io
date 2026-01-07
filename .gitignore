@@ -2,10 +2,13 @@
 public/
 resources/
 .hugo_build.lock
+.hugo_build_lock
+hugo_stats.json
 
 # OS
 .DS_Store
 Thumbs.db
+*.DS_Store
 
 # Editor
 .vscode/
@@ -14,11 +17,27 @@ Thumbs.db
 *.swo
 *~
 
-# Hugo executable (if downloaded)
-hugo.exe
-hugo.zip
+# Binaries & Archives (should never be in repo)
+*.exe
+*.zip
+
+# Environment & Config Files
+*.env
+*.env.*
+.env.local
+.env.*.local
+*.local
+config.local.*
+secrets.yml
+secrets.yaml
+*.key
+*.pem
+*.p12
+*.pfx
 
 # Temporary files
 *.tmp
 *.log
+*.bak
+*.backup
 

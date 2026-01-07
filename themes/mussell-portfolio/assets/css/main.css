@@ -53,10 +53,8 @@ html {
   --color-light: #09090B;
 }
 
-/* Import Premium Variable Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Public+Sans:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Lora:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+/* Import Premium Variable Fonts - Privacy-First (Bunny Fonts) */
+@import url('https://fonts.bunny.net/css?family=inter:100;200;300;400;500;600;700;800;900|public-sans:100;200;300;400;500;600;700;800;900|crimson-pro:400;600|lora:400;600|jetbrains-mono:400;500;600;700&display=swap');
 
 body {
   font-family: 'Inter', 'Public Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -6031,8 +6029,8 @@ footer {
    High Information Density, System Status Aesthetic
    ============================================ */
 
-/* Import Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* Import Fonts - Privacy-First (Bunny Fonts) */
+@import url('https://fonts.bunny.net/css?family=inter:400;500;600;700|jetbrains-mono:400;500;600&display=swap');
 
 /* Update Body Font */
 body {
