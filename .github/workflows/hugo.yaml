@@ -106,14 +106,16 @@ jobs:
       - name: Verify SRI Generation
         run: |
           echo "🔍 Verifying Subresource Integrity (SRI) hashes..."
-          if grep -r 'integrity=' public/ | grep -qE 'sha256-|sha384-|sha512-'; then
+          # Use extended regex to match any valid SRI hash format (sha256, sha384, or sha512)
+          # Match integrity attributes with any quote style, redirect stderr to prevent broken pipe errors
+          if grep -rE 'integrity=["'\''].*sha(256|384|512)-' public/ 2>/dev/null | head -1 > /dev/null 2>&1; then
             echo "✅ SRI hashes detected in built HTML"
-            echo "Found integrity hashes:"
-            grep -r 'integrity=' public/ | grep -E 'sha256-|sha384-|sha512-' | head -5
+            echo "Sample integrity hashes:"
+            grep -rE 'integrity=["'\''].*sha(256|384|512)-' public/ 2>/dev/null | head -5 || true
           else
             echo "❌ ERROR: No SRI hashes found in built HTML"
             echo "Checking for any integrity attributes:"
-            grep -r 'integrity=' public/ | head -5 || echo "No integrity attributes found"
+            grep -r 'integrity=' public/ 2>/dev/null | head -5 || echo "No integrity attributes found"
             exit 1
           fi
 
