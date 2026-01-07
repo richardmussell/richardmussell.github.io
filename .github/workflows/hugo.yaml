@@ -117,24 +117,26 @@ jobs:
 
       - name: HTML Proofer (Broken Links & Accessibility Guard)
         run: |
-          sudo gem install html-proofer
+          gem install html-proofer --user-install
+          # Add the Ruby user bin directory to the PATH
+          export PATH=$PATH:$(ruby -e 'print Gem.user_dir')/bin
           html-proofer ./public \
             --check-html \
             --check-img-http \
             --check-opengraph \
             --enforce-https \
-            --only-4xx \
-            --http-status-ignore "429" \
-            --alt-ignore "/.*/" \
-            --url-ignore "/localhost/,/127.0.0.1/,/formspree.io/" \
-            --allow-hash-href \
             --empty-alt-ignore \
+            --http-status-ignore "429" \
+            --alt-ignore "/^https://formspree.io/.*$/" \
+            --allow-hash-href \
             || (echo "❌ HTML Proofer failed - fix errors above" && exit 1)
           echo "✅ HTML Proofer passed - no broken links or accessibility issues"
 
       - name: Install Lighthouse CI
         run: |
-          sudo npm install -g @lhci/cli@0.12.x
+          npm install @lhci/cli@0.12.x
+          # Reference the local node_modules bin
+          echo "LHCI_BIN=./node_modules/.bin/lhci" >> $GITHUB_ENV
 
       - name: Start Local Server for Lighthouse
         run: |
@@ -147,7 +149,7 @@ jobs:
       - name: Lighthouse CI (Performance Guard)
         run: |
           export LHCI_BASE_URL="http://localhost:1313"
-          lhci autorun --config=.lighthouserc.js || (pkill -f "python3 -m http.server" && echo "❌ Lighthouse CI failed - scores below threshold" && exit 1)
+          $LHCI_BIN autorun --config=.lighthouserc.js || (pkill -f "python3 -m http.server" && echo "❌ Lighthouse CI failed - scores below threshold" && exit 1)
           echo "✅ Lighthouse CI passed - all scores ≥95 (Performance, Accessibility, SEO)"
 
       - name: Stop Local Server
