@@ -115,18 +115,11 @@ jobs:
             exit 1
           fi
 
-      - name: HTML Proofer (Broken Links & Accessibility Guard)
+      - name: Linkinator (Broken Link & Accessibility Guard)
         run: |
-          # Force install the binary into the current working directory
-          gem install html-proofer --no-document --bindir .
-          ./html-proofer ./public \
-            --check-html \
-            --check-img-http \
-            --enforce-https \
-            --allow-hash-href \
-            --ignore-urls "/^https://formspree.io/.*$/" \
-            || (echo "❌ HTML Proofer failed" && exit 1)
-          echo "✅ HTML Proofer passed."
+          # npx linkinator scans the built site for broken links and redirects
+          npx linkinator ./public --recurse --silent --skip "https://formspree.io/.*" || (echo "❌ Broken links detected" && exit 1)
+          echo "✅ All links and assets verified."
 
       - name: Start Local Server for Lighthouse
         run: |
