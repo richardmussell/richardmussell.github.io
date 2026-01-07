@@ -95,6 +95,8 @@ jobs:
           EOF
 
       - name: Build with Hugo
+        env:
+          HUGO_ENV: production
         run: |
           hugo \
             --gc \
@@ -104,11 +106,14 @@ jobs:
       - name: Verify SRI Generation
         run: |
           echo "🔍 Verifying Subresource Integrity (SRI) hashes..."
-          if grep -r 'integrity=' public/ | grep -q 'sha384-'; then
+          if grep -r 'integrity=' public/ | grep -qE 'sha256-|sha384-|sha512-'; then
             echo "✅ SRI hashes detected in built HTML"
-            grep -r 'integrity=' public/ | head -5
+            echo "Found integrity hashes:"
+            grep -r 'integrity=' public/ | grep -E 'sha256-|sha384-|sha512-' | head -5
           else
             echo "❌ ERROR: No SRI hashes found in built HTML"
+            echo "Checking for any integrity attributes:"
+            grep -r 'integrity=' public/ | head -5 || echo "No integrity attributes found"
             exit 1
           fi
 
