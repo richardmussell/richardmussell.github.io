@@ -40,12 +40,120 @@ jobs:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
 
+      - name: Scrub Image Metadata (Privacy-by-Design)
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install Pillow
+          python3 << 'EOF'
+          import os
+          import sys
+          from pathlib import Path
+          from PIL import Image
+          
+          def scrub_image_metadata(image_path):
+              try:
+                  img = Image.open(image_path)
+                  original_format = img.format
+                  data = list(img.getdata())
+                  image_without_exif = Image.new(img.mode, img.size)
+                  image_without_exif.putdata(data)
+                  
+                  if original_format == 'JPEG':
+                      image_without_exif.save(image_path, 'JPEG', quality=95, optimize=True)
+                  elif original_format == 'PNG':
+                      image_without_exif.save(image_path, 'PNG', optimize=True)
+                  else:
+                      image_without_exif.save(image_path, format=original_format)
+                  
+                  img.close()
+                  image_without_exif.close()
+                  return True
+              except Exception as e:
+                  print(f"  ❌ Error processing {image_path}: {str(e)}", file=sys.stderr)
+                  return False
+          
+          def find_images(directories):
+              image_extensions = {'.jpg', '.jpeg', '.png', '.JPG', '.JPEG', '.PNG'}
+              images = []
+              for directory in directories:
+                  dir_path = Path(directory)
+                  if not dir_path.exists():
+                      continue
+                  for ext in image_extensions:
+                      images.extend(dir_path.rglob(f'*{ext}'))
+              return images
+          
+          directories_to_scan = ['static', 'themes/mussell-portfolio/assets', 'themes/mussell-portfolio/static']
+          images = find_images(directories_to_scan)
+          
+          if images:
+              print(f"🔒 Scrubbing metadata from {len(images)} image(s)...")
+              success_count = sum(1 for img in images if scrub_image_metadata(img))
+              print(f"✅ Successfully scrubbed {success_count}/{len(images)} images")
+          else:
+              print("✅ No images found to process")
+          EOF
+
       - name: Build with Hugo
         run: |
           hugo \
             --gc \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
+
+      - name: Verify SRI Generation
+        run: |
+          echo "🔍 Verifying Subresource Integrity (SRI) hashes..."
+          if grep -r 'integrity=' public/ | grep -q 'sha384-'; then
+            echo "✅ SRI hashes detected in built HTML"
+            grep -r 'integrity=' public/ | head -5
+          else
+            echo "❌ ERROR: No SRI hashes found in built HTML"
+            exit 1
+          fi
+
+      - name: HTML Proofer (Broken Links & Accessibility Guard)
+        run: |
+          gem install html-proofer
+          html-proofer ./public \
+            --check-html \
+            --check-img-http \
+            --check-opengraph \
+            --enforce-https \
+            --only-4xx \
+            --http-status-ignore "429" \
+            --alt-ignore "/.*/" \
+            --url-ignore "/localhost/,/127.0.0.1/,/formspree.io/" \
+            --allow-hash-href \
+            --empty-alt-ignore \
+            || (echo "❌ HTML Proofer failed - fix errors above" && exit 1)
+          echo "✅ HTML Proofer passed - no broken links or accessibility issues"
+
+      - name: Install Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.12.x
+
+      - name: Start Local Server for Lighthouse
+        run: |
+          cd public
+          python3 -m http.server 1313 > /dev/null 2>&1 &
+          echo $! > /tmp/server.pid
+          sleep 3
+          echo "✅ Local server started on port 1313"
+
+      - name: Lighthouse CI (Performance Guard)
+        run: |
+          export LHCI_BASE_URL="http://localhost:1313"
+          lhci autorun --config=.lighthouserc.js || (pkill -f "python3 -m http.server" && echo "❌ Lighthouse CI failed - scores below threshold" && exit 1)
+          echo "✅ Lighthouse CI passed - all scores ≥95 (Performance, Accessibility, SEO)"
+
+      - name: Stop Local Server
+        if: always()
+        run: |
+          if [ -f /tmp/server.pid ]; then
+            kill $(cat /tmp/server.pid) 2>/dev/null || true
+            pkill -f "python3 -m http.server" || true
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3

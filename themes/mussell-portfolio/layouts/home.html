@@ -5,6 +5,11 @@
     <div class="hero">
       <h1 id="hero-heading">Architecting Resilient Infrastructure at Scale</h1>
       <p class="subtitle">Building high-availability distributed systems with a focus on state reconciliation, observability, and cloud-native security.</p>
+      <!-- Hero CTA - 30-Second Journey Optimization -->
+      <div class="hero-cta">
+        <a href="{{ "/resume/" | relURL }}" class="btn btn-primary hero-cta-primary">View Resume</a>
+        <a href="{{ "/projects/" | relURL }}" class="btn btn-secondary hero-cta-secondary">Explore Projects</a>
+      </div>
     </div>
     
     <!-- KPI Dashboard - System Health Metrics -->
@@ -85,7 +90,7 @@
               <div class="mac-window-content">
                 <div class="mac-tab-content active" data-content="diagram">
                   {{ if $project.Params.architectureDiagramUrl }}
-                  <img src="{{ $project.Params.architectureDiagramUrl }}" alt="Architecture diagram" class="architecture-diagram-img">
+                  <img src="{{ $project.Params.architectureDiagramUrl }}" alt="Architecture diagram" class="architecture-diagram-img" loading="lazy" decoding="async">
                   {{ else }}
                   <div class="architecture-placeholder">
                     <svg width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24">

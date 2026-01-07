@@ -345,7 +345,9 @@
         <div class="lightbox-container" id="diagram-lightbox-{{ .File.UniqueID }}">
           <img 
             src="{{ .Params.architectureDiagramUrl }}" 
-            alt="Architecture diagram for {{ .Title }}" 
+            alt="Architecture diagram for {{ .Title }}"
+            loading="lazy"
+            decoding="async" 
             class="architecture-diagram diagram-clickable"
             data-diagram-id="{{ .File.UniqueID }}"
           >

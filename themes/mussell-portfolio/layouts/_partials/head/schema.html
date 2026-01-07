@@ -1,0 +1,154 @@
+{{- /* JSON-LD Structured Data - Person & ProfessionalService Schema */ -}}
+{{- $author := .Site.Params.author | default "Richard Mussell III" -}}
+{{- $description := .Site.Params.description | default "Building high-availability distributed systems with a focus on state reconciliation, observability, and cloud-native security." -}}
+{{- $siteURL := .Site.BaseURL -}}
+{{- $github := .Site.Params.github | default "" -}}
+{{- $linkedin := .Site.Params.linkedin | default "" -}}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "{{ $siteURL }}#person",
+      "name": "{{ $author }}",
+      "url": "{{ $siteURL }}",
+      "image": "{{ $siteURL }}profile.jpg",
+      "sameAs": [
+        {{- if $github -}}"{{ $github }}"{{- end -}}
+        {{- if and $github $linkedin -}},{{- end -}}
+        {{- if $linkedin -}}"{{ $linkedin }}"{{- end -}}
+      ],
+      "jobTitle": "Infrastructure & Platform Engineer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Independent Consultant"
+      },
+      "knowsAbout": [
+        "Distributed Systems",
+        "Cloud Infrastructure",
+        "Kubernetes",
+        "Terraform",
+        "GitOps",
+        "Site Reliability Engineering",
+        "Infrastructure as Code",
+        "DevOps",
+        "Platform Engineering",
+        "Security Engineering"
+      ],
+      "description": "{{ $description }}"
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "{{ $siteURL }}#service",
+      "name": "{{ $author }} - Infrastructure & Platform Engineering",
+      "url": "{{ $siteURL }}",
+      "image": "{{ $siteURL }}thumbnail.jpg",
+      "description": "{{ $description }}",
+      "provider": {
+        "@id": "{{ $siteURL }}#person"
+      },
+      "areaServed": "Worldwide",
+      "serviceType": [
+        "Infrastructure Architecture",
+        "Cloud-Native Solutions",
+        "Kubernetes Consulting",
+        "DevOps Automation",
+        "Platform Engineering",
+        "Site Reliability Engineering",
+        "Infrastructure as Code",
+        "Security Hardening"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Professional Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Infrastructure Architecture & Design",
+              "description": "Design and implement scalable, resilient infrastructure solutions"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Kubernetes & Container Orchestration",
+              "description": "Enterprise-grade Kubernetes cluster design and implementation"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "DevOps & CI/CD Automation",
+              "description": "GitOps workflows and automated deployment pipelines"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Platform Engineering",
+              "description": "Developer platform design and internal tooling"
+            }
+          }
+        ]
+      }
+    },
+    {{- if .IsPage -}}
+    {
+      "@type": "Article",
+      "@id": "{{ .Permalink }}#article",
+      "headline": "{{ .Title }}",
+      "description": "{{ .Description | default $description }}",
+      "url": "{{ .Permalink }}",
+      "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+      {{- if .Lastmod -}}
+      "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+      {{- end -}}
+      "author": {
+        "@id": "{{ $siteURL }}#person"
+      },
+      "publisher": {
+        "@id": "{{ $siteURL }}#person"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ .Permalink }}"
+      },
+      {{- if .Params.categories -}}
+      "articleSection": "{{ index .Params.categories 0 }}",
+      {{- end -}}
+      {{- if .Params.tags -}}
+      "keywords": {{ .Params.tags | jsonify }},
+      {{- end -}}
+      "inLanguage": "{{ .Site.LanguageCode | default "en-US" }}"
+    },
+    {{- end -}}
+    {
+      "@type": "WebSite",
+      "@id": "{{ $siteURL }}#website",
+      "url": "{{ $siteURL }}",
+      "name": "{{ .Site.Title }}",
+      "description": "{{ $description }}",
+      "publisher": {
+        "@id": "{{ $siteURL }}#person"
+      },
+      "inLanguage": "{{ .Site.LanguageCode | default "en-US" }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "{{ $siteURL }}?s={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+}
+</script>
+

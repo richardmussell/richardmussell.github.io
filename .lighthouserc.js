@@ -1,0 +1,31 @@
+module.exports = {
+  ci: {
+    collect: {
+      url: [
+        process.env.LHCI_BASE_URL || 'http://localhost:1313/',
+        process.env.LHCI_BASE_URL ? `${process.env.LHCI_BASE_URL}/projects/` : 'http://localhost:1313/projects/',
+        process.env.LHCI_BASE_URL ? `${process.env.LHCI_BASE_URL}/about/` : 'http://localhost:1313/about/',
+      ],
+      numberOfRuns: 3,
+      startServerCommand: 'hugo server -D --bind 0.0.0.0 --port 1313 --baseURL http://localhost:1313',
+      startServerReadyPattern: 'Web Server is available',
+      startServerReadyTimeout: 30000,
+    },
+    assert: {
+      assertions: {
+        'categories:performance': ['error', { minScore: 0.95 }],
+        'categories:accessibility': ['error', { minScore: 0.95 }],
+        'categories:best-practices': ['error', { minScore: 0.95 }],
+        'categories:seo': ['error', { minScore: 0.95 }],
+        'first-contentful-paint': ['error', { maxNumericValue: 1800 }],
+        'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
+        'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],
+        'total-blocking-time': ['error', { maxNumericValue: 200 }],
+      },
+    },
+    upload: {
+      target: 'temporary-public-storage',
+    },
+  },
+};
+

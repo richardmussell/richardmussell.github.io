@@ -5,6 +5,11 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.bunny.net; font-src 'self' https://fonts.bunny.net; img-src 'self' data: https:; connect-src 'self' https://formspree.io; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests;">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ site.Params.description }}{{ end }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<!-- Critical Font Loading - Preconnect to eliminate font-discovery delay -->
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+{{ partial "head/og.html" . }}
+{{ partial "head/schema.html" . }}
 {{ partialCached "head/css.html" . }}
 
 <!-- Prism.js for Code Syntax Highlighting with SRI -->

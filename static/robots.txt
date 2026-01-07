@@ -1,0 +1,31 @@
+# robots.txt - Optimized for Global Indexing Authority
+# Prioritize high-value content, de-prioritize low-value directories
+
+User-agent: *
+Allow: /
+Allow: /projects/
+Allow: /insights/
+Allow: /about/
+Allow: /contact/
+Allow: /resume/
+
+# Disallow low-value or auto-generated pages
+Disallow: /categories/
+Disallow: /tags/
+Disallow: /posts/
+
+# Allow specific high-value category pages if needed
+# Allow: /categories/cloud-automation--iac/
+# Allow: /categories/sre--security-engineering/
+
+# Disallow search and admin paths
+Disallow: /search
+Disallow: /admin
+Disallow: /*?*
+
+# Sitemap location (Hugo will generate this)
+Sitemap: https://richardmussell.github.io/sitemap.xml
+
+# Crawl-delay for respectful crawling (optional)
+# Crawl-delay: 1
+

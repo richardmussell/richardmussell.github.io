@@ -9,9 +9,25 @@ canonifyURLs = true
 [build]
   writeStats = true
 
+[minify]
+  # Enable aggressive minification for zero-latency performance
+  minifyOutput = true
+  disableCSS = false
+  disableJS = false
+  disableHTML = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false
+  tdewolff = { css = { keepCSS2 = false }, html = { keepConditionalComments = false, keepDefaultAttrVals = false, keepDocumentTags = false, keepEndTags = false, keepQuotes = false, keepWhitespace = false }, js = { keepVarNames = false, noJSON = false, noMath = false }, json = { keepNumbers = false, precision = 0 }, svg = { keepComments = false, precision = 0 }, xml = { keepWhitespace = false } }
+
 [taxonomies]
   category = "categories"
   tag = "tags"
+
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
 
 [params]
   author = "Richard Mussell III"
@@ -19,6 +35,19 @@ canonifyURLs = true
   tagline = "Discover where your Joy meets the worlds needs"
   github = "https://github.com/richardmussell"
   linkedin = "https://www.linkedin.com/in/richard-mussell/"
+  # Social media handles (for Twitter Card)
+  twitter = ""
+
+[params.sitemap]
+  # High-priority sections (crawl frequently)
+  projects = { changefreq = "weekly", priority = 0.9 }
+  insights = { changefreq = "weekly", priority = 0.8 }
+  about = { changefreq = "monthly", priority = 0.7 }
+  contact = { changefreq = "yearly", priority = 0.5 }
+  
+  # Low-priority sections (crawl less frequently)
+  categories = { changefreq = "monthly", priority = 0.3 }
+  tags = { changefreq = "monthly", priority = 0.3 }
 
 [menu]
   [[menu.main]]

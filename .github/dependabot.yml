@@ -1,0 +1,39 @@
+version: 2
+updates:
+  # GitHub Actions dependencies - Security updates only
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    # Only security updates - no feature updates
+    labels:
+      - "security"
+      - "dependencies"
+    commit-message:
+      prefix: "security"
+      include: "scope"
+    # Ignore non-security updates
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-minor", "version-update:semver-patch"]
+        # Only allow security patches
+        unless-required: true
+
+  # Hugo theme dependencies (if using Git submodule)
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "security"
+      - "theme"
+    commit-message:
+      prefix: "security"
+      include: "scope"
+

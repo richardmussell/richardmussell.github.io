@@ -1,0 +1,48 @@
+{{- /* Image Render Hook - Zero-Latency Optimization */ -}}
+{{- /* Converts images to WebP with responsive srcset and lazy loading */ -}}
+{{- $image := .Page.Resources.GetMatch .Destination -}}
+{{- $alt := .PlainText | default .Title | default "Image" -}}
+{{- $title := .Title -}}
+
+{{- if $image -}}
+  {{- /* Process image with Hugo Pipes */ -}}
+  {{- $webp := $image.Resize (printf "%dx%d webp" $image.Width $image.Height) -}}
+  {{- $webpSmall := $image.Resize "480x webp" -}}
+  {{- $webpMedium := $image.Resize "768x webp" -}}
+  {{- $webpLarge := $image.Resize "1200x webp" -}}
+  {{- $webpXLarge := $image.Resize "1920x webp" -}}
+  
+  {{- /* Generate responsive srcset */ -}}
+  {{- $srcset := slice -}}
+  {{- $srcset = $srcset | append (printf "%s %dw" $webpSmall.RelPermalink 480) -}}
+  {{- $srcset = $srcset | append (printf "%s %dw" $webpMedium.RelPermalink 768) -}}
+  {{- $srcset = $srcset | append (printf "%s %dw" $webpLarge.RelPermalink 1200) -}}
+  {{- $srcset = $srcset | append (printf "%s %dw" $webpXLarge.RelPermalink 1920) -}}
+  
+  <picture>
+    <source 
+      type="image/webp" 
+      srcset="{{ delimit $srcset ", " }}"
+      sizes="(max-width: 480px) 100vw, (max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px">
+    <img 
+      src="{{ $webp.RelPermalink }}" 
+      alt="{{ $alt }}"
+      {{- if $title }} title="{{ $title }}"{{ end -}}
+      loading="lazy"
+      decoding="async"
+      width="{{ $image.Width }}"
+      height="{{ $image.Height }}"
+      class="responsive-image">
+  </picture>
+{{- else -}}
+  {{- /* Fallback for external images or images not found */ -}}
+  {{- $externalImage := .Destination -}}
+  <img 
+    src="{{ $externalImage }}" 
+    alt="{{ $alt }}"
+    {{- if $title }} title="{{ $title }}"{{ end -}}
+    loading="lazy"
+    decoding="async"
+    class="responsive-image">
+{{- end -}}
+

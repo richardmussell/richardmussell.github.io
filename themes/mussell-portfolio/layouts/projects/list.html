@@ -263,6 +263,8 @@
                         alt="Architecture diagram for {{ $project.Title }}"
                         class="diagram-image lazy-diagram"
                         loading="lazy"
+                        decoding="async"
+                        loading="lazy"
                       />
                     </div>
                     {{ else }}
@@ -446,6 +448,8 @@
                           alt="Architecture diagram preview for {{ $project.Title }}"
                           class="diagram-poster"
                           loading="lazy"
+                          decoding="async"
+                          loading="lazy"
                         />
                         <button class="diagram-load-button" aria-label="Load full architecture diagram">
                           <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -459,6 +463,8 @@
                         data-src="{{ $project.Params.architectureDiagramUrl }}" 
                         alt="Architecture diagram for {{ $project.Title }}"
                         class="diagram-image lazy-diagram"
+                        loading="lazy"
+                        decoding="async"
                         style="display: {{ if $project.Params.diagramPoster }}none{{ else }}block{{ end }};"
                         loading="lazy"
                       />
@@ -489,7 +495,7 @@
                       {{ if $project.Params.loomPoster }}
                       <!-- Media Facade: Show poster until Loom tab is clicked -->
                       <div class="loom-poster" data-loom-url="{{ $project.Params.loomUrl }}" data-project-id="{{ $project.File.UniqueID }}">
-                        <img src="{{ $project.Params.loomPoster }}" alt="Video thumbnail for {{ $project.Title }}" class="loom-poster-image" loading="lazy" />
+                        <img src="{{ $project.Params.loomPoster }}" alt="Video thumbnail for {{ $project.Title }}" class="loom-poster-image" loading="lazy" decoding="async" />
                         <button class="loom-play-button" aria-label="Play system walkthrough video">
                           <svg width="48" height="48" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M8 5v14l11-7z"></path>
