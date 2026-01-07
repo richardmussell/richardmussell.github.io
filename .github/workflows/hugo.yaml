@@ -115,19 +115,20 @@ jobs:
             exit 1
           fi
 
-      - name: Linkinator (Broken Link & Accessibility Guard)
-        run: |
-          # npx linkinator scans the built site for broken links and redirects
-          npx linkinator ./public --recurse --silent --skip "https://formspree.io/.*" || (echo "❌ Broken links detected" && exit 1)
-          echo "✅ All links and assets verified."
-
-      - name: Start Local Server for Lighthouse
+      - name: Start Local Server (Linkinator & Lighthouse)
         run: |
           cd public
           python3 -m http.server 1313 > /dev/null 2>&1 &
           echo $! > /tmp/server.pid
           sleep 5
-          echo "✅ Local server started on port 1313"
+          echo "✅ Local server started on port 1313 for link checking and Lighthouse"
+
+      - name: Linkinator (Broken Link & Accessibility Guard)
+        run: |
+          # Check links against local server to avoid false 404s from undeployed GitHub Pages URLs
+          # Skip production domain and external domains we don't control
+          npx linkinator http://localhost:1313 --recurse --silent --skip "https://richardmussell\.github\.io/.*" --skip "https://formspree\.io/.*" || (echo "❌ Broken links detected" && exit 1)
+          echo "✅ All links and assets verified."
 
       - name: Lighthouse CI (Performance Guard)
         run: |
