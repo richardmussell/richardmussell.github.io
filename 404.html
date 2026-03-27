@@ -50,8 +50,8 @@
          Trunk emits the Wasm script with type="module"; no defer/async needed. -->
     
 <script type="module">
-import init, * as bindings from '/richardmussell-1760a1c1566a3855.js';
-const wasm = await init({ module_or_path: '/richardmussell-1760a1c1566a3855_bg.wasm' });
+import init, * as bindings from '/richardmussell-3adc63e8e8f99381.js';
+const wasm = await init({ module_or_path: '/richardmussell-3adc63e8e8f99381_bg.wasm' });
 
 
 window.wasmBindings = bindings;
@@ -62,7 +62,7 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 </script>
     <!-- Wasm preload: Trunk does not support data-trunk rel="preload"; inject at runtime from loader script. -->
     <!-- Bundle the custom stylesheet into dist/ -->
-    <link rel="stylesheet" href="/style-78001c1950093cd4.css" integrity="sha384-iqYdq//m5OmJq3FtCz/FW+lxqvCPiMU+cBlSZf8PHIbcQVRfA/rgoEllGZ0rQa8D"/>
+    <link rel="stylesheet" href="/style-a62549623f754734.css" integrity="sha384-QWSojuMG+9G1wMkM91voHb1NjNZzMI6iQo84mYDJoAGpf2HK6sgaPcFYp9dVX9rj"/>
     <!-- Copy self-hosted fonts to dist/fonts/ -->
     
     <!-- Copy writeup and project content JSON (lazy-loaded at runtime) -->
@@ -131,7 +131,7 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
       }
     })();
     </script>
-    <link rel="modulepreload" href="/richardmussell-1760a1c1566a3855.js" crossorigin="anonymous" integrity="sha384-iDj54kSh+/LpJDfwoeLJsrFxjlS0Xu0NDel89NGCEoLJq662kOugiCR0EkvauOPF"><link rel="preload" href="/richardmussell-1760a1c1566a3855_bg.wasm" crossorigin="anonymous" integrity="sha384-5qEwp50+FE0iWkT3QNGS1xUdJrjW/RKIUzsUHZLPOjItteiDWpooLsWXLbILHFAi" as="fetch" type="application/wasm"></head>
+    <link rel="modulepreload" href="/richardmussell-3adc63e8e8f99381.js" crossorigin="anonymous" integrity="sha384-D9nlfhmpOdrUkcgUznjLV80hkyGJeJhiwNJZW95ILNtUZOtlfhROrrDuuisujAX/"><link rel="preload" href="/richardmussell-3adc63e8e8f99381_bg.wasm" crossorigin="anonymous" integrity="sha384-hcRULzXIhqNmHWq5S7zkiRlZVBqH7dcFfVf9XdRjkJxHv5fVMeUdDehYUkXMc3ld" as="fetch" type="application/wasm"></head>
 <!-- FOUC guard: matches dark-mode default. Overridden by create_effect in main.rs -->
 <body style="background-color: #0f172a;">
   <noscript>
